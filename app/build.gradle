@@ -1,0 +1,118 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+kapt {
+    useBuildCache = true
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+    arguments {
+        arg("AROUTER_MODULE_NAME", project.getName())
+    }
+}
+
+android {
+    compileSdkVersion versions.compileSdk
+    defaultConfig {
+        applicationId "com.jsongo.mybasefrm"
+        minSdkVersion versions.minSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        //增加编译内存
+        javaMaxHeapSize "4g"
+        jumboMode = true
+        preDexLibraries = true
+        maxProcessCount = 8
+    }
+    lintOptions {
+        //忽略打包时错误
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    aaptOptions {
+        cruncherEnabled false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation(name: 'ejs-3.2.6.e5-SNAPSHOT', ext: 'aar')
+    implementation "com.android.support:multidex:1.0.3"
+    implementation "com.android.support:support-v4:${versions.androidSupport}"
+    implementation "com.android.support:design:${versions.androidSupport}"
+    implementation "com.android.support:cardview-v7:${versions.androidSupport}"
+    implementation "com.android.support:appcompat-v7:${versions.androidSupport}"
+    implementation "com.android.support:recyclerview-v7:${versions.androidSupport}"
+    implementation "com.android.support:support-annotations:${versions.androidSupport}"
+    implementation "com.android.support:support-core-utils:${versions.androidSupport}"
+    implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
+
+    //rxjava
+    implementation "io.reactivex.rxjava2:rxjava:2.2.7"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+    //rxpermissions
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    //okhttp retrofit
+    implementation "com.squareup.okhttp3:okhttp:3.12.1"
+    implementation "com.squareup.retrofit2:retrofit:${versions.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+    //gson
+    implementation "com.google.code.gson:gson:2.8.4"
+    implementation "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+    //Glide
+    implementation "com.github.bumptech.glide:glide:4.7.1"
+    //ARouter
+    implementation 'com.alibaba:arouter-api:1.4.1'
+    kapt 'com.alibaba:arouter-compiler:1.2.2'
+    //rxtool
+    implementation "com.github.vondear.RxTool:RxKit:${versions.rxtool}"
+    implementation "com.github.vondear.RxTool:RxUI:${versions.rxtool}"
+    implementation "com.github.vondear.RxTool:RxCamera:${versions.rxtool}"
+    //功能库（Zxing扫描与生成二维码条形码 支付宝 微信）
+    implementation "com.github.vondear.RxTool:RxFeature:${versions.rxtool}"
+    //log
+    implementation 'com.safframework.log:saf-logginginterceptor:1.3.3'
+    implementation 'com.safframework.log:saf-log:1.5.5'
+
+    //UI库
+    //qmui
+    implementation "com.qmuiteam:qmui:1.2.0"
+    //smart refresh layout
+    implementation "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5"
+    implementation "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5"
+    //easyphoto 图片选取
+    implementation 'com.github.HuanTanSheng:EasyPhotos:2.4.0'
+    //jsbridge
+    implementation 'com.github.lzyzsd:jsbridge:1.0.4'
+
+    //zxing 二维码
+    implementation 'com.google.zxing:core:3.3.0'
+}

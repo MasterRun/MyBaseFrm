@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="topbar_left_search_button" type="id" />
+    <item name="topbar_right_add_button" type="id" />
+    <item name="topbar_right_overflow" type="id" />
+    <item name="topbar_right_search_button" type="id" />
+    <item name="topbar_right_arrow_button" type="id" />
+    <item name="topbar_right_chart_text" type="id" />
+</resources>

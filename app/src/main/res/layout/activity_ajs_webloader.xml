@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/activity_web_view"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	tools:context=".jsloader.AJsWebLoader">
+	
+	<com.qmuiteam.qmui.widget.QMUITopBarLayout
+		android:id="@+id/topbar"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:fitsSystemWindows="true" />
+	
+	<LinearLayout
+		android:id="@+id/LinearLayout2"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/white"
+		android:gravity="center"
+		android:orientation="vertical">
+		
+		<ProgressBar
+			android:id="@+id/pb_webview"
+			style="?android:attr/progressBarStyleHorizontal"
+			android:layout_width="match_parent"
+			android:layout_height="3dp" />
+		
+		<com.jsongo.mybasefrm.jsloader.jsbridge.BridgeWebView
+			android:id="@+id/bridgeWebView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clipToPadding="true"
+			android:fitsSystemWindows="true"
+			android:focusable="true"
+			android:focusableInTouchMode="true" />
+	</LinearLayout>
+
+</LinearLayout>
