@@ -158,6 +158,7 @@ public class SlidingLayout extends FrameLayout {
 
                     this.mLastTouchX = x;
                     this.mLastTouchY = y;
+                default:
             }
 
             return true;

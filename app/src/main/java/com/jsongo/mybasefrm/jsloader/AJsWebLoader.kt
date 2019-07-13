@@ -2,26 +2,21 @@ package com.jsongo.mybasefrm.jsloader
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.TextView
 import com.jsongo.mybasefrm.BaseActivity
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.jsloader.interaction.DefaultInteractionRegister
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
 import com.vondear.rxtool.RxKeyboardTool
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
+import kotlinx.android.synthetic.main.activity_base.*
 
 /**
  * @author jsongo
@@ -31,50 +26,63 @@ import kotlinx.android.synthetic.main.activity_ajs_webloader.*
 abstract class AJsWebLoader : BaseActivity() {
 
     protected var webPath = ""
-    protected var compositeDisposable = CompositeDisposable()
-    var topbarTitle: TextView? = null
-        private set
-    var loadingDialog: QMUITipDialog? = null
-        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_ajs_webloader)
+
         init()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        initView()// 初始化控件 - FindViewById之类的操作
+        initView()// 初始化控件 - findViewById之类的操作
         initData()// 初始化控件的数据及监听事件
     }
+
+    override fun setLayout() = R.layout.activity_ajs_webloader
 
     protected open fun init() {
 
     }
 
     protected fun initView() {
+        //默认禁用侧滑返回
         setSwipeBackEnable(false)
-        QMUIStatusBarHelper.translucent(this)
-        QMUIStatusBarHelper.setStatusBarDarkMode(this)
 
-        topbar.setBackgroundColor(ContextCompat.getColor(this, R.color.app_color_blue_2))
-        topbarTitle = topbar.setTitle("")
-        topbarTitle?.setTextColor(Color.WHITE)
-
-        val leftBackImageButton = topbar.addLeftBackImageButton()
-        leftBackImageButton.setOnClickListener { view ->
-            if (bridgeWebView.canGoBack()) {
-                bridgeWebView.goBack()
-            } else {
-                finish()
-            }
+        topbar.setTitle("")
+        //左上角直接退出页面
+        topbar.backImageButton.setOnClickListener { view ->
+            /*if (bridgeWebView.canGoBack()) {
+                  bridgeWebView.goBack()
+              } else {
+                  finish()
+              }*/
+            finish()
         }
 
+        //隐藏输入法
         RxKeyboardTool.hideSoftInput(this)
+        //可取消dialog
+        loadingDialog?.setCancelable(true)
+        loadingDialog?.show()
+        /*if (bridgeWebView.progress < 100) {
+            //显示加载中
+        }else{
+            loadingDialog?.dismiss()
+        }*/
 
-        loadingDialog = QMUITipDialog.Builder(this)
-            .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-            .setTipWord("加载中...")
-            .create()
+        //启用下拉刷新，禁用上拉加载更多
+        smart_refresh_layout.isEnabled = true
+        smart_refresh_layout.setEnableRefresh(true)
+        smart_refresh_layout.setEnableLoadMore(false)
+
+        //下拉重新加载
+        smart_refresh_layout.setOnRefreshListener {
+            bridgeWebView.reload()
+            //显示进度
+            pb_webview.visibility = View.VISIBLE
+            pb_webview.progress = 0
+            //显示加载dialog
+            loadingDialog?.show()
+        }
     }
 
     protected fun initData() {
@@ -91,10 +99,10 @@ abstract class AJsWebLoader : BaseActivity() {
             webSettings.loadsImagesAutomatically = false//图片自动缩放 关闭
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            bridgeWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)//软件解码
-        }
-        bridgeWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)//硬件解码
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            bridgeWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)//软件解码
+//        }
+//        bridgeWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)//硬件解码
         //允许webview对文件的操作
         webSettings.setAllowUniversalAccessFromFileURLs(true)
         webSettings.allowFileAccess = true
@@ -141,7 +149,12 @@ abstract class AJsWebLoader : BaseActivity() {
             }
         }
 
-        bridgeWebView.setOnPageFinishListener { view, url -> pb_webview.visibility = View.GONE }
+        bridgeWebView.setOnPageFinishListener { view, url ->
+            //页面加载完成后 隐藏加载进度和加载dialog
+            pb_webview.visibility = View.GONE
+            loadingDialog?.dismiss()
+            smart_refresh_layout.finishRefresh()
+        }
 
         bridgeWebView.setDownloadListener { paramStr1, paramStr2, paramStr3, paramStr4, paramLong ->
             val intent = Intent()

@@ -1,8 +1,10 @@
 package com.jsongo.mybasefrm.jsloader
 
 import android.content.Intent
+import android.os.Bundle
 import com.jsongo.mybasefrm.ConstValue
 import com.jsongo.mybasefrm.MyApplication
+import kotlinx.android.synthetic.main.activity_base.*
 
 /**
  * @author jsongo

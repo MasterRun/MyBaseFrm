@@ -104,10 +104,10 @@ dependencies {
 
     //UI库
     //qmui
-    implementation "com.qmuiteam:qmui:1.2.0"
+    implementation "com.qmuiteam:qmui:1.4.0"
     //smart refresh layout
-    implementation "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-5"
-    implementation "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-5"
+    implementation "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-31"
+    implementation "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-31"
     //easyphoto 图片选取
     implementation 'com.github.HuanTanSheng:EasyPhotos:2.4.0'
     //jsbridge

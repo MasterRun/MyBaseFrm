@@ -6,7 +6,7 @@ import com.github.lzyzsd.jsbridge.CallBackFunction
 import com.jsongo.mybasefrm.jsloader.AJsWebLoader
 import com.jsongo.mybasefrm.jsloader.jsbridge.BridgeWebView
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import kotlinx.android.synthetic.main.activity_ajs_webloader.*
+import kotlinx.android.synthetic.main.activity_base.*
 
 /**
  * @author  jsongo
@@ -63,20 +63,20 @@ object Topbar {
         params: Map<String, String>,
         function: CallBackFunction
     ) {
-        val topbarTitle = jsWebLoader.topbarTitle
+        val topbarTitle = jsWebLoader.topbar.tvTitle
         val text = params["text"]
         if (text != null) {
-            topbarTitle?.text = text
+            topbarTitle.text = text
         }
         val colorStr = params["color"]
         if (colorStr != null) {
-            topbarTitle?.setTextColor(Color.parseColor(colorStr))
+            topbarTitle.setTextColor(Color.parseColor(colorStr))
         }
         val textSizeStr = params["size"]
         if (textSizeStr != null) {
             val toDoublet = textSizeStr.toDoubleOrNull()
             toDoublet?.let {
-                topbarTitle?.textSize = it.toFloat()
+                topbarTitle.textSize = it.toFloat()
             }
         }
         val map = hashMapOf(Pair("result", "1"))

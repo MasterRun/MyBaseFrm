@@ -19,7 +19,9 @@ object DefaultInteractionRegister {
     val nameMapping = hashMapOf(
         Pair("topbar", "$packageName.Topbar"),
         Pair("common", "$packageName.Common"),
-        Pair("toast", "$packageName.Toast")
+        Pair("toast", "$packageName.Toast"),
+        Pair("loading", "$packageName.Loading"),
+        Pair("smartrefresh", "$packageName.SmartRefresh")
     )
     //已有的api
     val defaultInteractionAPI = arrayListOf(
@@ -27,15 +29,24 @@ object DefaultInteractionRegister {
         "topbar.hide",
         "topbar.title",
         "topbar.statusbar",
+
         "common.back",
         "common.messagedialog",
-        "common.loading",
         "common.localpic",
+        "common.go",
+        "common.load",
+
         "toast.error",
         "toast.warning",
         "toast.info",
         "toast.normal",
-        "toast.success"
+        "toast.success",
+
+        "loading.show",
+        "loading.hide",
+
+        "smartrefresh.enableRefresh",
+        "smartrefresh.enableLoadmore"
     )
 
     //注册已有的api

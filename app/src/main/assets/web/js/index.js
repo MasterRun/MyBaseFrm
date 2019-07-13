@@ -1,9 +1,9 @@
 function onEnvReady() {
-    ajs.common.localpic("/storage/emulated/0/Pictures/Screenshots/1444875167806.png",function (data) {
+    ajs.common.localpic("/storage/emulated/0/Pictures/Screenshots/1444875167806.png", function (data) {
         $("#myimg").attr("src", data["path"].toString());
     });
     //设置topbar背景颜色
-    ajs.topbar.bgcolor({color: "#EE7AE9"}, function (data) {
+    ajs.topbar.bgcolor({ color: "#EE7AE9" }, function (data) {
         if (data['result'].toString() == "1") {
             console.log("topbar.bgcolor success")
         } else {
@@ -31,7 +31,7 @@ function onEnvReady() {
     });
 
     //设置状态栏字体颜色   参数  mode  1:白色  other：黑色
-    ajs.topbar.statusbar({mode: 0}, function (data) {
+    ajs.topbar.statusbar({ mode: 0 }, function (data) {
         if (data['result'].toString() == "1") {
             console.log("topbar.statusbar success")
         } else {
@@ -60,7 +60,7 @@ function dialogclick() {
         // cancelable: false,
         action1: "取消",
         method1: "dialogaction1",
-        params1: JSON.stringify({param1: "aaa", param2: "bbb"}),
+        params1: JSON.stringify({ param1: "aaa", param2: "bbb" }),
         action2: "确定",
         action2mode: 0,
         method2: "dialogaction2",
@@ -106,14 +106,32 @@ function toastclick() {
 }
 
 function loadingclick() {
-    /*ajs.common.loading(true, function (data) {
+    /*ajs.loading.show(function (data) {
         if(data['result']=='1'){
-            console.log("loading success")
+            consol  e.log("loading success")
         }else{
             console.log("loading failed")
         }
     });*/
-    ajs.common.loading(true)
+    //只有参入false，才是取消loading
+    ajs.loading.cancelable(true)
+    ajs.loading.show();
+}
+
+function loadurl() {
+    // ajs.common.load("https://www.baidu.com")
+    ajs.common.load("file:///android_asset/web/index.html")
+}
+function goactivity() {
+    ajs.common.go("com.jsongo.mybasefrm.MainActivity")
+}
+
+function enableRefresh(){
+    ajs.smartrefresh.enableRefresh(false)
+}
+
+function enableLoadmore(){
+    ajs.smartrefresh.enableLoadmore(true)
 }
 
 function regHandler() {

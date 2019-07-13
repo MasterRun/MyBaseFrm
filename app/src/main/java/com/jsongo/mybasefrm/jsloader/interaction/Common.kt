@@ -1,8 +1,10 @@
 package com.jsongo.mybasefrm.jsloader.interaction
 
+import android.content.Intent
 import com.github.lzyzsd.jsbridge.CallBackFunction
 import com.jsongo.mybasefrm.ConstValue
 import com.jsongo.mybasefrm.jsloader.AJsWebLoader
+import com.jsongo.mybasefrm.jsloader.DefaultWebLoader
 import com.jsongo.mybasefrm.jsloader.jsbridge.BridgeWebView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
@@ -101,28 +103,7 @@ object Common {
     }
 
     /**
-     * loading
-     */
-    @JvmStatic
-    fun loading(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
-        params: Map<String, String>,
-        function: CallBackFunction
-    ) {
-        val show = (params["show"] ?: "false").toBoolean()
-        if (show) {
-            jsWebLoader.loadingDialog?.show()
-        } else {
-            jsWebLoader.loadingDialog?.dismiss()
-        }
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
-    }
-
-    /**
-     * 获取本地图片资源路径
+     * 获取本地图片资源路径,添加本地文件路径标识，webloader可以拦截的标识
      */
     @JvmStatic
     fun localpic(
@@ -139,4 +120,41 @@ object Common {
         val result = Util.gson.toJson(map)
         function.onCallBack(result)
     }
+
+    /**
+     * 加载网页
+     */
+    @JvmStatic
+    fun load(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        function: CallBackFunction
+    ) {
+        val url = params["url"].toString()
+        DefaultWebLoader.load(url)
+        val map = hashMapOf(Pair("result", "1"))
+        val result = Util.gson.toJson(map)
+        function.onCallBack(result)
+    }
+
+    /**
+     * 跳转原生页面
+     */
+    @JvmStatic
+    fun go(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        function: CallBackFunction
+    ) {
+        val activity = params["activity"].toString()
+        val activityClazz = Class.forName(activity)
+        val intent = Intent(jsWebLoader, activityClazz)
+        jsWebLoader.startActivity(intent)
+        val map = hashMapOf(Pair("result", "1"))
+        val result = Util.gson.toJson(map)
+        function.onCallBack(result)
+    }
+
 }
