@@ -1,5 +1,27 @@
 let myBridge;
-let ajs;
+let ajs = {};
+let smartrefresh = {
+    header: {
+        DeliveryHeader: 'DeliveryHeader',
+        DropBoxHeader: 'DropBoxHeader',
+        BezierRadarHeader: 'BezierRadarHeader',
+        BezierCircleHeader: 'BezierCircleHeader',
+        FlyRefreshHeader: 'FlyRefreshHeader',
+        ClassicsHeader: 'ClassicsHeader',
+        PhoenixHeader: 'PhoenixHeader',
+        TaurusHeader: 'TaurusHeader',
+        FunGameBattleCityHeader: 'FunGameBattleCityHeader',
+        FunGameHitBlockHeader: 'FunGameHitBlockHeader',
+        WaveSwipeHeader: 'WaveSwipeHeader',
+        MaterialHeader: 'MaterialHeader',
+        StoreHouseHeader: 'StoreHouseHeader',
+        WaterDropHeader: 'WaterDropHeader',
+    },
+    footer: {
+        BallPulseFooter: 'BallPulseFooter',
+        ClassicsFooter: 'ClassicsFooter'
+    }
+};
 
 $(function () {
     connectWebViewJavascriptBridge(function (bridge) {
@@ -38,6 +60,7 @@ function regBridgeMethod() {
             }
         })
     };
+
 
     ajs = {
         topbar: {
@@ -105,10 +128,16 @@ function regBridgeMethod() {
             },
             enableLoadmore(enable, callback) {
                 convertFunc("smartrefresh.enableLoadmore", { enable: enable }, callback)
-            }/*,
-            cancelable(cancelable, callback) {
-                convertFunc("loading.cancelable", {cancelable: cancelable}, callback)
-            }*/
+            },
+            color(primaryColor, accentColor, callback) {
+                convertFunc("smartrefresh.color", { primaryColor: primaryColor, accentColor: accentColor }, callback)
+            },
+            header(header, callback) {
+                convertFunc("smartrefresh.header", { header: header }, callback)
+            },
+            footer(footer, callback) {
+                convertFunc("smartrefresh.footer", { footer: footer }, callback)
+            }
         }
     };
 

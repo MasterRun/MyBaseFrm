@@ -71,18 +71,18 @@ abstract class AJsWebLoader : BaseActivity() {
 
         //启用下拉刷新，禁用上拉加载更多
         smart_refresh_layout.isEnabled = true
-        smart_refresh_layout.setEnableRefresh(true)
-        smart_refresh_layout.setEnableLoadMore(false)
-
-        //下拉重新加载
-        smart_refresh_layout.setOnRefreshListener {
-            bridgeWebView.reload()
-            //显示进度
-            pb_webview.visibility = View.VISIBLE
-            pb_webview.progress = 0
-            //显示加载dialog
-            loadingDialog?.show()
-        }
+        smart_refresh_layout
+            .setEnableRefresh(true)
+            .setEnableLoadMore(false)
+            //下拉重新加载
+            .setOnRefreshListener {
+                bridgeWebView.reload()
+                //显示进度
+                pb_webview.visibility = View.VISIBLE
+                pb_webview.progress = 0
+                //显示加载dialog
+                loadingDialog?.show()
+            }
     }
 
     protected fun initData() {

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
+import com.jsongo.mybasefrm.util.SmartRefreshFooter
+import com.jsongo.mybasefrm.util.SmartRefreshHeader
+import com.jsongo.mybasefrm.util.useFooter
+import com.jsongo.mybasefrm.util.useHeader
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
-import com.scwang.smartrefresh.header.BezierCircleHeader
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_base.*
@@ -52,9 +54,9 @@ abstract class BaseActivity : AppCompatActivity() {
         QMUIStatusBarHelper.setStatusBarDarkMode(this)
 
         //初始化下拉刷新
-        smart_refresh_layout.setRefreshHeader(BezierCircleHeader(this))
-            .setRefreshFooter(ClassicsFooter(this))
-
+        smart_refresh_layout
+            .useHeader(this, SmartRefreshHeader.BezierCircleHeader)
+            .useFooter(this, SmartRefreshFooter.ClassicsFooter)
         empty_view.visibility = View.GONE
 
     }

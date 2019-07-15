@@ -122,7 +122,7 @@ public class BridgeWebViewClient extends WebViewClient {
             //过滤本地图片请求
             if (url.startsWith(ConstValue.LocalPicPrefix)) {
                 String path = url.replace(ConstValue.LocalPicPrefix, "");
-                L.e("本地图片路径：" + path);
+                L.i("本地图片路径：" + path);
                 if (url.endsWith(".png")) {
                     InputStream open = new FileInputStream(new File(path));
                     response = new WebResourceResponse("image/png", "UTF-8", open);

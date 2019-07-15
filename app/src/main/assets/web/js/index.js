@@ -126,12 +126,30 @@ function goactivity() {
     ajs.common.go("com.jsongo.mybasefrm.MainActivity")
 }
 
-function enableRefresh(){
-    ajs.smartrefresh.enableRefresh(false)
+let isEnableRefresh = true
+
+function enableRefresh() {
+    isEnableRefresh = !isEnableRefresh
+    ajs.smartrefresh.enableRefresh(isEnableRefresh)
 }
 
-function enableLoadmore(){
-    ajs.smartrefresh.enableLoadmore(true)
+let isEnableLoadmore = false
+
+function enableLoadmore() {
+    isEnableLoadmore = !isEnableLoadmore
+    ajs.smartrefresh.enableLoadmore(isEnableLoadmore)
+}
+
+function refreshColor() {
+    ajs.smartrefresh.color('#db8fb1', '#ffffff')
+}
+
+function refreshHeader(){
+    ajs.smartrefresh.header(smartrefresh.header.MaterialHeader)
+}
+
+function refreshFooter(){
+    ajs.smartrefresh.footer(smartrefresh.footer.BallPulseFooter)
 }
 
 function regHandler() {

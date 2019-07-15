@@ -4,9 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.jsongo.mybasefrm.jsloader.DefaultWebLoader
+import com.jsongo.mybasefrm.util.SmartRefreshHeader
+import com.jsongo.mybasefrm.util.initWithStr
+import com.jsongo.mybasefrm.util.useHeader
+import com.safframework.log.L
 import com.vondear.rxfeature.activity.ActivityScanerCode
 import com.vondear.rxfeature.module.scaner.OnRxScanerListener
 import com.vondear.rxtool.RxActivityTool
+import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,7 +38,7 @@ class MainActivity : BaseActivity() {
                 }
 
                 override fun onFail(type: String?, message: String?) {
-
+                    L.e(message)
                 }
             })
             val intent = Intent(this@MainActivity, ActivityScanerCode::class.java)
@@ -43,6 +48,21 @@ class MainActivity : BaseActivity() {
         btn_loadbaidu.setOnClickListener {
             DefaultWebLoader.load("https://www.baidu.com")
         }
+
+        smart_refresh_layout
+            .useHeader(this, SmartRefreshHeader.StoreHouseHeader)
+//            .useFooter(this, SmartRefreshFooter.BallPulseFooter)
+            .initWithStr("loading...")
+
+            .setOnRefreshListener {
+                RxToast.success("refresh")
+                it.finishRefresh(1000)
+            }
+            .setOnLoadMoreListener {
+                RxToast.success("loadmore")
+                it.finishLoadMore(1000)
+            }
+
     }
 
 }

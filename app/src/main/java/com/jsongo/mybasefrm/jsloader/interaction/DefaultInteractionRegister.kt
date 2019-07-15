@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import com.jsongo.mybasefrm.jsloader.AJsWebLoader
 import com.jsongo.mybasefrm.jsloader.interaction.Util.gson
 import com.jsongo.mybasefrm.jsloader.jsbridge.BridgeWebView
+import com.safframework.log.L
 
 /**
  * @author  jsongo
@@ -46,7 +47,10 @@ object DefaultInteractionRegister {
         "loading.hide",
 
         "smartrefresh.enableRefresh",
-        "smartrefresh.enableLoadmore"
+        "smartrefresh.enableLoadmore",
+        "smartrefresh.color",
+        "smartrefresh.header",
+        "smartrefresh.footer"
     )
 
     //注册已有的api
@@ -74,7 +78,7 @@ object DefaultInteractionRegister {
                         )
                         val clazz = Class.forName(className)
                         val method = clazz.getDeclaredMethod(
-                            split[1],
+                            methodName,
                             AJsWebLoader::class.java,
                             BridgeWebView::class.java,
                             Map::class.java,
@@ -83,9 +87,11 @@ object DefaultInteractionRegister {
                         method.isAccessible = true
                         method.invoke(null, jsWebLoader, bridgeWebView, params, function)
                     } catch (e: Exception) {
+                        L.e("exception occured", e.cause ?: e)
                         val map = HashMap<String, String>()
                         map["result"] = "0"
-                        map["error"] = e.message ?: ""
+                        map["message"] = "exception occured"
+                        map["error"] = e.cause?.message ?: ""
                         val result = gson.toJson(map)
                         function.onCallBack(result)
                     }

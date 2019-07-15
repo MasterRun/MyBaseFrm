@@ -1,8 +1,10 @@
 package com.jsongo.mybasefrm.jsloader.interaction
 
+import android.graphics.Color
 import com.github.lzyzsd.jsbridge.CallBackFunction
 import com.jsongo.mybasefrm.jsloader.AJsWebLoader
 import com.jsongo.mybasefrm.jsloader.jsbridge.BridgeWebView
+import com.jsongo.mybasefrm.util.*
 import kotlinx.android.synthetic.main.activity_base.*
 
 /**
@@ -28,6 +30,7 @@ object SmartRefresh {
         val result = Util.gson.toJson(map)
         function.onCallBack(result)
     }
+
     /**
      * 是否启用加载更多
      */
@@ -44,4 +47,64 @@ object SmartRefresh {
         val result = Util.gson.toJson(map)
         function.onCallBack(result)
     }
+
+    /**
+     * 设置动画颜色
+     */
+    @JvmStatic
+    fun color(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        function: CallBackFunction
+    ) {
+        val primaryColorStr = params["primaryColor"].toString()
+        val accentColor = params["accentColor"].toString()
+
+        jsWebLoader.smart_refresh_layout.userColors(
+            Color.parseColor(primaryColorStr),
+            Color.parseColor(accentColor)
+        )
+        val map = hashMapOf(Pair("result", "1"))
+        val result = Util.gson.toJson(map)
+        function.onCallBack(result)
+    }
+
+    /**
+     * 设置刷新头
+     */
+    @JvmStatic
+    fun header(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        function: CallBackFunction
+    ) {
+        val header = params["header"].toString()
+        jsWebLoader.smart_refresh_layout.useHeader(jsWebLoader, SmartRefreshHeader.valueOf(header))
+
+        val map = hashMapOf(Pair("result", "1"))
+        val result = Util.gson.toJson(map)
+        function.onCallBack(result)
+    }
+
+    /**
+     * 设置加载更多动画
+     */
+    @JvmStatic
+    fun footer(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        function: CallBackFunction
+    ) {
+        val footer = params["footer"].toString()
+        jsWebLoader.smart_refresh_layout.useFooter(jsWebLoader, SmartRefreshFooter.valueOf(footer))
+
+        val map = hashMapOf(Pair("result", "1"))
+        val result = Util.gson.toJson(map)
+        function.onCallBack(result)
+    }
+
+
 }
