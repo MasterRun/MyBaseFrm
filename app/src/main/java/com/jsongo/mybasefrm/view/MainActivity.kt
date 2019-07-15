@@ -1,8 +1,10 @@
-package com.jsongo.mybasefrm
+package com.jsongo.mybasefrm.view
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.jsongo.mybasefrm.BaseActivity
+import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.jsloader.DefaultWebLoader
 import com.jsongo.mybasefrm.util.SmartRefreshHeader
 import com.jsongo.mybasefrm.util.initWithStr
@@ -26,6 +28,20 @@ class MainActivity : BaseActivity() {
 
         topbar.backImageButton.visibility = View.GONE
 
+        smart_refresh_layout
+            .useHeader(this, SmartRefreshHeader.StoreHouseHeader)
+//            .useFooter(this, SmartRefreshFooter.BallPulseFooter)
+            .initWithStr("loading...")
+
+            .setOnRefreshListener {
+                RxToast.success("refresh")
+                it.finishRefresh(1000)
+            }
+            .setOnLoadMoreListener {
+                RxToast.success("loadmore")
+                it.finishLoadMore(1000)
+            }
+
         btn.setOnClickListener {
             DefaultWebLoader.load("")
         }
@@ -48,20 +64,6 @@ class MainActivity : BaseActivity() {
         btn_loadbaidu.setOnClickListener {
             DefaultWebLoader.load("https://www.baidu.com")
         }
-
-        smart_refresh_layout
-            .useHeader(this, SmartRefreshHeader.StoreHouseHeader)
-//            .useFooter(this, SmartRefreshFooter.BallPulseFooter)
-            .initWithStr("loading...")
-
-            .setOnRefreshListener {
-                RxToast.success("refresh")
-                it.finishRefresh(1000)
-            }
-            .setOnLoadMoreListener {
-                RxToast.success("loadmore")
-                it.finishLoadMore(1000)
-            }
 
     }
 

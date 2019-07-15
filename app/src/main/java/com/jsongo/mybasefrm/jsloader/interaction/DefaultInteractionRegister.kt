@@ -34,6 +34,7 @@ object DefaultInteractionRegister {
         "common.back",
         "common.messagedialog",
         "common.localpic",
+        "common.showpic",
         "common.go",
         "common.load",
 
@@ -62,7 +63,7 @@ object DefaultInteractionRegister {
             //获取类名全路径和方法名
             val split = it.split(".")
             if (split.size != 2) {
-                return
+                return@forEach
             }
             val className = nameMapping[split[0]] ?: ""
             val methodName = split[1]

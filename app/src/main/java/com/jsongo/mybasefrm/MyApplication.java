@@ -7,6 +7,8 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
+import com.jsongo.mybasefrm.widget.ImagePreview.ZoomImageLoader;
+import com.previewlibrary.ZoomMediaLoader;
 import com.tencent.smtt.sdk.QbSdk;
 import com.vondear.rxtool.RxTool;
 
@@ -31,6 +33,7 @@ public class MyApplication extends Application {
         }
         ARouter.init(this);
         QbSdk.initX5Environment(this, null);
+        ZoomMediaLoader.getInstance().init(new ZoomImageLoader());
         RxTool.init(this);
     }
 

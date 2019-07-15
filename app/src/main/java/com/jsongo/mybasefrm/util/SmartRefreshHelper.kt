@@ -33,7 +33,7 @@ fun RefreshLayout.useHeader(context: Context, header: SmartRefreshHeader) =
             SmartRefreshHeader.FunGameHitBlockHeader -> FunGameHitBlockHeader(context)
             SmartRefreshHeader.WaveSwipeHeader -> WaveSwipeHeader(context)
             SmartRefreshHeader.MaterialHeader -> MaterialHeader(context)
-            SmartRefreshHeader.StoreHouseHeader -> StoreHouseHeader(context)
+            SmartRefreshHeader.StoreHouseHeader -> StoreHouseHeader(context).initWithString("loading...")
             SmartRefreshHeader.WaterDropHeader -> WaterDropHeader(context)
         }
     )

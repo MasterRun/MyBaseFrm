@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.topbar
+package com.jsongo.mybasefrm.widget
 
 import android.content.Context
 import android.graphics.Color

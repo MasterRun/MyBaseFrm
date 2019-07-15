@@ -2,10 +2,12 @@ package com.jsongo.mybasefrm.jsloader.interaction
 
 import android.content.Intent
 import com.github.lzyzsd.jsbridge.CallBackFunction
+import com.google.gson.reflect.TypeToken
 import com.jsongo.mybasefrm.ConstValue
 import com.jsongo.mybasefrm.jsloader.AJsWebLoader
 import com.jsongo.mybasefrm.jsloader.DefaultWebLoader
 import com.jsongo.mybasefrm.jsloader.jsbridge.BridgeWebView
+import com.jsongo.mybasefrm.widget.ImagePreview.ImgPreviewClick
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 
@@ -117,6 +119,28 @@ object Common {
             Pair("result", "1"),
             Pair("path", path)
         )
+        val result = Util.gson.toJson(map)
+        function.onCallBack(result)
+    }
+
+    /**
+     * 图片预览
+     */
+    @JvmStatic
+    fun showpic(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        function: CallBackFunction
+    ) {
+        val urls = params["urls"].toString()
+        val urlList =
+            Util.gson.fromJson<List<String>>(urls, object : TypeToken<List<String>>() {}.type)
+        val index = (params["index"] ?: "0").toInt()
+
+        ImgPreviewClick(jsWebLoader, index, urlList).start()
+
+        val map = hashMapOf(Pair("result", "1"))
         val result = Util.gson.toJson(map)
         function.onCallBack(result)
     }

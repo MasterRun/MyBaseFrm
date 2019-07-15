@@ -1,8 +1,11 @@
 package com.jsongo.mybasefrm
 
+import android.app.ActivityManager
+import android.content.Context
 import android.support.v7.app.AppCompatActivity
-
-import java.util.ArrayList
+import com.jsongo.mybasefrm.MyApplication.context
+import com.safframework.log.L
+import java.util.*
 
 /**
  * @author jsongo
@@ -31,5 +34,18 @@ object ActivityCollector {
             activity.finish()
         }
         activities.clear()
+    }
+
+
+    fun appExit() {
+        try {
+            finishAll()
+            val activityManager =
+                MyApplication.context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            activityManager.restartPackage(context.getPackageName())
+            System.exit(0)
+        } catch (e: Exception) {
+            L.e(e.message, e)
+        }
     }
 }

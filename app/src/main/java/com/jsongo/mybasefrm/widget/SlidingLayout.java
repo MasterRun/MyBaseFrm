@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm;
+package com.jsongo.mybasefrm.widget;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Scroller;
+
+import com.jsongo.mybasefrm.R;
 
 /**
  * @author jsongo

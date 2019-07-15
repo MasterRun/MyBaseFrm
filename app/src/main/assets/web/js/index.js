@@ -3,7 +3,7 @@ function onEnvReady() {
         $("#myimg").attr("src", data["path"].toString());
     });
     //设置topbar背景颜色
-    ajs.topbar.bgcolor({ color: "#EE7AE9" }, function (data) {
+    ajs.topbar.bgcolor("#EE7AE9", function (data) {
         if (data['result'].toString() == "1") {
             console.log("topbar.bgcolor success")
         } else {
@@ -12,7 +12,7 @@ function onEnvReady() {
     });
 
     //隐藏topbar  参数  true/false
-    /*ajs.topbar.hide({hide:true}, function (responseData) {
+    /*ajs.topbar.hide(true, function (responseData) {
         console.log(typeof responseData)
         console.log(responseData)
     });*/
@@ -144,12 +144,21 @@ function refreshColor() {
     ajs.smartrefresh.color('#db8fb1', '#ffffff')
 }
 
-function refreshHeader(){
+function refreshHeader() {
     ajs.smartrefresh.header(smartrefresh.header.MaterialHeader)
 }
 
-function refreshFooter(){
+function refreshFooter() {
     ajs.smartrefresh.footer(smartrefresh.footer.BallPulseFooter)
+}
+
+function showpic(){
+    var urls=[
+        "http://img5.imgtn.bdimg.com/it/u=3300305952,1328708913&fm=26&gp=0.jpg",
+        "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=508387608,2848974022&fm=27&gp=0.jpg",
+        "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3893146502,314297687&fm=27&gp=0.jpg",
+    ]
+    ajs.common.showpic(urls,0)
 }
 
 function regHandler() {

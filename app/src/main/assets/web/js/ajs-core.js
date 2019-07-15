@@ -64,11 +64,11 @@ function regBridgeMethod() {
 
     ajs = {
         topbar: {
-            bgcolor(params, callback) {
-                convertFunc('topbar.bgcolor', params, callback)
+            bgcolor(color, callback) {
+                convertFunc('topbar.bgcolor', { color: color }, callback)
             },
-            hide(params, callback) {
-                convertFunc('topbar.hide', params, callback)
+            hide(hide, callback) {
+                convertFunc('topbar.hide', { hide: hide }, callback)
             },
             title(params, callback) {
                 convertFunc('topbar.title', params, callback)
@@ -86,6 +86,9 @@ function regBridgeMethod() {
             },
             localpic(path, callback) {
                 convertFunc("common.localpic", { path: path }, callback)
+            },
+            showpic(urls, index, callback) {
+                convertFunc("common.showpic", { urls: JSON.stringify(urls), index: index }, callback)
             },
             go(activity, callback) {
                 convertFunc("common.go", { activity: activity }, callback)
