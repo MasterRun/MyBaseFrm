@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
 
-    override fun setLayout() = R.layout.activity_main
+    override var mainLayoutId = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +62,9 @@ class MainActivity : BaseActivity() {
         }
 
         btn_loadbaidu.setOnClickListener {
-            DefaultWebLoader.load("https://www.baidu.com")
+            //DefaultWebLoader.load("https://www.baidu.com")
+            val intent = Intent(this@MainActivity, ArcgisDemoActivity::class.java)
+            startActivity(intent)
         }
 
     }

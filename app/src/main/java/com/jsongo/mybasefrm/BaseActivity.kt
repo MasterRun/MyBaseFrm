@@ -39,16 +39,34 @@ abstract class BaseActivity : AppCompatActivity() {
     var loadingDialog: QMUITipDialog? = null
         private set
 
+    /**
+     * 是否使用第二容器
+     */
+    open var useContainer2 = false
+        protected set
+
+    /**
+     * 布局资源id
+     */
+    abstract var mainLayoutId: Int
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityCollector.addActivity(this)
 
         setContentView(R.layout.activity_base)
 
+        val mainView = LayoutInflater.from(this).inflate(mainLayoutId, null)
         //添加主内容到界面
-        val layoutId = setLayout()
-        val mainView = LayoutInflater.from(this).inflate(layoutId, null)
-        fl_main_container.addView(mainView)
+        if (!useContainer2) {
+            smart_refresh_layout.visibility = View.VISIBLE
+            fl_main_container2.visibility = View.GONE
+            fl_main_container.addView(mainView)
+        } else {
+            smart_refresh_layout.visibility = View.GONE
+            fl_main_container2.visibility = View.VISIBLE
+            fl_main_container2.addView(mainView)
+        }
 
         //loadingDialog
         loadingDialog = QMUITipDialog.Builder(this)
@@ -95,8 +113,6 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         addDisposable(disposable)
     }
-
-    abstract fun setLayout(): Int
 
     fun setSwipeBackEnable(isEnable: Boolean) {
         if (isEnable) {

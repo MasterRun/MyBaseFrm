@@ -27,6 +27,8 @@ abstract class AJsWebLoader : BaseActivity() {
 
     protected var webPath = ""
 
+    override var mainLayoutId = R.layout.activity_ajs_webloader
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -37,10 +39,7 @@ abstract class AJsWebLoader : BaseActivity() {
         initData()// 初始化控件的数据及监听事件
     }
 
-    override fun setLayout() = R.layout.activity_ajs_webloader
-
     protected open fun init() {
-
     }
 
     protected fun initView() {

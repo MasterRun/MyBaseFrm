@@ -39,6 +39,16 @@
 	
 	</com.scwang.smartrefresh.layout.SmartRefreshLayout>
 	
+	<FrameLayout
+		android:id="@+id/fl_main_container2"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:visibility="gone"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/topbar" />
+	
 	<com.qmuiteam.qmui.widget.QMUIEmptyView
 		android:id="@+id/empty_view"
 		android:layout_width="0dp"
