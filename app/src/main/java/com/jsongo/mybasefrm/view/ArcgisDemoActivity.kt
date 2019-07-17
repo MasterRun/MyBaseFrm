@@ -1,11 +1,15 @@
 package com.jsongo.mybasefrm.view
 
+import android.content.Context
 import android.location.Location
 import android.location.LocationListener
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import com.esri.android.map.GraphicsLayer
 import com.esri.android.map.LocationDisplayManager
+import com.esri.android.map.MapOnTouchListener
+import com.esri.android.map.MapView
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer
 import com.esri.android.map.event.OnStatusChangedListener
 import com.esri.android.runtime.ArcGISRuntime
@@ -22,7 +26,11 @@ import kotlinx.android.synthetic.main.activity_base.*
 
 class ArcgisDemoActivity : BaseActivity() {
 
+    var mapscale = 5000.0
+    var markPoint: Point? = null
+    var clickPoint: Point? = null
     var graphicsLayer: GraphicsLayer? = null
+    var locationDisplayManager: LocationDisplayManager? = null
 
     override var mainLayoutId = R.layout.activity_arcgis_demo
     override var useContainer2: Boolean = true
@@ -45,14 +53,14 @@ class ArcgisDemoActivity : BaseActivity() {
         )
         mapview.addLayer(gisTiledMapServiceLayer)
 
-        val gisTiledMapServiceLayer2 =
-            ArcGISTiledMapServiceLayer("http://58.211.227.180:8051/OneMapServer/rest/services/zjg2015/MapServer")
-        mapview.addLayer(gisTiledMapServiceLayer2)
+//        val gisTiledMapServiceLayer2 =
+//            ArcGISTiledMapServiceLayer("http://58.211.227.180:8051/OneMapServer/rest/services/zjg2015/MapServer")
+//        mapview.addLayer(gisTiledMapServiceLayer2)
         graphicsLayer = GraphicsLayer()
 
         mapview.addLayer(graphicsLayer)
 
-//        mapview.setOnTouchListener { v, event -> true }
+        mapview.setOnTouchListener(MyTouchListener(this, mapview))
 
         //延迟加载
         mapview.setOnStatusChangedListener { any, status ->
@@ -65,9 +73,6 @@ class ArcgisDemoActivity : BaseActivity() {
             }
         }
     }
-
-    var clickPoint: Point? = null
-    var locationDisplayManager: LocationDisplayManager? = null
 
     private fun setupLocationListener() {
         mapview?.let {
@@ -104,10 +109,8 @@ class ArcgisDemoActivity : BaseActivity() {
         }
     }
 
-    var mapscale = 5000.0
-
     // 缩放到指定位置
-    private fun zoomToPoint(point: Point, imgid: Int) {
+    fun zoomToPoint(point: Point, imgid: Int) {
         graphicsLayer?.removeAll()
         mapview?.let {
             // 在地图上标注位置
@@ -132,6 +135,25 @@ class ArcgisDemoActivity : BaseActivity() {
             ) as Point
         }
         return null
+    }
+
+    inner class MyTouchListener(context: Context, mapview: MapView) :
+        MapOnTouchListener(context, mapview) {
+        override fun onSingleTap(point: MotionEvent?): Boolean {
+            L.d("当前地图比例：${mapview.scale}")
+            return true
+        }
+
+        //长按缩放
+        override fun onLongPress(event: MotionEvent?) {
+            super.onLongPress(event)
+            event?.apply {
+                L.d("long press x:${x},y:${y}")
+                markPoint = mapview.toMapPoint(x, y)
+                zoomToPoint(markPoint!!, R.drawable.cgt_target_red)
+            }
+
+        }
     }
 
     override fun onResume() {
