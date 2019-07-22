@@ -2,6 +2,7 @@ package com.jsongo.mybasefrm.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.view.View
 import com.jsongo.mybasefrm.BaseActivity
 import com.jsongo.mybasefrm.PrintLog
@@ -76,9 +77,12 @@ class MainActivity : BaseActivity() {
 
         btn_test.setOnClickListener {
 
-            //goEpsonPrintPreview("/sdcard/Tencent/QQfile_recv/ttt.pdf")
+            goEpsonPrintPreview(Environment.getExternalStorageDirectory().absolutePath + "/Tencent/QQfile_recv/ttt.pdf")
             //图片打开失败！
-//            goEpsonPrintPreview2("/sdcard/Tencent/QQfile_recv/ttt.png")
+            val file =
+                File(Environment.getExternalStorageDirectory().absolutePath + "/Tencent/QQfile_recv/ttt.png")
+//            goEpsonPrintPreview2(file.absolutePath)
+//            goEpsonPrintPreview3(file.absolutePath)
         }
 
     }
@@ -91,7 +95,7 @@ class MainActivity : BaseActivity() {
         intent.setClassName(epsonPrintApkPackageName, "epson.print.ActivityDocsPrintPreview")
         val uriForFile = android.support.v4.content.FileProvider.getUriForFile(
             this,
-            "com.jsongo.mybasefrm.fileprovider",
+            "${packageName}.fileprovider",
             File(path)
         )
 //        val uri = Uri.fromFile(File(path))
@@ -106,9 +110,9 @@ class MainActivity : BaseActivity() {
         val epsonPrintApkPackageName = "epson.print"
         val intent = Intent()
         intent.setPackage(epsonPrintApkPackageName)
-        intent.setClassName(epsonPrintApkPackageName, "epson.print.ActivityDocsPrintPreview")
-        intent.putExtra("from", 3)
-        intent.putExtra("FROM_EPSON", true)
+        intent.setClassName(epsonPrintApkPackageName, "epson.print.ActivityViewImageSelect")
+//        intent.putExtra("from", 3)
+//        intent.putExtra("FROM_EPSON", true)
         intent.action = "android.intent.action.SEND"
 
 
@@ -125,6 +129,23 @@ class MainActivity : BaseActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         startActivity(intent)
+    }
+
+    fun goEpsonPrintPreview3(path: String) {
+        val epsonPrintApkPackageName = "epson.print"
+        val intent = Intent()
+        intent.setPackage(epsonPrintApkPackageName)
+        intent.setClassName(epsonPrintApkPackageName, "epson.print.ActivityViewImageSelect")
+        intent.putExtra("imageList", arrayListOf(path))
+        intent.putExtra("epson_color_mode", true)
+        intent.type = "image/png"
+
+        val localPrintLog = PrintLog()
+        localPrintLog.uiRoute = 1
+        intent.putExtra("print_log", localPrintLog)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.addCategory(Intent.CATEGORY_DEFAULT)
+        startActivityForResult(intent, 103)
     }
 
     private fun getPrintLog(paramFile: File): PrintLog {
