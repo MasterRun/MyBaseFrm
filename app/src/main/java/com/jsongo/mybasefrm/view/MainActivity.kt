@@ -2,10 +2,9 @@ package com.jsongo.mybasefrm.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Environment
 import android.view.View
 import com.jsongo.mybasefrm.BaseActivity
-import com.jsongo.mybasefrm.PrintLog
+import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.jsloader.DefaultWebLoader
 import com.jsongo.mybasefrm.util.SmartRefreshHeader
 import com.jsongo.mybasefrm.util.initWithStr
@@ -17,14 +16,11 @@ import com.vondear.rxtool.RxActivityTool
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
 
 
 class MainActivity : BaseActivity() {
 
-//    val topbbb:TopbarLayout by findViewById<TopbarLayout>(R.id.topbar)
-
-    override var mainLayoutId = com.jsongo.mybasefrm.R.layout.activity_main
+    override var mainLayoutId = R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,84 +71,6 @@ class MainActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        btn_test.setOnClickListener {
-
-            goEpsonPrintPreview(Environment.getExternalStorageDirectory().absolutePath + "/Tencent/QQfile_recv/ttt.pdf")
-            //图片打开失败！
-            val file =
-                File(Environment.getExternalStorageDirectory().absolutePath + "/Tencent/QQfile_recv/ttt.png")
-//            goEpsonPrintPreview2(file.absolutePath)
-//            goEpsonPrintPreview3(file.absolutePath)
-        }
-
-    }
-
-    fun goEpsonPrintPreview(path: String) {
-        val epsonPrintApkPackageName = "epson.print"
-        val intent = Intent()
-        intent.action = "android.intent.action.SEND"
-        intent.setPackage(epsonPrintApkPackageName)
-        intent.setClassName(epsonPrintApkPackageName, "epson.print.ActivityDocsPrintPreview")
-        val uriForFile = android.support.v4.content.FileProvider.getUriForFile(
-            this,
-            "${packageName}.fileprovider",
-            File(path)
-        )
-//        val uri = Uri.fromFile(File(path))
-        intent.putExtra("android.intent.extra.STREAM", uriForFile)
-        intent.type = "application/pdf"
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.addCategory(Intent.CATEGORY_DEFAULT)
-        startActivity(intent)
-    }
-
-    fun goEpsonPrintPreview2(path: String) {
-        val epsonPrintApkPackageName = "epson.print"
-        val intent = Intent()
-        intent.setPackage(epsonPrintApkPackageName)
-        intent.setClassName(epsonPrintApkPackageName, "epson.print.ActivityViewImageSelect")
-//        intent.putExtra("from", 3)
-//        intent.putExtra("FROM_EPSON", true)
-        intent.action = "android.intent.action.SEND"
-
-
-        val uriForFile = android.support.v4.content.FileProvider.getUriForFile(
-            this,
-            "${packageName}.fileprovider",
-            File(path)
-        )
-//        val uri = Uri.fromFile(File(path))
-        intent.putExtra("android.intent.extra.STREAM", uriForFile)
-        intent.type = "image/png"
-        intent.putExtra("typeprint", true)
-        intent.putExtra("print_log", getPrintLog(File(path)))
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.addCategory(Intent.CATEGORY_DEFAULT)
-        startActivity(intent)
-    }
-
-    fun goEpsonPrintPreview3(path: String) {
-        val epsonPrintApkPackageName = "epson.print"
-        val intent = Intent()
-        intent.setPackage(epsonPrintApkPackageName)
-        intent.setClassName(epsonPrintApkPackageName, "epson.print.ActivityViewImageSelect")
-        intent.putExtra("imageList", arrayListOf(path))
-        intent.putExtra("epson_color_mode", true)
-        intent.type = "image/png"
-
-        val localPrintLog = PrintLog()
-        localPrintLog.uiRoute = 1
-        intent.putExtra("print_log", localPrintLog)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.addCategory(Intent.CATEGORY_DEFAULT)
-        startActivityForResult(intent, 103)
-    }
-
-    private fun getPrintLog(paramFile: File): PrintLog {
-        val localPrintLog = PrintLog()
-        localPrintLog.uiRoute = 2
-        localPrintLog.originalFileExtension = PrintLog.getFileExtension(paramFile)
-        return localPrintLog
     }
 
 }
