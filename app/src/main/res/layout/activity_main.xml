@@ -6,7 +6,7 @@
 	android:layout_height="match_parent"
 	android:background="@color/white"
 	android:fitsSystemWindows="true"
-	tools:context=".view.MainActivity">
+	tools:context=".view.activity.MainActivity">
 	
 	<Button
 		android:id="@+id/btn"
@@ -37,21 +37,12 @@
 		app:layout_constraintTop_toBottomOf="@id/btn_scan" />
 	
 	<Button
-		android:id="@+id/btn_gomap"
+		android:id="@+id/btn_testdb"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="go map"
+		android:text="textdb"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn_loadbaidu" />
-	
-	<Button
-		android:id="@+id/btn_test"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="test"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_gomap" />
 
 </android.support.constraint.ConstraintLayout>

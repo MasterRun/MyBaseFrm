@@ -1,39 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--<color name="colorPrimary">#3F51B5</color>-->
-    <color name="colorPrimary">#FFF</color>
-    <!--<color name="colorPrimaryDark">#303F9F</color>-->
-    <color name="colorPrimaryDark">#FFF</color>
-    <!--<color name="colorAccent">#FF4081</color>-->
-    <color name="colorAccent">#31BDF3</color>
-    <color name="app_color_theme">#2BBDF3</color> <!-- Aqua -->
-    
-    <color name="light_gray_transparent">#94646464</color>
-    <color name="light_gray">@color/lightgrey</color>
-    
-    <color name="app_color_blue_2">#31BDF3</color>
-    <color name="app_color_blue_2_disabled">#7F31BDF3</color>
-    <color name="app_color_blue_2_pressed">#7F31BDF3</color>
-    
-    <color name="google_red">#FFC93437</color>
-    <color name="google_blue">#FF375BF1</color>
-    <color name="google_yellow">#FFF7D23E</color>
-    <color name="google_green">#FF34A350</color>
-    
-    <color name="white">#fff</color>
-    <color name="darker_gray">@android:color/darker_gray</color>
-    <color name="lighter_gray">#ddd</color>
-    <color name="green_btn">#2bc920</color>
-    <color name="green_btn2">#eb8aea67</color>
-    <color name="btn_pink">#ed7575</color>
-    
-    <color name="app_color_theme_3">#FFCF47</color> <!-- Sunflower -->
-    <color name="app_color_theme_6">#2BBDF3</color>
-    <color name="touch_bg_grey">#eeeeee</color>
-    <color name="text_blue">#3c80e6</color> <!-- Aqua -->
-    <!--    <color name="bg_gray">#EFEFF3</color>
-        <color name="gray">#ff898989</color>
-        <color name="gray_press">#fff2f2f2</color>
-        <color name="line_light_gray">#ffe0e0e6</color>
-        <color name="tv_light_gray">#C7C7C7</color>-->
 </resources>
