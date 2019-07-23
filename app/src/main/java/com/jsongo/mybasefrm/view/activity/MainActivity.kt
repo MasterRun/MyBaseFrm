@@ -29,6 +29,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         presenter = mainPresenter
     }
 
+    override var containerIndex = 3
     override var mainLayoutId = R.layout.activity_main
 
     override fun initView() {

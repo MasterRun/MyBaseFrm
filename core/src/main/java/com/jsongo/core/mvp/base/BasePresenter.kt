@@ -51,16 +51,16 @@ abstract class BasePresenter<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBase
             Manifest.permission.RECORD_AUDIO
         ).subscribe { granted ->
             if (!granted) {
-                RxToast.warning("程序即将退出!")
-                val disposable = Observable.timer(2, TimeUnit.SECONDS)
-                    .subscribeOn(Schedulers.computation())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        if (permissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE).not()) {
+                if (permissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE).not()) {
+                    RxToast.warning("程序即将退出!")
+                    val disposable = Observable.timer(2, TimeUnit.SECONDS)
+                        .subscribeOn(Schedulers.computation())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
                             ActivityCollector.appExit()
                         }
-                    }
-                addDisposable(disposable)
+                    addDisposable(disposable)
+                }
             }
         }
         addDisposable(disposable)

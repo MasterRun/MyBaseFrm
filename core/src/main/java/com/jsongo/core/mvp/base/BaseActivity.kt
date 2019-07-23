@@ -82,6 +82,7 @@ abstract class BaseActivity : AppCompatActivity() {
                 flMainContainer2.visibility = View.GONE
                 smartRefreshLayout.visibility = View.GONE
                 flMainContainer3.visibility = View.VISIBLE
+                flMainContainer3.addView(mainView)
             }
             else -> {
                 smartRefreshLayout.visibility = View.VISIBLE
