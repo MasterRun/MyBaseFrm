@@ -8,11 +8,9 @@ android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
         minSdkVersion versions.minSdk
-        versionCode 1
-        versionName "1.0"
-
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
 
     compileOptions {
@@ -36,7 +34,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    api 'com.jsongo.basefrm:core:1.0.0'
+    api 'com.jsongo.basefrm:core:1.0.1'
     //jsbridge
     api 'com.github.lzyzsd:jsbridge:1.0.4'
 }

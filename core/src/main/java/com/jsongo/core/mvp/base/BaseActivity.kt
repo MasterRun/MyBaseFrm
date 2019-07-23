@@ -42,13 +42,15 @@ abstract class BaseActivity : AppCompatActivity() {
         protected set
     lateinit var flMainContainer2: FrameLayout
         protected set
+    lateinit var flMainContainer3: FrameLayout
+        protected set
     lateinit var emptyView: QMUIEmptyView
         protected set
 
     /**
-     * 是否使用第二容器
+     * 是否使用第几个容器
      */
-    open var useContainer2 = false
+    open var containerIndex = 1
         protected set
 
     /**
@@ -66,14 +68,27 @@ abstract class BaseActivity : AppCompatActivity() {
 
         val mainView = LayoutInflater.from(this).inflate(mainLayoutId, null)
         //添加主内容到界面
-        if (!useContainer2) {
-            smartRefreshLayout.visibility = View.VISIBLE
-            flMainContainer2.visibility = View.GONE
-            flMainContainer.addView(mainView)
-        } else {
-            smartRefreshLayout.visibility = View.GONE
-            flMainContainer2.visibility = View.VISIBLE
-            flMainContainer2.addView(mainView)
+        topbar.visibility = View.VISIBLE
+        emptyView.visibility = View.VISIBLE
+        when (containerIndex) {
+            2 -> {
+                smartRefreshLayout.visibility = View.GONE
+                flMainContainer2.visibility = View.VISIBLE
+                flMainContainer2.addView(mainView)
+            }
+            3 -> {
+                topbar.visibility = View.GONE
+                emptyView.visibility = View.GONE
+                flMainContainer2.visibility = View.GONE
+                smartRefreshLayout.visibility = View.GONE
+                flMainContainer3.visibility = View.VISIBLE
+            }
+            else -> {
+                smartRefreshLayout.visibility = View.VISIBLE
+                flMainContainer2.visibility = View.GONE
+                flMainContainer3.visibility = View.GONE
+                flMainContainer.addView(mainView)
+            }
         }
 
         //loadingDialog
@@ -104,6 +119,7 @@ abstract class BaseActivity : AppCompatActivity() {
         nsv = findViewById(R.id.nsv)
         flMainContainer = fl_main_container
         flMainContainer2 = fl_main_container2
+        flMainContainer3 = fl_main_container3
         emptyView = empty_view
     }
 

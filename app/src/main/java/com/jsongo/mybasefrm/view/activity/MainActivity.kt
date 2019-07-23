@@ -1,30 +1,37 @@
 package com.jsongo.mybasefrm.view.activity
 
 import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.core.mvp.base.BaseMvpActivity
+import com.jsongo.core.mvp.base.BasePresenter
 import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
 import com.jsongo.mybasefrm.R
-import com.safframework.log.L
+import com.jsongo.mybasefrm.mvp.IMain
+import com.jsongo.mybasefrm.presenter.MainPresenter
 import com.vondear.rxfeature.activity.ActivityScanerCode
-import com.vondear.rxfeature.module.scaner.OnRxScanerListener
-import com.vondear.rxtool.RxActivityTool
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
 
+class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
-class MainActivity : BaseActivity() {
+    override var basePresenter: BasePresenter<IMain.IModel, IMain.IView>? = null
+        private set
+
+    private lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
+
+    override fun initPresenter() {
+        val mainPresenter = MainPresenter(this)
+        basePresenter = mainPresenter
+        presenter = mainPresenter
+    }
 
     override var mainLayoutId = R.layout.activity_main
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun initView() {
         setSwipeBackEnable(false)
 
         topbar.backImageButton.visibility = View.GONE
@@ -49,17 +56,6 @@ class MainActivity : BaseActivity() {
             DefaultWebLoader.load(webPath)
         }
         btn_scan.setOnClickListener {
-            ActivityScanerCode.setScanerListener(object : OnRxScanerListener {
-                override fun onSuccess(type: String?, result: com.google.zxing.Result?) {
-                    DefaultWebLoader.load(result?.text ?: "")
-                    RxActivityTool.finishActivity()
-                    RxActivityTool.currentActivity().finish()
-                }
-
-                override fun onFail(type: String?, message: String?) {
-                    L.e(message)
-                }
-            })
             val intent = Intent(this@MainActivity, ActivityScanerCode::class.java)
             startActivity(intent)
         }
