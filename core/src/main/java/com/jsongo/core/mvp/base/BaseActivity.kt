@@ -50,13 +50,12 @@ abstract class BaseActivity : AppCompatActivity() {
     /**
      * 是否使用第几个容器
      */
-    open var containerIndex = 1
-        protected set
+    open val containerIndex = 1
 
     /**
      * 布局资源id
      */
-    abstract var mainLayoutId: Int
+    abstract val mainLayoutId: Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,9 +102,12 @@ abstract class BaseActivity : AppCompatActivity() {
         setSwipeBackEnable(true)
 
         //沉浸/透明状态栏
-        QMUIStatusBarHelper.translucent(this)
-        QMUIStatusBarHelper.setStatusBarDarkMode(this)
-
+        if (containerIndex == 3) {
+            QMUIStatusBarHelper.setStatusBarLightMode(this)
+        } else {
+            QMUIStatusBarHelper.translucent(this)
+            QMUIStatusBarHelper.setStatusBarDarkMode(this)
+        }
         //初始化下拉刷新
         smartRefreshLayout
             .useHeader(this, SmartRefreshHeader.BezierCircleHeader)

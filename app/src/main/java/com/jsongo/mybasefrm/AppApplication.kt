@@ -23,7 +23,7 @@ class AppApplication : Application() {
     }
 
     override fun attachBaseContext(context: Context) {
-        AppApplication.context = context;
+        AppApplication.context = context
         super.attachBaseContext(context)
         BaseCore.attachBaseContext(context)
     }

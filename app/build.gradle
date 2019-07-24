@@ -52,8 +52,8 @@ android {
 }
 
 dependencies {
-    implementation 'com.jsongo.basefrm:core:1.0.1'
-    implementation 'com.jsongo.basefrm:ajs:1.0.1'
+    implementation 'com.jsongo.basefrm:core:1.0.2'
+    implementation 'com.jsongo.basefrm:ajs:1.0.2'
 //    implementation project(path: ':core')
 //    implementation project(path: ':ajs')
 

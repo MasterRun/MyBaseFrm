@@ -13,9 +13,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="go jswebloader!"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 	
 	<Button
@@ -23,8 +21,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="scan"
-		app:layout_constraintLeft_toLeftOf="parent"
-		app:layout_constraintRight_toRightOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn" />
 	
 	<Button
@@ -32,7 +29,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="load baidu"
-		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn_scan" />
 	
@@ -41,8 +37,15 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="textdb"
-		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn_loadbaidu" />
+	
+	<Button
+		android:id="@+id/btn_crash"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="crash"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn_testdb" />
 
 </android.support.constraint.ConstraintLayout>

@@ -29,8 +29,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         presenter = mainPresenter
     }
 
-    override var containerIndex = 3
-    override var mainLayoutId = R.layout.activity_main
+    override val containerIndex = 3
+    override val mainLayoutId = R.layout.activity_main
 
     override fun initView() {
         setSwipeBackEnable(false)
@@ -76,6 +76,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 RxToast.normal("set value $times")
             }
             times++
+        }
+
+        btn_crash.setOnClickListener {
+            val a = 0
+            println(2 / a)
         }
     }
 

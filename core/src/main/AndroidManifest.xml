@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.jsongo.core">
 	
@@ -23,8 +24,8 @@
 		android:required="true" />
 	
 	<application>
+		<activity android:name=".crash.CrashActivity"></activity>
 		<activity android:name=".widget.ImagePreview.ImagePreviewActivity" />
 	</application>
 
 </manifest>
-

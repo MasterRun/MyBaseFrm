@@ -3,6 +3,7 @@ package com.jsongo.core
 import android.annotation.SuppressLint
 import android.content.Context
 import android.support.multidex.MultiDex
+import com.jsongo.core.crash.CrashHandler
 import com.jsongo.core.widget.ImagePreview.ZoomImageLoader
 import com.previewlibrary.ZoomMediaLoader
 import com.vondear.rxtool.RxTool
@@ -18,8 +19,12 @@ object BaseCore {
     lateinit var context: Context
 
     fun init() {
+        CrashHandler.init()
         ZoomMediaLoader.getInstance().init(ZoomImageLoader())
-        RxTool.init(context)
+        //init RxTool without init RxCrashTool
+        val contextField = RxTool::class.java.getDeclaredField("context")
+        contextField.isAccessible = true
+        contextField.set(null, context.applicationContext)
     }
 
     fun attachBaseContext(context: Context) {
