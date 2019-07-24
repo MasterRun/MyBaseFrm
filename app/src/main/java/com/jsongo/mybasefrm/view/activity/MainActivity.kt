@@ -6,12 +6,14 @@ import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
+import com.jsongo.core.network.ServerAddr
 import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
+import com.safframework.log.L
 import com.vondear.rxfeature.activity.ActivityScanerCode
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -82,6 +84,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             val a = 0
             println(2 / a)
         }
+        L.e(ServerAddr.SERVER_ADDRESS)
     }
 
 }

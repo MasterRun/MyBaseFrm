@@ -12,3 +12,6 @@
 /captures
 .externalNativeBuild
 /gradle.properties
+markdown-navigator.xml
+ExampleUnitTest.java
+ExampleInstrumentedTest.java

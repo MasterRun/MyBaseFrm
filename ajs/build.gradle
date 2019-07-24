@@ -34,8 +34,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    api 'com.jsongo.basefrm:core:1.0.2'
-//    api project(path: ':core')
+//    api 'com.jsongo.basefrm:core:1.0.2'
+    api project(path: ':core')
 
     //jsbridge
     api 'com.github.lzyzsd:jsbridge:1.0.4'

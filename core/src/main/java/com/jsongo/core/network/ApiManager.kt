@@ -2,11 +2,15 @@ package com.jsongo.core.network
 
 import com.google.gson.*
 import com.jsongo.core.BaseCore
+import com.jsongo.core.Constants
+import com.jsongo.core.R
 import com.safframework.http.interceptor.LoggingInterceptor
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 import java.lang.reflect.Type
 import java.sql.Timestamp
 import java.util.*
@@ -22,12 +26,12 @@ object ApiManager {
     private var gson: Gson? = null
     private var mOkHttpClient: OkHttpClient? = null
     private var mRetrofit: Retrofit? = null
-    val mApiService: ApiService
+    val mApiService: Any
         get() {
             if (mRetrofit == null) {
                 initRetrofit()
             }
-            return mRetrofit!!.create(ApiService::class.java)
+            return mRetrofit!!.create(Class.forName(BaseCore.context.getString(R.string.API_SERVICE_PATH)))
         }
 
     init {
@@ -62,15 +66,15 @@ object ApiManager {
     }
 
     /**
-     * todo 设置缓存文件路径
+     *  设置缓存文件路径
      */
     private fun OkHttpClient.Builder.setCacheFile(): OkHttpClient.Builder {
-/*        //设置缓存文件
-        val cacheFile = File(DirConfig.HTTP_CACHE)
+        //设置缓存文件
+        val cacheFile = File(Constants.HTTP_CACHE_DIR)
         //缓存大小为10M
         val cacheSize = 10 * 1024 * 1024L
         val cache = Cache(cacheFile, cacheSize)
-        builder.cache(cache)*/
+        cache(cache)
         return this
     }
 

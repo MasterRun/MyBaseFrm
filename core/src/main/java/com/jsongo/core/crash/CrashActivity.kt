@@ -3,15 +3,14 @@ package com.jsongo.core.crash
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import com.jsongo.core.BaseCore
+import com.jsongo.core.Constants
 import com.jsongo.core.R
 import com.jsongo.core.mvp.base.BaseActivity
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.safframework.log.L
 import com.vondear.rxtool.RxDeviceTool
-import com.vondear.rxtool.RxFileTool
 import com.vondear.rxtool.RxTimeTool
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -68,24 +67,8 @@ class CrashActivity : BaseActivity() {
      * 保存日志
      */
     private fun saveCrashLog(crashLog: String) {
-        var mCrashDirPath: String
-        try {
-            val packageManager = getPackageManager()
-            val packageInfo = packageManager.getPackageInfo(getPackageName(), 0)
-            val labelRes = packageInfo.applicationInfo.labelRes
-            val name = getResources().getString(labelRes)
-            mCrashDirPath =
-                RxFileTool.getRootPath().toString() + File.separator + name + File.separator + "crash" + File.separator
-        } catch (e: Exception) {
-            if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-                mCrashDirPath =
-                    getExternalCacheDir()!!.getPath() + File.separator + "crash" + File.separator
-            } else {
-                mCrashDirPath =
-                    getCacheDir().getPath() + File.separator + "crash" + File.separator
-            }
-        }
-        val disposable = Observable.just(mCrashDirPath)
+
+        val disposable = Observable.just(Constants.CRASH_LOG_DIR)
             .map {
                 val file = File(it, "${occurTime.replace(" ", "_")}.log")
                 if (file.parentFile.exists().not()) {
