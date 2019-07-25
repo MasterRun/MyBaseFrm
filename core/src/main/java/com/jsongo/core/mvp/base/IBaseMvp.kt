@@ -14,7 +14,7 @@ interface IBaseMvp {
         fun dispose()
     }
 
-    interface IBaseView {
+    interface IBaseView : PageStatusListener {
         fun initView()
         fun initPresenter()
     }

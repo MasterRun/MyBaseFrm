@@ -1,6 +1,7 @@
 package com.jsongo.mybasefrm.view.activity
 
 import android.content.Intent
+import android.view.KeyEvent
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.core.db.CommonDbOpenHelper
@@ -31,7 +32,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         presenter = mainPresenter
     }
 
-    override val containerIndex = 3
+    override val showEnterPageLoading = false
+    override val containerIndex = 2
     override val mainLayoutId = R.layout.activity_main
 
     override fun initView() {
@@ -87,4 +89,27 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         L.e(ServerAddr.SERVER_ADDRESS)
     }
 
+
+    /**
+     * 设置返回键不关闭应用,回到桌面
+     *
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if ((keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) && event.action == KeyEvent.ACTION_DOWN) {
+            val backHome = Intent(Intent.ACTION_MAIN)
+            backHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            backHome.addCategory(Intent.CATEGORY_HOME)
+            startActivity(backHome)
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onPageReloading() {
+        super.onPageReloading()
+        presenter.start()
+    }
 }

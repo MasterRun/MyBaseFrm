@@ -29,7 +29,7 @@ abstract class BaseFragment : Fragment() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         clearFindViewByIdCache()
+        super.onDestroy()
     }
 }

@@ -19,11 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
-# 保留Google GSON相关API:
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.stream.** { *; }
--keep class com.google.gson.** { *;}
-
-#EasyPhoto
--keep class com.huantansheng.easyphotos.models.** { *; }

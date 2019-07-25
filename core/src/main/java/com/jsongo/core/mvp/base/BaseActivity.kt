@@ -16,7 +16,7 @@ import com.qmuiteam.qmui.widget.QMUIEmptyView
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.*
-import kotlinx.android.synthetic.main.activity_base.*
+import kotlinx.android.synthetic.main.layout_frm_base.*
 
 /**
  * @author  jsongo
@@ -61,14 +61,15 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ActivityCollector.addActivity(this)
 
-        setContentView(R.layout.activity_base)
+        setContentView(R.layout.layout_frm_base)
 
         getView()
+
+        emptyView.visibility = View.GONE
 
         val mainView = LayoutInflater.from(this).inflate(mainLayoutId, null)
         //添加主内容到界面
         topbar.visibility = View.VISIBLE
-        emptyView.visibility = View.VISIBLE
         when (containerIndex) {
             2 -> {
                 smartRefreshLayout.visibility = View.GONE
@@ -102,19 +103,22 @@ abstract class BaseActivity : AppCompatActivity() {
         setSwipeBackEnable(true)
 
         //沉浸/透明状态栏
+        QMUIStatusBarHelper.translucent(this)
         if (containerIndex == 3) {
             QMUIStatusBarHelper.setStatusBarLightMode(this)
+            flMainContainer3.setPadding(0, QMUIStatusBarHelper.getStatusbarHeight(this), 0, 0)
         } else {
-            QMUIStatusBarHelper.translucent(this)
             QMUIStatusBarHelper.setStatusBarDarkMode(this)
         }
         //初始化下拉刷新
         smartRefreshLayout
             .useHeader(this, SmartRefreshHeader.BezierCircleHeader)
             .useFooter(this, SmartRefreshFooter.ClassicsFooter)
-        emptyView.visibility = View.GONE
     }
 
+    /**
+     * 获取widget
+     */
     private fun getView() {
         clLayoutContainer = cl_layout_container
         topbar = findViewById(R.id.topbar)
@@ -126,6 +130,9 @@ abstract class BaseActivity : AppCompatActivity() {
         emptyView = empty_view
     }
 
+    /**
+     * 侧滑返回
+     */
     fun setSwipeBackEnable(isEnable: Boolean) {
         if (isEnable) {
             this.slidingLayout.bindActivity(this)
@@ -135,8 +142,11 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
+        emptyView.hide()
+        loadingDialog.dismiss()
+        smartRefreshLayout.finishRefresh().finishLoadMore()
         clearFindViewByIdCache()
         ActivityCollector.removeActivity(this)
+        super.onDestroy()
     }
 }

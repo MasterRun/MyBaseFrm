@@ -123,7 +123,7 @@ function loadurl() {
     ajs.common.load("file:///android_asset/web/index.html")
 }
 function goactivity() {
-    ajs.common.go("com.jsongo.mybasefrm.MainActivity")
+    ajs.common.go("com.jsongo.mybasefrm.view.activity.MainActivity")
 }
 
 let isEnableRefresh = true

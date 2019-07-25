@@ -26,7 +26,7 @@ abstract class BaseMvpFragment<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
     }
 
     override fun onDetach() {
-        super.onDetach()
         basePresenter?.onDestory()
+        super.onDetach()
     }
 }
