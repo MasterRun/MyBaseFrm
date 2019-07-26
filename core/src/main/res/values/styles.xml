@@ -9,4 +9,15 @@
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowBackground">@color/transparent</item>
 	</style>
+	
+	<style name="SplashTheme" parent="QMUI.Compat.NoActionBar">
+		<item name="android:colorPrimary">@color/white</item>
+		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+		<item name="android:colorAccent">@color/white</item>
+		<item name="android:windowTranslucentStatus">true</item>
+		<!--<item name="android:windowTranslucentNavigation">true</item>-->
+		<item name="android:windowBackground">@mipmap/img_init_bg</item>
+		<!--<item name="android:fitsSystemWindows">true</item>-->
+		<item name="windowNoTitle">true</item>
+	</style>
 </resources>

@@ -16,13 +16,6 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
 	
-	<Button
-		android:id="@+id/btn_scan"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="scan"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn" />
 	
 	<Button
 		android:id="@+id/btn_loadbaidu"
@@ -30,7 +23,7 @@
 		android:layout_height="wrap_content"
 		android:text="load baidu"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_scan" />
+		app:layout_constraintTop_toBottomOf="@id/btn" />
 	
 	<Button
 		android:id="@+id/btn_testdb"
@@ -47,5 +40,12 @@
 		android:text="crash"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn_testdb" />
+	
+	<TextView
+		android:id="@+id/tv"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
 
 </android.support.constraint.ConstraintLayout>

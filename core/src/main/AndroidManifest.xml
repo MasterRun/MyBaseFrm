@@ -24,7 +24,16 @@
 		android:required="true" />
 	
 	<application>
-		<activity android:name=".crash.CrashActivity"></activity>
+		<activity
+			android:name=".view.activity.SplashActivity"
+			android:theme="@style/SplashTheme">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".crash.CrashActivity" />
 		<activity android:name=".widget.ImagePreview.ImagePreviewActivity" />
 	</application>
 

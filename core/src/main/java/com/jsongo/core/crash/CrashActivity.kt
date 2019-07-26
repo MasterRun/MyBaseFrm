@@ -4,9 +4,9 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import com.jsongo.core.BaseCore
-import com.jsongo.core.Constants
 import com.jsongo.core.R
 import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.core.util.ConstConf
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.safframework.log.L
@@ -68,7 +68,7 @@ class CrashActivity : BaseActivity() {
      */
     private fun saveCrashLog(crashLog: String) {
 
-        val disposable = Observable.just(Constants.CRASH_LOG_DIR)
+        val disposable = Observable.just(ConstConf.CRASH_LOG_DIR)
             .map {
                 val file = File(it, "${occurTime.replace(" ", "_")}.log")
                 if (file.parentFile.exists().not()) {

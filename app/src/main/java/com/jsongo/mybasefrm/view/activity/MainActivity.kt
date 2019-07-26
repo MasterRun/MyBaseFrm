@@ -7,14 +7,12 @@ import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
-import com.jsongo.core.network.ServerAddr
 import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
-import com.safframework.log.L
 import com.vondear.rxfeature.activity.ActivityScanerCode
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,7 +30,6 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         presenter = mainPresenter
     }
 
-    override val showEnterPageLoading = false
     override val containerIndex = 2
     override val mainLayoutId = R.layout.activity_main
 
@@ -55,14 +52,16 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 it.finishLoadMore(1000)
             }
 
+        topbar.setOnLongClickListener {
+            val intent = Intent(this@MainActivity, ActivityScanerCode::class.java)
+            startActivity(intent)
+            true
+        }
+
         btn.setOnClickListener {
             val webPath = "file:///android_asset/web/index.html"
 
             DefaultWebLoader.load(webPath)
-        }
-        btn_scan.setOnClickListener {
-            val intent = Intent(this@MainActivity, ActivityScanerCode::class.java)
-            startActivity(intent)
         }
 
         btn_loadbaidu.setOnClickListener {
@@ -86,9 +85,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             val a = 0
             println(2 / a)
         }
-        L.e(ServerAddr.SERVER_ADDRESS)
     }
 
+    override fun onGetDailyGank(txt: String?) {
+        tv.text = txt
+    }
 
     /**
      * 设置返回键不关闭应用,回到桌面

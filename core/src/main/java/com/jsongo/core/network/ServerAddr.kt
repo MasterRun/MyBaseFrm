@@ -19,9 +19,3 @@ object ServerAddr {
     /** 服务器域名  */
     val SERVER_ADDRESS = if (BaseCore.isDebug) SERVER_ADDRESS_DEBUG else SERVER_ADDRESS_RELEASE
 }
-
-interface ApiService {
-
-/*    @POST("confession/oneConfession")
-    fun getConfession(@Query("id") id: Long): Observable<Result<Map<String, String>>>*/
-}

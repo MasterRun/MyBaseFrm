@@ -2,8 +2,7 @@ package com.jsongo.core.network
 
 import com.google.gson.*
 import com.jsongo.core.BaseCore
-import com.jsongo.core.Constants
-import com.jsongo.core.R
+import com.jsongo.core.util.ConstConf
 import com.safframework.http.interceptor.LoggingInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -15,6 +14,7 @@ import java.lang.reflect.Type
 import java.sql.Timestamp
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.HashMap
 
 
 /**
@@ -26,13 +26,23 @@ object ApiManager {
     private var gson: Gson? = null
     private var mOkHttpClient: OkHttpClient? = null
     private var mRetrofit: Retrofit? = null
-    val mApiService: Any
-        get() {
-            if (mRetrofit == null) {
-                initRetrofit()
-            }
-            return mRetrofit!!.create(Class.forName(BaseCore.context.getString(R.string.API_SERVICE_PATH)))
+
+    val apiServiceCache = HashMap<String, Any>()
+
+    fun <T : Any> createApiService(clazz: Class<T>): T {
+        if (mRetrofit == null) {
+            initRetrofit()
         }
+        val cachedApiService = apiServiceCache[clazz.name]
+        val apiService: T
+        if (cachedApiService == null) {
+            apiService = mRetrofit!!.create(clazz)
+            apiServiceCache[clazz.name] = apiService
+        } else {
+            apiService = cachedApiService as T
+        }
+        return apiService
+    }
 
     init {
         initOkhttp()
@@ -70,7 +80,7 @@ object ApiManager {
      */
     private fun OkHttpClient.Builder.setCacheFile(): OkHttpClient.Builder {
         //设置缓存文件
-        val cacheFile = File(Constants.HTTP_CACHE_DIR)
+        val cacheFile = File(ConstConf.HTTP_CACHE_DIR)
         //缓存大小为10M
         val cacheSize = 10 * 1024 * 1024L
         val cache = Cache(cacheFile, cacheSize)

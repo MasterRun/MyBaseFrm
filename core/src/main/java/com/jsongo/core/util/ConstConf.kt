@@ -1,6 +1,7 @@
-package com.jsongo.core
+package com.jsongo.core.util
 
 import android.os.Environment
+import com.jsongo.core.BaseCore
 import com.vondear.rxtool.RxFileTool
 import java.io.File
 
@@ -9,7 +10,7 @@ import java.io.File
  * createtime ： 2019/7/24 23:21
  * desc : 常量
  */
-object Constants {
+object ConstConf {
 
     var BASE_DIR: String
         private set

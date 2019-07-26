@@ -1,12 +1,10 @@
 package com.jsongo.mybasefrm.presenter
 
+import com.google.gson.JsonObject
 import com.jsongo.core.mvp.base.BasePresenter
+import com.jsongo.core.network.ApiCallback
 import com.jsongo.mybasefrm.model.MainModel
 import com.jsongo.mybasefrm.mvp.IMain
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 
 /**
  * author ： jsongo
@@ -15,21 +13,26 @@ import java.util.concurrent.TimeUnit
  */
 class MainPresenter(view: IMain.IView) : BasePresenter<IMain.IModel, IMain.IView>(view),
     IMain.IPresenter<IMain.IModel, IMain.IView> {
+
     override val model: IMain.IModel
 
     init {
-
         model = MainModel()
     }
 
     override fun start() {
 
-        val disposable = Observable.timer(1200, TimeUnit.MILLISECONDS)
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
+        model.getDailyGank(object : ApiCallback<JsonObject> {
+            override fun onSuccess(t: JsonObject) {
+                val category = t.getAsJsonArray("category")
+                view?.onGetDailyGank(category[0].asString)
                 view?.onPageLoaded()
             }
-        addDisposable(disposable)
+
+            override fun onFailed(code: Int, msg: String, obj: Any?) {
+                view?.onPageError()
+            }
+        })
+
     }
 }
