@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit
 
 class SplashActivity : BaseActivity() {
 
-    override val mainLayoutId = R.layout.activity_splash
-    override val containerIndex = 3
+    override var mainLayoutId = R.layout.activity_splash
+    override var containerIndex = 3
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

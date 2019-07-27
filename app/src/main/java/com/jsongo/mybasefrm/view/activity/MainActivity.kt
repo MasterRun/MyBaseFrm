@@ -4,6 +4,8 @@ import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
+import com.jsongo.core.annotations.ConfPage
+import com.jsongo.core.annotations.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
@@ -17,21 +19,13 @@ import com.vondear.rxfeature.activity.ActivityScanerCode
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
 
+@ConfPage(R.layout.activity_main, 2)
 class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
-    override var basePresenter: BasePresenter<IMain.IModel, IMain.IView>? = null
-        private set
-
+    @Presenter(MainPresenter::class)
+    override lateinit var basePresenter: BasePresenter<IMain.IModel, IMain.IView>
+    @Presenter(MainPresenter::class)
     private lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
-
-    override fun initPresenter() {
-        val mainPresenter = MainPresenter(this)
-        basePresenter = mainPresenter
-        presenter = mainPresenter
-    }
-
-    override val containerIndex = 2
-    override val mainLayoutId = R.layout.activity_main
 
     override fun initView() {
         setSwipeBackEnable(false)

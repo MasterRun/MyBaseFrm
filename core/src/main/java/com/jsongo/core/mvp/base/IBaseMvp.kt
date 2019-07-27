@@ -16,7 +16,7 @@ interface IBaseMvp {
 
     interface IBaseView : PageStatusListener {
         fun initView()
-        fun initPresenter()
+        fun initPresenter() {}
     }
 
     interface IBasePresenter<out M : IBaseModel, out V : IBaseView> {

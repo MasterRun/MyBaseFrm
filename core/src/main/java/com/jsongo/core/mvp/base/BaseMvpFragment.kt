@@ -3,6 +3,8 @@ package com.jsongo.core.mvp.base
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import com.jsongo.core.annotations.PresenterBinder
+import kotlinx.android.synthetic.*
 
 /**
  * @author jsongo
@@ -22,10 +24,13 @@ abstract class BaseMvpFragment<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        PresenterBinder.bind(this)
         initPresenter()
     }
 
     override fun onDetach() {
+        view?.clearFindViewByIdCache()
+        clearFindViewByIdCache()
         basePresenter?.onDestory()
         super.onDetach()
     }

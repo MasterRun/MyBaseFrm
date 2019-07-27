@@ -2,6 +2,8 @@ package com.jsongo.core.mvp.base
 
 import android.os.Bundle
 import android.view.View
+import com.jsongo.core.annotations.PresenterBinder
+import kotlinx.android.synthetic.*
 
 /**
  * author ： jsongo
@@ -28,7 +30,9 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
             onPageLoading()
         }
 
+        PresenterBinder.bind(this)
         initPresenter()
+
         initView()
         basePresenter?.validatePermission(this)
         basePresenter?.start()
@@ -79,6 +83,7 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
     //endregion
 
     override fun onDestroy() {
+        clearFindViewByIdCache()
         basePresenter?.onDestory()
         super.onDestroy()
     }

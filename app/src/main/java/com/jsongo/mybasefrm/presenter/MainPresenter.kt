@@ -1,6 +1,7 @@
 package com.jsongo.mybasefrm.presenter
 
 import com.google.gson.JsonObject
+import com.jsongo.core.annotations.Model
 import com.jsongo.core.mvp.base.BasePresenter
 import com.jsongo.core.network.ApiCallback
 import com.jsongo.mybasefrm.model.MainModel
@@ -14,14 +15,10 @@ import com.jsongo.mybasefrm.mvp.IMain
 class MainPresenter(view: IMain.IView) : BasePresenter<IMain.IModel, IMain.IView>(view),
     IMain.IPresenter<IMain.IModel, IMain.IView> {
 
-    override val model: IMain.IModel
-
-    init {
-        model = MainModel()
-    }
+    @Model(MainModel::class)
+    override lateinit var model: IMain.IModel
 
     override fun start() {
-
         model.getDailyGank(object : ApiCallback<JsonObject> {
             override fun onSuccess(t: JsonObject) {
                 val category = t.getAsJsonArray("category")

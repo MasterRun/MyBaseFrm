@@ -56,4 +56,18 @@ class ExampleUnitTest {
         }
 
     }
+/*
+    @Test
+    fun annoTest(){
+        val a = aClass()
+        println(a.mainModel)
+    }
+    class aClass{
+        @MyAnno1
+        lateinit var mainModel:MainModel
+
+        init {
+            AnnoProcess.bind(this)
+        }
+    }*/
 }

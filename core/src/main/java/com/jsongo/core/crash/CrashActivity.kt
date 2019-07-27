@@ -20,8 +20,8 @@ import java.io.FileWriter
 
 class CrashActivity : BaseActivity() {
 
-    override val mainLayoutId = R.layout.activity_crash
-    override val containerIndex = 3
+    override var mainLayoutId = R.layout.activity_crash
+    override var containerIndex = 3
 
     /**
      * 发生时间

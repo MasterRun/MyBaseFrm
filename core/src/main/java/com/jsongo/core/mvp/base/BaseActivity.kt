@@ -4,11 +4,9 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.FrameLayout
 import com.jsongo.core.R
-import com.jsongo.core.util.*
+import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.widget.SlidingLayout
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -23,39 +21,35 @@ import kotlinx.android.synthetic.main.layout_frm_base.*
  * @date 2019/4/3 20:48
  * @desc activity父类
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(), IPage {
 
     private lateinit var slidingLayout: SlidingLayout
     //loadngDialog
     lateinit var loadingDialog: QMUITipDialog
         protected set
 
-    lateinit var clLayoutContainer: ConstraintLayout
+    override lateinit var clLayoutContainer: ConstraintLayout
         protected set
-    lateinit var topbar: TopbarLayout
+    override lateinit var topbar: TopbarLayout
         protected set
-    lateinit var smartRefreshLayout: SmartRefreshLayout
+    override lateinit var smartRefreshLayout: SmartRefreshLayout
         protected set
-    lateinit var nsv: NestedScrollView
+    override lateinit var nsv: NestedScrollView
         protected set
-    lateinit var flMainContainer: FrameLayout
+    override lateinit var flMainContainer: FrameLayout
         protected set
-    lateinit var flMainContainer2: FrameLayout
+    override lateinit var flMainContainer2: FrameLayout
         protected set
-    lateinit var flMainContainer3: FrameLayout
+    override lateinit var flMainContainer3: FrameLayout
         protected set
-    lateinit var emptyView: QMUIEmptyView
+    override lateinit var emptyView: QMUIEmptyView
         protected set
 
-    /**
-     * 是否使用第几个容器
-     */
-    open val containerIndex = 1
+    override var mainLayoutId = 0
+        protected set
 
-    /**
-     * 布局资源id
-     */
-    abstract val mainLayoutId: Int
+    override var containerIndex = 1
+        protected set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,34 +57,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
         setContentView(R.layout.layout_frm_base)
 
-        getView()
-
-        emptyView.visibility = View.GONE
-
-        val mainView = LayoutInflater.from(this).inflate(mainLayoutId, null)
-        //添加主内容到界面
-        topbar.visibility = View.VISIBLE
-        when (containerIndex) {
-            2 -> {
-                smartRefreshLayout.visibility = View.GONE
-                flMainContainer2.visibility = View.VISIBLE
-                flMainContainer2.addView(mainView)
-            }
-            3 -> {
-                topbar.visibility = View.GONE
-                emptyView.visibility = View.GONE
-                flMainContainer2.visibility = View.GONE
-                smartRefreshLayout.visibility = View.GONE
-                flMainContainer3.visibility = View.VISIBLE
-                flMainContainer3.addView(mainView)
-            }
-            else -> {
-                smartRefreshLayout.visibility = View.VISIBLE
-                flMainContainer2.visibility = View.GONE
-                flMainContainer3.visibility = View.GONE
-                flMainContainer.addView(mainView)
-            }
-        }
+        initIPage(this)
 
         //loadingDialog
         loadingDialog = QMUITipDialog.Builder(this)
@@ -110,16 +77,13 @@ abstract class BaseActivity : AppCompatActivity() {
         } else {
             QMUIStatusBarHelper.setStatusBarDarkMode(this)
         }
-        //初始化下拉刷新
-        smartRefreshLayout
-            .useHeader(this, SmartRefreshHeader.BezierCircleHeader)
-            .useFooter(this, SmartRefreshFooter.ClassicsFooter)
+
     }
 
     /**
      * 获取widget
      */
-    private fun getView() {
+    override fun getIPageView() {
         clLayoutContainer = cl_layout_container
         topbar = findViewById(R.id.topbar)
         smartRefreshLayout = smart_refresh_layout
@@ -142,9 +106,8 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        emptyView.hide()
+        onIPageDestory()
         loadingDialog.dismiss()
-        smartRefreshLayout.finishRefresh().finishLoadMore()
         clearFindViewByIdCache()
         ActivityCollector.removeActivity(this)
         super.onDestroy()

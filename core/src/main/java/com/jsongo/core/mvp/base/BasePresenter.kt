@@ -1,6 +1,7 @@
 package com.jsongo.core.mvp.base
 
 import android.Manifest
+import com.jsongo.core.annotations.ModelBinder
 import com.jsongo.core.util.ActivityCollector
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.vondear.rxtool.view.RxToast
@@ -30,6 +31,7 @@ abstract class BasePresenter<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBase
 
     init {
         weakView = WeakReference(view)
+        ModelBinder.bind(this)
     }
 
     fun addDisposable(disposable: Disposable) {
