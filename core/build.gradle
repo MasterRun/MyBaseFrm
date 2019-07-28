@@ -58,6 +58,9 @@ dependencies {
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
     api "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:${versions.kcoroutines}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kcoroutines}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kcoroutines}"
 
     //rxjava
     api "io.reactivex.rxjava2:rxjava:2.2.7"

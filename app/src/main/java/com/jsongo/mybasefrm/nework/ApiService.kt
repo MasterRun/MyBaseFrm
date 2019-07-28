@@ -13,4 +13,7 @@ interface ApiService {
 
     @GET("today")
     fun dailyGank(): Observable<JsonObject>
+
+    @GET("today")
+    suspend fun dailyGank2(): JsonObject
 }

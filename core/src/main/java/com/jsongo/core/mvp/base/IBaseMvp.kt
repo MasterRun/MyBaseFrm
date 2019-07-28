@@ -1,6 +1,7 @@
 package com.jsongo.core.mvp.base
 
 import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.CoroutineScope
 import java.lang.ref.WeakReference
 
 /**
@@ -22,6 +23,7 @@ interface IBaseMvp {
     interface IBasePresenter<out M : IBaseModel, out V : IBaseView> {
         val model: M
         val weakView: WeakReference<out V>
+        val mainScope: CoroutineScope
         val compositeDisposable: CompositeDisposable
 
         fun start()

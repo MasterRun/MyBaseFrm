@@ -27,7 +27,7 @@ object ApiManager {
     private var mOkHttpClient: OkHttpClient? = null
     private var mRetrofit: Retrofit? = null
 
-    val apiServiceCache = HashMap<String, Any>()
+    private val apiServiceCache = HashMap<String, Any>()
 
     fun <T : Any> createApiService(clazz: Class<T>): T {
         if (mRetrofit == null) {
