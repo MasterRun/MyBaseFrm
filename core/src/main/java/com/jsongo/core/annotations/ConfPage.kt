@@ -24,9 +24,6 @@ object ConfPageProcessor {
         val targetClass = any::class
         val confPage = targetClass.findAnnotation<ConfPage>()
         if (confPage != null) {
-            if (confPage.mainLayoutId == 0) {
-                throw  Exception("layout id of (${any}) can not be null")
-            }
             targetClass.declaredMemberProperties
             targetClass.memberProperties.forEach {
                 it.isAccessible = true

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.*
 abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBaseView>
     : BaseActivity(), IBaseMvp.IBaseView {
     /**
-     * 页面装填
+     * 页面状态
      */
     override lateinit var pageStatus: Status
     /**

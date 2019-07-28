@@ -30,6 +30,7 @@ class SplashActivity : BaseActivity() {
                 } else {
                     val intent = Intent(this@SplashActivity, Class.forName(mainActivityName))
                     startActivity(intent)
+                    finish()
                 }
             }
     }

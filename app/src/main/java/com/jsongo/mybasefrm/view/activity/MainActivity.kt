@@ -1,6 +1,7 @@
 package com.jsongo.mybasefrm.view.activity
 
 import android.content.Intent
+import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
@@ -15,6 +16,7 @@ import com.jsongo.core.util.useHeader
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
+import com.jsongo.mybasefrm.view.fragment.MainFragment
 import com.vondear.rxfeature.activity.ActivityScanerCode
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -79,6 +81,17 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             val a = 0
             println(2 / a)
         }
+
+/*        btn.visibility = View.GONE
+        btn_loadbaidu.visibility = View.GONE
+        btn_testdb.visibility = View.GONE
+        btn_crash.visibility = View.GONE
+        tv.visibility = View.GONE*/
+        flMainContainer3.setBackgroundColor(ContextCompat.getColor(this, R.color.app_color_theme))
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fl_fragment_container, MainFragment())
+        transaction.commit()
+
     }
 
     override fun onGetDailyGank(txt: String?) {

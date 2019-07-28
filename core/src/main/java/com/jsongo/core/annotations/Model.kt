@@ -19,7 +19,7 @@ annotation class Model(val clazz: KClass<out BaseModel>)
 object ModelBinder {
 
     /**
-     * 缓存model
+     * 缓存model key是"[model全名]@[presenter toString]"
      */
     val modelMap = HashMap<String, IBaseMvp.IBaseModel>()
 
@@ -34,12 +34,12 @@ object ModelBinder {
                     it.isAccessible = true
                     //从注解中获取主要注入的model类
                     val modelJavaClazz = modelAnnotation.clazz.java
-
+                    val cacheKey = modelJavaClazz.name + "@" + any.toString()
                     //获取指定model的实例
-                    var myModel = modelMap[modelJavaClazz.name]
+                    var myModel = modelMap[cacheKey]
                     if (myModel == null) {
                         myModel = modelJavaClazz.newInstance()
-                        modelMap[modelJavaClazz.name] = myModel
+                        modelMap[cacheKey] = myModel
                     }
                     //如果类型正确
                     val isInstance = it.javaField?.type?.isInstance(myModel)

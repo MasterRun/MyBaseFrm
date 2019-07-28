@@ -10,7 +10,9 @@ interface PageStatusListener {
     var pageStatus: Status
 
     /**
-     * 页面首次加载和下拉刷新，使用loading dialog
+     * activity打开加载 使用loading dialog
+     * fragment打开加载 使用emptyview 显示加载，
+     * 下拉刷新时使用activity的loading dialog
      */
     fun onPageLoading()
 

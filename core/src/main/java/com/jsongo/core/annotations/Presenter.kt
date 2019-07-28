@@ -20,7 +20,7 @@ annotation class Presenter(val clazz: KClass<out BasePresenter<IBaseMvp.IBaseMod
 object PresenterBinder {
 
     /**
-     * 缓存model key是"[presenter全名]@[activity全名/fragment全名]"
+     * 缓存presenter key是"[presenter全名]@[activity/fragment toString]"
      */
     val presenterMap =
         HashMap<String, IBaseMvp.IBasePresenter<IBaseMvp.IBaseModel, IBaseMvp.IBaseView>>()
@@ -37,7 +37,7 @@ object PresenterBinder {
                     it.isAccessible = true
                     //从注解中获取主要注入的prsenter类
                     val presenterJavaClazz = presenterAnnotation.clazz.java
-                    val cacheKey = presenterJavaClazz.name + "@" + any.javaClass.name
+                    val cacheKey = presenterJavaClazz.name + "@" + any.toString()
                     var myPresenter = presenterMap[cacheKey]
                     if (myPresenter == null) {
                         //获取泛型的类型

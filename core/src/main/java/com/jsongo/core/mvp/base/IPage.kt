@@ -13,6 +13,7 @@ import com.jsongo.core.util.useFooter
 import com.jsongo.core.util.useHeader
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.widget.QMUIEmptyView
+import com.safframework.log.L
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -86,37 +87,42 @@ interface IPage {
         ConfPageProcessor.config(this)
 
         if (mainLayoutId == 0) {
-            throw  Exception("layout id of (${this}) can not be null")
+            L.e("mainLayoutId of ${this} is 0")
+            topbar.visibility = View.GONE
+            emptyView.visibility = View.GONE
+            flMainContainer2.visibility = View.GONE
+            smartRefreshLayout.visibility = View.GONE
+            flMainContainer3.visibility = View.GONE
+        } else {
+            //添加主内容到界面
+            val mainView = LayoutInflater.from(context).inflate(mainLayoutId, null)
+            topbar.visibility = View.VISIBLE
+            when (containerIndex) {
+                2 -> {
+                    smartRefreshLayout.visibility = View.GONE
+                    flMainContainer2.visibility = View.VISIBLE
+                    flMainContainer2.addView(mainView)
+                }
+                3 -> {
+                    topbar.visibility = View.GONE
+                    emptyView.visibility = View.GONE
+                    flMainContainer2.visibility = View.GONE
+                    smartRefreshLayout.visibility = View.GONE
+                    flMainContainer3.visibility = View.VISIBLE
+                    flMainContainer3.addView(mainView)
+                }
+                else -> {
+                    smartRefreshLayout.visibility = View.VISIBLE
+                    flMainContainer2.visibility = View.GONE
+                    flMainContainer3.visibility = View.GONE
+                    flMainContainer.addView(mainView)
+                }
+            }
+            //初始化下拉刷新
+            smartRefreshLayout
+                .useHeader(context, SmartRefreshHeader.BezierCircleHeader)
+                .useFooter(context, SmartRefreshFooter.ClassicsFooter)
         }
-
-        val mainView = LayoutInflater.from(context).inflate(mainLayoutId, null)
-        //添加主内容到界面
-        topbar.visibility = View.VISIBLE
-        when (containerIndex) {
-            2 -> {
-                smartRefreshLayout.visibility = View.GONE
-                flMainContainer2.visibility = View.VISIBLE
-                flMainContainer2.addView(mainView)
-            }
-            3 -> {
-                topbar.visibility = View.GONE
-                emptyView.visibility = View.GONE
-                flMainContainer2.visibility = View.GONE
-                smartRefreshLayout.visibility = View.GONE
-                flMainContainer3.visibility = View.VISIBLE
-                flMainContainer3.addView(mainView)
-            }
-            else -> {
-                smartRefreshLayout.visibility = View.VISIBLE
-                flMainContainer2.visibility = View.GONE
-                flMainContainer3.visibility = View.GONE
-                flMainContainer.addView(mainView)
-            }
-        }
-        //初始化下拉刷新
-        smartRefreshLayout
-            .useHeader(context, SmartRefreshHeader.BezierCircleHeader)
-            .useFooter(context, SmartRefreshFooter.ClassicsFooter)
 
     }
 

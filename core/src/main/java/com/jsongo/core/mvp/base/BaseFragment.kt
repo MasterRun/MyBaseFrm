@@ -51,11 +51,12 @@ abstract class BaseFragment : Fragment(), IPage {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val contentView = inflater.inflate(R.layout.layout_frm_base, container, false)
+        return inflater.inflate(R.layout.layout_frm_base, container, false);
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initIPage(context!!)
-
-        return contentView;
     }
 
     override fun getIPageView() {
