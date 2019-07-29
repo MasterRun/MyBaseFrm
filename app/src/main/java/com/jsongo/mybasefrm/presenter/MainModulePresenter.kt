@@ -19,6 +19,22 @@ class MainModulePresenter(view: IMainModule.IView) :
     override lateinit var model: IMainModule.IModel
 
     override fun start() {
+        getAuthtypes()
+    }
+
+    fun getAuthtypes() {
+        mainScope.launch {
+            try {
+                val data = model.getAuthtypes().getAsJsonPrimitive("data").toString()
+                view?.onGetDailyGank(data)
+                view?.onPageLoaded()
+            } catch (e: Exception) {
+                view?.onPageError(e.message)
+            }
+        }
+    }
+
+    fun getDaliyDank() {
         mainScope.launch {
             try {
                 val category = model.getDailyGank().getAsJsonArray("category")
@@ -28,6 +44,5 @@ class MainModulePresenter(view: IMainModule.IView) :
                 view?.onPageError()
             }
         }
-
     }
 }

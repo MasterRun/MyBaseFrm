@@ -12,7 +12,12 @@ import com.jsongo.mybasefrm.nework.ApiService
  * desc :
  */
 class MainModuleModel : BaseModel(), IMainModule.IModel {
+
     override suspend fun getDailyGank(): JsonObject {
-        return ApiManager.createApiService(ApiService::class.java).dailyGank2()
+        return ApiManager.createApiService(ApiService::class.java).dailyGank()
+    }
+
+    override suspend fun getAuthtypes(): JsonObject {
+        return ApiManager.createApiService(ApiService::class.java).authtypes()
     }
 }

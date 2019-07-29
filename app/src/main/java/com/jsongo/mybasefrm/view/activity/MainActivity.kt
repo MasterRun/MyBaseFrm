@@ -54,6 +54,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             true
         }
 
+        topbar.setOnClickListener {
+            val intent = Intent(this@MainActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         btn.setOnClickListener {
             val webPath = "file:///android_asset/web/index.html"
 
@@ -98,6 +103,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         tv.text = txt
     }
 
+    override fun onPageReloading() {
+        super.onPageReloading()
+        presenter.start()
+    }
+
     /**
      * 设置返回键不关闭应用,回到桌面
      *
@@ -114,10 +124,5 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             return true
         }
         return super.onKeyDown(keyCode, event)
-    }
-
-    override fun onPageReloading() {
-        super.onPageReloading()
-        presenter.start()
     }
 }

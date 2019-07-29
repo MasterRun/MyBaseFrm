@@ -61,4 +61,9 @@ class MainFragment : BaseMvpFragment<IMainModule.IModel, IMainModule.IView>(), I
     override fun onGetDailyGank(txt: String?) {
         tv.text = txt
     }
+
+    override fun onPageReloading() {
+        super.onPageReloading()
+        presenter.start()
+    }
 }

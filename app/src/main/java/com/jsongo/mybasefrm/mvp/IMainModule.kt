@@ -12,6 +12,7 @@ interface IMainModule {
 
     interface IModel : IBaseMvp.IBaseModel {
         suspend fun getDailyGank(): JsonObject
+        suspend fun getAuthtypes(): JsonObject
     }
 
     interface IView : IBaseMvp.IBaseView {

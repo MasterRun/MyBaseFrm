@@ -2,7 +2,6 @@ package com.jsongo.mybasefrm.mvp
 
 import com.google.gson.JsonObject
 import com.jsongo.core.mvp.base.IBaseMvp
-import com.jsongo.core.network.ApiCallback
 
 /**
  * author ： jsongo
@@ -11,7 +10,8 @@ import com.jsongo.core.network.ApiCallback
  */
 interface IMain {
     interface IModel : IBaseMvp.IBaseModel {
-        fun getDailyGank(callback: ApiCallback<JsonObject>)
+        suspend fun getDailyGank(): JsonObject
+        suspend fun getAuthtypes(): JsonObject
     }
 
     interface IView : IBaseMvp.IBaseView {

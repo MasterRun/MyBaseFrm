@@ -8,7 +8,9 @@ import io.reactivex.disposables.Disposable
  * @date 2019/3/26 17:14
  */
 abstract class BaseModel : IBaseMvp.IBaseModel {
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    override val compositeDisposable: CompositeDisposable by lazy {
+        CompositeDisposable()
+    }
 
     fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)

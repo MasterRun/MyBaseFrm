@@ -1,11 +1,10 @@
 package com.jsongo.mybasefrm.presenter
 
-import com.google.gson.JsonObject
 import com.jsongo.core.annotations.Model
 import com.jsongo.core.mvp.base.BasePresenter
-import com.jsongo.core.network.ApiCallback
 import com.jsongo.mybasefrm.model.MainModel
 import com.jsongo.mybasefrm.mvp.IMain
+import kotlinx.coroutines.launch
 
 /**
  * author ： jsongo
@@ -19,16 +18,30 @@ class MainPresenter(view: IMain.IView) : BasePresenter<IMain.IModel, IMain.IView
     override lateinit var model: IMain.IModel
 
     override fun start() {
-        model.getDailyGank(object : ApiCallback<JsonObject> {
-            override fun onSuccess(t: JsonObject) {
-                val category = t.getAsJsonArray("category")
+        getAuthtypes()
+    }
+
+    fun getAuthtypes() {
+        mainScope.launch {
+            try {
+                val data = model.getAuthtypes().getAsJsonObject("data").toString()
+                view?.onGetDailyGank(data)
+                view?.onPageLoaded()
+            } catch (e: Exception) {
+                view?.onPageError(e.message)
+            }
+        }
+    }
+
+    fun getDaliyDank() {
+        mainScope.launch {
+            try {
+                val category = model.getDailyGank().getAsJsonArray("category")
                 view?.onGetDailyGank(category[0].asString)
                 view?.onPageLoaded()
-            }
-
-            override fun onFailed(code: Int, msg: String, obj: Any?) {
+            } catch (e: Exception) {
                 view?.onPageError()
             }
-        })
+        }
     }
 }

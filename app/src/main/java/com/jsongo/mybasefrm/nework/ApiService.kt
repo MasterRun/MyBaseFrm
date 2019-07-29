@@ -1,7 +1,6 @@
 package com.jsongo.mybasefrm.nework
 
 import com.google.gson.JsonObject
-import io.reactivex.Observable
 import retrofit2.http.GET
 
 /**
@@ -12,8 +11,8 @@ import retrofit2.http.GET
 interface ApiService {
 
     @GET("today")
-    fun dailyGank(): Observable<JsonObject>
+    suspend fun dailyGank(): JsonObject
 
-    @GET("today")
-    suspend fun dailyGank2(): JsonObject
+    @GET("userauth/types")
+    suspend fun authtypes(): JsonObject
 }

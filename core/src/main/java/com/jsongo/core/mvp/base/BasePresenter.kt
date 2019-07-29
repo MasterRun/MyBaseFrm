@@ -10,6 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import java.lang.ref.WeakReference
@@ -22,8 +23,12 @@ import java.util.concurrent.TimeUnit
 abstract class BasePresenter<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBaseView>(view: V) :
     IBaseMvp.IBasePresenter<M, V> {
 
-    override val mainScope = MainScope()
-    override val compositeDisposable = CompositeDisposable()
+    override val mainScope: CoroutineScope by lazy {
+        MainScope()
+    }
+    override val compositeDisposable: CompositeDisposable by lazy {
+        CompositeDisposable()
+    }
 
     final override val weakView: WeakReference<out V>
 

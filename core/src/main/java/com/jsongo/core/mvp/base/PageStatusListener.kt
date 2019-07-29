@@ -34,7 +34,12 @@ interface PageStatusListener {
     /**
      * 使用QMUIEmptyView
      */
-    fun onPageError()
+
+    fun onPageError() {
+        onPageError("")
+    }
+
+    fun onPageError(msg: String?)
 
 }
 

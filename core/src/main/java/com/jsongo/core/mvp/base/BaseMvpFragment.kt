@@ -67,10 +67,11 @@ abstract class BaseMvpFragment<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
         }
     }
 
-    override fun onPageError() {
+    override fun onPageError(msg: String?) {
         pageStatus = Status.ERROR
         smartRefreshLayout.finishRefresh()
-        emptyView.show(false, "出错喽", "数据找不到了", "重试") {
+        val message = if (msg.isNullOrEmpty()) "数据找不到了" else msg
+        emptyView.show(false, "出错喽", message, "重试") {
             onPageReloading()
         }
     }

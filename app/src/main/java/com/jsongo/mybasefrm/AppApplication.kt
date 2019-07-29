@@ -49,6 +49,6 @@ class AppApplication : Application() {
 
         val isDebug: Boolean
             @Contract(pure = true)
-            get() = false
+            get() = true
     }
 }
