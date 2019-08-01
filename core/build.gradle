@@ -8,8 +8,8 @@ android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
         minSdkVersion versions.minSdk
-        versionCode 3
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.3"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

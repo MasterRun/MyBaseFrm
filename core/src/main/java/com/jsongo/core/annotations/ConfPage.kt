@@ -1,7 +1,6 @@
 package com.jsongo.core.annotations
 
 import com.jsongo.core.mvp.base.IPage
-import kotlin.reflect.full.declaredMemberProperties
 import kotlin.reflect.full.findAnnotation
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
@@ -24,7 +23,6 @@ object ConfPageProcessor {
         val targetClass = any::class
         val confPage = targetClass.findAnnotation<ConfPage>()
         if (confPage != null) {
-            targetClass.declaredMemberProperties
             targetClass.memberProperties.forEach {
                 it.isAccessible = true
                 if (it.name.equals("mainLayoutId")) {
