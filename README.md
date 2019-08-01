@@ -1,11 +1,11 @@
 ### todo list
-- 扫码按钮
 - 启动页  --ok 
-- RecyclerView
 - BaseFragment  --ok
-- QMUIGroupListView 实现设置页面
 - 使用自定义注解  --ok
-- 使用依赖注入框架 
+- 扫码按钮  --ok
+- QMUIGroupListView 实现设置页面
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
 - 封装网络请求返回处理
+- RecyclerView
+- 使用依赖注入框架 

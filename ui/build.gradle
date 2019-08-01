@@ -8,14 +8,23 @@ android {
     compileSdkVersion versions.compileSdk
     defaultConfig {
         minSdkVersion versions.minSdk
-        versionCode 3
-        versionName "1.0.2.a"
+        versionCode 1
+        versionName "1.0.0.a"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/emoji'
+            ]
+        }
     }
 
     buildTypes {
@@ -37,6 +46,4 @@ dependencies {
     api 'com.jsongo.basefrm:core:1.0.3.a'
 //    api project(path: ':core')
 
-    //jsbridge
-    api 'com.github.lzyzsd:jsbridge:1.0.4'
 }

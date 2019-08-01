@@ -6,7 +6,15 @@ import android.content.ComponentCallbacks2
 import android.content.Context
 import com.bumptech.glide.Glide
 import com.jsongo.ajs.AJs
+import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.core.BaseCore
+import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.view.activity.ScanCodeActivity
+import com.jsongo.ui.BaseUI
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
+import com.safframework.log.L
+import com.vondear.rxfeature.module.scaner.OnRxScanerListener
 import org.jetbrains.annotations.Contract
 
 /**
@@ -19,7 +27,40 @@ class AppApplication : Application() {
         super.onCreate()
         BaseCore.init()
         AJs.init(this)
+        BaseUI.init(this)
         BaseCore.isDebug = isDebug
+
+        setScanCodeListener()
+    }
+
+    /**
+     * 设置扫描信息回调
+     */
+    fun setScanCodeListener() {
+        ScanCodeActivity.setScanerListener(object : OnRxScanerListener {
+            override fun onSuccess(type: String?, result: com.google.zxing.Result?) {
+                val str = result?.text ?: ""
+                val topActivity = ActivityCollector.topActivity
+                if (str.startsWith("http://") || str.startsWith("https://")) {
+                    DefaultWebLoader.load(str)
+                    topActivity.finish()
+                } else {
+                    QMUIDialog.MessageDialogBuilder(topActivity)
+                        .setTitle("扫描结果")
+                        .setMessage(str)
+                        .addAction("OK", object : QMUIDialogAction.ActionListener {
+                            override fun onClick(dialog: QMUIDialog?, index: Int) {
+                                topActivity.finish()
+                            }
+                        })
+                        .show()
+                }
+            }
+
+            override fun onFail(type: String?, message: String?) {
+                L.e(message)
+            }
+        })
     }
 
     override fun attachBaseContext(context: Context) {

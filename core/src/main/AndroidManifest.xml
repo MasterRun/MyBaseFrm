@@ -35,6 +35,7 @@
 		</activity>
 		<activity android:name=".crash.CrashActivity" />
 		<activity android:name=".widget.ImagePreview.ImagePreviewActivity" />
+		<activity android:name=".view.activity.ScanCodeActivity" />
 	</application>
 
 </manifest>

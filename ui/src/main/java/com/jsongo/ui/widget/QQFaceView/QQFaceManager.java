@@ -1,10 +1,10 @@
-package com.jsongo.core.widget;
+package com.jsongo.ui.widget.QQFaceView;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.ArrayMap;
 import android.util.SparseIntArray;
 
-import com.jsongo.core.R;
+import com.jsongo.ui.R;
 import com.qmuiteam.qmui.qqface.IQMUIQQFaceManager;
 import com.qmuiteam.qmui.qqface.QQFace;
 import com.safframework.log.L;

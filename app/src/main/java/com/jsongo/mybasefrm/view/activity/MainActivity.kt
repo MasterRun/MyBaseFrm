@@ -17,7 +17,7 @@ import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
 import com.jsongo.mybasefrm.view.fragment.MainFragment
-import com.vondear.rxfeature.activity.ActivityScanerCode
+import com.jsongo.ui.widget.FloatingView
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,6 +31,9 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
     override fun initView() {
         setSwipeBackEnable(false)
+
+        val floatingView = FloatingView(this)
+        floatingView.show()
 
         topbar.backImageButton.visibility = View.GONE
 
@@ -47,12 +50,6 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 RxToast.success("loadmore")
                 it.finishLoadMore(1000)
             }
-
-        topbar.setOnLongClickListener {
-            val intent = Intent(this@MainActivity, ActivityScanerCode::class.java)
-            startActivity(intent)
-            true
-        }
 
         topbar.setOnClickListener {
             val intent = Intent(this@MainActivity, MainActivity::class.java)

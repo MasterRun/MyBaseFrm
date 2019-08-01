@@ -9,7 +9,7 @@ android {
     defaultConfig {
         minSdkVersion versions.minSdk
         versionCode 4
-        versionName "1.0.3"
+        versionName "1.0.3.a"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -20,18 +20,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    sourceSets {
-        main {
-            res.srcDirs = [
-                    'src/main/res',
-                    'src/main/emoji'
-            ]
-        }
-    }
-
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../proguard-rules.pro', '../tencentx5_proguard.pro'
         }
     }
