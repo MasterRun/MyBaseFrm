@@ -90,6 +90,10 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             println(2 / a)
         }
 
+        btn_go.setOnClickListener {
+            startActivity(Intent(this@MainActivity, GroupListViewActivity::class.java))
+        }
+
 /*        btn.visibility = View.GONE
         btn_loadbaidu.visibility = View.GONE
         btn_testdb.visibility = View.GONE

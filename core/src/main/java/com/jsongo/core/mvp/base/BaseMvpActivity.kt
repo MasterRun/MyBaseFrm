@@ -28,6 +28,8 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
 
         if (showEnterPageLoading) {
             onPageLoading()
+        } else {
+            onPageLoaded()
         }
 
         PresenterBinder.bind(this)

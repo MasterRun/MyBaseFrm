@@ -41,12 +41,20 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn_testdb" />
 	
+	<Button
+		android:id="@+id/btn_go"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="go grouplistview"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
+	
 	<TextView
 		android:id="@+id/tv"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
+		app:layout_constraintTop_toBottomOf="@id/btn_go" />
 	
 	<FrameLayout
 		android:id="@+id/fl_fragment_container"

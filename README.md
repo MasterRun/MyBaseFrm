@@ -1,5 +1,7 @@
-# 个人搭建的Android框架
-个人搭建的Android框架
+# Android小小小小小框架
+个人搭建的Android小小小小小框架 Building...  
+
+还在搭建中，尚无demo，app module中用于个人测试
 
 mvp kotlin retrofit qmui jsbridge 腾讯x5内核 等搭建
 
@@ -17,9 +19,9 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
 - 封装网络请求返回处理
-- 使用kotlin观察代理，实现简易viewmodel，Model View ViewModel  更改的是presenter
+- 使用kotlin观察代理
 - RecyclerView
-- 使用依赖注入框架  aop  aspectj   apt  javassit
+- 使用依赖注入框架  aop  aspectj   apt  javassist
 
 
 鸣谢：
