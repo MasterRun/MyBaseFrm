@@ -7,9 +7,9 @@ import android.widget.CompoundButton
 import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.bean.SettingItem
-import com.jsongo.mybasefrm.bean.SettingSection
-import com.jsongo.mybasefrm.view.fragment.SettingListFragment
+import com.jsongo.ui.component.SettingListFragment.SettingItem
+import com.jsongo.ui.component.SettingListFragment.SettingListFragment
+import com.jsongo.ui.component.SettingListFragment.SettingSection
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.vondear.rxtool.view.RxToast
 

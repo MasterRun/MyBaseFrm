@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.view.fragment
+package com.jsongo.ui.component.SettingListFragment
 
 import android.content.Context
 import android.net.Uri
@@ -6,19 +6,19 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.ViewGroup
-import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.mvp.base.BaseFragment
-import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.bean.SettingItem
-import com.jsongo.mybasefrm.bean.SettingSection
+import com.jsongo.ui.R
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.safframework.log.L
 import kotlinx.android.synthetic.main.layout_setting_list.view.*
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
-@ConfPage(R.layout.layout_setting_list, 3)
+//@ConfPage(R.layout.layout_setting_list, 3)
 class SettingListFragment : BaseFragment() {
+
+    override var mainLayoutId = R.layout.layout_setting_list
+    override var containerIndex = 3
 
     private lateinit var sectionList: List<SettingSection>
     private var listener: OnFragmentInteractionListener? = null

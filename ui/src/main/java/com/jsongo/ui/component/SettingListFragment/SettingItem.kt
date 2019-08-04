@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.bean
+package com.jsongo.ui.component.SettingListFragment
 
 import android.support.annotation.DrawableRes
 import android.view.View

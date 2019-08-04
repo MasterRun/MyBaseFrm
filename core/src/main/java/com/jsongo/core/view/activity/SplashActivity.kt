@@ -17,7 +17,6 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
 
         flMainContainer3.setPadding(0, 0, 0, 0)
         val disposable = Observable.timer(800, TimeUnit.MILLISECONDS)
