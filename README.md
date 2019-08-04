@@ -1,3 +1,13 @@
+# 个人搭建的Android框架
+个人搭建的Android框架
+
+mvp kotlin retrofit qmui jsbridge 腾讯x5内核 等搭建
+
+activity fragment 注解配置布局，页面多容器可选，简便的状态管理
+
+<b>Android小菜鸟building  不喜勿喷</b>
+
+
 ### todo list
 - 启动页  --ok 
 - BaseFragment  --ok
@@ -10,3 +20,20 @@
 - 使用kotlin观察代理，实现简易viewmodel，Model View ViewModel  更改的是presenter
 - RecyclerView
 - 使用依赖注入框架  aop  aspectj   apt  javassit
+
+
+鸣谢：
+- `com.qmuiteam:qmui` 腾讯qmui Android
+- 腾讯x5内核
+- `com.github.tamsiree.RxTool`  RxTool,Android开发工具合集
+- `com.github.lzyzsd:jsbridge` android js 混合开发jsbridge
+- `com.github.HuanTanSheng:EasyPhotos`  Android高仿微信图片选取
+- `com.squareup.okhttp3`  okhttp
+- `com.squareup.retrofit2` retrofit
+- `com.liulishuo.okdownload` 下载库
+- `com.github.tbruyelle:rxpermissions` 动态权限申请
+- `com.github.bumptech.glide`  glide图片加载
+- `com.safframework.log`  使用的日志工具 可配合okhttp拦截器
+- `com.scwang.smartrefresh`  强大的刷新
+- `com.ycjiang:ImagePreview` 图片预览
+- `com.google.zxing`  扫描二维码
