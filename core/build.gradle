@@ -5,11 +5,11 @@ apply plugin: 'kotlin-android-extensions'
 apply from: './maven-repository.gradle'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion proVer.compileSdk
     defaultConfig {
         minSdkVersion versions.minSdk
-        versionCode 4
-        versionName "1.0.3.a"
+        versionCode libConf.core.verCode
+        versionName libConf.core.verName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -32,60 +32,65 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api "com.android.support:multidex:1.0.3"
-    api "com.android.support:support-v4:${versions.androidSupport}"
-    api "com.android.support:design:${versions.androidSupport}"
-    api "com.android.support:cardview-v7:${versions.androidSupport}"
-    api "com.android.support:appcompat-v7:${versions.androidSupport}"
-    api "com.android.support:recyclerview-v7:${versions.androidSupport}"
-    api "com.android.support:support-annotations:${versions.androidSupport}"
-    api "com.android.support:support-core-utils:${versions.androidSupport}"
+    //android support
+    api "com.android.support:multidex:${proVer.multidex}"
+    api "com.android.support:support-v4:${proVer.androidSupport}"
+    api "com.android.support:design:${proVer.androidSupport}"
+    api "com.android.support:cardview-v7:${proVer.androidSupport}"
+    api "com.android.support:appcompat-v7:${proVer.androidSupport}"
+    api "com.android.support:recyclerview-v7:${proVer.androidSupport}"
+    api "com.android.support:support-annotations:${proVer.androidSupport}"
+    api "com.android.support:support-core-utils:${proVer.androidSupport}"
     api 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
 
+    //test
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${versions.kotlin}"
-    api "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:${versions.kcoroutines}"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.kcoroutines}"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${versions.kcoroutines}"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${proVer.kotlin}"
+    api "org.jetbrains.kotlin:kotlin-reflect:${proVer.kotlin}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:${proVer.kcoroutines}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${proVer.kcoroutines}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${proVer.kcoroutines}"
 
     //rxjava
-    api "io.reactivex.rxjava2:rxjava:2.2.7"
-    api "io.reactivex.rxjava2:rxandroid:2.1.1"
+    api "io.reactivex.rxjava2:rxjava:${proVer.rxjava}"
+    api "io.reactivex.rxjava2:rxandroid:${proVer.rxandroid}"
     //rxpermissions
-    api 'com.github.tbruyelle:rxpermissions:0.10.2'
+    api "com.github.tbruyelle:rxpermissions:${proVer.rxpermissions}"
+
     //okhttp retrofit
-    api "com.squareup.okhttp3:okhttp:3.12.1"
-    api "com.squareup.retrofit2:retrofit:${versions.retrofit}"
-    api "com.squareup.retrofit2:adapter-rxjava2:${versions.retrofit}"
+    api "com.squareup.okhttp3:okhttp:${proVer.okhttp}"
+    api "com.squareup.retrofit2:retrofit:${proVer.retrofit}"
+    api "com.squareup.retrofit2:adapter-rxjava2:${proVer.retrofit}"
     //okdownload
     api 'com.liulishuo.okdownload:okdownload:1.0.5'
     //gson
-    api "com.google.code.gson:gson:2.8.4"
-    api "com.squareup.retrofit2:converter-gson:${versions.retrofit}"
+    api "com.google.code.gson:gson:${proVer.gson}"
+    api "com.squareup.retrofit2:converter-gson:${proVer.retrofit}"
+
     //Glide
-    api "com.github.bumptech.glide:glide:4.7.1"
+    api "com.github.bumptech.glide:glide:${proVer.glide}"
+
     //rxtool
-    api "com.github.tamsiree.RxTool:RxKit:${versions.rxtool}"
-    api "com.github.tamsiree.RxTool:RxUI:${versions.rxtool}"
-    api "com.github.tamsiree.RxTool:RxCamera:${versions.rxtool}"
+    api "com.github.tamsiree.RxTool:RxKit:${proVer.rxtool}"
+    api "com.github.tamsiree.RxTool:RxUI:${proVer.rxtool}"
+    api "com.github.tamsiree.RxTool:RxCamera:${proVer.rxtool}"
     //功能库（Zxing扫描与生成二维码条形码 支付宝 微信）
-    api "com.github.tamsiree.RxTool:RxFeature:${versions.rxtool}"
+    api "com.github.tamsiree.RxTool:RxFeature:${proVer.rxtool}"
     //ArcGis For Android工具库（API：100.1以上版本）
-//    api "com.github.tamsiree.RxTool:RxArcGisKit:${versions.rxtool}"
+//    api "com.github.tamsiree.RxTool:RxArcGisKit:${proVer.rxtool}"
 
     //log
     api 'com.safframework.log:saf-logginginterceptor:1.3.3'
     api 'com.safframework.log:saf-log:1.5.5' //UI库
     //qmui
-    api "com.qmuiteam:qmui:1.4.0"
+    api "com.qmuiteam:qmui:${proVer.qmui}"
     //smart refresh layout
-    api "com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-31"
-    api "com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-31"
+    api "com.scwang.smartrefresh:SmartRefreshLayout:${proVer.smartrefresh}"
+    api "com.scwang.smartrefresh:SmartRefreshHeader:${proVer.smartrefresh}"
     //easyphoto 图片选取
     api 'com.github.HuanTanSheng:EasyPhotos:2.4.0'
     //image preview

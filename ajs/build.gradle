@@ -5,11 +5,11 @@ apply plugin: 'kotlin-android-extensions'
 apply from: './maven-repository.gradle'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion proVer.compileSdk
     defaultConfig {
-        minSdkVersion versions.minSdk
-        versionCode 3
-        versionName "1.0.2.a"
+        minSdkVersion proVer.minSdk
+        versionCode libConf.ajs.verCode
+        versionName libConf.ajs.verName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,9 +34,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    api 'com.jsongo.basefrm:core:1.0.3.a'
-//    api project(path: ':core')
+    if (libConf.useOnlineAAR) {
+        api "com.jsongo.basefrm:core:${libConf.core.aarVer}"
+    } else {
+        api project(path: ':core')
+    }
 
     //jsbridge
-    api 'com.github.lzyzsd:jsbridge:1.0.4'
+    api "com.github.lzyzsd:jsbridge:${proVer.jsbridge}"
 }

@@ -2,13 +2,29 @@ apply plugin: 'maven'
 
 ext {
     PUBLISH_ARTIFACT_ID = 'core'
-    PUBLISH_VERSION = '1.0.3.a'
+    PUBLISH_VERSION = libConf.core.verName
 }
 
 uploadArchives {
-    repositories.mavenDeployer {
+    //本地配置
+/*    repositories.mavenDeployer {
         def deployPath = file(REMOTE_REPO_PATH)
         repository(url: "file://${deployPath.absolutePath}")
+        pom.project {
+            groupId PUBLISH_GROUP_ID
+            artifactId project.PUBLISH_ARTIFACT_ID
+            version project.PUBLISH_VERSION
+        }
+    }*/
+    //阿里云效配置
+    repositories.mavenDeployer {
+        repository(url: AliyunRepo_RELEASE) {
+            authentication(userName: AliyunRepo_USERNAME, password: AliyunRepo_PASSWORD)
+        }
+        snapshotRepository(url: AliyunRepo_SNAPSHOT) {
+            authentication(userName: AliyunRepo_USERNAME, password: AliyunRepo_PASSWORD)
+        }
+        //pom配置
         pom.project {
             groupId PUBLISH_GROUP_ID
             artifactId project.PUBLISH_ARTIFACT_ID

@@ -1,0 +1,69 @@
+ext {
+
+    libConf = [
+            //是否上采用在线引用方式  打包上传时使用true
+            'useOnlineAAR': true,
+
+            /**
+             * 三个变量分别为
+             * verCode 当前版本code
+             * verName 当前版本Name
+             * arrVer 在线引用的版本
+             */
+
+            'ajs'         : [
+                    'verCode': 3,
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
+            ],
+
+            'app'         : [
+                    'verCode': 1,
+                    'verName': '1.0.0'
+            ],
+
+            'core'        : [
+                    'verCode': 4,
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
+            ],
+
+            'ui'          : [
+                    'verCode': 1,
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
+            ]
+
+    ]
+
+    proVer = [
+            'compileSdk'    : 28,
+            'minSdk'        : 21,
+            'androidSupport': '28.0.0',
+
+            'multidex'      : '1.0.3',
+
+            'kotlin'        : '1.3.41',
+            'kcoroutines'   : '1.3.0-RC',
+
+            'rxtool'        : 'v2.3.9',
+
+            'retrofit'      : '2.6.0',
+            'okhttp'        : '3.12.1',
+
+            'qmui'          : '1.4.0',
+
+            'smartrefresh'  : '1.1.0-alpha-31',
+
+            'rxjava'        : '2.2.7',
+            'rxandroid'     : '2.1.1',
+            'rxpermissions' : '0.10.2',
+
+            'gson'          : '2.8.4',
+
+            'glide'         : '4.7.1',
+
+            'jsbridge'      : '1.0.4',
+    ]
+
+}

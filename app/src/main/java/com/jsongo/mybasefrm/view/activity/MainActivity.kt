@@ -20,6 +20,7 @@ import com.jsongo.mybasefrm.view.fragment.MainFragment
 import com.jsongo.ui.widget.FloatingView
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.properties.Delegates
 
 @ConfPage(R.layout.activity_main, 2)
 class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
@@ -29,7 +30,12 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
     @Presenter(MainPresenter::class)
     private lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
 
+    var txt: String by Delegates.observable("init value") { prop, old, newValue ->
+        tv.text = newValue
+    }
+
     override fun initView() {
+
         setSwipeBackEnable(false)
 
         val floatingView = FloatingView(this)
@@ -97,7 +103,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
     }
 
     override fun onGetDailyGank(txt: String?) {
-        tv.text = txt
+//        tv.text = txt
+        this.txt = txt ?: ""
     }
 
     override fun onPageReloading() {

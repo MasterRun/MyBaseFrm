@@ -7,5 +7,6 @@
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
 - 封装网络请求返回处理
+- 使用kotlin观察代理，实现简易viewmodel，Model View ViewModel  更改的是presenter
 - RecyclerView
-- 使用依赖注入框架 
+- 使用依赖注入框架  aop  aspectj   apt  javassit
