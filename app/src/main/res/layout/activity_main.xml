@@ -42,10 +42,10 @@
 		app:layout_constraintTop_toBottomOf="@id/btn_testdb" />
 	
 	<Button
-		android:id="@+id/btn_go"
+		android:id="@+id/btn_change"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="go grouplistview"
+		android:text="切换fragment"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
 	
@@ -54,7 +54,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_go" />
+		app:layout_constraintTop_toBottomOf="@id/btn_change" />
 	
 	<FrameLayout
 		android:id="@+id/fl_fragment_container"

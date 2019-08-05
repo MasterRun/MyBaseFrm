@@ -1,5 +1,6 @@
 package com.jsongo.mybasefrm.view.fragment
 
+import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.annotations.Presenter
@@ -26,6 +27,7 @@ class MainFragment : BaseMvpFragment<IMainModule.IModel, IMainModule.IView>(), I
     lateinit var presenter: IMainModule.IPresenter<IMainModule.IModel, IMainModule.IView>
 
     override fun initView() {
+        topbar.visibility = View.GONE
         view?.apply {
 
             btn.setOnClickListener {

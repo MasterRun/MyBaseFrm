@@ -1,4 +1,4 @@
-package com.jsongo.ui.component.util;
+package com.jsongo.ui.util;
 
 import android.app.Activity;
 import android.support.v4.content.ContextCompat;

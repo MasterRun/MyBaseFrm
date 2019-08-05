@@ -17,6 +17,7 @@ import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
 import com.jsongo.mybasefrm.view.fragment.MainFragment
+import com.jsongo.mybasefrm.view.fragment.MyPageFragment
 import com.jsongo.ui.widget.FloatingView
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
@@ -89,9 +90,35 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             val a = 0
             println(2 / a)
         }
+        val mainFragment = MainFragment()
+        val myPageFragment = MyPageFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fl_fragment_container, mainFragment, "MainFragment")
+        transaction.add(R.id.fl_fragment_container, myPageFragment, "MyPageFragment")
+        transaction.commit()
 
-        btn_go.setOnClickListener {
-            startActivity(Intent(this@MainActivity, GroupListViewActivity::class.java))
+        fun showMainFragment() {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.hide(myPageFragment)
+            transaction.show(mainFragment)
+            transaction.commit()
+        }
+
+        fun showMyPageFragment() {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.hide(mainFragment)
+            transaction.show(myPageFragment)
+            transaction.commit()
+        }
+
+        btn_change.setOnClickListener {
+
+            if (times % 2 == 0) {
+                showMyPageFragment()
+            } else {
+                showMainFragment()
+            }
+            times++
         }
 
 /*        btn.visibility = View.GONE
@@ -100,10 +127,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         btn_crash.visibility = View.GONE
         tv.visibility = View.GONE*/
         flMainContainer3.setBackgroundColor(ContextCompat.getColor(this, R.color.app_color_theme))
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fl_fragment_container, MainFragment())
-        transaction.commit()
-
+        showMainFragment()
     }
 
     override fun onGetDailyGank(txt: String?) {

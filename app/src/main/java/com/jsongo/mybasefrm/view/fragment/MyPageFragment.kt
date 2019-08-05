@@ -1,29 +1,27 @@
-package com.jsongo.mybasefrm.view.activity
+package com.jsongo.mybasefrm.view.fragment
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import com.jsongo.core.annotations.ConfPage
-import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.core.mvp.base.BaseFragment
 import com.jsongo.mybasefrm.R
 import com.jsongo.ui.component.SettingListFragment.SettingItem
 import com.jsongo.ui.component.SettingListFragment.SettingListFragment
 import com.jsongo.ui.component.SettingListFragment.SettingSection
+import com.jsongo.ui.component.SettingListFragment.correctDetailTextPosition
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.vondear.rxtool.view.RxToast
 
-@ConfPage(R.layout.activity_group_list_view, 2)
-class GroupListViewActivity : BaseActivity(), SettingListFragment.OnFragmentInteractionListener {
-
-    override fun onFragmentInteraction(uri: Uri) {
-
-    }
+@ConfPage(R.layout.fragment_my_page, 2)
+class MyPageFragment : BaseFragment() {
 
     lateinit var settingFragment: SettingListFragment
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+//        smartRefreshLayout.isEnabled = false
 
         topbar.tvTitle.text = "设置"
 
@@ -67,13 +65,15 @@ class GroupListViewActivity : BaseActivity(), SettingListFragment.OnFragmentInte
             )
         )
         settingFragment = SettingListFragment.newInstance(sectionList)
-        val transaction = supportFragmentManager.beginTransaction()
+        val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fl_container, settingFragment)
         transaction.commit()
     }
 
-    override fun onResumeFragments() {
-        super.onResumeFragments()
-        settingFragment.itemViewMap["0-0"]?.showRedDot(true)
+    override fun onResume() {
+        super.onResume()
+        val listItemView = settingFragment.itemViewMap["0-0"]
+        listItemView?.showRedDot(true)
+        listItemView.correctDetailTextPosition()
     }
 }
