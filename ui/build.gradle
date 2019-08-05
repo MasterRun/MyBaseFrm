@@ -49,4 +49,8 @@ dependencies {
         api project(path: ':core')
     }
 
+    //easyphoto 图片选取
+    api 'com.github.HuanTanSheng:EasyPhotos:2.4.0'
+    //image preview
+    api 'com.ycjiang:ImagePreview:2.2.2'
 }

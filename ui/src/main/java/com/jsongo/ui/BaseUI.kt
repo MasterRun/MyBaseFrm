@@ -2,6 +2,8 @@ package com.jsongo.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.jsongo.ui.component.ImagePreview.ZoomImageLoader
+import com.previewlibrary.ZoomMediaLoader
 
 /**
  * @author  jsongo
@@ -13,5 +15,6 @@ object BaseUI {
     lateinit var context: Context
     fun init(context: Context) {
         this.context = context
+        ZoomMediaLoader.getInstance().init(ZoomImageLoader())
     }
 }

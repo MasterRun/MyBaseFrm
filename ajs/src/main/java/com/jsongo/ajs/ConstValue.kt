@@ -1,4 +1,4 @@
-package com.jsongo.core.util
+package com.jsongo.ajs
 
 /**
  * @author  jsongo

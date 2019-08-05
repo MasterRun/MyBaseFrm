@@ -36,8 +36,10 @@ dependencies {
 
     if (libConf.useOnlineAAR) {
         api "com.jsongo.basefrm:core:${libConf.core.aarVer}"
+        api "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
     } else {
         api project(path: ':core')
+        api project(path: ':ui')
     }
 
     //jsbridge

@@ -1,10 +1,10 @@
-package com.jsongo.core.widget.ImagePreview;
+package com.jsongo.ui.component.ImagePreview;
 
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.jsongo.core.R;
+import com.jsongo.ui.R;
 import com.previewlibrary.GPreviewActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 

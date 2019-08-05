@@ -2,7 +2,7 @@ package com.jsongo.ajs.webloader
 
 import android.content.Intent
 import com.jsongo.ajs.AJs
-import com.jsongo.core.util.ConstValue
+import com.jsongo.ajs.ConstValue
 
 /**
  * @author jsongo

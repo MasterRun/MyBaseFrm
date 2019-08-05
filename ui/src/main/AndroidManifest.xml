@@ -1,1 +1,7 @@
-<manifest package="com.jsongo.ui" />
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.jsongo.ui">
+	
+	<application>
+		<activity android:name=".component.ImagePreview.ImagePreviewActivity" />
+	</application>
+</manifest>

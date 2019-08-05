@@ -1,6 +1,7 @@
-package com.jsongo.core.util;
+package com.jsongo.ui.component.util;
 
 import android.app.Activity;
+import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jsongo.core.BaseCore;
-import com.jsongo.core.R;
-import com.jsongo.core.widget.ImagePreview.ImgPreviewClick;
+import com.jsongo.core.util.GlideUtil;
+import com.jsongo.ui.R;
+import com.jsongo.ui.component.ImagePreview.ImgPreviewClick;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIFloatLayout;
 
@@ -253,7 +255,7 @@ public class FloatLayoutHelper {
         ImageView img = new ImageView(activity);
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         GlideUtil.INSTANCE.load(activity, imgUrl, img);
-        img.setColorFilter(activity.getResources().getColor(R.color.light_gray_transparent));
+        img.setColorFilter(ContextCompat.getColor(activity, R.color.light_gray_transparent));
         FrameLayout.LayoutParams imgLayoutParams =
                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
@@ -261,7 +263,7 @@ public class FloatLayoutHelper {
         tv.setText("+" + num);
         tv.setTextSize(60);
         tv.setGravity(Gravity.CENTER);
-        tv.setTextColor(activity.getResources().getColor(R.color.white));
+        tv.setTextColor(ContextCompat.getColor(activity, R.color.white));
         FrameLayout.LayoutParams tvLayoutParams =
                 new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 

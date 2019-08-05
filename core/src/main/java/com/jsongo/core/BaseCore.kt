@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.multidex.MultiDex
 import com.jsongo.core.crash.CrashHandler
-import com.jsongo.core.widget.ImagePreview.ZoomImageLoader
-import com.previewlibrary.ZoomMediaLoader
 import com.vondear.rxtool.RxTool
 
 /**
@@ -20,7 +18,6 @@ object BaseCore {
 
     fun init() {
         CrashHandler.init()
-        ZoomMediaLoader.getInstance().init(ZoomImageLoader())
         //init RxTool without init RxCrashTool
         val contextField = RxTool::class.java.getDeclaredField("context")
         contextField.isAccessible = true

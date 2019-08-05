@@ -6,7 +6,7 @@ import android.os.Build;
 
 import com.github.lzyzsd.jsbridge.Message;
 import com.jsongo.ajs.AJs;
-import com.jsongo.core.util.ConstValue;
+import com.jsongo.ajs.ConstValue;
 import com.safframework.log.L;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
