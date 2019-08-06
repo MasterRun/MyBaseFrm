@@ -6,9 +6,11 @@ import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.jsongo.rawtest.R
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+import kotlinx.android.synthetic.main.grouplist.view.*
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
 class SettingListFragment : Fragment() {
@@ -24,15 +26,22 @@ class SettingListFragment : Fragment() {
     val sectionViewList = ArrayList<QMUIGroupListView.Section>()
     val itemViewMap = HashMap<String, QLv>()
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = layoutInflater.inflate(R.layout.layout_setting_list, container, false)
+    ): View? {
+        val view = layoutInflater.inflate(R.layout.layout_setting_list, container, false)
+        return view
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val glv = view as QMUIGroupListView
+        val frameLayout = view as FrameLayout
+        val grouplist = LayoutInflater.from(context).inflate(R.layout.grouplist, null)
+        frameLayout.addView(grouplist)
+        val glv = view.glv
 
         //循环创建SectionView并保存
         sectionList.forEachIndexed { index, it ->

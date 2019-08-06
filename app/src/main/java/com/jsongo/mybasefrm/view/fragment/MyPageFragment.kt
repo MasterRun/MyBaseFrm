@@ -21,7 +21,7 @@ class MyPageFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        smartRefreshLayout.isEnabled = false
+        smartRefreshLayout.isEnabled = false
 
         topbar.tvTitle.text = "设置"
 
@@ -71,10 +71,6 @@ class MyPageFragment : BaseFragment() {
                 )
             )
         )
-
-        val layoutParams = nsv.layoutParams
-        layoutParams.height = 2000
-        nsv.layoutParams = layoutParams
 
         settingFragment = SettingListFragment.newInstance(sectionList)
         val transaction = childFragmentManager.beginTransaction()

@@ -12,13 +12,12 @@ import java.util.concurrent.TimeUnit
 class SplashActivity : BaseActivity() {
 
     override var mainLayoutId = R.layout.activity_splash
-    override var containerIndex = 3
+    override var containerIndex = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        flMainContainer3.setPadding(0, 0, 0, 0)
         val disposable = Observable.timer(800, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())

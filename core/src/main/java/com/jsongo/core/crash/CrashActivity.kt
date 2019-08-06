@@ -50,7 +50,7 @@ class CrashActivity : BaseActivity() {
 
         setSwipeBackEnable(false)
 
-        clLayoutContainer.setBackgroundColor(Color.TRANSPARENT)
+        rlLayoutRoot.setBackgroundColor(Color.TRANSPARENT)
 
         occurTime = RxTimeTool.getCurTimeString()
         var crashLog = crashHeader

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.jsongo.core.util.ActivityCollector;
 import com.jsongo.ui.R;
 import com.previewlibrary.GPreviewActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -18,7 +19,7 @@ public class ImagePreviewActivity extends GPreviewActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ActivityCollector.INSTANCE.addActivity(this);
         QMUIStatusBarHelper.translucent(this);
     }
 
@@ -45,5 +46,11 @@ public class ImagePreviewActivity extends GPreviewActivity {
     @Override
     public void transformOut() {
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        ActivityCollector.INSTANCE.removeActivity(this);
+        super.onDestroy();
     }
 }

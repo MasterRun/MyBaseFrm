@@ -1,11 +1,12 @@
 package com.jsongo.core.mvp.base
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
 import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
+import com.jsongo.core.BaseCore
 import com.jsongo.core.annotations.ConfPageProcessor
 import com.jsongo.core.util.SmartRefreshFooter
 import com.jsongo.core.util.SmartRefreshHeader
@@ -25,7 +26,7 @@ interface IPage {
     /**
      * 根布局
      */
-    val clLayoutContainer: ConstraintLayout
+    val rlLayoutRoot: RelativeLayout
 
     /**
      * 标题栏
@@ -53,19 +54,13 @@ interface IPage {
     val flMainContainer2: FrameLayout
 
     /**
-     *容器3
-     */
-    val flMainContainer3: FrameLayout
-
-    /**
      * 空页面 状态页
      */
-
     val emptyView: QMUIEmptyView
+
     /**
      * 使用的容器下标
      */
-
     val containerIndex: Int
         get() = 1
 
@@ -86,42 +81,46 @@ interface IPage {
         //开启注解
         ConfPageProcessor.config(this)
 
-        if (mainLayoutId == 0) {
-            L.e("mainLayoutId of ${this} is 0")
+        //添加主内容到界面
+        if (mainLayoutId == 0 || containerIndex < 1 || containerIndex > 2) {
             topbar.visibility = View.GONE
             emptyView.visibility = View.GONE
             flMainContainer2.visibility = View.GONE
             smartRefreshLayout.visibility = View.GONE
-            flMainContainer3.visibility = View.GONE
+            if (mainLayoutId != 0) {
+                val mainView =
+                    LayoutInflater.from(context).inflate(mainLayoutId, rlLayoutRoot, false)
+                rlLayoutRoot.addView(mainView)
+                if (BaseCore.isDebug) {
+                    L.w("containerIndex of ${this} is ${containerIndex},use rlLayoutRoot")
+                }
+            } else {
+                if (BaseCore.isDebug) {
+                    L.w("mainLayoutId of ${this} is 0")
+                }
+            }
         } else {
-            //添加主内容到界面
-            val mainView = LayoutInflater.from(context).inflate(mainLayoutId, null)
             topbar.visibility = View.VISIBLE
             when (containerIndex) {
+                1 -> {
+                    val mainView =
+                        LayoutInflater.from(context).inflate(mainLayoutId, flMainContainer, false)
+                    smartRefreshLayout.visibility = View.VISIBLE
+                    flMainContainer2.visibility = View.GONE
+                    flMainContainer.addView(mainView)
+                    //初始化下拉刷新
+                    smartRefreshLayout
+                        .useHeader(context, SmartRefreshHeader.BezierCircleHeader)
+                        .useFooter(context, SmartRefreshFooter.ClassicsFooter)
+                }
                 2 -> {
+                    val mainView =
+                        LayoutInflater.from(context).inflate(mainLayoutId, flMainContainer2, false)
                     smartRefreshLayout.visibility = View.GONE
                     flMainContainer2.visibility = View.VISIBLE
                     flMainContainer2.addView(mainView)
                 }
-                3 -> {
-                    topbar.visibility = View.GONE
-                    emptyView.visibility = View.GONE
-                    flMainContainer2.visibility = View.GONE
-                    smartRefreshLayout.visibility = View.GONE
-                    flMainContainer3.visibility = View.VISIBLE
-                    flMainContainer3.addView(mainView)
-                }
-                else -> {
-                    smartRefreshLayout.visibility = View.VISIBLE
-                    flMainContainer2.visibility = View.GONE
-                    flMainContainer3.visibility = View.GONE
-                    flMainContainer.addView(mainView)
-                }
             }
-            //初始化下拉刷新
-            smartRefreshLayout
-                .useHeader(context, SmartRefreshHeader.BezierCircleHeader)
-                .useFooter(context, SmartRefreshFooter.ClassicsFooter)
         }
 
     }

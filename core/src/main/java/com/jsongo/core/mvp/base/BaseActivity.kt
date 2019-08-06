@@ -1,10 +1,10 @@
 package com.jsongo.core.mvp.base
 
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.widget.SlidingLayout
@@ -28,7 +28,7 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     lateinit var loadingDialog: QMUITipDialog
         protected set
 
-    override lateinit var clLayoutContainer: ConstraintLayout
+    override lateinit var rlLayoutRoot: RelativeLayout
         protected set
     override lateinit var topbar: TopbarLayout
         protected set
@@ -39,8 +39,6 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     override lateinit var flMainContainer: FrameLayout
         protected set
     override lateinit var flMainContainer2: FrameLayout
-        protected set
-    override lateinit var flMainContainer3: FrameLayout
         protected set
     override lateinit var emptyView: QMUIEmptyView
         protected set
@@ -71,12 +69,7 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
 
         //沉浸/透明状态栏
         QMUIStatusBarHelper.translucent(this)
-        if (containerIndex == 3) {
-            QMUIStatusBarHelper.setStatusBarLightMode(this)
-            flMainContainer3.setPadding(0, QMUIStatusBarHelper.getStatusbarHeight(this), 0, 0)
-        } else {
-            QMUIStatusBarHelper.setStatusBarDarkMode(this)
-        }
+        QMUIStatusBarHelper.setStatusBarDarkMode(this)
 
     }
 
@@ -84,13 +77,12 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
      * 获取widget
      */
     override fun getIPageView() {
-        clLayoutContainer = cl_layout_container
+        rlLayoutRoot = rl_layout_root
         topbar = findViewById(R.id.topbar)
         smartRefreshLayout = smart_refresh_layout
         nsv = findViewById(R.id.nsv)
         flMainContainer = fl_main_container
         flMainContainer2 = fl_main_container2
-        flMainContainer3 = fl_main_container3
         emptyView = empty_view
     }
 

@@ -10,14 +10,14 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
-//@ConfPage(R.layout.layout_setting_list, 3)
+//@ConfPage(R.layout.layout_setting_list, 0)
 class SettingListFragment : BaseFragment() {
 
     /**
      * 在lib中，资源id不是final变量，不能使用注解
      */
     override var mainLayoutId = R.layout.layout_setting_list
-    override var containerIndex = 3
+//    override var containerIndex = 0
 
     /**
      * 配置实体
@@ -34,6 +34,7 @@ class SettingListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val glv = view.findViewById<QMUIGroupListView>(R.id.glv)
+//        val glv = view as QMUIGroupListView
 
         //循环创建SectionView并保存
         sectionList.forEachIndexed { index, it ->

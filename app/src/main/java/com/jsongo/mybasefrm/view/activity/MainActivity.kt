@@ -1,7 +1,6 @@
 package com.jsongo.mybasefrm.view.activity
 
 import android.content.Intent
-import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
@@ -126,7 +125,6 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         btn_testdb.visibility = View.GONE
         btn_crash.visibility = View.GONE
         tv.visibility = View.GONE*/
-        flMainContainer3.setBackgroundColor(ContextCompat.getColor(this, R.color.app_color_theme))
         showMainFragment()
     }
 

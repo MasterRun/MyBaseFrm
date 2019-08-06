@@ -1,13 +1,13 @@
 package com.jsongo.core.mvp.base
 
 import android.os.Bundle
-import android.support.constraint.ConstraintLayout
 import android.support.v4.app.Fragment
 import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import com.jsongo.core.R
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.widget.QMUIEmptyView
@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.layout_frm_base.view.*
  * @desc fragment 父类
  */
 abstract class BaseFragment : Fragment(), IPage {
-    override lateinit var clLayoutContainer: ConstraintLayout
+    override lateinit var rlLayoutRoot: RelativeLayout
         protected set
     override lateinit var topbar: TopbarLayout
         protected set
@@ -33,15 +33,13 @@ abstract class BaseFragment : Fragment(), IPage {
         protected set
     override lateinit var flMainContainer2: FrameLayout
         protected set
-    override lateinit var flMainContainer3: FrameLayout
-        protected set
     override lateinit var emptyView: QMUIEmptyView
         protected set
 
     override var mainLayoutId = 0
         protected set
 
-    override var containerIndex = 3
+    override var containerIndex = 0
         protected set
 
 
@@ -61,13 +59,12 @@ abstract class BaseFragment : Fragment(), IPage {
 
     override fun getIPageView() {
         view?.let {
-            clLayoutContainer = it.cl_layout_container
+            rlLayoutRoot = it.rl_layout_root
             topbar = it.findViewById(R.id.topbar)
             smartRefreshLayout = it.smart_refresh_layout
             nsv = it.findViewById(R.id.nsv)
             flMainContainer = it.fl_main_container
             flMainContainer2 = it.fl_main_container2
-            flMainContainer3 = it.fl_main_container3
             emptyView = it.empty_view
         }
     }

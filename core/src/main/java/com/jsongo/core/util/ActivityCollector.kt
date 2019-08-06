@@ -2,7 +2,7 @@ package com.jsongo.core.util
 
 import android.app.ActivityManager
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
+import android.support.v4.app.FragmentActivity
 import com.jsongo.core.BaseCore
 import com.safframework.log.L
 import java.util.*
@@ -12,20 +12,20 @@ import java.util.*
  * @date 2018/8/16 8:38
  */
 object ActivityCollector {
-    private val activities = ArrayList<AppCompatActivity>()
+    private val activities = ArrayList<FragmentActivity>()
 
-    val topActivity: AppCompatActivity
+    val topActivity: FragmentActivity
         get() = activities[activities.size - 1]
 
-    fun getActivities(): List<AppCompatActivity> {
+    fun getActivities(): List<FragmentActivity> {
         return activities
     }
 
-    fun addActivity(activity: AppCompatActivity) {
+    fun addActivity(activity: FragmentActivity) {
         activities.add(activity)
     }
 
-    fun removeActivity(activity: AppCompatActivity) {
+    fun removeActivity(activity: FragmentActivity) {
         activities.remove(activity)
     }
 
