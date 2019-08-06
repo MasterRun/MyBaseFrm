@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.ComponentCallbacks2
 import android.content.Context
 import com.bumptech.glide.Glide
+import com.facebook.stetho.Stetho
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.core.BaseCore
@@ -30,6 +31,7 @@ class AppApplication : Application() {
         BaseUI.init(this)
         BaseCore.isDebug = isDebug
 
+        Stetho.initializeWithDefaults(this);
         setScanCodeListener()
     }
 

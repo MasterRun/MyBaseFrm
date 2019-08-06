@@ -1,17 +1,23 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
-apply from: './maven-repository.gradle'
 
 android {
+
     compileSdkVersion proVer.compileSdk
+
     defaultConfig {
+        applicationId "com.jsongo.rawtest"
         minSdkVersion proVer.minSdk
-        versionCode libConf.core.verCode
-        versionName libConf.core.verName
+        versionCode 1
+        versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
 
     }
 
@@ -23,13 +29,29 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../proguard-rules.pro', '../tencentx5_proguard.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    dexOptions {
+        //增加编译内存
+        javaMaxHeapSize "4g"
+        jumboMode = true
+        preDexLibraries = true
+        maxProcessCount = 8
+    }
+    lintOptions {
+        //忽略打包时错误
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    aaptOptions {
+        cruncherEnabled false
     }
 
 }
 
 dependencies {
+
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     //android support

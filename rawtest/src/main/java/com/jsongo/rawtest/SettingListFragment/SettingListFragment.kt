@@ -1,28 +1,22 @@
-package com.jsongo.ui.component.SettingListFragment
+package com.jsongo.rawtest.SettingListFragment
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.jsongo.core.mvp.base.BaseFragment
-import com.jsongo.ui.R
+import com.jsongo.rawtest.R
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
-//@ConfPage(R.layout.layout_setting_list, 3)
-class SettingListFragment : BaseFragment() {
-
-    /**
-     * 在lib中，资源id不是final变量，不能使用注解
-     */
-    override var mainLayoutId = R.layout.layout_setting_list
-    override var containerIndex = 3
+class SettingListFragment : Fragment() {
 
     /**
      * 配置实体
      */
-    private lateinit var sectionList: List<SettingSection>
+    protected lateinit var sectionList: List<SettingSection>
 
     /**
      * 生成的View，方便外部更改
@@ -30,16 +24,21 @@ class SettingListFragment : BaseFragment() {
     val sectionViewList = ArrayList<QMUIGroupListView.Section>()
     val itemViewMap = HashMap<String, QLv>()
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = layoutInflater.inflate(R.layout.layout_setting_list, container, false)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val glv = view.findViewById<QMUIGroupListView>(R.id.glv)
+        val glv = view as QMUIGroupListView
 
         //循环创建SectionView并保存
         sectionList.forEachIndexed { index, it ->
             val section = QMUIGroupListView.newSection(context)
-                .setTitle(it.title)
             section.apply {
+                setTitle(it.title)
                 if (it.desc != null) {
                     setDescription(it.desc)
                 }

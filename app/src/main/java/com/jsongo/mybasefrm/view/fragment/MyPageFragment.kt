@@ -13,7 +13,7 @@ import com.jsongo.ui.component.SettingListFragment.correctDetailTextPosition
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.vondear.rxtool.view.RxToast
 
-@ConfPage(R.layout.fragment_my_page, 2)
+@ConfPage(R.layout.fragment_my_page, 1)
 class MyPageFragment : BaseFragment() {
 
     lateinit var settingFragment: SettingListFragment
@@ -60,10 +60,22 @@ class MyPageFragment : BaseFragment() {
                         "desc",
                         showRedDot = true,
                         onClickListener = View.OnClickListener { RxToast.normal("click item 2-1") }
+                    ),
+                    SettingItem(
+                        R.drawable.next,
+                        "item 2-2",
+                        "desc",
+                        showRedDot = true,
+                        onClickListener = View.OnClickListener { RxToast.normal("click item 2-2") }
                     )
                 )
             )
         )
+
+        val layoutParams = nsv.layoutParams
+        layoutParams.height = 2000
+        nsv.layoutParams = layoutParams
+
         settingFragment = SettingListFragment.newInstance(sectionList)
         val transaction = childFragmentManager.beginTransaction()
         transaction.replace(R.id.fl_container, settingFragment)

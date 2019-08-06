@@ -27,10 +27,11 @@
 		<android.support.v4.widget.NestedScrollView
 			android:id="@+id/nsv"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
+			android:layout_height="wrap_content"
 			android:focusable="true"
 			android:focusableInTouchMode="true">
 			
+			<!--android:fillViewport="true"-->
 			<FrameLayout
 				android:id="@+id/fl_main_container"
 				android:layout_width="match_parent"
