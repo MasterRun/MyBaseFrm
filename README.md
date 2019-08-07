@@ -15,7 +15,7 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - BaseFragment  --ok
 - 使用自定义注解  --ok
 - 扫码按钮  --ok
-- QMUIGroupListView 实现设置页面
+- QMUIGroupListView 实现设置页面  -- doing
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
 - 封装网络请求返回处理
@@ -24,7 +24,15 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - 使用依赖注入框架  aop  aspectj   apt  javassist
 
 
-鸣谢：
+### module依赖关系
+|模块|被依赖模块|
+|---|---|
+|app|core ajs ui|
+|ajs|core ui|
+|ui|core|
+
+
+### 鸣谢：
 - `com.qmuiteam:qmui` 腾讯qmui Android
 - 腾讯x5内核
 - `com.github.tamsiree.RxTool`  RxTool,Android开发工具合集
