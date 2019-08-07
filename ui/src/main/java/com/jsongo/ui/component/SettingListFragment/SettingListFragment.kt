@@ -30,10 +30,12 @@ class SettingListFragment : BaseFragment() {
     val sectionViewList = ArrayList<QMUIGroupListView.Section>()
     val itemViewMap = HashMap<String, QLv>()
 
+    lateinit var glv: QMUIGroupListView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val glv = view.findViewById<QMUIGroupListView>(R.id.glv)
+        glv = view.findViewById(R.id.glv)
 //        val glv = view as QMUIGroupListView
 
         //循环创建SectionView并保存
@@ -60,6 +62,7 @@ class SettingListFragment : BaseFragment() {
             }
             sectionViewList.add(section)
         }
+        // TODO: 2019/8/7 添加ViewCreated回调给外部
     }
 
     /**

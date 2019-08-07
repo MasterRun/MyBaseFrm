@@ -11,8 +11,8 @@ import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
  * desc : 设置列表的item
  */
 data class SettingItem(
-    @DrawableRes val iconRes: Int? = null,
     val title: String,
+    @DrawableRes val iconRes: Int? = null,
     val detailText: String? = null,
     val orientation: Int = QLv.HORIZONTAL,
     val accessoryType: Int = QLv.ACCESSORY_TYPE_NONE,

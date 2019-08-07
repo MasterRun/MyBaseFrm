@@ -89,6 +89,12 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             val a = 0
             println(2 / a)
         }
+
+        btn_goMyPage.setOnClickListener {
+            startActivity(Intent(this@MainActivity, MyPageActivity::class.java))
+        }
+
+
         val mainFragment = MainFragment()
         val myPageFragment = MyPageFragment()
         val transaction = supportFragmentManager.beginTransaction()
@@ -127,6 +133,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         tv.visibility = View.GONE*/
         showMainFragment()
     }
+
 
     override fun onGetDailyGank(txt: String?) {
 //        tv.text = txt
