@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import com.jsongo.core.mvp.base.BaseFragment
 import com.jsongo.ui.R
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+import com.vondear.rxtool.view.RxToast
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
 //@ConfPage(R.layout.layout_setting_list, 0)
@@ -23,6 +25,11 @@ class SettingListFragment : BaseFragment() {
      * 配置实体
      */
     private lateinit var sectionList: List<SettingSection>
+
+    /**
+     * onViewCreate回调
+     */
+    var viewCreatedCallback: ViewCreatedCallback? = null
 
     /**
      * 生成的View，方便外部更改
@@ -62,7 +69,8 @@ class SettingListFragment : BaseFragment() {
             }
             sectionViewList.add(section)
         }
-        // TODO: 2019/8/7 添加ViewCreated回调给外部
+        //添加ViewCreated回调给外部
+        viewCreatedCallback?.onViewCreated(glv, sectionViewList, itemViewMap)
     }
 
     /**
@@ -94,12 +102,74 @@ class SettingListFragment : BaseFragment() {
         }
     }
 
+    /**
+     * onViewCreate回调
+     */
+    interface ViewCreatedCallback {
+        fun onViewCreated(
+            glv: QMUIGroupListView,
+            sectionViewList: java.util.ArrayList<QMUIGroupListView.Section>,
+            itemViewMap: java.util.HashMap<String, QLv>
+        )
+
+    }
+
     companion object {
         @JvmStatic
         fun newInstance(sections: List<SettingSection>) =
             SettingListFragment().apply {
                 sectionList = sections
             }
+
+        /**
+         * 演示
+         */
+        val sectionListDemo = arrayListOf(
+            SettingSection(
+                "section1", /*"这是描述",*/ items = arrayListOf(
+                    SettingItem(
+                        "item1",
+                        null,
+                        "detail",
+                        onClickListener = View.OnClickListener { RxToast.normal("click item1") }
+                    ),
+                    SettingItem(
+                        "item2",
+                        R.drawable.icon_menu,
+                        accessoryType = com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        onClickListener = View.OnClickListener { RxToast.normal("item 2") }
+                    ),
+                    SettingItem(
+                        "item3",
+                        R.drawable.code_icon,
+                        "hahah",
+                        com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.HORIZONTAL,
+                        com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.ACCESSORY_TYPE_SWITCH,
+                        showNewTip = true,
+                        checkChangeListener = CompoundButton.OnCheckedChangeListener { compoundButton, checked ->
+                            RxToast.normal("checked:${checked}")
+                        })
+                )
+            ),
+            SettingSection("section2",
+                items = arrayListOf(
+                    SettingItem(
+                        "item 2-1",
+                        R.drawable.next,
+                        "desc",
+                        showRedDot = true,
+                        onClickListener = View.OnClickListener { RxToast.normal("click item 2-1") }
+                    ),
+                    SettingItem(
+                        "item 2-2",
+                        R.drawable.next,
+                        "desc",
+                        showRedDot = true,
+                        onClickListener = View.OnClickListener { RxToast.normal("click item 2-2") }
+                    )
+                )
+            )
+        )
     }
 }
 

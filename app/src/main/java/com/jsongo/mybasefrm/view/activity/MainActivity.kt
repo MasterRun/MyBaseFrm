@@ -57,10 +57,10 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 it.finishLoadMore(1000)
             }
 
-        topbar.setOnClickListener {
+/*        topbar.setOnClickListener {
             val intent = Intent(this@MainActivity, MainActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
         btn.setOnClickListener {
             val webPath = "file:///android_asset/web/index.html"

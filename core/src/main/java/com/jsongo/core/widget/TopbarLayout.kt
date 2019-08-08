@@ -22,6 +22,8 @@ class TopbarLayout(
     defStyleAttr: Int = R.attr.QMUITopBarStyle
 ) : QMUITopBarLayout(mContext, attrs, defStyleAttr) {
 
+    // TODO: 2019/8/9 封装设置返回按钮颜色  添加topbar底部横线
+
     constructor(mContext: Context, attrs: AttributeSet?) : this(
         mContext,
         attrs,
