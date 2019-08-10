@@ -1,5 +1,10 @@
 
 
+#### 1.0.0.c-snapshot
+2019-8-10
+- 发布1.0.0.c
+- AndroidManifest.xml 中使用app theme
+
 #### 1.0.0.b-snapshot
 2019-8-7
 - 发布1.0.0.b lib的versionCode都重置为1
