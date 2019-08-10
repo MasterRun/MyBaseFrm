@@ -2,6 +2,7 @@ package com.jsongo.ui.widget;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.support.annotation.DrawableRes;
 import android.util.DisplayMetrics;
@@ -12,8 +13,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
-import com.jsongo.core.view.activity.ScanCodeActivity;
 import com.jsongo.ui.R;
+import com.yzq.zxinglibrary.android.CaptureActivity;
 
 /**
  * @author jsongo
@@ -21,6 +22,8 @@ import com.jsongo.ui.R;
  * @desc
  */
 public class FloatingView extends RelativeLayout {
+
+    public static int SCAN_REQUEST_CODE = 8866;
 
     // 悬浮栏位置
     private final static int LEFT = 0;
@@ -69,7 +72,8 @@ public class FloatingView extends RelativeLayout {
         wm.addView(this, wmParams);
 
         setOnClickListener(v -> {
-            ScanCodeActivity.go();
+            Intent intent = new Intent(activity, CaptureActivity.class);
+            activity.startActivityForResult(intent, SCAN_REQUEST_CODE);
         });
 
         hide();

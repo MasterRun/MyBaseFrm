@@ -1,5 +1,6 @@
 package com.jsongo.mybasefrm.view.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
@@ -18,7 +19,10 @@ import com.jsongo.mybasefrm.presenter.MainPresenter
 import com.jsongo.mybasefrm.view.fragment.MainFragment
 import com.jsongo.mybasefrm.view.fragment.MyPageFragment
 import com.jsongo.ui.widget.FloatingView
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.vondear.rxtool.view.RxToast
+import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 
@@ -161,5 +165,28 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // 扫描二维码/条码回传
+        if (requestCode == FloatingView.SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                val str = data.getStringExtra(Constant.CODED_CONTENT)
+                if (str.startsWith("http://") || str.startsWith("https://")) {
+                    DefaultWebLoader.load(str)
+                } else {
+                    QMUIDialog.MessageDialogBuilder(this@MainActivity)
+                        .setTitle("扫描结果")
+                        .setMessage(str)
+                        .addAction("OK", object : QMUIDialogAction.ActionListener {
+                            override fun onClick(dialog: QMUIDialog?, index: Int) {
+                                dialog?.dismiss()
+                            }
+                        }).show()
+                }
+            }
+        }
     }
 }

@@ -141,7 +141,7 @@ class SettingListFragment : BaseFragment() {
                     ),
                     SettingItem(
                         "item3",
-                        R.drawable.code_icon,
+                        R.drawable.next,
                         "hahah",
                         com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.HORIZONTAL,
                         com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.ACCESSORY_TYPE_SWITCH,

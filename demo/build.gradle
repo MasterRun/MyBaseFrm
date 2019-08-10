@@ -14,6 +14,7 @@ android {
     compileSdkVersion proVer.compileSdk
     defaultConfig {
         applicationId "com.jsongo.mybasefrm.demo"
+        targetSdkVersion proVer.targetSdk
         minSdkVersion proVer.minSdk
         versionCode libConf.demo.verCode
         versionName libConf.demo.verName

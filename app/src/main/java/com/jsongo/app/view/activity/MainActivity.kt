@@ -1,10 +1,10 @@
 package com.jsongo.app.view.activity
 
+import android.app.Activity
 import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
-import com.jsongo.app.R
 import com.jsongo.app.mvp.IMain
 import com.jsongo.app.presenter.MainPresenter
 import com.jsongo.core.annotations.ConfPage
@@ -16,11 +16,15 @@ import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
 import com.jsongo.ui.widget.FloatingView
+import com.jsongo.ui.widget.FloatingView.SCAN_REQUEST_CODE
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.vondear.rxtool.view.RxToast
+import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 
-@ConfPage(R.layout.activity_main, 2)
+@ConfPage(com.jsongo.app.R.layout.activity_main, 2)
 class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
     @Presenter(MainPresenter::class)
@@ -113,5 +117,28 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // 扫描二维码/条码回传
+        if (requestCode == SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
+                val str = data.getStringExtra(Constant.CODED_CONTENT)
+                if (str.startsWith("http://") || str.startsWith("https://")) {
+                    DefaultWebLoader.load(str)
+                } else {
+                    QMUIDialog.MessageDialogBuilder(this@MainActivity)
+                        .setTitle("扫描结果")
+                        .setMessage(str)
+                        .addAction("OK", object : QMUIDialogAction.ActionListener {
+                            override fun onClick(dialog: QMUIDialog?, index: Int) {
+                                dialog?.dismiss()
+                            }
+                        }).show()
+                }
+            }
+        }
     }
 }
