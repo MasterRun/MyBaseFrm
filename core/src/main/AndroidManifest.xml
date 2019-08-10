@@ -22,7 +22,7 @@
 		android:glEsVersion="0x00030000"
 		android:required="true" />
 	
-	<application>
+	<application android:theme="@style/AppTheme">
 		<activity
 			android:name=".view.activity.SplashActivity"
 			android:theme="@style/SplashTheme">

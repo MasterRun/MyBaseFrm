@@ -109,7 +109,7 @@ enum class SmartRefreshHeader constructor(value: String) {
     FunGameHitBlockHeader("FunGameHitBlockHeader"),// 打砖块游戏 颜色不建议更改
     WaveSwipeHeader("WaveSwipeHeader"),// 全屏水波 颜色可更改
     MaterialHeader("MaterialHeader"),// material 颜色不可更改
-    StoreHouseHeader("StoreHouseHeader"),// .initWithString("loading...") // StoreHouse 颜色可更改 可设置英文
+    StoreHouseHeader("StoreHouseHeader"),// .initWithString("loading...") // StoreHouse 颜色可更改 内容只可设置英文
     WaterDropHeader("WaterDropHeader")// 水滴 颜色可更改
 }
 

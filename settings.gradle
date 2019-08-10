@@ -1,1 +1,1 @@
-include ':app', ':core', ':ajs', ':ui', ':rawtest'
+include ':demo', ':core', ':ajs', ':ui', ':rawtest', ':app'

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/white"
+	android:fitsSystemWindows="true"
+	tools:context=".view.activity.MainActivity">
+	
+	<Button
+		android:id="@+id/btn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="go jswebloader!"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	
+	<Button
+		android:id="@+id/btn_loadbaidu"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="load baidu"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn" />
+	
+	<Button
+		android:id="@+id/btn_testdb"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="testdb"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn_loadbaidu" />
+	
+	<Button
+		android:id="@+id/btn_crash"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="crash"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn_testdb" />
+	
+	<Button
+		android:id="@+id/btn_change"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="切换fragment"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
+	
+	<TextView
+		android:id="@+id/tv"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/btn_change" />
+	
+	<Button
+		android:id="@+id/btn_goMyPage"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="goMyPage"
+		app:layout_constraintStart_toEndOf="@id/btn"
+		app:layout_constraintTop_toTopOf="parent" />
+	
+	<FrameLayout
+		android:id="@+id/fl_fragment_container"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/tv" />
+
+</android.support.constraint.ConstraintLayout>

@@ -13,7 +13,7 @@ kapt {
 android {
     compileSdkVersion proVer.compileSdk
     defaultConfig {
-        applicationId "com.jsongo.mybasefrm"
+        applicationId "com.jsongo.mybasefrm.app"
         minSdkVersion proVer.minSdk
         versionCode libConf.app.verCode
         versionName libConf.app.verName
@@ -28,7 +28,17 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     buildTypes {
+        debug {
+            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
+            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            ext.enableCrashlytics = false
+        }
         release {
+            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
+            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../proguard-rules.pro', '../tencentx5_proguard.pro'
         }

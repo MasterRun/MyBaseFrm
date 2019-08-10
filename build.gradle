@@ -7,7 +7,7 @@ def proVer = rootProject.ext.proVer
 //基础库相关配置
 def libConf = rootProject.ext.libConf
 
-buildscript {
+buildscript { 
 
     ext.versions = [
             'kotlin': '1.3.41'

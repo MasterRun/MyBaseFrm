@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+kapt {
+    useBuildCache = true
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+}
+
+android {
+    compileSdkVersion proVer.compileSdk
+    defaultConfig {
+        applicationId "com.jsongo.mybasefrm.demo"
+        minSdkVersion proVer.minSdk
+        versionCode libConf.demo.verCode
+        versionName libConf.demo.verName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        debug {
+            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
+            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            ext.enableCrashlytics = false
+        }
+        release {
+            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
+            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../proguard-rules.pro', '../tencentx5_proguard.pro'
+        }
+    }
+
+    dexOptions {
+        //增加编译内存
+        javaMaxHeapSize "4g"
+        jumboMode = true
+        preDexLibraries = true
+        maxProcessCount = 8
+    }
+    lintOptions {
+        //忽略打包时错误
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    aaptOptions {
+        cruncherEnabled false
+    }
+}
+
+dependencies {
+
+    if (libConf.useOnlineAAR) {
+        implementation "com.jsongo.basefrm:core:${libConf.core.aarVer}"
+        implementation "com.jsongo.basefrm:ajs:${libConf.ajs.aarVer}"
+        implementation "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
+    } else {
+        implementation project(path: ':core')
+        implementation project(path: ':ajs')
+        implementation project(path: ':ui')
+    }
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-js-rhino:1.5.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    //androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

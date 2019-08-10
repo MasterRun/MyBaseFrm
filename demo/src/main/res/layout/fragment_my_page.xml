@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	tools:context=".view.fragment.MyPageFragment">
+	
+	<android.support.v7.widget.AppCompatImageView
+		android:id="@+id/img_head_bg"
+		android:layout_width="match_parent"
+		android:layout_height="200dp"
+		android:scaleType="centerCrop"
+		app:srcCompat="@drawable/img_head_bg" />
+	
+	<com.qmuiteam.qmui.widget.QMUIRadiusImageView
+		android:id="@+id/qriv_header"
+		android:layout_width="80dp"
+		android:layout_height="80dp"
+		android:layout_alignStart="@id/img_head_bg"
+		android:layout_alignBottom="@id/img_head_bg"
+		android:layout_marginStart="15dp"
+		android:layout_marginBottom="15dp"
+		android:scaleType="centerCrop"
+		android:src="@drawable/img_head"
+		app:qmui_border_color="@color/white"
+		app:qmui_border_width="2dp"
+		app:qmui_corner_radius="40dp" />
+	
+	<android.support.v7.widget.AppCompatTextView
+		android:id="@+id/tv_nickname"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@id/qriv_header"
+		android:layout_marginStart="10dp"
+		android:layout_marginTop="8dp"
+		android:layout_toEndOf="@id/qriv_header"
+		android:maxLines="1"
+		android:singleLine="true"
+		android:text="您的昵称"
+		android:textColor="@color/white"
+		android:textSize="16sp" />
+	
+	<android.support.v7.widget.AppCompatImageView
+		android:layout_width="15dp"
+		android:layout_height="15dp"
+		android:layout_alignTop="@id/tv_nickname"
+		android:layout_marginStart="5dp"
+		android:layout_marginTop="5dp"
+		android:layout_toEndOf="@id/tv_nickname"
+		app:srcCompat="@mipmap/ic_gender_woman" />
+	
+	<android.support.v7.widget.AppCompatTextView
+		android:id="@+id/tv_desc1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/tv_nickname"
+		android:layout_alignStart="@id/tv_nickname"
+		android:layout_marginTop="5dp"
+		android:maxLines="1"
+		android:singleLine="true"
+		android:text="这是第一个描述"
+		android:textColor="@color/white"
+		android:textSize="12sp" />
+	
+	<android.support.v7.widget.AppCompatTextView
+		android:id="@+id/tv_desc2"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/tv_desc1"
+		android:layout_alignStart="@id/tv_nickname"
+		android:layout_marginTop="5dp"
+		android:maxLines="1"
+		android:singleLine="true"
+		android:text="这是第二个描述"
+		android:textColor="@color/white"
+		android:textSize="12sp" />
+	
+	<FrameLayout
+		android:id="@+id/fl_container"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/img_head_bg" />
+</RelativeLayout>

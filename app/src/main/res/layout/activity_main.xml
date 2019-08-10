@@ -41,20 +41,12 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@id/btn_testdb" />
 	
-	<Button
-		android:id="@+id/btn_change"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="切换fragment"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
-	
 	<TextView
 		android:id="@+id/tv"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_change" />
+		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
 	
 	<Button
 		android:id="@+id/btn_goMyPage"
@@ -63,14 +55,6 @@
 		android:text="goMyPage"
 		app:layout_constraintStart_toEndOf="@id/btn"
 		app:layout_constraintTop_toTopOf="parent" />
-	
-	<FrameLayout
-		android:id="@+id/fl_fragment_container"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tv" />
+
 
 </android.support.constraint.ConstraintLayout>

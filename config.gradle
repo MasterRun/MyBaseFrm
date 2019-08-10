@@ -22,6 +22,11 @@ ext {
                     'verName': '1.0.0'
             ],
 
+            'demo'        : [
+                    'verCode': 1,
+                    'verName': '1.0.0'
+            ],
+
             'core'        : [
                     'verCode': 1,
                     'verName': '1.0.0.b-SNAPSHOT',

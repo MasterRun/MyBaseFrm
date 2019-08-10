@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!--此处添加地址后再build.gradle要相应移除-->
+	<!--<string name="SERVER_ADDRESS_RELEASE">http://gank.io/api/</string>-->
+	<!--<string name="SERVER_ADDRESS_DEBUG">http://gank.io/api/</string>-->
+	<string name="MainActivity">com.jsongo.mybasefrm.view.activity.MainActivity</string>
+</resources>
