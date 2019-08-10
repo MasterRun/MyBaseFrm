@@ -2,7 +2,7 @@ ext {
 
     libConf = [
             //是否上采用在线引用方式  打包上传时使用true
-            'useOnlineAAR': false,
+            'useOnlineAAR': true,
 
             /**
              * 三个变量分别为
@@ -13,8 +13,8 @@ ext {
 
             'ajs'         : [
                     'verCode': 1,
-                    'verName': '1.0.0.c-SNAPSHOT',
-                    'aarVer' : '1.0.0.c-SNAPSHOT'
+                    'verName': '1.0.0.d-SNAPSHOT',
+                    'aarVer' : '1.0.0.d-SNAPSHOT'
             ],
 
             'app'         : [
@@ -29,14 +29,14 @@ ext {
 
             'core'        : [
                     'verCode': 1,
-                    'verName': '1.0.0.c-SNAPSHOT',
-                    'aarVer' : '1.0.0.c-SNAPSHOT'
+                    'verName': '1.0.0.d-SNAPSHOT',
+                    'aarVer' : '1.0.0.d-SNAPSHOT'
             ],
 
             'ui'          : [
                     'verCode': 1,
-                    'verName': '1.0.0.c-SNAPSHOT',
-                    'aarVer' : '1.0.0.c-SNAPSHOT'
+                    'verName': '1.0.0.d-SNAPSHOT',
+                    'aarVer' : '1.0.0.d-SNAPSHOT'
             ]
 
     ]
