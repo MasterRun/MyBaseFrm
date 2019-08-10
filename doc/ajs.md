@@ -20,6 +20,33 @@ function onEnvReady() {
 
 具体api调用[参考demo](../app/src/main/assets/web/js/index.js)
 
+autoauto
+- [AJS API 说明](#ajs-api-说明)auto        
+- [使用说明](#使用说明)auto    
+- [一、 调用原生api](#一-调用原生api)auto        
+  - [1 设置原生标题栏](#1-设置原生标题栏)auto            
+    - [1.1 设置标题栏颜色](#11-设置标题栏颜色)auto            
+    - [1.2 设置标题栏标题文字](#12-设置标题栏标题文字)auto            
+    - [1.3 隐藏/显示标题](#13-隐藏显示标题)auto           
+    - [1.4 设置状态栏](#14-设置状态栏)auto        
+  - [2 一些常用方法](#2-一些常用方法)auto            
+    - [2.1 模拟返回键](#21-模拟返回键)auto            
+    - [2.2 消息弹窗](#22-消息弹窗)auto            
+    - [2.3 根据图片本地路径获取到可用于加载的图片路径](#23-根据图片本地路径获取到可用于加载的图片路径)auto            
+    - [2.4 使用原生图片预览](#24-使用原生图片预览)auto            
+    - [2.5 跳转原生页面](#25-跳转原生页面)auto            
+    - [2.6 打开新页面加载h5页面](#26-打开新页面加载h5页面)auto        
+  - [3 Toast吐司](#3-toast吐司)auto        
+  - [4 加载弹窗](#4-加载弹窗)auto        
+  - [5 原生的下拉刷新和加载更多:smartrefresh](#5-原生的下拉刷新和加载更多smartrefresh)auto            
+    - [5.1 开启/关闭下拉刷新](#51-开启关闭下拉刷新)auto            
+    - [5.2 开启/关闭下拉刷新](#52-开启关闭下拉刷新)auto            
+    - [5.3 设置刷新主题颜色](#53-设置刷新主题颜色)auto            
+    - [5.4 设置下拉刷新样式](#54-设置下拉刷新样式)auto            
+    - [5.5 设置上拉加载样式](#55-设置上拉加载样式)auto    
+- [二、提供原生调用的方法](#二提供原生调用的方法)autoauto
+
+
 ## 一、 调用原生api
 
 所有api包括原始方法在环境加载完成后(onEnvReady方法中)才可以调用
@@ -548,7 +575,7 @@ myBridge.callHandler(callname, params, function (responseData) {
     ajs.smartrefresh.header(smartrefresh.header.MaterialHeader)
 ```
 
-#### 5.4 设置上拉加载样式
+#### 5.5 设置上拉加载样式
 
 方法：`ajs.smartrefresh.footer()`
 

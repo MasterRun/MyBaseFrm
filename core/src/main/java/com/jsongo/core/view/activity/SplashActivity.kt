@@ -27,6 +27,7 @@ class SplashActivity : BaseActivity() {
                     finish()
                 } else {
                     val intent = Intent(this@SplashActivity, Class.forName(mainActivityName))
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                     finish()
                 }

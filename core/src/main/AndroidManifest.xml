@@ -22,7 +22,9 @@
 		android:glEsVersion="0x00030000"
 		android:required="true" />
 	
-	<application android:theme="@style/AppTheme">
+	<application
+		android:networkSecurityConfig="@xml/network_security_config"
+		android:theme="@style/AppTheme">
 		<activity
 			android:name=".view.activity.SplashActivity"
 			android:theme="@style/SplashTheme">

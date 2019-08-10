@@ -136,6 +136,7 @@ public class ScanCodeActivity extends AppCompatActivity {
 
     public static void go() {
         Intent intent = new Intent(BaseCore.context, ScanCodeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         BaseCore.context.startActivity(intent);
     }
 

@@ -1,6 +1,7 @@
 package com.jsongo.ajs.webloader
 
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.ConstValue
 
@@ -26,6 +27,7 @@ class DefaultWebLoader : AJsWebLoader() {
         fun load(url: String) {
             val intent = Intent(AJs.context, DefaultWebLoader::class.java)
             intent.putExtra(ConstValue.webpath, url)
+            intent.addFlags(FLAG_ACTIVITY_NEW_TASK)
             AJs.context.startActivity(intent)
         }
     }
