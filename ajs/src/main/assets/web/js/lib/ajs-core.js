@@ -5,6 +5,25 @@ let myBridge;
 let ajs = {};
 
 $(function () {
+    try {
+        /**
+        * 使用vConsole
+        */
+        window.vConsole = new window.VConsole({
+            defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
+            maxLogNumber: 1000,
+            // disableLogScrolling: true,
+            onReady: function () {
+                console.log('vConsole is ready.');
+            },
+            onClearLog: function () {
+                console.log('on clearLog');
+            }
+        });
+    } catch (e) {
+        console.log(eval)
+    }
+
     //连接Android webview
     connectWebViewJavascriptBridge(function (bridge) {
         bridge.init(function (message, responseCallback) {
@@ -12,8 +31,16 @@ $(function () {
 
         myBridge = bridge;
         regBridgeMethod();
-        regHandler();
-        onEnvReady();
+        try {
+            regHandler();
+        } catch (error) {
+            console.log(error)
+        }
+        try {
+            onEnvReady();
+        } catch (error) {
+            console.log(error)
+        }
     });
 });
 

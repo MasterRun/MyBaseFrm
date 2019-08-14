@@ -1,11 +1,9 @@
 package com.jsongo.ajs.jsbridge;
 
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 
 import com.github.lzyzsd.jsbridge.Message;
-import com.jsongo.ajs.AJs;
 import com.jsongo.ajs.ConstValue;
 import com.safframework.log.L;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
@@ -19,8 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author jsongo
@@ -87,34 +83,14 @@ public class BridgeWebViewClient extends WebViewClient {
         }
     }
 
-    private static List<String> jsList = new ArrayList<>();
-    private static String jsBasePath = "web/js";
-
-    static {
-        //加载js列表
-        try {
-            AssetManager assets = AJs.context.getResources().getAssets();
-            String[] list = assets.list(jsBasePath);
-            if (list != null) {
-                for (String s : list) {
-                    if (s.endsWith(".js") && (s.contains("echarts") || s.contains("jquery"))) {
-                        jsList.add(s);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public WebResourceResponse shouldInterceptRequest(WebView webView, String url) {
         WebResourceResponse response = null;
         response = super.shouldInterceptRequest(webView, url);
         try {
-            for (String s : jsList) {
+            for (String s : ConstValue.INSTANCE.getJsList()) {
                 if (url.contains(s)) {
-                    InputStream open = webView.getContext().getResources().getAssets().open(jsBasePath + "/" + s);
+                    InputStream open = webView.getContext().getResources().getAssets().open(ConstValue.jsBasePath + "/" + s);
                     response = new WebResourceResponse("text/javascript", "UTF-8", open);
                     break;
                 }

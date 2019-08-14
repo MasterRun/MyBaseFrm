@@ -1,5 +1,13 @@
 
 
+#### 1.0.0.e-snapshot
+2019-8-14
+- 发布1.0.0.e 兼容 core 1.0.0.d  ui 1.0.0.d
+- 使用vConcole  添加 js.lib中添加vconsole.min.js  zepto.js
+- ajs-core中进行初始化的异常捕获，以防影响后续代码执行
+- 将ajs的原生容器更换为第二容器，以防原生与h5页面滑动冲突
+
+
 #### 1.0.0.d-snapshot
 2019-8-10
 - 发布1.0.0.d

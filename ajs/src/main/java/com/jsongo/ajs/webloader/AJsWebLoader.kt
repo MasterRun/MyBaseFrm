@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.activity_ajs_webloader.*
  */
 abstract class AJsWebLoader : BaseActivity() {
 
+    override var containerIndex = 2
+
     protected var webPath = ""
 
     override var mainLayoutId = R.layout.activity_ajs_webloader

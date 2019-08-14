@@ -3,7 +3,7 @@
 AJS基于[JsBridge](https://github.com/lzyzsd/JsBridge)封装
 
 ### 使用说明
-在js目录中新建lib目录，将[ajs-core.js](../app/src/main/assets/web/js/lib/ajs-core.js) 、 [jquery-3.3.1.min.js](../app/src/main/assets/web/js/lib/jquery-3.3.1.min.js)放在lib下 ，若使用[echarts4.1.0.min.js](../app/src/main/assets/web/js/lib/echarts4.1.0.min.js)一同放入。
+在js目录中新建lib目录，将[ajs-core.js](../app/src/main/assets/web/js/lib/ajs-core.js) 、 [jquery-3.3.1.min.js](../app/src/main/assets/web/js/lib/jquery-3.3.1.min.js)、 [vconsole.min.js](../app/src/main/assets/web/js/lib/vconsole.min.js)放在lib下 ，若使用[echarts4.1.0.min.js](../app/src/main/assets/web/js/lib/echarts4.1.0.min.js)、[zepto.js](../app/src/main/assets/web/js/lib/zepto.js)等其他js库可一并引入，确保不冲突即可。
 
 在新建的HTML中引入以上文件
 
@@ -18,9 +18,22 @@ function onEnvReady() {
 
 ![目录结构](./img/ajs使用目录结构.png "目录结构")
 
+[demo及源码](../app/src/main/assets/web/)
+
 具体api调用[参考demo](../app/src/main/assets/web/js/index.js)
 
 
+### 框架原生容器介绍
+原生框架中每个页面提供两种容器进行布局（原生页面和h5页面都是如此，Android原生的童鞋可以[参考原生布局源码](../core/src/main/res/layout/layout_frm_base.xml)）。
+- 容器1 中已经包含smartrefreshlayout(下拉刷新和上拉加载更多的控件)和topbar(标题栏)和状态页(h5无需关心)
+- 容器2 包含标题栏和状态页，不包含smartrefreshlayout
+- 另外如果不使用这两种容器，会直接将页面布局加载在根布局中，相当于把页面放置在空容器中
+  
+<b>ajs默认的h5页面在`ajs1.0.0.d`(不包括此版本)之后已经从第1容器切换为第2容器</b>
+
+todo   切换原生容器的方法将会在后续推出...
+
+### 目录
 - [AJS API 说明](#ajs-api-说明)
 - [使用说明](#使用说明)
 - [一、 调用原生api](#一-调用原生api)
@@ -460,6 +473,11 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 
 ### 5 原生的下拉刷新和加载更多:smartrefresh
+
+<b>注：
+- 已经将h5页面的容器切换为第二容器，第二容器不包含此原生控件，如需使用，需要先切换为原生的第一容器
+- 此原生控件会与h5页面产生滑动冲突！！！</b>
+
  说明: 默认开启下拉刷新  不开启上拉加载更多
 
 #### 5.1 开启/关闭下拉刷新

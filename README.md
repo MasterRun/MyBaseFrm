@@ -16,7 +16,7 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - 使用自定义注解  --ok
 - 扫码按钮  --ok
 - QMUIGroupListView 实现设置页面  -- doing
-- 文档错错别字修正
+- 添加vConsole
 - 增加缓存ajs api
 - topbar添加底部灰色线
 - 添加ajsfragment
