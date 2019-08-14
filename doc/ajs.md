@@ -600,7 +600,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 ## 二、提供原生调用的方法
 
-在环境初始化完成后可以注册方法给原生调用，可以下载如下方法中
+在环境初始化完成后可以注册方法给原生调用，可以写在如下方法中
 ```js
 function regHandler() {
     //在这个方法里注册js方法供原生调用
@@ -612,7 +612,7 @@ function regHandler() {
 function regHandler() {
     WebViewJavascriptBridge.registerHandler("dialogaction2", function (data, responseCallback) {
 
-        //do your thins here
+        //do your things here
 
         //回调数据
        var responseData = "response from js on dialogaction2";
@@ -630,7 +630,7 @@ function regHandler() {
 }
 function dialogaction2(data, responseCallback) {
 
-        //do your thins here
+        //do your things here
 
         //回调数据
     var responseData = "response from js on dialogaction2";

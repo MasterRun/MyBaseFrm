@@ -1,4 +1,5 @@
 function onEnvReady() {
+    console.log("see is  in vConsole?")
     ajs.common.localpic("/storage/emulated/0/Pictures/Screenshots/1444875167806.png", function (data) {
         $("#myimg").attr("src", data["path"].toString());
     });

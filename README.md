@@ -16,6 +16,10 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - 使用自定义注解  --ok
 - 扫码按钮  --ok
 - QMUIGroupListView 实现设置页面  -- doing
+- 文档错错别字修正
+- 增加缓存ajs api
+- topbar添加底部灰色线
+- 添加ajsfragment
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
 - 封装网络请求返回处理
