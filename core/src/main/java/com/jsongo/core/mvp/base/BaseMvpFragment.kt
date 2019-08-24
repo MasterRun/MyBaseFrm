@@ -43,26 +43,26 @@ abstract class BaseMvpFragment<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
     //region page pageStatus
     override fun onPageLoading() {
         pageStatus = Status.LOADING
-        emptyView.show(true, "加载中...", null, null, null)
+        emptyView?.show(true, "加载中...", null, null, null)
     }
 
     override fun onPageLoaded() {
         pageStatus = Status.SHOWING_DATA
         smartRefreshLayout.finishRefresh()
-        if (emptyView.visibility != View.GONE) {
-            emptyView.hide()
+        if (emptyView?.visibility != View.GONE) {
+            emptyView?.hide()
         }
     }
 
     override fun onPageReloading() {
         pageStatus = Status.RELOADING
-        emptyView.show(true, "加载中...", null, null, null)
+        inflateEmptyView()?.show(true, "加载中...", null, null, null)
     }
 
     override fun onPageEmpty() {
         pageStatus = Status.NO_DATA
         smartRefreshLayout.finishRefresh()
-        emptyView.show(false, "暂无数据", "这里什么都没有哦", "重试") {
+        inflateEmptyView()?.show(false, "暂无数据", "这里什么都没有哦", "重试") {
             onPageReloading()
         }
     }
@@ -71,7 +71,7 @@ abstract class BaseMvpFragment<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
         pageStatus = Status.ERROR
         smartRefreshLayout.finishRefresh()
         val message = if (msg.isNullOrEmpty()) "数据找不到了" else msg
-        emptyView.show(false, "出错喽", message, "重试") {
+        inflateEmptyView()?.show(false, "出错喽", message, "重试") {
             onPageReloading()
         }
     }

@@ -55,14 +55,14 @@ interface IPage {
     val flMainContainer2: FrameLayout
 
     /**
-     * 空页面 状态页
-     */
-    val emptyView: QMUIEmptyView
-
-    /**
      * 状态页的viewstub
      */
     val vsEmptyView: ViewStub
+
+    /**
+     * 空页面 状态页
+     */
+    val emptyView: QMUIEmptyView?
 
     /**
      * 使用的容器下标
@@ -75,14 +75,20 @@ interface IPage {
      */
     val mainLayoutId: Int
 
+    /**
+     * 获取基础ui控件
+     */
     fun getIPageView()
+
+    /**
+     * inflate emptyview
+     */
+    fun inflateEmptyView(): QMUIEmptyView?
 
     fun initIPage(context: Context) {
 
         //获取view
         getIPageView()
-
-        emptyView.visibility = View.GONE
 
         //开启注解
         ConfPageProcessor.config(this)
@@ -90,7 +96,6 @@ interface IPage {
         //添加主内容到界面
         if (mainLayoutId == 0 || containerIndex < 1 || containerIndex > 2) {
             topbar.visibility = View.GONE
-            emptyView.visibility = View.GONE
             flMainContainer2.visibility = View.GONE
             smartRefreshLayout.visibility = View.GONE
             if (mainLayoutId != 0) {
@@ -132,7 +137,7 @@ interface IPage {
     }
 
     fun onIPageDestory() {
-        emptyView.hide()
+        emptyView?.hide()
         smartRefreshLayout.finishRefresh().finishLoadMore()
     }
 }

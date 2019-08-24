@@ -45,8 +45,8 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
     override fun onPageLoading() {
         pageStatus = Status.LOADING
         loadingDialog.show()
-        if (emptyView.visibility != View.GONE) {
-            emptyView.hide()
+        if (emptyView?.visibility != View.GONE) {
+            emptyView?.hide()
         }
     }
 
@@ -54,22 +54,22 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
         pageStatus = Status.SHOWING_DATA
         loadingDialog.dismiss()
         smartRefreshLayout.finishRefresh()
-        if (emptyView.visibility != View.GONE) {
-            emptyView.hide()
+        if (emptyView?.visibility != View.GONE) {
+            emptyView?.hide()
         }
     }
 
     override fun onPageReloading() {
         pageStatus = Status.RELOADING
         loadingDialog.dismiss()
-        emptyView.show(true, "加载中...", null, null, null)
+        inflateEmptyView()?.show(true, "加载中...", null, null, null)
     }
 
     override fun onPageEmpty() {
         pageStatus = Status.NO_DATA
         smartRefreshLayout.finishRefresh()
         loadingDialog.dismiss()
-        emptyView.show(false, "暂无数据", "这里什么都没有哦", "重试") {
+        inflateEmptyView()?.show(false, "暂无数据", "这里什么都没有哦", "重试") {
             onPageReloading()
         }
     }
@@ -79,7 +79,7 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
         smartRefreshLayout.finishRefresh()
         loadingDialog.dismiss()
         val message = if (msg.isNullOrEmpty()) "数据找不到了" else msg
-        emptyView.show(false, "出错喽", message, "重试") {
+        inflateEmptyView()?.show(false, "出错喽", message, "重试") {
             onPageReloading()
         }
     }

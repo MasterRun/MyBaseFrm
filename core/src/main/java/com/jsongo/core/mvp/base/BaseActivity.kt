@@ -41,9 +41,9 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         protected set
     override lateinit var flMainContainer2: FrameLayout
         protected set
-    override lateinit var emptyView: QMUIEmptyView
-        protected set
     override lateinit var vsEmptyView: ViewStub
+        protected set
+    override var emptyView: QMUIEmptyView? = null
         protected set
 
     override var mainLayoutId = 0
@@ -86,8 +86,14 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         nsv = findViewById(R.id.nsv)
         flMainContainer = fl_main_container
         flMainContainer2 = fl_main_container2
-        emptyView = empty_view
-        vsEmptyView = vsEmptyView
+        vsEmptyView = vs_emptyview
+    }
+
+    override fun inflateEmptyView(): QMUIEmptyView? {
+        if (emptyView == null) {
+            emptyView = vsEmptyView.inflate().findViewById(R.id.empty_view)
+        }
+        return emptyView
     }
 
     /**

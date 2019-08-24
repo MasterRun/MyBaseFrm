@@ -40,20 +40,11 @@
 		android:layout_below="@id/topbar"
 		android:visibility="gone" />
 	
-	<com.qmuiteam.qmui.widget.QMUIEmptyView
-		android:id="@+id/empty_view"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_below="@id/topbar"
-		android:background="@color/light_gray"
-		android:clickable="true"
-		android:focusable="true"
-		android:visibility="gone" />
-	
 	<ViewStub
 		android:id="@+id/vs_emptyview"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_below="@id/topbar" />
+		android:layout_below="@id/topbar"
+		android:layout="@layout/view_emptyview" />
 
 </RelativeLayout>

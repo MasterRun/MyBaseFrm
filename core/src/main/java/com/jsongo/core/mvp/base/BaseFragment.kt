@@ -34,9 +34,9 @@ abstract class BaseFragment : Fragment(), IPage {
         protected set
     override lateinit var flMainContainer2: FrameLayout
         protected set
-    override lateinit var emptyView: QMUIEmptyView
-        protected set
     override lateinit var vsEmptyView: ViewStub
+        protected set
+    override var emptyView: QMUIEmptyView? = null
         protected set
 
     override var mainLayoutId = 0
@@ -68,9 +68,15 @@ abstract class BaseFragment : Fragment(), IPage {
             nsv = it.findViewById(R.id.nsv)
             flMainContainer = it.fl_main_container
             flMainContainer2 = it.fl_main_container2
-            emptyView = it.empty_view
             vsEmptyView = it.vs_emptyview
         }
+    }
+
+    override fun inflateEmptyView(): QMUIEmptyView? {
+        if (emptyView == null) {
+            emptyView = vsEmptyView.inflate().findViewById(R.id.empty_view)
+        }
+        return emptyView
     }
 
     override fun onDestroy() {
