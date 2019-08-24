@@ -5,7 +5,6 @@ import android.app.Application
 import android.content.ComponentCallbacks2
 import android.content.Context
 import com.bumptech.glide.Glide
-import com.facebook.stetho.Stetho
 import com.jsongo.ajs.AJs
 import com.jsongo.core.BaseCore
 import com.jsongo.ui.BaseUI
@@ -23,8 +22,6 @@ class AppApplication : Application() {
         AJs.init(this)
         BaseUI.init(this)
         BaseCore.isDebug = isDebug
-
-        Stetho.initializeWithDefaults(this);
     }
 
     override fun attachBaseContext(context: Context) {
