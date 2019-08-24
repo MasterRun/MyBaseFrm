@@ -3,6 +3,7 @@ package com.jsongo.core.mvp.base
 import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.app.AppCompatActivity
+import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.jsongo.core.R
@@ -41,6 +42,8 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     override lateinit var flMainContainer2: FrameLayout
         protected set
     override lateinit var emptyView: QMUIEmptyView
+        protected set
+    override lateinit var vsEmptyView: ViewStub
         protected set
 
     override var mainLayoutId = 0
@@ -84,6 +87,7 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         flMainContainer = fl_main_container
         flMainContainer2 = fl_main_container2
         emptyView = empty_view
+        vsEmptyView = vsEmptyView
     }
 
     /**

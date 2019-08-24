@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.ui.component.SettingListFragment.SettingListFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -15,6 +16,8 @@ class PersonalInfoActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val bgGray = ContextCompat.getColor(AppApplication.context, R.color.light_gray)
+        rlLayoutRoot.setBackgroundColor(bgGray)
 
         smartRefreshLayout.isEnabled = false
         topbar.setBackgroundColor(Color.WHITE)

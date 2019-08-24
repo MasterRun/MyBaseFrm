@@ -11,7 +11,6 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
  * @date 2019/8/7 22:07
  * @desc 我的  页面  activity容器
  */
-
 class MyPageActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

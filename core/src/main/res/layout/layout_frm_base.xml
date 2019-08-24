@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/rl_layout_root"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/white">
+	android:layout_height="match_parent">
 	
 	<com.jsongo.core.widget.TopbarLayout
 		android:id="@+id/topbar"
@@ -46,8 +45,15 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/topbar"
-		android:background="@color/gray1"
+		android:background="@color/light_gray"
 		android:clickable="true"
 		android:focusable="true"
 		android:visibility="gone" />
+	
+	<ViewStub
+		android:id="@+id/vs_emptyview"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@id/topbar" />
+
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.jsongo.core.BaseCore
@@ -57,6 +58,11 @@ interface IPage {
      * 空页面 状态页
      */
     val emptyView: QMUIEmptyView
+
+    /**
+     * 状态页的viewstub
+     */
+    val vsEmptyView: ViewStub
 
     /**
      * 使用的容器下标

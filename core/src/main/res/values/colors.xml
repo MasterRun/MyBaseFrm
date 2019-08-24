@@ -9,7 +9,7 @@
 	<color name="app_color_theme">#2BBDF3</color> <!-- Aqua -->
 	
 	<color name="light_gray_transparent">#94646464</color>
-	<color name="light_gray">@color/lightgrey</color>
+	<color name="light_gray">#EDEDED</color>
 	
 	<color name="app_color_blue_2">#31BDF3</color>
 	<color name="app_color_blue_2_disabled">#7F31BDF3</color>

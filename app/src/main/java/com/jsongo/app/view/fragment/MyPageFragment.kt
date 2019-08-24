@@ -30,8 +30,8 @@ class MyPageFragment : BaseFragment() {
 
         topbar.visibility = View.GONE
 
-        val bgGray = ContextCompat.getColor(AppApplication.context, R.color.gray1)
-        smartRefreshLayout.setBackgroundColor(bgGray)
+        val bgGray = ContextCompat.getColor(AppApplication.context, R.color.light_gray)
+        rlLayoutRoot.setBackgroundColor(bgGray)
         val onClickListener = View.OnClickListener {
             startActivity(Intent(activity, PersonalInfoActivity::class.java))
         }
@@ -64,12 +64,6 @@ class MyPageFragment : BaseFragment() {
                 val listItemView = itemViewMap["0-0"]
                 listItemView?.showRedDot(true)
                 listItemView.correctDetailTextPosition()
-                glv.setBackgroundColor(
-                    ContextCompat.getColor(
-                        AppApplication.context,
-                        R.color.gray1
-                    )
-                )
             }
 
         }

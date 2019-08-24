@@ -15,8 +15,10 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - BaseFragment  --ok
 - 使用自定义注解  --ok
 - 扫码按钮  --ok
+- 添加vConsole --ok
 - QMUIGroupListView 实现设置页面  -- doing
-- 添加vConsole
+- 过度绘制及布局优化 -- doing
+- SplashActivity点击回到桌面问题
 - 增加缓存ajs api
 - topbar添加底部灰色线
 - 添加ajsfragment
@@ -36,7 +38,7 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 |ui|core|
 
 
-### 鸣谢：
+### 致谢：
 - `com.qmuiteam:qmui` 腾讯qmui Android
 - 腾讯x5内核
 - `com.github.tamsiree.RxTool`  RxTool,Android开发工具合集

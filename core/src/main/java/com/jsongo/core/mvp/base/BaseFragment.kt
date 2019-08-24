@@ -6,6 +6,7 @@ import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.jsongo.core.R
@@ -34,6 +35,8 @@ abstract class BaseFragment : Fragment(), IPage {
     override lateinit var flMainContainer2: FrameLayout
         protected set
     override lateinit var emptyView: QMUIEmptyView
+        protected set
+    override lateinit var vsEmptyView: ViewStub
         protected set
 
     override var mainLayoutId = 0
@@ -66,6 +69,7 @@ abstract class BaseFragment : Fragment(), IPage {
             flMainContainer = it.fl_main_container
             flMainContainer2 = it.fl_main_container2
             emptyView = it.empty_view
+            vsEmptyView = it.vs_emptyview
         }
     }
 

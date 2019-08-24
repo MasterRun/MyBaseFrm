@@ -97,7 +97,7 @@ fun RefreshLayout.addLoadMoreListener(
  * 刷新头
  */
 enum class SmartRefreshHeader constructor(value: String) {
-    DeliveryHeader("DeliveryHeader"),  //气球  smart_refresh_layout.setPrimaryColorsId(R.color.gray1, R.
+    DeliveryHeader("DeliveryHeader"),  //气球  smart_refresh_layout.setPrimaryColorsId(R.color.light_gray, R.
     DropBoxHeader("DropBoxHeader"),   //盒子  默认颜色不建议更改
     BezierRadarHeader("BezierRadarHeader"),//贝塞尔雷达 颜色更换异常！ 不建议是使用
     BezierCircleHeader("BezierCircleHeader"),//贝塞尔圆圈 颜色可改

@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import com.jsongo.app.AppApplication
 import com.jsongo.app.R
 import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.mvp.base.BaseActivity
@@ -15,6 +16,9 @@ class PersonalInfoActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val bgGray = ContextCompat.getColor(AppApplication.context, R.color.light_gray)
+        rlLayoutRoot.setBackgroundColor(bgGray)
 
         smartRefreshLayout.isEnabled = false
         topbar.setBackgroundColor(Color.WHITE)
