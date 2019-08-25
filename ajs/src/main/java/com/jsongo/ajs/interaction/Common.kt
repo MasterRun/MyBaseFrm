@@ -4,6 +4,7 @@ import android.content.Intent
 import com.github.lzyzsd.jsbridge.CallBackFunction
 import com.google.gson.reflect.TypeToken
 import com.jsongo.ajs.ConstValue
+import com.jsongo.ajs.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.DefaultWebLoader

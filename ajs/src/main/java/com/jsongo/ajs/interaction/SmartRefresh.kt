@@ -2,6 +2,7 @@ package com.jsongo.ajs.interaction
 
 import android.graphics.Color
 import com.github.lzyzsd.jsbridge.CallBackFunction
+import com.jsongo.ajs.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.core.util.*

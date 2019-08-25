@@ -1,6 +1,7 @@
 package com.jsongo.ajs.interaction
 
 import com.github.lzyzsd.jsbridge.CallBackFunction
+import com.jsongo.ajs.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 

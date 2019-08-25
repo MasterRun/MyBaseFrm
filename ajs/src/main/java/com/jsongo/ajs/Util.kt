@@ -1,4 +1,4 @@
-package com.jsongo.ajs.interaction
+package com.jsongo.ajs
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -6,7 +6,7 @@ import com.google.gson.GsonBuilder
 /**
  * @author  jsongo
  * @date 2019/6/18 22:31
- * @desc
+ * @desc Util
  */
 object Util {
 

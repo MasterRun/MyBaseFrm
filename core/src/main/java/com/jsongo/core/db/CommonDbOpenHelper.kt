@@ -8,7 +8,7 @@ import com.jsongo.core.BaseCore
 /**
  * author ： jsongo
  * createtime ： 2019/7/22 17:51
- * desc :
+ * desc : 键值存储的common_table，充当本地数据缓存
  */
 class CommonDbOpenHelper
 private constructor(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, VERSION) {

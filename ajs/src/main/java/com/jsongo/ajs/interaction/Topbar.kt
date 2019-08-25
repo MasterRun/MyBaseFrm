@@ -3,6 +3,7 @@ package com.jsongo.ajs.interaction
 import android.graphics.Color
 import android.view.View
 import com.github.lzyzsd.jsbridge.CallBackFunction
+import com.jsongo.ajs.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -10,7 +11,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 /**
  * @author  jsongo
  * @date 2019/6/18 20:41
- * @desc
+ * @desc topbar标题栏
  */
 object Topbar {
 

@@ -18,15 +18,17 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - 添加vConsole --ok
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
-- SplashActivity点击回到桌面问题
+- ajs 模块简化原生api编写方法，提供对外自定义api方法
 - 增加缓存ajs api
-- topbar添加底部灰色线
+- 封装RecyclerView
 - 添加ajsfragment
-- 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
+- SplashActivity点击回到桌面问题
 - 封装网络请求返回处理
+- 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用kotlin观察代理
-- RecyclerView
+- 添加flutter混合开发
+- topbar添加底部灰色线 --abandon
 - 使用依赖注入框架  aop  aspectj   apt  javassist
 
 

@@ -3,7 +3,7 @@ package com.jsongo.ajs.interaction
 import android.util.Log
 import com.github.lzyzsd.jsbridge.CallBackFunction
 import com.google.gson.reflect.TypeToken
-import com.jsongo.ajs.interaction.Util.gson
+import com.jsongo.ajs.Util.gson
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.safframework.log.L
@@ -26,10 +26,8 @@ object DefaultInteractionRegister {
     )
     //已有的api
     val defaultInteractionAPI = arrayListOf(
-        "topbar.bgcolor",
-        "topbar.hide",
-        "topbar.title",
-        "topbar.statusbar",
+        "cache.put",
+        "cache.get",
 
         "common.back",
         "common.messagedialog",
@@ -38,12 +36,6 @@ object DefaultInteractionRegister {
         "common.go",
         "common.load",
 
-        "toast.error",
-        "toast.warning",
-        "toast.info",
-        "toast.normal",
-        "toast.success",
-
         "loading.show",
         "loading.hide",
 
@@ -51,7 +43,18 @@ object DefaultInteractionRegister {
         "smartrefresh.enableLoadmore",
         "smartrefresh.color",
         "smartrefresh.header",
-        "smartrefresh.footer"
+        "smartrefresh.footer",
+
+        "toast.error",
+        "toast.warning",
+        "toast.info",
+        "toast.normal",
+        "toast.success",
+
+        "topbar.bgcolor",
+        "topbar.hide",
+        "topbar.title",
+        "topbar.statusbar"
     )
 
     //注册已有的api
@@ -59,6 +62,7 @@ object DefaultInteractionRegister {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView
     ) {
+        val type = object : TypeToken<Map<String, String>>() {}.type
         defaultInteractionAPI.forEach {
             //获取类名全路径和方法名
             val split = it.split(".")
@@ -74,8 +78,7 @@ object DefaultInteractionRegister {
                     Log.e("defaultactioncall", "method:$it,param_str:$data")
                     try {
                         val params = gson.fromJson<Map<String, String>>(
-                            data,
-                            object : TypeToken<Map<String, String>>() {}.type
+                            data, type
                         )
                         val clazz = Class.forName(className)
                         val method = clazz.getDeclaredMethod(

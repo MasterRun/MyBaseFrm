@@ -1,5 +1,5 @@
 function onEnvReady() {
-    ajs.common.localpic("/storage/emulated/0/Pictures/Screenshots/1444875167806.png", function (data) {
+    ajs.common.localpic("/storage/emulated/0/ADM/1606142160956.jpg", function (data) {
         $("#myimg").attr("src", data["path"].toString());
     });
     //设置topbar背景颜色

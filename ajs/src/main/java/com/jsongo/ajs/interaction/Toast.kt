@@ -1,6 +1,7 @@
 package com.jsongo.ajs.interaction
 
 import com.github.lzyzsd.jsbridge.CallBackFunction
+import com.jsongo.ajs.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.vondear.rxtool.view.RxToast
@@ -8,7 +9,7 @@ import com.vondear.rxtool.view.RxToast
 /**
  * @author  jsongo
  * @date 2019/6/20 15:24
- * @desc
+ * @desc RxToast封装api
  */
 object Toast {
     @JvmStatic
