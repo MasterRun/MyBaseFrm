@@ -2,8 +2,7 @@ package com.jsongo.ajs.interaction
 
 import android.graphics.Color
 import android.view.View
-import com.github.lzyzsd.jsbridge.CallBackFunction
-import com.jsongo.ajs.Util
+import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -23,13 +22,11 @@ object Topbar {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val colorStr = params["color"]
         jsWebLoader.topbar.setBackgroundColor(Color.parseColor(colorStr))
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -40,7 +37,7 @@ object Topbar {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val hide = (params["hide"] ?: "false").toBoolean()
         if (hide) {
@@ -48,9 +45,7 @@ object Topbar {
         } else {
             jsWebLoader.topbar.visibility = View.VISIBLE
         }
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -61,7 +56,7 @@ object Topbar {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val topbarTitle = jsWebLoader.topbar.tvTitle
         val text = params["text"]
@@ -79,9 +74,7 @@ object Topbar {
                 topbarTitle.textSize = it.toFloat()
             }
         }
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
 /*    @JvmStatic
@@ -120,7 +113,7 @@ object Topbar {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val mode = (params["mode"] ?: "0").toString().toDouble().toInt()
         if (mode == 1) {
@@ -128,8 +121,6 @@ object Topbar {
         } else {
             QMUIStatusBarHelper.setStatusBarLightMode(jsWebLoader)
         }
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 }

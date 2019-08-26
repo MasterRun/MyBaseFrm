@@ -3,7 +3,7 @@ package com.jsongo.ajs.webloader
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import com.jsongo.ajs.AJs
-import com.jsongo.ajs.ConstValue
+import com.jsongo.ajs.helper.ConstValue
 
 /**
  * @author jsongo

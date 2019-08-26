@@ -1,4 +1,6 @@
-package com.jsongo.ajs
+package com.jsongo.ajs.helper
+
+import com.jsongo.ajs.AJs
 
 /**
  * @author  jsongo

@@ -136,7 +136,7 @@ function loadurl() {
     ajs.common.load("file:///android_asset/web/index.html")
 }
 function goactivity() {
-    ajs.common.go("com.jsongo.mybasefrm.view.activity.MyPageActivity")
+    ajs.common.go("com.jsongo.app.view.activity.MyPageActivity")
 }
 
 let isEnableRefresh = true

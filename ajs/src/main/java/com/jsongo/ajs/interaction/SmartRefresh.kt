@@ -1,8 +1,7 @@
 package com.jsongo.ajs.interaction
 
 import android.graphics.Color
-import com.github.lzyzsd.jsbridge.CallBackFunction
-import com.jsongo.ajs.Util
+import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.core.util.*
@@ -22,13 +21,11 @@ object SmartRefresh {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val enable = !params["enable"].equals("false")
         jsWebLoader.smartRefreshLayout.setEnableRefresh(enable)
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -39,13 +36,11 @@ object SmartRefresh {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val enable = !params["enable"].equals("false")
         jsWebLoader.smartRefreshLayout.setEnableLoadMore(enable)
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -56,7 +51,7 @@ object SmartRefresh {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val primaryColorStr = params["primaryColor"].toString()
         val accentColor = params["accentColor"].toString()
@@ -65,9 +60,7 @@ object SmartRefresh {
             Color.parseColor(primaryColorStr),
             Color.parseColor(accentColor)
         )
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -78,14 +71,12 @@ object SmartRefresh {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val header = params["header"].toString()
         jsWebLoader.smartRefreshLayout.useHeader(jsWebLoader, SmartRefreshHeader.valueOf(header))
 
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -96,14 +87,12 @@ object SmartRefresh {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val footer = params["footer"].toString()
         jsWebLoader.smartRefreshLayout.useFooter(jsWebLoader, SmartRefreshFooter.valueOf(footer))
 
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
 

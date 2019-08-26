@@ -1,10 +1,10 @@
 package com.jsongo.ajs.interaction
 
 import android.content.Intent
-import com.github.lzyzsd.jsbridge.CallBackFunction
 import com.google.gson.reflect.TypeToken
-import com.jsongo.ajs.ConstValue
-import com.jsongo.ajs.Util
+import com.jsongo.ajs.helper.AjsCallback
+import com.jsongo.ajs.helper.ConstValue
+import com.jsongo.ajs.helper.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.DefaultWebLoader
@@ -27,12 +27,10 @@ object Common {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         jsWebLoader.onBackPressed()
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -43,7 +41,7 @@ object Common {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val qmuiDialogBuilder = QMUIDialog.MessageDialogBuilder(jsWebLoader)
         val title = params["title"] ?: ""
@@ -100,9 +98,7 @@ object Common {
         qmuiDialog.setCancelable(cancelable)
         qmuiDialog.show()
 
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -113,15 +109,10 @@ object Common {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val path = "${ConstValue.LocalPicPrefix}${params["path"]}"
-        val map = hashMapOf(
-            Pair("result", "1"),
-            Pair("path", path)
-        )
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success(Pair("path", path))
     }
 
     /**
@@ -132,7 +123,7 @@ object Common {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val urls = params["urls"].toString()
         val urlList =
@@ -141,9 +132,7 @@ object Common {
 
         ImgPreviewClick(jsWebLoader, index, urlList).start()
 
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -154,13 +143,11 @@ object Common {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val url = params["url"].toString()
         DefaultWebLoader.load(url)
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -171,15 +158,13 @@ object Common {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val activity = params["activity"].toString()
         val activityClazz = Class.forName(activity)
         val intent = Intent(jsWebLoader, activityClazz)
         jsWebLoader.startActivity(intent)
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
 }

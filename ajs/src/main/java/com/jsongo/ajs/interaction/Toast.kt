@@ -1,7 +1,6 @@
 package com.jsongo.ajs.interaction
 
-import com.github.lzyzsd.jsbridge.CallBackFunction
-import com.jsongo.ajs.Util
+import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.vondear.rxtool.view.RxToast
@@ -17,9 +16,9 @@ object Toast {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
-        toast(1, params["text"].toString(), jsWebLoader, bridgeWebView, function)
+        toast(1, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
     }
 
     @JvmStatic
@@ -27,9 +26,9 @@ object Toast {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
-        toast(2, params["text"].toString(), jsWebLoader, bridgeWebView, function)
+        toast(2, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
     }
 
     @JvmStatic
@@ -37,9 +36,9 @@ object Toast {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
-        toast(3, params["text"].toString(), jsWebLoader, bridgeWebView, function)
+        toast(3, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
     }
 
     @JvmStatic
@@ -47,9 +46,9 @@ object Toast {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
-        toast(4, params["text"].toString(), jsWebLoader, bridgeWebView, function)
+        toast(4, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
     }
 
     @JvmStatic
@@ -57,9 +56,9 @@ object Toast {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
-        toast(5, params["text"].toString(), jsWebLoader, bridgeWebView, function)
+        toast(5, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
     }
 
     @JvmStatic
@@ -68,12 +67,10 @@ object Toast {
         text: String?,
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         if (text.isNullOrEmpty()) {
-            val map = hashMapOf(Pair("result", "0"))
-            val result = Util.gson.toJson(map)
-            function.onCallBack(result)
+            callback.failure()
             return
         }
         when (type) {
@@ -83,8 +80,6 @@ object Toast {
             4 -> RxToast.normal(text)
             5 -> RxToast.success(text)
         }
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 }

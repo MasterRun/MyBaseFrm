@@ -16,10 +16,10 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - 使用自定义注解  --ok
 - 扫码按钮  --ok
 - 添加vConsole --ok
+- 增加缓存ajs api -- ok
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
-- ajs 模块简化原生api编写方法，提供对外自定义api方法
-- 增加缓存ajs api
+- ajs 模块简化原生api编写方法，提供对外自定义api方法 -- doing
 - 封装RecyclerView
 - 添加ajsfragment
 - 使用FloatLayoutHelper 封装QMUIFloatLayout

@@ -1,7 +1,6 @@
 package com.jsongo.ajs.interaction
 
-import com.github.lzyzsd.jsbridge.CallBackFunction
-import com.jsongo.ajs.Util
+import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.core.db.CommonDbOpenHelper
@@ -21,19 +20,15 @@ object Cache {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val key = params["key"] ?: ""
         val value = params["value"] ?: ""
         if (key.isEmpty()) {
-            val map = hashMapOf(Pair("result", "0"))
-            val result = Util.gson.toJson(map)
-            function.onCallBack(result)
+            callback.failure()
         } else {
             CommonDbOpenHelper.setKeyValue(key, value)
-            val map = hashMapOf(Pair("result", "1"))
-            val result = Util.gson.toJson(map)
-            function.onCallBack(result)
+            callback.success()
         }
     }
 
@@ -45,18 +40,14 @@ object Cache {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val key = params["key"] ?: ""
         if (key.isEmpty()) {
-            val map = hashMapOf(Pair("result", "0"))
-            val result = Util.gson.toJson(map)
-            function.onCallBack(result)
+            callback.failure()
         } else {
             val value = CommonDbOpenHelper.getValue(key) ?: ""
-            val map = hashMapOf(Pair("result", "1"), Pair("value", value))
-            val result = Util.gson.toJson(map)
-            function.onCallBack(result)
+            callback.success(Pair("value", value))
         }
     }
 }

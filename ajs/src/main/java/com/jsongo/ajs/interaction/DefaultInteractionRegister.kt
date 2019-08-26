@@ -1,9 +1,9 @@
 package com.jsongo.ajs.interaction
 
 import android.util.Log
-import com.github.lzyzsd.jsbridge.CallBackFunction
 import com.google.gson.reflect.TypeToken
-import com.jsongo.ajs.Util.gson
+import com.jsongo.ajs.helper.AjsCallback
+import com.jsongo.ajs.helper.Util.gson
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.safframework.log.L
@@ -76,6 +76,7 @@ object DefaultInteractionRegister {
             if (className.isNotEmpty() && methodName.isNotEmpty()) {
                 //注册api
                 bridgeWebView.registerHandler(it) { data, function ->
+                    val ajsCallback = AjsCallback(function)
                     Log.e("defaultactioncall", "method:$it,param_str:$data")
                     try {
                         val params = gson.fromJson<Map<String, String>>(
@@ -87,18 +88,13 @@ object DefaultInteractionRegister {
                             AJsWebLoader::class.java,
                             BridgeWebView::class.java,
                             Map::class.java,
-                            CallBackFunction::class.java
+                            AjsCallback::class.java
                         )
                         method.isAccessible = true
-                        method.invoke(null, jsWebLoader, bridgeWebView, params, function)
+                        method.invoke(null, jsWebLoader, bridgeWebView, params, ajsCallback)
                     } catch (e: Exception) {
                         L.e("exception occured", e.cause ?: e)
-                        val map = HashMap<String, String>()
-                        map["result"] = "0"
-                        map["message"] = "exception occured"
-                        map["error"] = e.cause?.message ?: ""
-                        val result = gson.toJson(map)
-                        function.onCallBack(result)
+                        ajsCallback.failure(e)
                     }
                 }
             }

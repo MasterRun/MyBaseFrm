@@ -1,7 +1,6 @@
 package com.jsongo.ajs.interaction
 
-import com.github.lzyzsd.jsbridge.CallBackFunction
-import com.jsongo.ajs.Util
+import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 
@@ -19,12 +18,10 @@ object Loading {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         jsWebLoader.loadingDialog.show()
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -35,12 +32,10 @@ object Loading {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         jsWebLoader.loadingDialog.dismiss()
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 
     /**
@@ -51,12 +46,10 @@ object Loading {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView,
         params: Map<String, String>,
-        function: CallBackFunction
+        callback: AjsCallback
     ) {
         val cancelable = !params["cancelable"].equals("false")
         jsWebLoader.loadingDialog.setCancelable(cancelable)
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
+        callback.success()
     }
 }
