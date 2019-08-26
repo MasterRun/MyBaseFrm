@@ -1,5 +1,4 @@
 function onEnvReady() {
-    console.log("see is  in vConsole?")
     ajs.common.localpic("/storage/emulated/0/ADM/1606142160956.jpg", function (data) {
         $("#myimg").attr("src", data["path"].toString());
     });
@@ -137,7 +136,7 @@ function loadurl() {
     ajs.common.load("file:///android_asset/web/index.html")
 }
 function goactivity() {
-    ajs.common.go("com.jsongo.app.view.activity.MyPageActivity")
+    ajs.common.go("com.jsongo.mybasefrm.view.activity.MyPageActivity")
 }
 
 let isEnableRefresh = true
@@ -173,6 +172,16 @@ function showpic() {
         "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3893146502,314297687&fm=27&gp=0.jpg",
     ]
     ajs.common.showpic(urls, 0)
+}
+
+function putCache() {
+    ajs.cache.put("h5Cache", "这是我的缓存内容");
+}
+
+function getCache() {
+    ajs.cache.get("h5Cache", function (data) {
+        ajs.toast.normal(data["value"])
+    })
 }
 
 //这这里将js方法注册给原生调用

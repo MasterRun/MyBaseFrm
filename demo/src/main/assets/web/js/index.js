@@ -174,6 +174,16 @@ function showpic() {
     ajs.common.showpic(urls, 0)
 }
 
+function putCache() {
+    ajs.cache.put("h5Cache", "这是我的缓存内容");
+}
+
+function getCache() {
+    ajs.cache.get("h5Cache", function (data) {
+        ajs.toast.normal(data["value"])
+    })
+}
+
 //这这里将js方法注册给原生调用
 function regHandler() {
 

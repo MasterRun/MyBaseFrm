@@ -79,44 +79,18 @@ function regBridgeMethod() {
 
         //以下api callback参数不需要可以不传
 
-        //顶部标题栏
-        topbar: {
-        	/**
-        	 * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
-        	 */
-            bgcolor(color, callback) {
-                convertFunc('topbar.bgcolor', { color: color }, callback)
+        /**
+         * 缓存
+         */
+        cache: {
+            put(key, value, callback) {
+                convertFunc("cache.put", { key: key, value: value }, callback)
             },
-            /**
-             * 隐藏标题栏 
-             * 参数   true  隐藏   
-             * 参数   false 显示   
-             */
-            hide(hide, callback) {
-                convertFunc('topbar.hide', { hide: hide }, callback)
-            },
-
-            /**
-             * 标题栏的文字    
-             * 参数 ：  以下参数为可选
-             {
-                  text: '设置title', //标题文字
-                  color: '#E8E8E8', //标题字体颜色
-                  size: 22	      //标题字体大小
-              }
-             */
-            title(params, callback) {
-                convertFunc('topbar.title', params, callback)
-            },
-            /**
-             * 设置状态栏
-             * 参数   1  状态栏字体为白色
-             * 		其余参数  状态栏字体为黑色
-             */
-            statusbar(mode, callback) {
-                convertFunc('topbar.statusbar', { mode: mode }, callback)
+            get(key, callback) {
+                convertFunc("cache.get", { key: key }, callback)
             }
         },
+
         /**
          * 一些通用方法
          */
@@ -129,7 +103,7 @@ function regBridgeMethod() {
 
             /**
              * 消息弹窗
-             * 
+             *
                 {
                     title: '提示', //弹窗标题
                     message: "这是一个提示",//弹窗文本内容
@@ -138,7 +112,7 @@ function regBridgeMethod() {
                     action1mode: 0, //弹窗按钮1的样式  传值1，字体为红色，默认为0
                     method1: "dialogaction1",//弹窗按钮1的回调方法
                     params1: JSON.stringify({ param1: "aaa", param2: "bbb" }), //弹窗按钮1 的回调方法的参数，确保是字符串
-                    action2: "确定",  
+                    action2: "确定",
                     action2mode: 0,
                     method2: "dialogaction2",
                     params2: "params222"
@@ -170,7 +144,7 @@ function regBridgeMethod() {
             /**
              * 跳转Android原生页面
              * @param {String} activity  原生提供的原生页面路径
-             * @param {function} callback 
+             * @param {function} callback
              */
             go(activity, callback) {
                 convertFunc("common.go", { activity: activity }, callback)
@@ -179,10 +153,55 @@ function regBridgeMethod() {
             /**
              * 开启新的页面打开h5页面
              * @param {String} url  h5页面路径
-             * @param {*} callback 
+             * @param {*} callback
              */
             load(url, callback) {
                 convertFunc("common.load", { url: url }, callback)
+            }
+        },
+
+        //加载的弹窗
+        loading: {
+            //显示
+            show(callback) {
+                convertFunc("loading.show", {}, callback)
+            },
+            //隐藏
+            hide(callback) {
+                convertFunc("loading.hide", {}, callback)
+            },
+            //是否可取消    true/false
+            cancelable(cancelable, callback) {
+                convertFunc("loading.cancelable", { cancelable: cancelable }, callback)
+            }
+        },
+
+        //原生的刷新
+        smartrefresh: {
+            //是否启用下拉刷新  默认启用
+            enableRefresh(enable, callback) {
+                convertFunc("smartrefresh.enableRefresh", { enable: enable }, callback)
+            },
+            //是否启用加载更多 默认关闭
+            enableLoadmore(enable, callback) {
+                convertFunc("smartrefresh.enableLoadmore", { enable: enable }, callback)
+            },
+            /**
+             * 设置刷新的颜色
+             * @param {String} primaryColor  刷新的背景色
+             * @param {String} accentColor  刷新的前景色
+             * @param {function} callback
+             */
+            color(primaryColor, accentColor, callback) {
+                convertFunc("smartrefresh.color", { primaryColor: primaryColor, accentColor: accentColor }, callback)
+            },
+            //设置刷新头样式  参数：smartrefresh.header.xxx
+            header(header, callback) {
+                convertFunc("smartrefresh.header", { header: header }, callback)
+            },
+            //设置加载更所样式  参数：smartrefresh.footer.xxx
+            footer(footer, callback) {
+                convertFunc("smartrefresh.footer", { footer: footer }, callback)
             }
         },
 
@@ -209,47 +228,43 @@ function regBridgeMethod() {
                 convertFunc("toast.success", { text: text }, callback)
             },
         },
-        //加载的弹窗
-        loading: {
-            //显示
-            show(callback) {
-                convertFunc("loading.show", {}, callback)
-            },
-            //隐藏
-            hide(callback) {
-                convertFunc("loading.hide", {}, callback)
-            },
-            //是否可取消    true/false
-            cancelable(cancelable, callback) {
-                convertFunc("loading.cancelable", { cancelable: cancelable }, callback)
-            }
-        },
-        //原生的刷新
-        smartrefresh: {
-            //是否启用下拉刷新  默认启用
-            enableRefresh(enable, callback) {
-                convertFunc("smartrefresh.enableRefresh", { enable: enable }, callback)
-            },
-            //是否启用加载更多 默认关闭
-            enableLoadmore(enable, callback) {
-                convertFunc("smartrefresh.enableLoadmore", { enable: enable }, callback)
+
+        //顶部标题栏
+        topbar: {
+        	/**
+        	 * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
+        	 */
+            bgcolor(color, callback) {
+                convertFunc('topbar.bgcolor', { color: color }, callback)
             },
             /**
-             * 设置刷新的颜色
-             * @param {String} primaryColor  刷新的背景色
-             * @param {String} accentColor  刷新的前景色
-             * @param {function} callback 
+             * 隐藏标题栏
+             * 参数   true  隐藏
+             * 参数   false 显示
              */
-            color(primaryColor, accentColor, callback) {
-                convertFunc("smartrefresh.color", { primaryColor: primaryColor, accentColor: accentColor }, callback)
+            hide(hide, callback) {
+                convertFunc('topbar.hide', { hide: hide }, callback)
             },
-            //设置刷新头样式  参数：smartrefresh.header.xxx
-            header(header, callback) {
-                convertFunc("smartrefresh.header", { header: header }, callback)
+
+            /**
+             * 标题栏的文字
+             * 参数 ：  以下参数为可选
+             {
+                  text: '设置title', //标题文字
+                  color: '#E8E8E8', //标题字体颜色
+                  size: 22	      //标题字体大小
+              }
+             */
+            title(params, callback) {
+                convertFunc('topbar.title', params, callback)
             },
-            //设置加载更所样式  参数：smartrefresh.footer.xxx
-            footer(footer, callback) {
-                convertFunc("smartrefresh.footer", { footer: footer }, callback)
+            /**
+             * 设置状态栏
+             * 参数   1  状态栏字体为白色
+             * 		其余参数  状态栏字体为黑色
+             */
+            statusbar(mode, callback) {
+                convertFunc('topbar.statusbar', { mode: mode }, callback)
             }
         }
     };

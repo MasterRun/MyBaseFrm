@@ -79,44 +79,18 @@ function regBridgeMethod() {
 
         //以下api callback参数不需要可以不传
 
-        //顶部标题栏
-        topbar: {
-        	/**
-        	 * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
-        	 */
-            bgcolor(color, callback) {
-                convertFunc('topbar.bgcolor', { color: color }, callback)
+        /**
+         * 缓存
+         */
+        cache: {
+            put(key, value, callback) {
+                convertFunc("cache.put", { key: key, value: value }, callback)
             },
-            /**
-             * 隐藏标题栏
-             * 参数   true  隐藏
-             * 参数   false 显示
-             */
-            hide(hide, callback) {
-                convertFunc('topbar.hide', { hide: hide }, callback)
-            },
-
-            /**
-             * 标题栏的文字
-             * 参数 ：  以下参数为可选
-             {
-                  text: '设置title', //标题文字
-                  color: '#E8E8E8', //标题字体颜色
-                  size: 22	      //标题字体大小
-              }
-             */
-            title(params, callback) {
-                convertFunc('topbar.title', params, callback)
-            },
-            /**
-             * 设置状态栏
-             * 参数   1  状态栏字体为白色
-             * 		其余参数  状态栏字体为黑色
-             */
-            statusbar(mode, callback) {
-                convertFunc('topbar.statusbar', { mode: mode }, callback)
+            get(key, callback) {
+                convertFunc("cache.get", { key: key }, callback)
             }
         },
+
         /**
          * 一些通用方法
          */
@@ -186,29 +160,6 @@ function regBridgeMethod() {
             }
         },
 
-        //toast 吐司
-        toast: {
-            //错误 红色吐司
-            error(text, callback) {
-                convertFunc("toast.error", { text: text }, callback)
-            },
-            //警告 黄色吐司
-            warning(text, callback) {
-                convertFunc("toast.warning", { text: text }, callback)
-            },
-            //提示 蓝色吐司
-            info(text, callback) {
-                convertFunc("toast.info", { text: text }, callback)
-            },
-            //普通 黑色吐司
-            normal(text, callback) {
-                convertFunc("toast.normal", { text: text }, callback)
-            },
-            //成功 绿色吐司
-            success(text, callback) {
-                convertFunc("toast.success", { text: text }, callback)
-            },
-        },
         //加载的弹窗
         loading: {
             //显示
@@ -224,6 +175,7 @@ function regBridgeMethod() {
                 convertFunc("loading.cancelable", { cancelable: cancelable }, callback)
             }
         },
+
         //原生的刷新
         smartrefresh: {
             //是否启用下拉刷新  默认启用
@@ -250,6 +202,69 @@ function regBridgeMethod() {
             //设置加载更所样式  参数：smartrefresh.footer.xxx
             footer(footer, callback) {
                 convertFunc("smartrefresh.footer", { footer: footer }, callback)
+            }
+        },
+
+        //toast 吐司
+        toast: {
+            //错误 红色吐司
+            error(text, callback) {
+                convertFunc("toast.error", { text: text }, callback)
+            },
+            //警告 黄色吐司
+            warning(text, callback) {
+                convertFunc("toast.warning", { text: text }, callback)
+            },
+            //提示 蓝色吐司
+            info(text, callback) {
+                convertFunc("toast.info", { text: text }, callback)
+            },
+            //普通 黑色吐司
+            normal(text, callback) {
+                convertFunc("toast.normal", { text: text }, callback)
+            },
+            //成功 绿色吐司
+            success(text, callback) {
+                convertFunc("toast.success", { text: text }, callback)
+            },
+        },
+
+        //顶部标题栏
+        topbar: {
+        	/**
+        	 * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
+        	 */
+            bgcolor(color, callback) {
+                convertFunc('topbar.bgcolor', { color: color }, callback)
+            },
+            /**
+             * 隐藏标题栏
+             * 参数   true  隐藏
+             * 参数   false 显示
+             */
+            hide(hide, callback) {
+                convertFunc('topbar.hide', { hide: hide }, callback)
+            },
+
+            /**
+             * 标题栏的文字
+             * 参数 ：  以下参数为可选
+             {
+                  text: '设置title', //标题文字
+                  color: '#E8E8E8', //标题字体颜色
+                  size: 22	      //标题字体大小
+              }
+             */
+            title(params, callback) {
+                convertFunc('topbar.title', params, callback)
+            },
+            /**
+             * 设置状态栏
+             * 参数   1  状态栏字体为白色
+             * 		其余参数  状态栏字体为黑色
+             */
+            statusbar(mode, callback) {
+                convertFunc('topbar.statusbar', { mode: mode }, callback)
             }
         }
     };

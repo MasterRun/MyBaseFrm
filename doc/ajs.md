@@ -51,12 +51,13 @@ todo   切换原生容器的方法将会在后续推出...
     - [2.6 打开新页面加载h5页面](#26-打开新页面加载h5页面)
   - [3 Toast吐司](#3-toast吐司)
   - [4 加载弹窗](#4-加载弹窗)
-  - [5 原生的下拉刷新和加载更多:smartrefresh](#5-原生的下拉刷新和加载更多smartrefresh)
-    - [5.1 开启/关闭下拉刷新](#51-开启关闭下拉刷新)
-    - [5.2 开启/关闭下拉刷新](#52-开启关闭下拉刷新)
-    - [5.3 设置刷新主题颜色](#53-设置刷新主题颜色)
-    - [5.4 设置下拉刷新样式](#54-设置下拉刷新样式)
-    - [5.5 设置上拉加载样式](#55-设置上拉加载样式)
+  - [5 缓存](#5-缓存)
+  - [6 原生的下拉刷新和加载更多:smartrefresh](#6-原生的下拉刷新和加载更多smartrefresh)
+    - [6.1 开启/关闭下拉刷新](#61-开启关闭下拉刷新)
+    - [6.2 开启/关闭下拉刷新](#62-开启关闭下拉刷新)
+    - [6.3 设置刷新主题颜色](#63-设置刷新主题颜色)
+    - [6.4 设置下拉刷新样式](#64-设置下拉刷新样式)
+    - [6.5 设置上拉加载样式](#65-设置上拉加载样式)
 - [二、提供原生调用的方法](#二提供原生调用的方法)
 
 
@@ -471,8 +472,21 @@ myBridge.callHandler(callname, params, function (responseData) {
     ajs.loading.hide()
 ```
 
+### 5 缓存
+|调用方法|方法说明|参数|
+|---|---|---|
+| ajs.cache.put()|保存键值|key(键) value(值)  callback(可选回调)|
+| ajs.cache.get()|保存键值|key(键)  callback(回调,通过data["value"]取返回的值)|
+- demo
+```js
+    ajs.cache.put("h5Cache", "这是我的缓存内容");
 
-### 5 原生的下拉刷新和加载更多:smartrefresh
+    ajs.cache.get("h5Cache", function (data) {
+        ajs.toast.normal(data["value"])
+    })
+```
+
+### 6 原生的下拉刷新和加载更多:smartrefresh
 
 <b>注：
 - 已经将h5页面的容器切换为第二容器，第二容器不包含此原生控件，如需使用，需要先切换为原生的第一容器
@@ -480,7 +494,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 
  说明: 默认开启下拉刷新  不开启上拉加载更多
 
-#### 5.1 开启/关闭下拉刷新
+#### 6.1 开启/关闭下拉刷新
 
 方法：`ajs.smartrefresh.enableRefresh()`
 
@@ -505,7 +519,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 
-#### 5.2 开启/关闭下拉刷新
+#### 6.2 开启/关闭下拉刷新
 
 方法：`ajs.smartrefresh.enableLoadmore()`
 
@@ -530,7 +544,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 
-#### 5.3 设置刷新主题颜色
+#### 6.3 设置刷新主题颜色
 
 方法：`ajs.smartrefresh.color()`
 
@@ -557,7 +571,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 
-#### 5.4 设置下拉刷新样式
+#### 6.4 设置下拉刷新样式
 
 方法：`ajs.smartrefresh.header()`
 
@@ -593,7 +607,7 @@ myBridge.callHandler(callname, params, function (responseData) {
     ajs.smartrefresh.header(smartrefresh.header.MaterialHeader)
 ```
 
-#### 5.5 设置上拉加载样式
+#### 6.5 设置上拉加载样式
 
 方法：`ajs.smartrefresh.footer()`
 

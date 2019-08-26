@@ -18,11 +18,12 @@ object DefaultInteractionRegister {
     const val packageName = "com.jsongo.ajs.interaction"
     //api与类名映射
     val nameMapping = hashMapOf(
-        Pair("topbar", "$packageName.Topbar"),
+        Pair("cache", "$packageName.Cache"),
         Pair("common", "$packageName.Common"),
-        Pair("toast", "$packageName.Toast"),
         Pair("loading", "$packageName.Loading"),
-        Pair("smartrefresh", "$packageName.SmartRefresh")
+        Pair("smartrefresh", "$packageName.SmartRefresh"),
+        Pair("toast", "$packageName.Toast"),
+        Pair("topbar", "$packageName.Topbar")
     )
     //已有的api
     val defaultInteractionAPI = arrayListOf(
