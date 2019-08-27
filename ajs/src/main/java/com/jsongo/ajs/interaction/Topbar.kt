@@ -77,33 +77,31 @@ object Topbar {
         callback.success()
     }
 
-/*    @JvmStatic
-    fun subtitle(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
-        params: Map<String, String>,
-        function: CallBackFunction
-    ) {
-        val topbarTitle = jsWebLoader.topbarTitle
-        val text = params["text"]
-        if (text != null) {
-            topbarTitle.text = text
-        }
-        val colorStr = params["color"]
-        if (colorStr != null) {
-            topbarTitle.setTextColor(Color.parseColor(colorStr))
-        }
-        val textSizeStr = params["size"]
-        if(textSizeStr!=null){
-            val toDoublet = textSizeStr.toDoubleOrNull()
-            toDoublet?.let {
-                topbarTitle.textSize = it.toFloat()
-            }
-        }
-        val map = hashMapOf(Pair("result", "1"))
-        val result = Util.gson.toJson(map)
-        function.onCallBack(result)
-    }*/
+    /* @JvmStatic
+     fun subtitle(
+         jsWebLoader: AJsWebLoader,
+         bridgeWebView: BridgeWebView,
+         params: Map<String, String>,
+         callback: AjsCallback
+     ) {
+         val topbarTitle = jsWebLoader.topbarTitle
+         val text = params["text"]
+         if (text != null) {
+             topbarTitle.text = text
+         }
+         val colorStr = params["color"]
+         if (colorStr != null) {
+             topbarTitle.setTextColor(Color.parseColor(colorStr))
+         }
+         val textSizeStr = params["size"]
+         if(textSizeStr!=null){
+             val toDoublet = textSizeStr.toDoubleOrNull()
+             toDoublet?.let {
+                 topbarTitle.textSize = it.toFloat()
+             }
+         }
+         callback.success()
+     }*/
 
     /**
      * 设置状态栏字体颜色

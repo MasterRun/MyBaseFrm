@@ -1,70 +1,36 @@
-package com.jsongo.ajs.interaction
+package com.jsongo.ajs.interaction.register
 
 import android.util.Log
 import com.google.gson.reflect.TypeToken
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.helper.Util.gson
+import com.jsongo.ajs.helper.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.safframework.log.L
 
 /**
- * @author  jsongo
- * @date 2019/6/18 21:38
- * @desc 已有的交互api
+ * author ： jsongo
+ * createtime ： 19-8-27 下午8:44
+ * desc : 交互api的基类
  */
-object DefaultInteractionRegister {
-    //交互api的包路径
-    const val packageName = "com.jsongo.ajs.interaction"
-    //api与类名映射
-    val nameMapping = hashMapOf(
-        Pair("cache", "$packageName.Cache"),
-        Pair("common", "$packageName.Common"),
-        Pair("loading", "$packageName.Loading"),
-        Pair("smartrefresh", "$packageName.SmartRefresh"),
-        Pair("toast", "$packageName.Toast"),
-        Pair("topbar", "$packageName.Topbar")
-    )
-    //已有的api
-    val defaultInteractionAPI = arrayListOf(
-        "cache.put",
-        "cache.get",
+abstract class BaseInteractionRegister {
+    /**
+     * api 与 类名映射
+     */
+    abstract val nameMapping: Map<String, String>
+    /**
+     * api 集合
+     */
+    abstract val interactionAPI: List<String>
 
-        "common.back",
-        "common.messagedialog",
-        "common.localpic",
-        "common.showpic",
-        "common.go",
-        "common.load",
+    val type = object : TypeToken<Map<String, String>>() {}.type
 
-        "loading.show",
-        "loading.hide",
-
-        "smartrefresh.enableRefresh",
-        "smartrefresh.enableLoadmore",
-        "smartrefresh.color",
-        "smartrefresh.header",
-        "smartrefresh.footer",
-
-        "toast.error",
-        "toast.warning",
-        "toast.info",
-        "toast.normal",
-        "toast.success",
-
-        "topbar.bgcolor",
-        "topbar.hide",
-        "topbar.title",
-        "topbar.statusbar"
-    )
-
-    //注册已有的api
+    //注册api
     fun register(
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView
     ) {
-        val type = object : TypeToken<Map<String, String>>() {}.type
-        defaultInteractionAPI.forEach {
+        interactionAPI.forEach {
             //获取类名全路径和方法名
             val split = it.split(".")
             if (split.size != 2) {
@@ -79,7 +45,7 @@ object DefaultInteractionRegister {
                     val ajsCallback = AjsCallback(function)
                     Log.e("defaultactioncall", "method:$it,param_str:$data")
                     try {
-                        val params = gson.fromJson<Map<String, String>>(
+                        val params = Util.gson.fromJson<Map<String, String>>(
                             data, type
                         )
                         val clazz = Class.forName(className)
@@ -100,5 +66,5 @@ object DefaultInteractionRegister {
             }
         }
     }
-
 }
+

@@ -5,12 +5,12 @@ import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import com.jsongo.ajs.R
-import com.jsongo.ajs.interaction.DefaultInteractionRegister
+import com.jsongo.ajs.annotations.interactionRegisterList
 import com.jsongo.core.mvp.base.BaseActivity
+import com.safframework.log.L
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
@@ -164,8 +164,8 @@ abstract class AJsWebLoader : BaseActivity() {
         }
 
         bridgeWebView.loadUrl(webPath)
-        Log.v("url ", webPath)
-        //        bridgeWebView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,bridgeWebView.getHeight()));
+        L.d("url ", webPath)
+        //ridgeWebView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,bridgeWebView.getHeight()));
 
         registerHandler()
     }
@@ -173,9 +173,11 @@ abstract class AJsWebLoader : BaseActivity() {
     /**
      * 用于注册java js交互
      */
-    protected fun registerHandler() {
-        //注册已有的交互api
-        DefaultInteractionRegister.register(this, bridgeWebView)
+    protected open fun registerHandler() {
+        //注册交互api
+        interactionRegisterList.forEach {
+            it.register(this@AJsWebLoader, bridgeWebView)
+        }
     }
 
     override fun onSaveInstanceState(paramBundle: Bundle) {
@@ -187,9 +189,9 @@ abstract class AJsWebLoader : BaseActivity() {
         try {
             super.onConfigurationChanged(newConfig)
             if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                Log.v("Himi", "onConfigurationChanged_ORIENTATION_LANDSCAPE")
+                L.d("Himi", "onConfigurationChanged_ORIENTATION_LANDSCAPE")
             } else if (this.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                Log.v("Himi", "onConfigurationChanged_ORIENTATION_PORTRAIT")
+                L.d("Himi", "onConfigurationChanged_ORIENTATION_PORTRAIT")
             }
         } catch (e: Exception) {
             e.printStackTrace()

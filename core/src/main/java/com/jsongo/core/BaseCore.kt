@@ -29,5 +29,5 @@ object BaseCore {
         MultiDex.install(context)
     }
 
-    var isDebug: Boolean = false
+    var isDebug: Boolean = true && BuildConfig.DEBUG
 }
