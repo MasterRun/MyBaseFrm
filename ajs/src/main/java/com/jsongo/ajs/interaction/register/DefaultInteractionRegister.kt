@@ -1,53 +1,44 @@
 package com.jsongo.ajs.interaction.register
 
-import com.jsongo.ajs.interaction.*
-
 /**
  * @author  jsongo
  * @date 2019/6/18 21:38
  * @desc 已有的交互api
  */
 object DefaultInteractionRegister : BaseInteractionRegister() {
+    //api 映射
+    override val interactionAPI = hashMapOf(
+        Pair("cache.put", "com.jsongo.ajs.interaction.Cache.put"),
+        Pair("cache.get", "com.jsongo.ajs.interaction.Cache.get"),
 
-    //api与类名映射
-    override val nameMapping = hashMapOf(
-        Pair("cache", Cache::class.java.name),
-        Pair("common", Common::class.java.name),
-        Pair("loading", Loading::class.java.name),
-        Pair("smartrefresh", SmartRefresh::class.java.name),
-        Pair("toast", Toast::class.java.name),
-        Pair("topbar", Topbar::class.java.name)
-    )
-    //已有的api
-    override val interactionAPI = arrayListOf(
-        "cache.put",
-        "cache.get",
+        Pair("common.back", "com.jsongo.ajs.interaction.Common.back"),
+        Pair("common.messagedialog", "com.jsongo.ajs.interaction.Common.messagedialog"),
+        Pair("common.localpic", "com.jsongo.ajs.interaction.Common.localpic"),
+        Pair("common.showpic", "com.jsongo.ajs.interaction.Common.showpic"),
+        Pair("common.go", "com.jsongo.ajs.interaction.Common.go"),
+        Pair("common.load", "com.jsongo.ajs.interaction.Common.load"),
 
-        "common.back",
-        "common.messagedialog",
-        "common.localpic",
-        "common.showpic",
-        "common.go",
-        "common.load",
+        Pair("loading.show", "com.jsongo.ajs.interaction.Loading.show"),
+        Pair("loading.hide", "com.jsongo.ajs.interaction.Loading.hide"),
 
-        "loading.show",
-        "loading.hide",
+        Pair("smartrefresh.enableRefresh", "com.jsongo.ajs.interaction.SmartRefresh.enableRefresh"),
+        Pair(
+            "smartrefresh.enableLoadmore",
+            "com.jsongo.ajs.interaction.SmartRefresh.enableLoadmore"
+        ),
+        Pair("smartrefresh.color", "com.jsongo.ajs.interaction.SmartRefresh.color"),
+        Pair("smartrefresh.header", "com.jsongo.ajs.interaction.SmartRefresh.header"),
+        Pair("smartrefresh.footer", "com.jsongo.ajs.interaction.SmartRefresh.footer"),
 
-        "smartrefresh.enableRefresh",
-        "smartrefresh.enableLoadmore",
-        "smartrefresh.color",
-        "smartrefresh.header",
-        "smartrefresh.footer",
+        Pair("toast.error", "com.jsongo.ajs.interaction.Toast.error"),
+        Pair("toast.warning", "com.jsongo.ajs.interaction.Toast.warning"),
+        Pair("toast.info", "com.jsongo.ajs.interaction.Toast.info"),
+        Pair("toast.normal", "com.jsongo.ajs.interaction.Toast.normal"),
+        Pair("toast.success", "com.jsongo.ajs.interaction.Toast.success"),
 
-        "toast.error",
-        "toast.warning",
-        "toast.info",
-        "toast.normal",
-        "toast.success",
-
-        "topbar.bgcolor",
-        "topbar.hide",
-        "topbar.title",
-        "topbar.statusbar"
+        Pair("topbar.bgcolor", "com.jsongo.ajs.interaction.Topbar.bgcolor"),
+        Pair("topbar.hide", "com.jsongo.ajs.interaction.Topbar.hide"),
+        Pair("topbar.title", "com.jsongo.ajs.interaction.Topbar.title"),
+        Pair("topbar.statusbar", "com.jsongo.ajs.interaction.Topbar.statusbar")
     )
 }

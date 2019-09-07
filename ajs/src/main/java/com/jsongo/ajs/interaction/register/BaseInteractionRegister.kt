@@ -15,13 +15,10 @@ import com.safframework.log.L
  */
 abstract class BaseInteractionRegister {
     /**
-     * api 与 类名映射
+     * api 映射
+     * eg:  "cache.put", "com.jsongo.ajs.interaction.Cache.put"
      */
-    abstract val nameMapping: Map<String, String>
-    /**
-     * api 集合
-     */
-    abstract val interactionAPI: List<String>
+    abstract val interactionAPI: Map<String, String>
 
     val type = object : TypeToken<Map<String, String>>() {}.type
 
@@ -30,39 +27,48 @@ abstract class BaseInteractionRegister {
         jsWebLoader: AJsWebLoader,
         bridgeWebView: BridgeWebView
     ) {
+
         interactionAPI.forEach {
             //获取类名全路径和方法名
-            val split = it.split(".")
-            if (split.size != 2) {
-                return@forEach
-            }
-            val className = nameMapping[split[0]] ?: ""
-            val methodName = split[1]
+            val value = it.value
+            val lastIndex = value.lastIndexOf(".")
+            val className = value.substring(0, lastIndex)
+            val methodName = value.substring(lastIndex + 1)
 
             if (className.isNotEmpty() && methodName.isNotEmpty()) {
                 //注册api
-                bridgeWebView.registerHandler(it) { data, function ->
-                    val ajsCallback = AjsCallback(function)
-                    Log.e("defaultactioncall", "method:$it,param_str:$data")
-                    try {
-                        val params = Util.gson.fromJson<Map<String, String>>(
-                            data, type
-                        )
-                        val clazz = Class.forName(className)
-                        val method = clazz.getDeclaredMethod(
-                            methodName,
-                            AJsWebLoader::class.java,
-                            BridgeWebView::class.java,
-                            Map::class.java,
-                            AjsCallback::class.java
-                        )
-                        method.isAccessible = true
-                        method.invoke(null, jsWebLoader, bridgeWebView, params, ajsCallback)
-                    } catch (e: Exception) {
-                        L.e("exception occured", e.cause ?: e)
-                        ajsCallback.failure(e)
-                    }
-                }
+                registerApi(jsWebLoader, bridgeWebView, it.key, className, methodName)
+            }
+        }
+    }
+
+    private fun registerApi(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        registerName: String,
+        className: String,
+        methodName: String
+    ) {
+        bridgeWebView.registerHandler(registerName) { data, function ->
+            val ajsCallback = AjsCallback(function)
+            Log.e("registerApi", "registerName:$registerName,param_str:$data")
+            try {
+                val params = Util.gson.fromJson<Map<String, String>>(
+                    data, type
+                )
+                val clazz = Class.forName(className)
+                val method = clazz.getDeclaredMethod(
+                    methodName,
+                    AJsWebLoader::class.java,
+                    BridgeWebView::class.java,
+                    Map::class.java,
+                    AjsCallback::class.java
+                )
+                method.isAccessible = true
+                method.invoke(null, jsWebLoader, bridgeWebView, params, ajsCallback)
+            } catch (e: Exception) {
+                L.e("exception occured", e.cause ?: e)
+                ajsCallback.failure(e)
             }
         }
     }

@@ -2,9 +2,14 @@ package com.jsongo.mybasefrm.view.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.View
+import com.jsongo.ajs.helper.AjsCallback
+import com.jsongo.ajs.jsbridge.BridgeWebView
+import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.DefaultWebLoader
+import com.jsongo.annotation.AjsApi
 import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.annotations.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
@@ -24,6 +29,7 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.vondear.rxtool.view.RxToast
 import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 import kotlin.properties.Delegates
 
 @ConfPage(R.layout.activity_main, 2)
@@ -36,6 +42,26 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
     var txt: String by Delegates.observable("init value") { prop, old, newValue ->
         tv.text = newValue
+    }
+
+    companion object zzz {
+
+        //测试
+        @AjsApi(prefix = "custom3")
+        @JvmStatic
+        fun toast(
+            jsWebLoader: AJsWebLoader,
+            bridgeWebView: BridgeWebView,
+            params: Map<String, String>, callback: AjsCallback
+        ) {
+            val text = params["text"]
+            if (TextUtils.isEmpty(text)) {
+                callback.failure(HashMap(), 0, "")
+                return
+            }
+            RxToast.error(text!!)
+            callback.success(HashMap(), 1, "success")
+        }
     }
 
     override fun initView() {

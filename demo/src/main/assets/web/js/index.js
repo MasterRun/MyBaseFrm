@@ -185,13 +185,13 @@ function getCache() {
 }
 
 function custom1(){
-        myBridge.callHandler("custom1.toast", {text:"custom1"}, function (responseData) {
+        myBridge.callHandler("custom1.myToast", {text:"custom1"}, function (responseData) {
 
         })
 }
 
 function custom2(){
-        myBridge.callHandler("custom1.toast", {text:"custom2"}, function (responseData) {
+        myBridge.callHandler("custom3.toast", {text:"custom3"}, function (responseData) {
 
         })
 }

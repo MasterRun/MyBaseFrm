@@ -1,7 +1,6 @@
 package com.jsongo.mybasefrm.ajsapi
 
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.interaction.register.BaseInteractionRegister
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.annotation.AjsApi
@@ -12,14 +11,8 @@ import com.vondear.rxtool.view.RxToast
  * createtime ： 19-9-4 下午11:25
  * desc :
  */
-@AjsApi
-object TestApi2 : BaseInteractionRegister() {
-    override val nameMapping: Map<String, String> =
-        hashMapOf(Pair("custom2", TestApi2::class.java.name))
-
-    override val interactionAPI: List<String> = listOf("custom2.toast")
-
-
+object TestApi2 {
+    @AjsApi(prefix = "custom2")
     @JvmStatic
     fun toast(
         jsWebLoader: AJsWebLoader,
@@ -36,3 +29,25 @@ object TestApi2 : BaseInteractionRegister() {
         callback.success()
     }
 }
+
+/*
+class TestApi3{
+    companion object {
+
+        @AjsApi(prefix = "custom3")
+        @JvmStatic
+        fun toast(
+            jsWebLoader: AJsWebLoader,
+            bridgeWebView: BridgeWebView,
+            params: Map<String, String>, callback: AjsCallback
+        ) {
+            val text = params["text"]
+            if (TextUtils.isEmpty(text)) {
+                callback.failure(HashMap(), 0, "")
+                return
+            }
+            RxToast.error(text!!)
+            callback.success(HashMap(), 1, "success")
+        }
+    }
+}*/

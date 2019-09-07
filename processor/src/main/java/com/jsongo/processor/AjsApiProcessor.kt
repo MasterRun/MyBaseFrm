@@ -2,11 +2,9 @@ package com.jsongo.processor
 
 import com.jsongo.annotation.AjsApi
 import com.squareup.javapoet.*
-import java.io.IOException
 import java.util.*
 import javax.annotation.processing.*
 import javax.lang.model.SourceVersion
-import javax.lang.model.element.ElementKind
 import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
 import javax.tools.Diagnostic
@@ -32,55 +30,54 @@ class AjsApiProcessor : AbstractProcessor() {
 
 //        此处使用到了square公司的javapoet库，用来辅助生成 类的代码
 
-        val registerListType = ParameterizedTypeName.get(
-            ClassName.get(List::class.java),
-            ClassName.get("com.jsongo.ajs.interaction.register", "BaseInteractionRegister")
+        val registerMapType = ParameterizedTypeName.get(
+            ClassName.get(Map::class.java),
+            ClassName.get(String::class.java),
+            ClassName.get(String::class.java)
         )
 
-        //构建private static final List<BaseInteractionRegister> interactionRegisterList = new ArrayList<>();
-        val fieldbuilder = FieldSpec.builder(
-            registerListType,
-            "interactionRegisterList",
-            Modifier.PRIVATE,
-            Modifier.STATIC,
-            Modifier.FINAL
-        ).initializer("new \$T<>()", ArrayList::class.java)
-
-        //添加静态代码快，添加BaseInteractionRegister实例
-        val codeBlockBuilder = CodeBlock.builder()
-        val elementsAnnotatedWith = roundEnv?.getElementsAnnotatedWith(AjsApi::class.java)
-        if (elementsAnnotatedWith != null) {
-            for (element in elementsAnnotatedWith) {
-                if (element.kind == ElementKind.CLASS) {
-                    codeBlockBuilder.addStatement(
-                        "interactionRegisterList.add(\$N.INSTANCE)",
-                        element.toString()
-                    )
-                }
+        // 添加 重写的getInteractionAPI方法
+        val methodBuilder = MethodSpec.methodBuilder("getInteractionAPI")
+            .addAnnotation(Override::class.java)
+            .addModifiers(Modifier.PUBLIC)
+            .returns(registerMapType)
+            .addStatement("\$T apiMap = new \$T()", registerMapType, HashMap::class.java)
+        roundEnv?.getElementsAnnotatedWith(AjsApi::class.java)?.forEach {
+            val ajsApiAnno = it.getAnnotation(AjsApi::class.java)
+            var prefix = ajsApiAnno.prefix
+            if (prefix.isEmpty()) {
+                prefix = it.enclosingElement.simpleName.toString()
             }
+            var methodName = ajsApiAnno.methodName
+            if (methodName.isEmpty()) {
+                methodName = it.simpleName.toString()
+            }
+            methodBuilder.addStatement(
+                "apiMap.put(\$S,\$S)",
+                prefix + "." + methodName,
+                it.enclosingElement.toString() + "." + it.simpleName.toString()
+            )
         }
-        // 添加get方法
-        val methodBuilder = MethodSpec.methodBuilder("getInteractionRegisterList")
-            .addModifiers(Modifier.PUBLIC)
-            .addModifiers(Modifier.STATIC)
-        methodBuilder.addStatement("return interactionRegisterList")
-        methodBuilder.returns(registerListType)
+        methodBuilder.addStatement("return apiMap")
 
-        // 构建类
-        val finderClass = TypeSpec.classBuilder("InteractionRegisterCollector_Gen")
-            .addModifiers(Modifier.PUBLIC)
-            .addField(fieldbuilder.build())
-            .addStaticBlock(codeBlockBuilder.build())
-            .addMethod(methodBuilder.build())
-            .build()
         try {
+            //直接使用Class.forName会报错
+            val baseInteractionRegisterClassName =
+                ClassName.get("com.jsongo.ajs.interaction.register", "BaseInteractionRegister")
+
+            // 构建类
+            val finderClass = TypeSpec.classBuilder("CustomInteractionRegister_Gen")
+                .superclass(baseInteractionRegisterClassName)
+                .addModifiers(Modifier.PUBLIC)
+                .addMethod(methodBuilder.build())
+                .build()
             JavaFile.builder("com.jsongo.ajs.helper", finderClass).build().writeTo(mFiler)
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             mMessager?.printMessage(
                 Diagnostic.Kind.WARNING,
                 "${e.message}\r\n"
             )
-//            e.printStackTrace()
+            //e.printStackTrace()
         }
 
         return true

@@ -15,11 +15,11 @@ object InteractionRegisterCollector {
         interactionRegisterList.add(DefaultInteractionRegister)
 
         try {
-            val collectorGenClazz =
-                Class.forName("com.jsongo.ajs.helper.InteractionRegisterCollector_Gen")
-            val list =
-                collectorGenClazz.getDeclaredMethod("getInteractionRegisterList").invoke(null) as List<BaseInteractionRegister>
-            interactionRegisterList.addAll(list)
+            val customInteractionRegisterClazz =
+                Class.forName("com.jsongo.ajs.helper.CustomInteractionRegister_Gen")
+            val customInteractionRegister =
+                customInteractionRegisterClazz.getConstructor().newInstance() as BaseInteractionRegister
+            interactionRegisterList.add(customInteractionRegister)
         } catch (e: Exception) {
             e.printStackTrace()
         }
