@@ -184,6 +184,18 @@ function getCache() {
     })
 }
 
+function custom1(){
+        myBridge.callHandler("custom1.toast", {text:"custom1"}, function (responseData) {
+
+        })
+}
+
+function custom2(){
+        myBridge.callHandler("custom1.toast", {text:"custom2"}, function (responseData) {
+
+        })
+}
+
 //这这里将js方法注册给原生调用
 function regHandler() {
 

@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.jsongo.ajs.R
-import com.jsongo.ajs.annotations.interactionRegisterList
+import com.jsongo.ajs.helper.InteractionRegisterCollector
 import com.jsongo.core.mvp.base.BaseActivity
 import com.safframework.log.L
 import com.tencent.smtt.sdk.WebChromeClient
@@ -175,8 +175,8 @@ abstract class AJsWebLoader : BaseActivity() {
      */
     protected open fun registerHandler() {
         //注册交互api
-        interactionRegisterList.forEach {
-            it.register(this@AJsWebLoader, bridgeWebView)
+        InteractionRegisterCollector.interactionRegisterList.forEach {
+            it.register(this, bridgeWebView)
         }
     }
 

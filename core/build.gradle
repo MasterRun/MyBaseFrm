@@ -32,6 +32,8 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
+    api project(path: ':annotation')
+
     //android support
     api "com.android.support:multidex:${proVer.multidex}"
     api "com.android.support:support-v4:${proVer.androidSupport}"

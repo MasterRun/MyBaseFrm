@@ -1,24 +1,22 @@
 package com.jsongo.ajs.interaction.register
 
-import com.jsongo.ajs.annotations.AjsApi
+import com.jsongo.ajs.interaction.*
 
 /**
  * @author  jsongo
  * @date 2019/6/18 21:38
  * @desc 已有的交互api
  */
-@AjsApi
 object DefaultInteractionRegister : BaseInteractionRegister() {
-    //交互api的包路径
-    const val packageName = "com.jsongo.ajs.interaction"
+
     //api与类名映射
     override val nameMapping = hashMapOf(
-        Pair("cache", "$packageName.Cache"),
-        Pair("common", "$packageName.Common"),
-        Pair("loading", "$packageName.Loading"),
-        Pair("smartrefresh", "$packageName.SmartRefresh"),
-        Pair("toast", "$packageName.Toast"),
-        Pair("topbar", "$packageName.Topbar")
+        Pair("cache", Cache::class.java.name),
+        Pair("common", Common::class.java.name),
+        Pair("loading", Loading::class.java.name),
+        Pair("smartrefresh", SmartRefresh::class.java.name),
+        Pair("toast", Toast::class.java.name),
+        Pair("topbar", Topbar::class.java.name)
     )
     //已有的api
     override val interactionAPI = arrayListOf(

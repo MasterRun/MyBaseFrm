@@ -23,6 +23,9 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a"
         }
+        javaCompileOptions {
+            annotationProcessorOptions.includeCompileClasspath = true
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -73,6 +76,7 @@ dependencies {
         implementation project(path: ':ajs')
         implementation project(path: ':ui')
     }
+    kapt project(path: ':processor')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
