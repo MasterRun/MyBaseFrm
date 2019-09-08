@@ -47,10 +47,8 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         protected set
 
     override var mainLayoutId = 0
-        protected set
 
     override var containerIndex = 1
-        protected set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,10 +1,9 @@
 package com.jsongo.core.annotations
 
+import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.core.mvp.base.BaseFragment
 import com.jsongo.core.mvp.base.IPage
 import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.memberProperties
-import kotlin.reflect.jvm.isAccessible
-import kotlin.reflect.jvm.javaField
 
 /**
  * author ： jsongo
@@ -15,7 +14,7 @@ import kotlin.reflect.jvm.javaField
 @Retention(AnnotationRetention.RUNTIME)
 annotation class ConfPage(val mainLayoutId: Int, val containerIndex: Int = 1)
 
-object ConfPageProcessor {
+object PageConfigor {
     fun config(any: Any) {
         if (any !is IPage) {
             return
@@ -23,17 +22,13 @@ object ConfPageProcessor {
         val targetClass = any::class
         val confPage = targetClass.findAnnotation<ConfPage>()
         if (confPage != null) {
-            targetClass.memberProperties.forEach {
-                it.isAccessible = true
-                if (it.name.equals("mainLayoutId")) {
-                    it.javaField?.apply {
-                        set(any, confPage.mainLayoutId)
-                    }
-                } else if (it.name.equals("containerIndex")) {
-                    it.javaField?.apply {
-                        set(any, confPage.containerIndex)
-                    }
-                }
+            if (any is BaseActivity) {
+                any.mainLayoutId = confPage.mainLayoutId
+                any.containerIndex = confPage.containerIndex
+            }
+            if (any is BaseFragment) {
+                any.mainLayoutId = confPage.mainLayoutId
+                any.containerIndex = confPage.containerIndex
             }
         }
     }

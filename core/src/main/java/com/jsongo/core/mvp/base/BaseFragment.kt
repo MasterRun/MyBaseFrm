@@ -40,11 +40,8 @@ abstract class BaseFragment : Fragment(), IPage {
         protected set
 
     override var mainLayoutId = 0
-        protected set
 
     override var containerIndex = 0
-        protected set
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
