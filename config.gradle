@@ -16,13 +16,13 @@ ext {
                     'verName': '1.0.0.e-SNAPSHOT',
                     'aarVer' : '1.0.0.e-SNAPSHOT'
             ],
-
-            'app'         : [
+            'annotation'  : [
                     'verCode': 1,
-                    'verName': '1.0.0'
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
-            'demo'        : [
+            'app'         : [
                     'verCode': 1,
                     'verName': '1.0.0'
             ],
@@ -31,6 +31,17 @@ ext {
                     'verCode': 1,
                     'verName': '1.0.0.d-SNAPSHOT',
                     'aarVer' : '1.0.0.d-SNAPSHOT'
+            ],
+
+            'demo'        : [
+                    'verCode': 1,
+                    'verName': '1.0.0'
+            ],
+
+            'processor'          : [
+                    'verCode': 1,
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
             'ui'          : [

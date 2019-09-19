@@ -1,5 +1,16 @@
-不支持写在内部类中
-必须是静态方法，kotlin配合@JvmStatic实现静态方法
-可以写在伴生方法中，配合@JvmStatic注解
-kotlin因为要配合@JvmStatic注解，所以不能作为顶层方法或写在普通类中
-建议新建类，在其中自定义api
+
+
+### AjsApi
+
+#### 参数说明
+
+- prefix  前缀，不指定则为类名
+- methodName 方法名，不指定则为当前注解的方法名
+
+#### 使用说明
+
+- 不支持写在内部类中
+- 必须是静态方法，kotlin中配合@JvmStatic实现静态方法
+- 可以写在伴生方法中，配合@JvmStatic注解
+- kotlin因为要配合@JvmStatic注解，所以不能作为顶层方法或写在普通类中
+- 建议新建类，在其中自定义api

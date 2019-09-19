@@ -1,6 +1,6 @@
 package com.jsongo.processor
 
-import com.jsongo.annotation.AjsApi
+import com.jsongo.annotation.anno.AjsApi
 import com.squareup.javapoet.*
 import java.util.*
 import javax.annotation.processing.*
@@ -8,8 +8,12 @@ import javax.lang.model.SourceVersion
 import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
 import javax.tools.Diagnostic
-import kotlin.collections.LinkedHashSet
 
+/**
+ * @author jsongo
+ * @date 19-9-9 上午10:59
+ * @desc 生成 com.jsongo.ajs.helper.CustomInteractionRegister_Gen ,将注解添加到映射
+ */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 class AjsApiProcessor : AbstractProcessor() {
 
@@ -36,12 +40,14 @@ class AjsApiProcessor : AbstractProcessor() {
             ClassName.get(String::class.java)
         )
 
+        val mapName = "apiMap"
+
         // 添加 重写的getInteractionAPI方法
         val methodBuilder = MethodSpec.methodBuilder("getInteractionAPI")
             .addAnnotation(Override::class.java)
             .addModifiers(Modifier.PUBLIC)
             .returns(registerMapType)
-            .addStatement("\$T apiMap = new \$T()", registerMapType, HashMap::class.java)
+            .addStatement("\$T $mapName = new \$T<>()", registerMapType, HashMap::class.java)
         roundEnv?.getElementsAnnotatedWith(AjsApi::class.java)?.forEach {
             val ajsApiAnno = it.getAnnotation(AjsApi::class.java)
             var prefix = ajsApiAnno.prefix
@@ -53,12 +59,12 @@ class AjsApiProcessor : AbstractProcessor() {
                 methodName = it.simpleName.toString()
             }
             methodBuilder.addStatement(
-                "apiMap.put(\$S,\$S)",
+                "$mapName.put(\$S,\$S)",
                 prefix + "." + methodName,
                 it.enclosingElement.toString() + "." + it.simpleName.toString()
             )
         }
-        methodBuilder.addStatement("return apiMap")
+        methodBuilder.addStatement("return $mapName")
 
         try {
             //直接使用Class.forName会报错
@@ -73,24 +79,13 @@ class AjsApiProcessor : AbstractProcessor() {
                 .build()
             JavaFile.builder("com.jsongo.ajs.helper", finderClass).build().writeTo(mFiler)
         } catch (e: Exception) {
-            mMessager?.printMessage(
-                Diagnostic.Kind.WARNING,
-                "${e.message}\r\n"
-            )
+            mMessager?.printMessage(Diagnostic.Kind.WARNING, "Exception : ${e.message}\r\n")
             //e.printStackTrace()
         }
 
         return true
     }
 
-    override fun getSupportedAnnotationTypes(): MutableSet<String> {
-        val types = LinkedHashSet<String>()
-        types.add(AjsApi::class.java.canonicalName)
-        return types
-    }
-
-    override fun getSupportedSourceVersion(): SourceVersion {
-        return super.getSupportedSourceVersion()
-    }
+    override fun getSupportedAnnotationTypes() = linkedSetOf(AjsApi::class.java.canonicalName)
 
 }

@@ -3,7 +3,7 @@ package com.jsongo.mybasefrm.ajsapi
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
-import com.jsongo.annotation.AjsApi
+import com.jsongo.annotation.anno.AjsApi
 import com.vondear.rxtool.view.RxToast
 
 /**

@@ -1,4 +1,4 @@
-package com.jsongo.annotation
+package com.jsongo.annotation.anno
 
 /**
  * author ： jsongo

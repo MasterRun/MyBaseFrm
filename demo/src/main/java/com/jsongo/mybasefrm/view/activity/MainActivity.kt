@@ -2,6 +2,7 @@ package com.jsongo.mybasefrm.view.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.View
@@ -9,7 +10,8 @@ import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.DefaultWebLoader
-import com.jsongo.annotation.AjsApi
+import com.jsongo.annotation.anno.AjsApi
+import com.jsongo.annotation.register.ViewConfigorRegister
 import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.annotations.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
@@ -32,13 +34,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.properties.Delegates
 
+@com.jsongo.annotation.anno.ConfPage(R.layout.activity_main, 2)
 @ConfPage(R.layout.activity_main, 2)
 class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
+    @com.jsongo.annotation.anno.Presenter(MainPresenter::class)
     @Presenter(MainPresenter::class)
     override lateinit var basePresenter: BasePresenter<IMain.IModel, IMain.IView>
+    @com.jsongo.annotation.anno.Presenter(MainPresenter::class)
     @Presenter(MainPresenter::class)
-    private lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
+    lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
 
     var txt: String by Delegates.observable("init value") { prop, old, newValue ->
         tv.text = newValue
@@ -62,6 +67,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             RxToast.error(text!!)
             callback.success(HashMap(), 1, "success")
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ViewConfigorRegister.config(this)
     }
 
     override fun initView() {
