@@ -1,4 +1,4 @@
-package com.jsongo.processor
+package com.jsongo.processor.bean
 
 import java.io.Serializable
 
@@ -8,7 +8,7 @@ import java.io.Serializable
  * @desc :
  */
 data class ThreePair<out A, out B, out C>(
-    public val first: A,
-    public val second: B,
-    public val third: C
+    val first: A,
+    val second: B,
+    val third: C
 ) : Serializable

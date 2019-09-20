@@ -6,6 +6,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${proVer.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:${proVer.kotlin}"
 
     implementation 'com.squareup:javapoet:1.11.1'
 

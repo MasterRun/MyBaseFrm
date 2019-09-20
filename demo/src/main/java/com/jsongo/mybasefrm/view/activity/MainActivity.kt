@@ -11,9 +11,9 @@ import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.annotation.anno.AjsApi
+import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Presenter
 import com.jsongo.annotation.register.ViewConfigorRegister
-import com.jsongo.core.annotations.ConfPage
-import com.jsongo.core.annotations.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
@@ -34,14 +34,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.properties.Delegates
 
-@com.jsongo.annotation.anno.ConfPage(R.layout.activity_main, 2)
 @ConfPage(R.layout.activity_main, 2)
 class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
-    @com.jsongo.annotation.anno.Presenter(MainPresenter::class)
     @Presenter(MainPresenter::class)
     override lateinit var basePresenter: BasePresenter<IMain.IModel, IMain.IView>
-    @com.jsongo.annotation.anno.Presenter(MainPresenter::class)
     @Presenter(MainPresenter::class)
     lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
 
@@ -70,8 +67,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         ViewConfigorRegister.config(this)
+        super.onCreate(savedInstanceState)
     }
 
     override fun initView() {

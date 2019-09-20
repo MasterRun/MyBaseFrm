@@ -13,6 +13,7 @@ import kotlin.reflect.jvm.javaField
  * createtime ： 2019/7/27 20:38
  * desc :
  */
+@Deprecated("use com.jsongo.annotation.anno.Presenter instead")
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Presenter(val clazz: KClass<out BasePresenter<IBaseMvp.IBaseModel, IBaseMvp.IBaseView>>)
@@ -25,6 +26,7 @@ object PresenterBinder {
     val presenterMap =
         HashMap<String, IBaseMvp.IBasePresenter<IBaseMvp.IBaseModel, IBaseMvp.IBaseView>>()
 
+    @Deprecated("use com.jsongo.annotation.anno.Presenter and it's configor instead")
     fun bind(any: Any) {
         //IBaseView ，presenter
         if (any is IBaseMvp.IBaseView) {
