@@ -36,6 +36,17 @@ object ActivityCollector {
         activities.clear()
     }
 
+    fun finish(clazz: Class<out FragmentActivity>) {
+        val iterator = activities.iterator()
+        while (iterator.hasNext()) {
+            val next = iterator.next()
+            if (clazz.isInstance(next)) {
+                next.finish()
+                iterator.remove()
+            }
+        }
+    }
+
 
     fun appExit() {
         try {

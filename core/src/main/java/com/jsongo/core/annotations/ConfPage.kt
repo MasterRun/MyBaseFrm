@@ -15,6 +15,7 @@ import kotlin.reflect.full.findAnnotation
 @Retention(AnnotationRetention.RUNTIME)
 annotation class ConfPage(val mainLayoutId: Int, val containerIndex: Int = 1)
 
+@Deprecated("use com.jsongo.annotation.anno.ConfPage and it's configor instead")
 object PageConfigor {
     @Deprecated("use com.jsongo.annotation.anno.ConfPage and it's configor instead")
     fun config(any: Any) {

@@ -15,9 +15,11 @@ import com.jsongo.annotation.anno.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
+import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
+import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
@@ -162,6 +164,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         btn_crash.visibility = View.GONE
         tv.visibility = View.GONE*/
         showMainFragment()
+
+        ActivityCollector.finish(SplashActivity::class.java)
     }
 
 

@@ -1,2 +1,3 @@
 com.jsongo.processor.AjsApiProcessor
-com.jsongo.processor.BaseViewProcessor
+com.jsongo.processor.ViewConfigorProcessor
+com.jsongo.processor.PresenterConfigorProcessor

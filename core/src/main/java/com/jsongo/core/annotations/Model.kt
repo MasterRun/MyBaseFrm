@@ -12,10 +12,12 @@ import kotlin.reflect.jvm.javaField
  * createtime ： 2019/7/27 20:38
  * desc :
  */
+@Deprecated("use com.jsongo.annotation.anno.Model instead")
 @Target(AnnotationTarget.FIELD)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Model(val clazz: KClass<out BaseModel>)
 
+@Deprecated("use com.jsongo.annotation.anno.Model and it's configor instead")
 object ModelBinder {
 
     /**
@@ -23,6 +25,7 @@ object ModelBinder {
      */
     val modelMap = HashMap<String, IBaseMvp.IBaseModel>()
 
+    @Deprecated("use com.jsongo.annotation.anno.Model and it's configor instead")
     fun bind(any: Any) {
         //如果绑定的presenter ，后续注入model
         if (any is IBaseMvp.IBasePresenter<IBaseMvp.IBaseModel, IBaseMvp.IBaseView>) {

@@ -3,7 +3,7 @@ package com.jsongo.processor
 import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.annotation.anno.Presenter
 import com.jsongo.annotation.configor.Configor
-import com.jsongo.annotation.register.ViewConfigorRegister
+import com.jsongo.annotation.register.ViewConfigor
 import com.jsongo.annotation.util.Util.getPkgClazzName
 import com.jsongo.annotation.util.getParamsMap
 import com.jsongo.processor.bean.FourPair
@@ -22,7 +22,7 @@ import javax.tools.Diagnostic
  * @desc 用于 @ConfPage  和 @Presenter注解
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-class BaseViewProcessor : AbstractProcessor() {
+class ViewConfigorProcessor : AbstractProcessor() {
     private var filer: Filer? = null
     private var messager: Messager? = null
 
@@ -104,12 +104,14 @@ class BaseViewProcessor : AbstractProcessor() {
      * 处理Presenter注解
      */
     private fun dealPresenterAnno(ele: Element) {
+        //所在类的全类名
         val rawClazzName = ele.enclosingElement.toString()
 
         //所在类的类名
         val (pkgName, clazzName) = getPkgClazzName(rawClazzName)
-        //获取注解对象的参数
+        //获取注解对象的参数  因为直接拿到KClass对象无法获取值，出次下策
         val presenterAnnoParams = ele.getAnnotation(Presenter::class.java).getParamsMap()
+        //注解传入的要注入的presenter类
         val presenterClazznameStr = presenterAnnoParams["clazz"]
         if (presenterClazznameStr.isNullOrEmpty()) {
             return
@@ -117,30 +119,33 @@ class BaseViewProcessor : AbstractProcessor() {
         val (presenterPkgName, presenterSimpleName) = getPkgClazzName(presenterClazznameStr)
         //Presenter的类名
         val presenterClassName =
-            ClassName.get(presenterPkgName, presenterSimpleName)        //需要构建的类和方法
+            ClassName.get(presenterPkgName, presenterSimpleName)
+        //需要构建的类和方法
         val fourPair = getTypeSpecBuilder(rawClazzName)
 
         //构建presenter，并赋值，但是要是同一presenter对象
         //如果还没有presenter，创建presenter
         val presenterVarName = "presenterGen"
         if (!fourPair.fourth.value) {
-            //声明变量
+            //声明presenter变量
             fourPair.second.addField(presenterClassName, presenterVarName, Modifier.PRIVATE)
             //在config方法中初始化变量
             fourPair.third.addStatement(
                 "${presenterVarName} = new \$T(${targetVarName})",
                 presenterClassName
             )
+            fourPair.fourth.value = true
         }
-        fourPair.fourth.value = true
 
         //构建方法
         val methodName = "inject_${ele.simpleName}"
         val var0Name = "var0"
         val methodSpec = MethodSpec.methodBuilder(methodName)
+            //方法参数，是所在类/当前类对象
             .addParameter(ClassName.get(pkgName, clazzName), var0Name)
             .addModifiers(Modifier.PRIVATE)
             .returns(TypeName.VOID)
+            //赋值，给所在类/当前类对象的presenter变量赋值
             .addStatement("${var0Name}.${ele.simpleName} = ${presenterVarName}")
 
         //添加方法
@@ -155,16 +160,16 @@ class BaseViewProcessor : AbstractProcessor() {
     private fun getTypeSpecBuilder(rawClazzName: String): FourPair<String, TypeSpec.Builder, MethodSpec.Builder, SimpleBooleanProperty> {
         val fourPair: FourPair<String, TypeSpec.Builder, MethodSpec.Builder, SimpleBooleanProperty>
 
-        val (pkgName, simpleClazzName) = getPkgClazzName(rawClazzName)
-        val targetClass = ClassName.get(pkgName, simpleClazzName)
-
         //如果集合中有，从集合中取，如果没有，创建，添加到集合
         if (genTypeSpecBuilders.containsKey(rawClazzName)) {
             fourPair = genTypeSpecBuilders[rawClazzName]!!
         } else {
+            val (pkgName, simpleClazzName) = getPkgClazzName(rawClazzName)
+            val targetClass = ClassName.get(pkgName, simpleClazzName)
+
             //创建类
             val classBuilder =
-                TypeSpec.classBuilder("${simpleClazzName}${ViewConfigorRegister.clazzNameSuffix}")
+                TypeSpec.classBuilder("${simpleClazzName}${ViewConfigor.clazzNameSuffix}")
                     .addModifiers(Modifier.PUBLIC)
                     .addSuperinterface(Configor::class.java)
             //创建重写的方法
@@ -175,9 +180,11 @@ class BaseViewProcessor : AbstractProcessor() {
                 .returns(TypeName.VOID)
                 .addParameter(TypeName.OBJECT, var0Name)
                 .addCode(
-                    CodeBlock.builder().add("if (!(${var0Name} instanceof \$T)){", targetClass)
-                        .addStatement("return")
-                        .add("}").build()
+                    CodeBlock.builder()
+                        .beginControlFlow(
+                            "if (!(${var0Name} instanceof \$T))", targetClass
+                        ).addStatement("return")
+                        .endControlFlow().build()
                 )
                 .addCode(
                     CodeBlock.builder().addStatement(
@@ -186,8 +193,9 @@ class BaseViewProcessor : AbstractProcessor() {
                         targetClass
                     ).build()
                 )
+
             fourPair = FourPair(
-                "${pkgName}${ViewConfigorRegister.pkgSuffix}",
+                "${pkgName}${ViewConfigor.pkgSuffix}",
                 classBuilder,
                 methodBuilder,
                 SimpleBooleanProperty(false)

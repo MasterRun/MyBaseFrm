@@ -18,6 +18,7 @@ import kotlin.reflect.jvm.javaField
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Presenter(val clazz: KClass<out BasePresenter<IBaseMvp.IBaseModel, IBaseMvp.IBaseView>>)
 
+@Deprecated("use com.jsongo.annotation.anno.Presenter and it's configor instead")
 object PresenterBinder {
 
     /**

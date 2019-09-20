@@ -1,6 +1,6 @@
 package com.jsongo.mybasefrm.presenter
 
-import com.jsongo.core.annotations.Model
+import com.jsongo.annotation.anno.Model
 import com.jsongo.core.mvp.base.BasePresenter
 import com.jsongo.mybasefrm.model.MainModuleModel
 import com.jsongo.mybasefrm.mvp.IMainModule
