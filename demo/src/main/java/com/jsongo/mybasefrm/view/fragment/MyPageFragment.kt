@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
-import com.jsongo.core.annotations.ConfPage
+import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.core.mvp.base.BaseFragment
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R

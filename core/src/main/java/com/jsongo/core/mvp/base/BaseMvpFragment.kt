@@ -1,9 +1,7 @@
 package com.jsongo.core.mvp.base
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import com.jsongo.core.annotations.PresenterBinder
 import kotlinx.android.synthetic.*
 
 /**
@@ -27,17 +25,13 @@ abstract class BaseMvpFragment<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initPresenter()
+
         if (showEnterPageLoading) {
             onPageLoading()
         }
         initView()
         basePresenter?.start()
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        PresenterBinder.bind(this)
-        initPresenter()
     }
 
     //region page pageStatus

@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import com.jsongo.annotation.register.ViewConfigorRegister
 import com.jsongo.core.BaseCore
-import com.jsongo.core.annotations.PageConfigor
 import com.jsongo.core.util.SmartRefreshFooter
 import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.useFooter
@@ -91,7 +91,8 @@ interface IPage {
         getIPageView()
 
         //开启注解
-        PageConfigor.config(this)
+//        PageConfigor.config(this)
+        ViewConfigorRegister.config(this)
 
         //添加主内容到界面
         if (mainLayoutId == 0 || containerIndex < 1 || containerIndex > 2) {

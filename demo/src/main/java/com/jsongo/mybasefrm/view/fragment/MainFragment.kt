@@ -2,8 +2,8 @@ package com.jsongo.mybasefrm.view.fragment
 
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
-import com.jsongo.core.annotations.ConfPage
-import com.jsongo.core.annotations.Presenter
+import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpFragment
 import com.jsongo.core.mvp.base.BasePresenter

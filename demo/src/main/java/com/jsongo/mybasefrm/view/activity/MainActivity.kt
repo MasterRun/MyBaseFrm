@@ -2,7 +2,6 @@ package com.jsongo.mybasefrm.view.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.View
@@ -13,7 +12,6 @@ import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.annotation.anno.AjsApi
 import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.annotation.anno.Presenter
-import com.jsongo.annotation.register.ViewConfigorRegister
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
@@ -64,11 +62,6 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             RxToast.error(text!!)
             callback.success(HashMap(), 1, "success")
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        ViewConfigorRegister.config(this)
-        super.onCreate(savedInstanceState)
     }
 
     override fun initView() {

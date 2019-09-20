@@ -2,7 +2,6 @@ package com.jsongo.core.mvp.base
 
 import android.os.Bundle
 import android.view.View
-import com.jsongo.core.annotations.PresenterBinder
 import kotlinx.android.synthetic.*
 
 /**
@@ -32,7 +31,6 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
             onPageLoaded()
         }
 
-        PresenterBinder.bind(this)
         initPresenter()
 
         initView()
