@@ -1,8 +1,8 @@
 package com.jsongo.app.presenter
 
+import com.jsongo.annotation.anno.Model
 import com.jsongo.app.model.MainModel
 import com.jsongo.app.mvp.IMain
-import com.jsongo.core.annotations.Model
 import com.jsongo.core.mvp.base.BasePresenter
 import kotlinx.coroutines.launch
 

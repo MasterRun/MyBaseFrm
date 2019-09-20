@@ -4,9 +4,9 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.app.AppApplication
 import com.jsongo.app.R
-import com.jsongo.core.annotations.ConfPage
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.ui.component.SettingListFragment.SettingListFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper

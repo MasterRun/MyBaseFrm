@@ -5,16 +5,18 @@ import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
 import com.jsongo.ajs.webloader.DefaultWebLoader
+import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Presenter
 import com.jsongo.app.mvp.IMain
 import com.jsongo.app.presenter.MainPresenter
-import com.jsongo.core.annotations.ConfPage
-import com.jsongo.core.annotations.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
+import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
+import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.ui.widget.FloatingView
 import com.jsongo.ui.widget.FloatingView.SCAN_REQUEST_CODE
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
@@ -30,7 +32,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
     @Presenter(MainPresenter::class)
     override lateinit var basePresenter: BasePresenter<IMain.IModel, IMain.IView>
     @Presenter(MainPresenter::class)
-    private lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
+    lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
 
     var txt: String by Delegates.observable("init value") { prop, old, newValue ->
         tv.text = newValue
@@ -89,6 +91,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         btn_goMyPage.setOnClickListener {
             startActivity(Intent(this@MainActivity, MyPageActivity::class.java))
         }
+
+        ActivityCollector.finish(SplashActivity::class.java)
     }
 
 

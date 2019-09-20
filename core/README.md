@@ -1,5 +1,9 @@
 
 
+##### 2019-9-20
+- 完成apt 注解配置和注入，废弃`com.jsongo.core.annotations`
+- ActivityCollector添加finish指定activity的方法，可自定finish SplashActivity等
+
 #### 1.0.0.d-snapshot
 2019-8-10
 - 发布1.0.0.d
@@ -18,7 +22,6 @@
 - 去除第三容器，不使用容器时直接在在根布局添加view，使用RelativeLayout作为布局根布局
 - 封装QMUIGroupListView，使用实体类配置，用于创建设置项
 - IPage中inflate方法更变
-
 
 #### 1.0.0.a-snapshot
 2019-8-4

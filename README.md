@@ -1,11 +1,18 @@
 # Android小小小小小框架
-个人搭建的Android小小小小小框架 Building...  
+个人搭建的Android小小小小小框架 
 
-还在搭建中，尚无demo，app module中用于个人测试
+Building...  尚无demo
 
-mvp kotlin retrofit qmui jsbridge 腾讯x5内核 等搭建
+demo\app module中用于个人测试
 
-activity fragment 注解配置布局，页面多容器可选，简便的状态管理
+基于`mvp` `kotlin` `retrofit` `rxjava` `apt` `qmui` `jsbridge` `腾讯x5内核` 等搭建
+
+> activity fragment  
+  注解+apt 实现 配置布局、注入presenter、注入model  
+  页面多容器可选  
+  简便的状态管理  
+  封装设置列表，使用实体类配置  
+  封装部分api供js调用原生方法
 
 <b>Android小菜鸟building  不喜勿喷</b>
 
@@ -17,15 +24,16 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 - 扫码按钮  --ok
 - 添加vConsole --ok
 - 增加缓存ajs api -- ok
+- ajs 模块简化原生api编写方法，提供对外自定义api方法 -- ok
+    > 考虑使用注解标注api类,使用apt在编译时生成一个类,将所用注解的类放在集合中,在AjsWebloader中注册这些api  -- ok
+- SplashActivity点击回到桌面问题（下一跳解决，同时在下一Activity finish SplashActivity）  -- ok
+- 注解+apt 实现view的配置 presenter  model注入 ，解决反射严重耗时问题  -- ok
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
-- ajs 模块简化原生api编写方法，提供对外自定义api方法 -- doing
-    > 考虑使用注解标注api类,使用apt在编译时生成一个类,将所用注解的类放在集合中,在AjsWebloader中注册这些api
 - IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
 - 封装RecyclerView
 - 添加ajsfragment
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
-- SplashActivity点击回到桌面问题
 - 封装网络请求返回处理
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用kotlin观察代理
@@ -37,9 +45,12 @@ activity fragment 注解配置布局，页面多容器可选，简便的状态�
 ### module依赖关系
 |模块|被依赖模块|
 |---|---|
-|app|core ajs ui|
-|ajs|core ui|
+|annotation|-|
+|processor|annotation|
+|core|annotation|
 |ui|core|
+|ajs|core ui|
+|app/demo|core ajs ui annotation processor|
 
 
 ### 致谢：
