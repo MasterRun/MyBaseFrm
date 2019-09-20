@@ -1,1 +1,1 @@
-include ':demo', ':core', ':ajs', ':ui', ':rawtest', ':app', ':annotation', ':processor'
+include ':demo', ':core', ':ajs', ':ui', ':app', ':annotation', ':processor'

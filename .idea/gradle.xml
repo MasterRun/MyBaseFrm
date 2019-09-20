@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/demo" />
             <option value="$PROJECT_DIR$/processor" />
-            <option value="$PROJECT_DIR$/rawtest" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>
