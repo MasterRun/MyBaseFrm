@@ -30,6 +30,7 @@ demo\app module中用于个人测试
 - 注解+apt 实现view的配置 presenter  model注入 ，解决反射严重耗时问题  -- ok
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
+- 整理混淆规则，尝试开启混淆
 - IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
 - 封装RecyclerView
 - 添加ajsfragment
@@ -68,3 +69,4 @@ demo\app module中用于个人测试
 - `com.scwang.smartrefresh`  强大的刷新
 - `com.ycjiang:ImagePreview` 图片预览
 - `com.google.zxing`  扫描二维码
+- `com.squareup:javapoet` 方便apt创建java文件

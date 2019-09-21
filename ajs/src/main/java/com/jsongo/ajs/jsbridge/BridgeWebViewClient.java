@@ -13,10 +13,10 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
 /**
  * @author jsongo
@@ -88,7 +88,8 @@ public class BridgeWebViewClient extends WebViewClient {
         WebResourceResponse response = null;
         response = super.shouldInterceptRequest(webView, url);
         try {
-            for (String s : ConstValue.INSTANCE.getJsList()) {
+            ArrayList<String> jsList = ConstValue.INSTANCE.getJsList();
+            for (String s : jsList) {
                 if (url.contains(s)) {
                     InputStream open = webView.getContext().getResources().getAssets().open(ConstValue.jsBasePath + "/" + s);
                     response = new WebResourceResponse("text/javascript", "UTF-8", open);
@@ -108,7 +109,7 @@ public class BridgeWebViewClient extends WebViewClient {
                     response = new WebResourceResponse("image/jpg", "UTF-8", open);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return response;

@@ -2,6 +2,7 @@ package com.jsongo.ajs.helper
 
 import com.jsongo.ajs.interaction.register.BaseInteractionRegister
 import com.jsongo.ajs.interaction.register.DefaultInteractionRegister
+import com.safframework.log.L
 
 /**
  * author ： jsongo
@@ -21,7 +22,11 @@ object InteractionRegisterCollector {
                 customInteractionRegisterClazz.getConstructor().newInstance() as BaseInteractionRegister
             interactionRegisterList.add(customInteractionRegister)
         } catch (e: Exception) {
-            e.printStackTrace()
+            if (e is ClassNotFoundException) {
+                L.d("ClassNotFoundException :" + e.message)
+            } else {
+                e.printStackTrace()
+            }
         }
 
     }

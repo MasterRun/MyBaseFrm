@@ -18,9 +18,10 @@ object ViewConfigor {
             val configor = configorClazz.newInstance() as Configor
             configor.config(any)
         } catch (e: Exception) {
-//            e.printStackTrace()
             if (e is ClassNotFoundException) {
                 System.err.println("Exception on ViewConfigor: ClassNotFoundException for  " + e.message)
+            } else {
+                e.printStackTrace()
             }
         }
     }

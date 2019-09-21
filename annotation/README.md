@@ -26,6 +26,9 @@
 
 用于注入MVP 的Presenter 中的Model
 
+#### 1.0.0.a-SNAPSHOT
+2019-9-21
+- 注解初版发布 1.0.0.a
 
-##### 2019-9-21 
+##### 2019-9-20 
 - 初步完成 @AjsApi  @ConfPage  @Presenter  @Model 注解

@@ -34,7 +34,7 @@ buildscript {
 allprojects {
     repositories {
         flatDir { dirs 'libs' }
-        //gitee上文件绝对路径
+        //gitee/github上文件绝对路径
 //        maven { url "https://gitee.com/runrunrun/maven_repository/raw/master" }
 //        maven { url "https://raw.githubusercontent.com/MasterRun/maven_repository/master" }
 
@@ -58,11 +58,11 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/central' }
         maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'https://maven.aliyun.com/repository/google' }
-//        maven { url 'http://developer.huawei.com/repo/' }
+        maven { url 'http://developer.huawei.com/repo/' }
         maven { url 'https://jitpack.io' }
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         maven { url "http://mvn.mob.com/android" }
-        maven { url 'https://esri.bintray.com/arcgis' }
+//        maven { url 'https://esri.bintray.com/arcgis' }
         mavenCentral()
         google()
         jcenter()

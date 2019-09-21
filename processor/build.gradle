@@ -10,7 +10,11 @@ dependencies {
 
     implementation 'com.squareup:javapoet:1.11.1'
 
-    implementation project(path: ':annotation')
+    if (libConf.useOnlineAAR) {
+        implementation "com.jsongo.basefrm:annotation:${libConf.annotation.aarVer}"
+    } else {
+        implementation project(path: ':annotation')
+    }
 }
 
 sourceCompatibility = "1.8"

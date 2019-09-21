@@ -13,26 +13,26 @@ object ConstValue {
 
     const val jsBasePath = "web/js/lib"
     val jsList = ArrayList<String>()
-        get() {
-            //加载js列表
-            try {
-                val assets = AJs.context.resources.assets
-                val list = assets.list(jsBasePath)
-                if (list != null) {
-                    for (s in list) {
-                        if (s.endsWith(".js") && (s.contains("echarts") ||
-                                    s.contains("jquery") ||
-                                    s.contains("vconsole") ||
-                                    s.contains("zepto"))
-                        ) {
-                            field.add(s)
-                        }
+
+    init {
+        //加载js列表
+        try {
+            val assets = AJs.context.resources.assets
+            val list = assets.list(jsBasePath)
+            if (list != null) {
+                for (s in list) {
+                    if (s.endsWith(".js") && (s.contains("echarts") ||
+                                s.contains("jquery") ||
+                                s.contains("vconsole") ||
+                                s.contains("zepto"))
+                    ) {
+                        jsList.add(s)
                     }
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
-            return field
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
+    }
 
 }

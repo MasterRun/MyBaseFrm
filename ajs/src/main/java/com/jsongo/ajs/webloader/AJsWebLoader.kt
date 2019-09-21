@@ -198,6 +198,11 @@ abstract class AJsWebLoader : BaseActivity() {
         }
     }
 
+    override fun onIPageDestory() {
+        bridgeWebView.destroy()
+        super.onIPageDestory()
+    }
+
     override fun onBackPressed() {
 
         if (bridgeWebView.canGoBack()) {
