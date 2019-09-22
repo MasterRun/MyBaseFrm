@@ -91,7 +91,10 @@ dependencies {
 
     //log
     api 'com.safframework.log:saf-logginginterceptor:1.3.3'
-    api 'com.safframework.log:saf-log:1.5.5' //UI库
+//    api 'com.safframework.log:saf-log:1.5.5
+    api 'com.safframework.log:saf-log-core:2.0.0'
+    api 'com.safframework.log:saf-log-file:2.0.0'
+    //UI库
     //qmui
     api "com.qmuiteam:qmui:${proVer.qmui}"
     //smart refresh layout
