@@ -21,6 +21,7 @@ import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
 import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.aop.AopOnclick
 import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
 import com.jsongo.mybasefrm.view.fragment.MainFragment
@@ -148,7 +149,20 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             transaction.commit()
         }
 
-        btn_change.setOnClickListener {
+        btn_change.setOnClickListener(object : View.OnClickListener {
+            @AopOnclick(3000)
+            override fun onClick(v: View?) {
+
+                if (times % 2 == 0) {
+                    showMyPageFragment()
+                } else {
+                    showMainFragment()
+                }
+                times++
+            }
+        })
+
+/*        btn_change.setOnClickListener {
 
             if (times % 2 == 0) {
                 showMyPageFragment()
@@ -156,7 +170,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 showMainFragment()
             }
             times++
-        }
+        }*/
 
 /*        btn.visibility = View.GONE
         btn_loadbaidu.visibility = View.GONE
