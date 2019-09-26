@@ -5,6 +5,7 @@ import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Pointcut
+import org.aspectj.lang.reflect.MethodSignature
 
 /**
  * @author ： jsongo
@@ -19,13 +20,14 @@ class MyLogAop {
      * 注意：这里@com.freak.kotlinhttpmanager.aop.AopOnclick需要替换成
      * 你自己项目中AopOnclick这个类的全路径
      */
-//    @Pointcut("execution(* com.jsongo.mybasefrm.view..*.onC*(..))")  //  --  ok
-//    @Pointcut("* execution(com.jsongo.mybasefrm.presenter.MainPresenter.*(..))")
-//    @Pointcut("execution(* com.jsongo.mybasefrm.view.activity.MainActivity.onGetDailyGank(..))")//  --ok
-//    @Pointcut("execution(* com.jsongo.mybasefrm.presenter.MainPresenter.getAuthtypes(..))")
-//    @Pointcut("execution(* com.jsongo.mybasefrm.presenter..*(..))")
-    @Pointcut("execution(* com.jsongo.core.mvp.base.BaseActivity.onCreate(..))")  // -- ok
-//    @Pointcut("execution(android.view.View.OnClickListener.onClick(..))")
+    //@Pointcut("execution(* com.jsongo.mybasefrm.view..*.onC*(..))")  //  --  ok
+    //@Pointcut("execution(* com.jsongo.mybasefrm.presenter.MainPresenter.*(..))")
+    //@Pointcut("execution(* com.jsongo.mybasefrm.view.activity.MainActivity.onGetDailyGank(..))")//  --ok
+    //@Pointcut("execution(* com.jsongo.mybasefrm.presenter.MainPresenter.getAuthtypes(..))")
+    //@Pointcut("execution(* com.jsongo.mybasefrm.presenter..*(..))")
+    //@Pointcut("execution(android.view.View.OnClickListener.onClick(..))")
+    //@Pointcut("execution(* com.jsongo.core.mvp.base.BaseActivity.onCreate(..))")  // -- ok
+    @Pointcut("execution(* android.app.Activity.on**(..))")  //
     fun methodLog() {
     }
 
@@ -34,10 +36,31 @@ class MyLogAop {
      * 定义一个切面方法，包裹切点方法
      */
     @Around("methodLog()")
+//@Around("execution(* android.app.Activity.on**(..))")
     @Throws(Throwable::class)
-    fun aroundJoinPoint(joinPoint: ProceedingJoinPoint) {
-        L.e(joinPoint.`this`.toString() + " --  " + joinPoint.target.toString() + "  --  " + joinPoint.toString())
-
-        joinPoint.proceed()
+    fun aroundJoinPoint(joinPoint: ProceedingJoinPoint): Any? {
+        val methodSignature = joinPoint.signature as MethodSignature
+        val className = methodSignature.declaringType.simpleName
+        val methodName = methodSignature.name
+        L.e("before --  ${className}#${methodName}")
+        val proceed = joinPoint.proceed()
+        L.e("after --  ${className}#${methodName}")
+        return proceed
     }
+
+    /* @Before("execution(* android.app.Activity.on**(..))")
+     fun beforeOnMethod(joinPoint: JoinPoint) {
+         val methodSignature = joinPoint.signature as MethodSignature
+         val className = methodSignature.declaringType.simpleName
+         val methodName = methodSignature.name
+         L.e("before --  ${className}#${methodName}")
+     }
+
+     @After("execution(* android.app.Activity.on**(..))")
+     fun afterOnMethod(joinPoint: JoinPoint) {
+         val methodSignature = joinPoint.signature as MethodSignature
+         val className = methodSignature.declaringType.simpleName
+         val methodName = methodSignature.name
+         L.e("after --  ${className}#${methodName}")
+     }*/
 }
