@@ -25,14 +25,16 @@
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
 
-
+-keep class com.jsongo.ui.component.SettingListFragment.** { *; }
+-keep class com.jsongo.core.mvp.base.** { *; }
 
 #-------------------------------------------------------------------------
 
 #---------------------------------2.第三方包-------------------------------
 
-#ajs
--keep public class com.jsongo.ajs.*** { *; }
+# aspectjtr
+-keep class org.aspectj.** { *; }
+
 
 # 保留Google GSON相关API:
 -keep class sun.misc.Unsafe { *; }
@@ -80,12 +82,32 @@
 
 #---------------------------------3.与js互相调用的类------------------------
 
+#ajs
+-keep public class com.jsongo.ajs.** { *; }
+
 
 #-------------------------------------------------------------------------
 
 #---------------------------------4.反射相关的类和方法-----------------------
 
+-keepattributes *Annotation*
+-keep class kotlin.** { *; }
+-keep class org.jetbrains.** { *; }
+
 -keep class com.vondear.** { *; }
+
+-keep class com.qmuiteam.qmui.widget.QMUITopBarLayout { *; }
+
+# aop注解
+-keep class com.jsongo.mybasefrm.aop.** { *; }
+-adaptclassstrings
+-keepattributes InnerClasses, EnclosingMethod, Signature, *Annotation*
+-keepnames @org.aspectj.lang.annotation.Aspect class * {
+    ajc* <methods>;
+}
+
+#core
+-keep class com.jsongo.core.annotations.** { *; }
 
 #----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
@@ -103,7 +125,8 @@
 #----------------------------------------------------------------------------
 
 #---------------------------------默认保留区---------------------------------
--keep public class * extends android.app.Activity
+-keep public class * extends android.app.Activity { *; }
+-keep class * extends android.support.v4.app.Fragment.Fragment { *; }
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver

@@ -9,7 +9,7 @@
 	tools:context=".view.activity.MainActivity">
 	
 	<Button
-		android:id="@+id/btn"
+		android:id="@+id/btn_jsloader"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="go jswebloader!"
@@ -23,7 +23,7 @@
 		android:layout_height="wrap_content"
 		android:text="load baidu"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn" />
+		app:layout_constraintTop_toBottomOf="@id/btn_jsloader" />
 	
 	<Button
 		android:id="@+id/btn_testdb"
@@ -61,7 +61,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="goMyPage"
-		app:layout_constraintStart_toEndOf="@id/btn"
+		app:layout_constraintStart_toEndOf="@id/btn_jsloader"
 		app:layout_constraintTop_toTopOf="parent" />
 	
 	<FrameLayout

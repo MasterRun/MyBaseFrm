@@ -1,6 +1,7 @@
 package com.jsongo.core.mvp.base
 
 import android.Manifest
+import android.support.v4.app.FragmentActivity
 import com.jsongo.annotation.register.PresenterConfigor
 import com.jsongo.core.util.ActivityCollector
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -48,8 +49,8 @@ abstract class BasePresenter<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBase
     }
 
 
-    fun validatePermission(baseMvpActivity: BaseMvpActivity<IBaseMvp.IBaseModel, IBaseMvp.IBaseView>) {
-        val permissions = RxPermissions(baseMvpActivity)
+    fun validatePermission(fragmentActivity: FragmentActivity) {
+        val permissions = RxPermissions(fragmentActivity)
         //noinspection ResultOfMethodCallIgnored
         val disposable = permissions.request(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

@@ -30,7 +30,7 @@ class MainFragment : BaseMvpFragment<IMainModule.IModel, IMainModule.IView>(), I
         topbar.visibility = View.GONE
         view?.apply {
 
-            btn.setOnClickListener {
+            btn_jsloader.setOnClickListener {
                 val webPath = "file:///android_asset/web/index.html"
 
                 DefaultWebLoader.load(webPath)

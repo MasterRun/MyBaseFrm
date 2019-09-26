@@ -40,8 +40,10 @@ android {
             resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
             resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
 
+            //开启资源压缩，必须开启混淆
+            shrinkResources false
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), '../proguard-rules.pro', '../tencentx5_proguard.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', '../proguard-rules.pro', '../tencentx5_proguard.pro'
         }
     }
 

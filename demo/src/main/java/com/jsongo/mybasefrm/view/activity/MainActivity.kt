@@ -95,7 +95,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             startActivity(intent)
         }*/
 
-        btn.setOnClickListener {
+        btn_jsloader.setOnClickListener {
             val webPath = "file:///android_asset/web/index.html"
 
             DefaultWebLoader.load(webPath)
