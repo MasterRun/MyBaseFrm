@@ -21,6 +21,7 @@
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 	
 	<uses-feature
 		android:glEsVersion="0x00020000"
@@ -42,6 +43,16 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".crash.CrashActivity" />
+		
+		<provider
+			android:name=".util.MyFileProvider"
+			android:authorities="${applicationId}.core.fileprovider"
+			android:exported="false"
+			android:grantUriPermissions="true">
+			<meta-data
+				android:name="android.support.FILE_PROVIDER_PATHS"
+				android:resource="@xml/provider_paths" />
+		</provider>
 	</application>
 
 </manifest>

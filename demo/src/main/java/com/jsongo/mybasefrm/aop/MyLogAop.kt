@@ -26,8 +26,8 @@ class MyLogAop {
     //@Pointcut("execution(* com.jsongo.mybasefrm.presenter.MainPresenter.getAuthtypes(..))")
     //@Pointcut("execution(* com.jsongo.mybasefrm.presenter..*(..))")
     //@Pointcut("execution(android.view.View.OnClickListener.onClick(..))")
-    //@Pointcut("execution(* com.jsongo.core.mvp.base.BaseActivity.onCreate(..))")  // -- ok
-    @Pointcut("execution(* android.app.Activity.on**(..))")  //
+//    @Pointcut("execution(* com.jsongo.core.mvp.base.BaseActivity.onCreate(..))")  // -- ok
+    @Pointcut("execution(* android.app.Activity.on**(..))")  // --  ok
     fun methodLog() {
     }
 
@@ -42,9 +42,9 @@ class MyLogAop {
         val methodSignature = joinPoint.signature as MethodSignature
         val className = methodSignature.declaringType.simpleName
         val methodName = methodSignature.name
-        L.e("before --  ${className}#${methodName}")
+        L.w("before --  ${className}#${methodName}")
         val proceed = joinPoint.proceed()
-        L.e("after --  ${className}#${methodName}")
+        L.w("after --  ${className}#${methodName}")
         return proceed
     }
 
@@ -53,7 +53,7 @@ class MyLogAop {
          val methodSignature = joinPoint.signature as MethodSignature
          val className = methodSignature.declaringType.simpleName
          val methodName = methodSignature.name
-         L.e("before --  ${className}#${methodName}")
+         L.w("before --  ${className}#${methodName}")
      }
 
      @After("execution(* android.app.Activity.on**(..))")
@@ -61,6 +61,6 @@ class MyLogAop {
          val methodSignature = joinPoint.signature as MethodSignature
          val className = methodSignature.declaringType.simpleName
          val methodName = methodSignature.name
-         L.e("after --  ${className}#${methodName}")
+         L.w("after --  ${className}#${methodName}")
      }*/
 }

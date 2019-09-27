@@ -101,8 +101,4 @@ dependencies {
     api "com.scwang.smartrefresh:SmartRefreshLayout:${proVer.smartrefresh}"
     api "com.scwang.smartrefresh:SmartRefreshHeader:${proVer.smartrefresh}"
 
-    //zxing 二维码
-//    api 'com.google.zxing:core:3.3.0'
-
-    api 'com.github.yuzhiqiang1993:zxing:2.2.8'
 }

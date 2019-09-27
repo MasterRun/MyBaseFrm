@@ -50,7 +50,10 @@ dependencies {
     }
 
     //easyphoto 图片选取
-    api 'com.github.HuanTanSheng:EasyPhotos:2.4.0'
+    api 'com.github.HuanTanSheng:EasyPhotos:2.4.2'
     //image preview
     api 'com.ycjiang:ImagePreview:2.2.2'
+    //zxing 二维码
+//    api 'com.google.zxing:core:3.3.0'
+    api 'com.github.yuzhiqiang1993:zxing:2.2.8'
 }

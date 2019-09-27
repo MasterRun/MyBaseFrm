@@ -5,6 +5,7 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.KeyEvent
 import android.view.View
+import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
@@ -15,10 +16,7 @@ import com.jsongo.annotation.anno.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
 import com.jsongo.core.mvp.base.BasePresenter
-import com.jsongo.core.util.ActivityCollector
-import com.jsongo.core.util.SmartRefreshHeader
-import com.jsongo.core.util.initWithStr
-import com.jsongo.core.util.useHeader
+import com.jsongo.core.util.*
 import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.aop.AopOnclick
@@ -26,9 +24,11 @@ import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
 import com.jsongo.mybasefrm.view.fragment.MainFragment
 import com.jsongo.mybasefrm.view.fragment.MyPageFragment
+import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
+import com.safframework.log.L
 import com.vondear.rxtool.view.RxToast
 import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_main.*
@@ -97,7 +97,6 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
         btn_jsloader.setOnClickListener {
             val webPath = "file:///android_asset/web/index.html"
-
             DefaultWebLoader.load(webPath)
         }
 
@@ -127,12 +126,28 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             startActivity(Intent(this@MainActivity, MyPageActivity::class.java))
         }
 
+        btn_choosePhoto.setOnClickListener {
+            EasyPhotos.createAlbum(
+                this@MainActivity, true,
+                EasyPhotoGlideEngine.getInstance()
+            )
+                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+                .start(101)
+        }
 
         val mainFragment = MainFragment()
         val myPageFragment = MyPageFragment()
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(R.id.fl_fragment_container, mainFragment, "MainFragment")
-        transaction.add(R.id.fl_fragment_container, myPageFragment, "MyPageFragment")
+        transaction.add(
+            com.jsongo.mybasefrm.R.id.fl_fragment_container,
+            mainFragment,
+            "MainFragment"
+        )
+        transaction.add(
+            com.jsongo.mybasefrm.R.id.fl_fragment_container,
+            myPageFragment,
+            "MyPageFragment"
+        )
         transaction.commit()
 
         fun showMainFragment() {
@@ -214,6 +229,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        L.json(data)
         // 扫描二维码/条码回传
         if (requestCode == FloatingView.SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
@@ -231,6 +247,9 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                         }).show()
                 }
             }
+        } else if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
+            val resultPaths = data?.getStringArrayListExtra(EasyPhotos.RESULT_PATHS)
+            L.json(resultPaths)
         }
     }
 }

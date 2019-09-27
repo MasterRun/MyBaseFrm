@@ -17,6 +17,8 @@ object ConstConf {
     val HTTP_CACHE_DIR: String
     val CRASH_LOG_DIR: String
 
+    val FILE_PROVIDER_AUTH: String
+
     init {
         try {
             val packageManager = BaseCore.context.getPackageManager()
@@ -34,5 +36,7 @@ object ConstConf {
         }
         HTTP_CACHE_DIR = BASE_DIR + "netcache" + File.separator
         CRASH_LOG_DIR = BASE_DIR + "crash" + File.separator
+
+        FILE_PROVIDER_AUTH = BaseCore.context.packageName + ".core.fileprovider"
     }
 }
