@@ -28,6 +28,9 @@ demo\app module中用于个人测试
     > 考虑使用注解标注api类,使用apt在编译时生成一个类,将所用注解的类放在集合中,在AjsWebloader中注册这些api  -- ok
 - SplashActivity点击回到桌面问题（下一跳解决，同时在下一Activity finish SplashActivity）  -- ok
 - 注解+apt 实现view的配置 presenter  model注入 ，解决反射严重耗时问题  -- ok
+
+- fileprovider
+- easyphoto  提供engine
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆
