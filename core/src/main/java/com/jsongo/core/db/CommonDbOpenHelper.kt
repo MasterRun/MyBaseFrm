@@ -1,9 +1,10 @@
 package com.jsongo.core.db
 
 import android.content.Context
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
 import com.jsongo.core.BaseCore
+import com.jsongo.core.R
+import com.tencent.wcdb.database.SQLiteDatabase
+import com.tencent.wcdb.database.SQLiteOpenHelper
 
 /**
  * author ： jsongo
@@ -11,12 +12,15 @@ import com.jsongo.core.BaseCore
  * desc : 键值存储的common_table，充当本地数据缓存
  */
 class CommonDbOpenHelper
-private constructor(context: Context) : SQLiteOpenHelper(context, DB_NAME, null, VERSION) {
+private constructor(context: Context) :
+    SQLiteOpenHelper(context, DB_NAME, PASSWORD, null, VERSION, null) {
 
     companion object {
 
+        val PASSWORD = BaseCore.context.getString(R.string.common_db_pwd).toByteArray()
         const val VERSION = 1
         const val DB_NAME = "common"
+
         val instance: CommonDbOpenHelper? = null
             get() {
                 if (field == null) {

@@ -3,4 +3,6 @@
 	<string name="SERVER_ADDRESS_RELEASE">https://server-url-release/</string>
 	<string name="SERVER_ADDRESS_DEBUG">https://server-url-debug/</string>
 	<string name="MainActivity">com.jsongo.core.view.activity.SplashActivity</string>
+	
+	<string name="common_db_pwd">jsongo.base.core.db.common</string>
 </resources>

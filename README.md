@@ -28,12 +28,14 @@ demo\app module中用于个人测试
     > 考虑使用注解标注api类,使用apt在编译时生成一个类,将所用注解的类放在集合中,在AjsWebloader中注册这些api  -- ok
 - SplashActivity点击回到桌面问题（下一跳解决，同时在下一Activity finish SplashActivity）  -- ok
 - 注解+apt 实现view的配置 presenter  model注入 ，解决反射严重耗时问题  -- ok
+- fileprovider  --  ok
+- easyphoto  提供engine  -- ok
+- 使用wcdb  --  ok 
 
-- fileprovider
-- easyphoto  提供engine
+- 提供拍照,选文件图片 base64等ajs api -- doing
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
-- 整理混淆规则，尝试开启混淆
+- 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
 - IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
 - 封装RecyclerView
 - 添加ajsfragment
@@ -60,6 +62,7 @@ demo\app module中用于个人测试
 ### 致谢：
 - `com.qmuiteam:qmui` 腾讯qmui Android
 - 腾讯x5内核
+- `com.tencent.wcdb:wcdb-android` 腾讯 wcdb数据库
 - `com.github.tamsiree.RxTool`  RxTool,Android开发工具合集
 - `com.github.lzyzsd:jsbridge` android js 混合开发jsbridge
 - `com.github.HuanTanSheng:EasyPhotos`  Android高仿微信图片选取
@@ -73,3 +76,4 @@ demo\app module中用于个人测试
 - `com.ycjiang:ImagePreview` 图片预览
 - `com.google.zxing`  扫描二维码
 - `com.squareup:javapoet` 方便apt创建java文件
+- `org.aspectj:aspectjrt` aop aspectjrt
