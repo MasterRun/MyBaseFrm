@@ -1,42 +1,23 @@
-package com.jsongo.ajs.jsbridge;
+package com.jsongo.ajs.lzyzsd_jsbridge;
 
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
-import com.jsongo.ajs.helper.ConstValue;
-import com.jsongo.ajs.lzyzsd_jsbridge.Message;
-import com.safframework.log.L;
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
-import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
-import com.tencent.smtt.sdk.WebView;
-import com.tencent.smtt.sdk.WebViewClient;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 
 /**
- * @author jsongo
- * @date 2019/5/9 18:17
- * @desc modify from jsbridge replace by tencent x5 core
+ * 如果要自定义WebViewClient必须要集成此类
+ * Created by bruce on 10/28/15.
  */
 public class BridgeWebViewClient extends WebViewClient {
     private BridgeWebView webView;
-    private onPageFinishListener onPageFinishListener;
 
     public BridgeWebViewClient(BridgeWebView webView) {
         this.webView = webView;
-    }
-
-    public BridgeWebViewClient.onPageFinishListener getOnPageFinishListener() {
-        return onPageFinishListener;
-    }
-
-    public void setOnPageFinishListener(BridgeWebViewClient.onPageFinishListener onPageFinishListener) {
-        this.onPageFinishListener = onPageFinishListener;
     }
 
     @Override
@@ -84,38 +65,6 @@ public class BridgeWebViewClient extends WebViewClient {
     }
 
     @Override
-    public WebResourceResponse shouldInterceptRequest(WebView webView, String url) {
-        WebResourceResponse response = null;
-        response = super.shouldInterceptRequest(webView, url);
-        try {
-            ArrayList<String> jsList = ConstValue.INSTANCE.getJsList();
-            for (String s : jsList) {
-                if (url.contains(s)) {
-                    InputStream open = webView.getContext().getResources().getAssets().open(ConstValue.jsBasePath + "/" + s);
-                    response = new WebResourceResponse("text/javascript", "UTF-8", open);
-                    break;
-                }
-            }
-            //过滤本地图片请求
-            if (url.startsWith(ConstValue.LocalPicPrefix)) {
-                String path = url.replace(ConstValue.LocalPicPrefix, "");
-                L.i("本地图片路径：" + path);
-                if (url.endsWith(".png")) {
-                    InputStream open = new FileInputStream(new File(path));
-                    response = new WebResourceResponse("image/png", "UTF-8", open);
-                }
-                if (url.endsWith(".jpg")) {
-                    InputStream open = new FileInputStream(new File(path));
-                    response = new WebResourceResponse("image/jpg", "UTF-8", open);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return response;
-    }
-
-    @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
     }
@@ -136,9 +85,9 @@ public class BridgeWebViewClient extends WebViewClient {
             webView.setStartupMessage(null);
         }
 
-        if (onPageFinishListener != null) {
-            onPageFinishListener.onPageFinish(view, url);
-        }
+        //
+        onCustomPageFinishd(view, url);
+
     }
 
 
@@ -146,7 +95,8 @@ public class BridgeWebViewClient extends WebViewClient {
         return false;
     }
 
-    public interface onPageFinishListener {
-        void onPageFinish(WebView view, String url);
+
+    protected void onCustomPageFinishd(WebView view, String url) {
+
     }
 }

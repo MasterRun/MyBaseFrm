@@ -1,18 +1,13 @@
-package com.jsongo.ajs.jsbridge;
+package com.jsongo.ajs.lzyzsd_jsbridge;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-
-import com.jsongo.ajs.lzyzsd_jsbridge.BridgeHandler;
-import com.jsongo.ajs.lzyzsd_jsbridge.CallBackFunction;
-import com.jsongo.ajs.lzyzsd_jsbridge.DefaultHandler;
-import com.jsongo.ajs.lzyzsd_jsbridge.Message;
-import com.jsongo.ajs.lzyzsd_jsbridge.WebViewJavascriptBridge;
-import com.tencent.smtt.sdk.WebView;
+import android.webkit.WebView;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -20,22 +15,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author jsongo
- * @date 2019/5/9 18:16
- * @desc modify jsbridge replace by tencent x5 core
- */
+@SuppressLint("SetJavaScriptEnabled")
 public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
 
     private final String TAG = "BridgeWebView";
 
     public static final String toLoadJs = "web/js/bridge/WebViewJavascriptBridge.js";
-    Map<String, CallBackFunction> responseCallbacks = new HashMap<>();
-    Map<String, BridgeHandler> messageHandlers = new HashMap<>();
+    Map<String, CallBackFunction> responseCallbacks = new HashMap<String, CallBackFunction>();
+    Map<String, BridgeHandler> messageHandlers = new HashMap<String, BridgeHandler>();
     BridgeHandler defaultHandler = new DefaultHandler();
 
     private List<Message> startupMessage = new ArrayList<Message>();
-    private BridgeWebViewClient bridgeWebViewClient;
 
     public List<Message> getStartupMessage() {
         return startupMessage;
@@ -77,14 +67,7 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-        bridgeWebViewClient = generateBridgeWebViewClient();
-        this.setWebViewClient(bridgeWebViewClient);
-    }
-
-    public void setOnPageFinishListener(BridgeWebViewClient.onPageFinishListener onPageFinishListener) {
-        if (bridgeWebViewClient != null) {
-            bridgeWebViewClient.setOnPageFinishListener(onPageFinishListener);
-        }
+        this.setWebViewClient(generateBridgeWebViewClient());
     }
 
     protected BridgeWebViewClient generateBridgeWebViewClient() {

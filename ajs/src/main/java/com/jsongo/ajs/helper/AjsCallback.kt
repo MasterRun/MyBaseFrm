@@ -1,6 +1,6 @@
 package com.jsongo.ajs.helper
 
-import com.github.lzyzsd.jsbridge.CallBackFunction
+import com.jsongo.ajs.lzyzsd_jsbridge.CallBackFunction
 
 /**
  * author ： jsongo
@@ -10,7 +10,7 @@ import com.github.lzyzsd.jsbridge.CallBackFunction
 class AjsCallback(private val function: CallBackFunction) {
 
     fun success(
-        vararg data: Pair<String, String>,
+        vararg data: Pair<String, Any>,
         resultCode: Int = 1,
         message: String = "success"
     ) {
@@ -18,7 +18,7 @@ class AjsCallback(private val function: CallBackFunction) {
     }
 
     fun success(
-        data: MutableMap<String, String> = hashMapOf(),
+        data: MutableMap<String, Any> = hashMapOf(),
         resultCode: Int = 1,
         message: String = "success"
     ) {
@@ -32,7 +32,7 @@ class AjsCallback(private val function: CallBackFunction) {
     }
 
     fun failure(
-        data: HashMap<String, String> = hashMapOf(),
+        data: HashMap<String, Any> = hashMapOf(),
         resultCode: Int = 0,
         message: String = "failed"
     ) {
@@ -42,7 +42,7 @@ class AjsCallback(private val function: CallBackFunction) {
     fun callback(
         resultCode: Int,
         message: String,
-        data: MutableMap<String, String>
+        data: MutableMap<String, Any>
     ) {
         data["result"] = "$resultCode"
         data["message"] = message

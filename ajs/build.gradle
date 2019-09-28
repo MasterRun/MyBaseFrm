@@ -43,5 +43,5 @@ dependencies {
     }
 
     //jsbridge
-    api "com.github.lzyzsd:jsbridge:${proVer.jsbridge}"
+//    api "com.github.lzyzsd:jsbridge:${proVer.jsbridge}"
 }
