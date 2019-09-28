@@ -2,7 +2,7 @@ ext {
 
     libConf = [
             //是否上采用在线引用方式  打包上传时使用true
-            'useOnlineAAR': false,
+            'useOnlineAAR': true,
 
             /**
              * 三个变量分别为
@@ -11,10 +11,22 @@ ext {
              * arrVer 在线引用的版本
              */
 
+            'core'        : [
+                    'verCode': 1,
+                    'verName': '1.0.0.e3-SNAPSHOT',
+                    'aarVer' : '1.0.0.e3-SNAPSHOT'
+            ],
+
             'ajs'         : [
                     'verCode': 1,
                     'verName': '1.0.0.g2-SNAPSHOT',
                     'aarVer' : '1.0.0.g2-SNAPSHOT'
+            ],
+
+            'ui'          : [
+                    'verCode': 1,
+                    'verName': '1.0.0.d3-SNAPSHOT',
+                    'aarVer' : '1.0.0.d3-SNAPSHOT'
             ],
 
             'annotation'  : [
@@ -23,32 +35,20 @@ ext {
                     'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
-            'app'         : [
-                    'verCode': 1,
-                    'verName': '1.0.0'
-            ],
-
-            'core'        : [
-                    'verCode': 1,
-                    'verName': '1.0.0.e2-SNAPSHOT',
-                    'aarVer' : '1.0.0.e2-SNAPSHOT'
-            ],
-
-            'demo'        : [
-                    'verCode': 1,
-                    'verName': '1.0.0'
-            ],
-
             'processor'   : [
                     'verCode': 1,
                     'verName': '1.0.0.b-SNAPSHOT',
                     'aarVer' : '1.0.0.b-SNAPSHOT'
             ],
 
-            'ui'          : [
+            'app'         : [
                     'verCode': 1,
-                    'verName': '1.0.0.d2-SNAPSHOT',
-                    'aarVer' : '1.0.0.d2-SNAPSHOT'
+                    'verName': '1.0.0'
+            ],
+
+            'demo'        : [
+                    'verCode': 1,
+                    'verName': '1.0.0'
             ]
 
     ]
