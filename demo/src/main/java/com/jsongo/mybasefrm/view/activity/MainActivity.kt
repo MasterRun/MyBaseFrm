@@ -131,6 +131,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 this@MainActivity, true,
                 EasyPhotoGlideEngine.getInstance()
             )
+                .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
                 .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
                 .start(101)
         }

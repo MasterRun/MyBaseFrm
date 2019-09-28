@@ -127,7 +127,7 @@
 
     //提供给native调用,receiveMessageQueue 在会在页面加载完后赋值为null,所以
     function _handleMessageFromNative(messageJSON) {
-        console.log(messageJSON);
+//        console.log(messageJSON);
         if (receiveMessageQueue) {
             receiveMessageQueue.push(messageJSON);
         }

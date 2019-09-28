@@ -160,6 +160,14 @@ function regBridgeMethod() {
             }
         },
 
+        //文件相关操作
+        file: {
+            //选择图片
+            selectImg(params, callback) {
+                convertFunc("file.selectImg", params, callback)
+            },
+        },
+
         //加载的弹窗
         loading: {
             //显示

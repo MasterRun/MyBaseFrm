@@ -1,5 +1,12 @@
 
 
+##### 2019-9-28
+- 直接引入com.github.lzyzsd:jsbridge:1.0.4源码
+- 去除WebViewJavascriptBridge.js的消息log
+- 添加ajs长回调
+- 添加ajs选择图片api和文档
+- 抽离BaseWebLoader
+
 ##### 2019-9-27 
 - 打包开启混淆
 

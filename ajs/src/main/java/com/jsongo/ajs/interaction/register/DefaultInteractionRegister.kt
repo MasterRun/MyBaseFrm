@@ -18,6 +18,8 @@ object DefaultInteractionRegister : BaseInteractionRegister() {
         Pair("common.go", "com.jsongo.ajs.interaction.Common.go"),
         Pair("common.load", "com.jsongo.ajs.interaction.Common.load"),
 
+        Pair("file.selectImg", "com.jsongo.ajs.interaction.File.selectImg"),
+
         Pair("loading.show", "com.jsongo.ajs.interaction.Loading.show"),
         Pair("loading.hide", "com.jsongo.ajs.interaction.Loading.hide"),
 

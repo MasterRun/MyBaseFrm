@@ -184,6 +184,17 @@ function getCache() {
     })
 }
 
+function selectimg(){
+    ajs.file.selectImg({
+            count:4,
+            showCamera:1,
+            requestCode:302,
+            selectedPaths:JSON.stringify(["/storage/emulated/0/ADM/face1.jpg","/storage/emulated/0/ADM/face2.jpg"])
+        },function(data){
+            console.log(data["paths"])
+    })
+}
+
 //这这里将js方法注册给原生调用
 function regHandler() {
 

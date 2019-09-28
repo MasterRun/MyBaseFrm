@@ -52,12 +52,13 @@ todo   切换原生容器的方法将会在后续推出...
   - [3 Toast吐司](#3-toast吐司)
   - [4 加载弹窗](#4-加载弹窗)
   - [5 缓存](#5-缓存)
-  - [6 原生的下拉刷新和加载更多:smartrefresh](#6-原生的下拉刷新和加载更多smartrefresh)
-    - [6.1 开启/关闭下拉刷新](#61-开启关闭下拉刷新)
-    - [6.2 开启/关闭下拉刷新](#62-开启关闭下拉刷新)
-    - [6.3 设置刷新主题颜色](#63-设置刷新主题颜色)
-    - [6.4 设置下拉刷新样式](#64-设置下拉刷新样式)
-    - [6.5 设置上拉加载样式](#65-设置上拉加载样式)
+  - [6 文件操作](#6-文件操作)
+  - [7 原生的下拉刷新和加载更多:smartrefresh](#7-原生的下拉刷新和加载更多smartrefresh)
+    - [7.1 开启/关闭下拉刷新](#71-开启关闭下拉刷新)
+    - [7.2 开启/关闭下拉刷新](#72-开启关闭下拉刷新)
+    - [7.3 设置刷新主题颜色](#73-设置刷新主题颜色)
+    - [7.4 设置下拉刷新样式](#74-设置下拉刷新样式)
+    - [7.5 设置上拉加载样式](#75-设置上拉加载样式)
 - [二、提供原生调用的方法](#二提供原生调用的方法)
 
 
@@ -473,10 +474,10 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 ### 5 缓存
-|调用方法|方法说明|参数|
-|---|---|---|
-| ajs.cache.put()|保存键值|key(键) value(值)  callback(可选回调)|
-| ajs.cache.get()|保存键值|key(键)  callback(回调,通过data["value"]取返回的值)|
+| 调用方法        | 方法说明 | 参数                                                |
+| --------------- | -------- | --------------------------------------------------- |
+| ajs.cache.put() | 保存键值 | key(键) value(值)  callback(可选回调)               |
+| ajs.cache.get() | 保存键值 | key(键)  callback(回调,通过data["value"]取返回的值) |
 - demo
 ```js
     ajs.cache.put("h5Cache", "这是我的缓存内容");
@@ -486,7 +487,55 @@ myBridge.callHandler(callname, params, function (responseData) {
     })
 ```
 
-### 6 原生的下拉刷新和加载更多:smartrefresh
+### 6 文件操作
+
+#### 6.1 选择图片/拍照获取图片
+
+方法：`ajs.file.selectImg();`
+
+参数：
+
+- 参数1: param 
+
+  值: 
+```js
+    {
+        requestCode: 601,
+        count: 5,
+        showCamera: 1,
+        seletedPaths: JSON.stringify(["/storage/emulated/0/path1","/storage/emulated/0/path2"])
+    }
+```
+
+  | 字段         | 描述                           | 必填 | 说明                       |
+  | ------------ | ------------------------------ | ---- | -------------------------- |
+  | requestCode  | 请求码,自定义整型数字,不可重复 | 是   |                            |
+  | count        | 选取的数量                     | 否   |                            |
+  | showCamera   | 是否显示拍照按钮               | 否   |                            |
+  | seletedPaths | 已选的图片路径                 | 否   | 使用"/sdcard/path"可能无效 |
+
+- 参数2: callback  方法回调  可选
+
+返回值  
+     当回调成功时,通过`data["paths"]`获取选取的文件路径的数组
+  
+- demo:
+```js
+    ajs.file.selectImg({
+            count:4,
+            showCamera:1,
+            requestCode:302,
+            selectedPaths:JSON.stringify(["/storage/emulated/0/ADM/face1.jpg","/storage/emulated/0/ADM/face2.jpg"])
+    }, function (data) {
+        if (data['result'].toString() == "1") {
+            console.log(data["paths"])
+        } else {
+            console.log("file.selectImg failed")
+        }
+    })
+```
+
+### 7 原生的下拉刷新和加载更多:smartrefresh
 
 <b>注：
 - 已经将h5页面的容器切换为第二容器，第二容器不包含此原生控件，如需使用，需要先切换为原生的第一容器
@@ -494,7 +543,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 
  说明: 默认开启下拉刷新  不开启上拉加载更多
 
-#### 6.1 开启/关闭下拉刷新
+#### 7.1 开启/关闭下拉刷新
 
 方法：`ajs.smartrefresh.enableRefresh()`
 
@@ -519,7 +568,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 
-#### 6.2 开启/关闭下拉刷新
+#### 7.2 开启/关闭下拉刷新
 
 方法：`ajs.smartrefresh.enableLoadmore()`
 
@@ -544,7 +593,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 
-#### 6.3 设置刷新主题颜色
+#### 7.3 设置刷新主题颜色
 
 方法：`ajs.smartrefresh.color()`
 
@@ -571,7 +620,7 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 
-#### 6.4 设置下拉刷新样式
+#### 7.4 设置下拉刷新样式
 
 方法：`ajs.smartrefresh.header()`
 
@@ -607,7 +656,7 @@ myBridge.callHandler(callname, params, function (responseData) {
     ajs.smartrefresh.header(smartrefresh.header.MaterialHeader)
 ```
 
-#### 6.5 设置上拉加载样式
+#### 7.5 设置上拉加载样式
 
 方法：`ajs.smartrefresh.footer()`
 
