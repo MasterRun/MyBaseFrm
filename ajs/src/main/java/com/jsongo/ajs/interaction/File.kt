@@ -11,6 +11,8 @@ import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.core.util.ConstConf
 import com.jsongo.ui.util.EasyPhotoGlideEngine
+import com.vondear.rxtool.RxFileTool
+import kotlin.random.Random
 
 
 /**
@@ -27,7 +29,10 @@ object File {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val requestCode = (params["requestCode"] ?: "0").toInt()
+        var requestCode = (params["requestCode"] ?: "0").toInt()
+        if (requestCode == 0) {
+            requestCode = Random.nextInt()
+        }
         val count = (params["count"] ?: "0").toInt()
         val showCamera = TextUtils.equals(params["showCamera"], "1")
         val paths = Util.gson.fromJson<ArrayList<String>>(
@@ -59,4 +64,50 @@ object File {
             }
         })
     }
+
+    /**
+     * 获取文件的base64
+     */
+    @JvmStatic
+    fun base64(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        callback: AjsCallback
+    ) {
+        val path = params["path"] ?: ""
+        val file = java.io.File(path)
+        if (!file.exists()) {
+            callback.failure(message = "file not existed")
+        } else {
+            val file2Base64 = RxFileTool.file2Base64(path)
+            callback.success(Pair("base64", file2Base64))
+        }
+    }
+
+    /**
+     * 删除文件
+     */
+    @JvmStatic
+    fun delete(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        callback: AjsCallback
+    ) {
+        val path = params["path"] ?: ""
+        val file = java.io.File(path)
+        if (!file.exists()) {
+            callback.failure(message = "file not existed")
+        } else {
+            val result = RxFileTool.deleteFile(path)
+            if (result) {
+                callback.success()
+            } else {
+                callback.failure(message = "delete failed")
+            }
+        }
+    }
+
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import com.google.gson.reflect.TypeToken
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.ConstValue
+import com.jsongo.ajs.helper.LongCallback
 import com.jsongo.ajs.helper.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
@@ -11,6 +12,9 @@ import com.jsongo.ajs.webloader.DefaultWebLoader
 import com.jsongo.ui.component.ImagePreview.ImgPreviewClick
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
+import com.yzq.zxinglibrary.android.CaptureActivity
+import com.yzq.zxinglibrary.common.Constant
+import kotlin.random.Random
 
 /**
  * @author  jsongo
@@ -165,6 +169,39 @@ object Common {
         val intent = Intent(jsWebLoader, activityClazz)
         jsWebLoader.startActivity(intent)
         callback.success()
+    }
+
+    /**
+     * 打开二维码条形码扫描页面
+     */
+    @JvmStatic
+    fun scan(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        callback: AjsCallback
+    ) {
+        var requestCode = (params["requestCode"] ?: "0").toInt()
+        if (requestCode == 0) {
+            requestCode = Random.nextInt()
+        }
+        val intent = Intent(jsWebLoader, CaptureActivity::class.java)
+        jsWebLoader.startActivityForResult(intent, requestCode)
+
+        jsWebLoader.addLongCallback(requestCode, object : LongCallback<Intent> {
+            override fun success(data: Intent?) {
+                if (data != null) {
+                    val str = data.getStringExtra(Constant.CODED_CONTENT)
+                    callback.success(Pair("data", str))
+                } else {
+                    failed(data)
+                }
+            }
+
+            override fun failed(data: Intent?) {
+                callback.failure()
+            }
+        })
     }
 
 }

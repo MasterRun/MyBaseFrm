@@ -1,5 +1,9 @@
 
 
+##### 2019-9-29
+- 添加ajax请求获取本地文件的方法,不建议使用
+- 添加ajs 扫描二维码  获取文件base64  删除文件的方法
+
 ##### 2019-9-28
 - 直接引入com.github.lzyzsd:jsbridge:1.0.4源码
 - 去除WebViewJavascriptBridge.js的消息log

@@ -8,6 +8,7 @@ import com.jsongo.ajs.lzyzsd_jsbridge.Message;
 import com.safframework.log.L;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse;
+import com.tencent.smtt.sdk.MimeTypeMap;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 
@@ -100,18 +101,29 @@ public class BridgeWebViewClient extends WebViewClient {
             if (url.startsWith(ConstValue.LocalPicPrefix)) {
                 String path = url.replace(ConstValue.LocalPicPrefix, "");
                 L.i("本地图片路径：" + path);
-                if (url.endsWith(".png")) {
-                    InputStream open = new FileInputStream(new File(path));
-                    response = new WebResourceResponse("image/png", "UTF-8", open);
-                }
-                if (url.endsWith(".jpg")) {
-                    InputStream open = new FileInputStream(new File(path));
-                    response = new WebResourceResponse("image/jpg", "UTF-8", open);
-                }
+                String suffix = path.substring(path.lastIndexOf("."));
+                suffix = kotlin.text.StringsKt.trim(suffix, '.');
+                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix);
+                InputStream open = new FileInputStream(new File(path));
+                response = new WebResourceResponse(mimeType, "UTF-8", open);
+            } else if (url.startsWith(ConstValue.LocalFilePrefix)) {
+                String path = url.replace(ConstValue.LocalFilePrefix, "");
+                L.i("本地文件路径：" + path);
+                InputStream open = new FileInputStream(new File(path));
+                String suffix = path.substring(path.lastIndexOf("."));
+                suffix = kotlin.text.StringsKt.trim(suffix, '.');
+                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix);
+                response = new WebResourceResponse(mimeType, "UTF-8", open);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        //跨域配置
+        /*Map<String, String> headers = response.getResponseHeaders();
+        if (headers == null) {
+            headers = new HashMap<>();
+        }
+        headers.put("Access-Control-Allow-Origin", "*");*/
         return response;
     }
 

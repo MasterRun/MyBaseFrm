@@ -184,27 +184,58 @@ function getCache() {
     })
 }
 
-function selectimg(){
-    ajs.file.selectImg({
-            count:4,
-            showCamera:1,
-            requestCode:302,
-            selectedPaths:JSON.stringify(["/storage/emulated/0/ADM/face1.jpg","/storage/emulated/0/ADM/face2.jpg"])
-        },function(data){
-            console.log(data["paths"])
+function scan() {
+    ajs.common.scan(107, function (data) {
+        console.log(data)
+        ajs.common.load(data["data"])
     })
 }
 
-function custom1(){
-        myBridge.callHandler("custom1.myToast", {text:"custom1"}, function (responseData) {
-
-        })
+function selectimg() {
+    ajs.file.selectImg({
+        count: 4,
+        showCamera: 1,
+        requestCode: 302,
+        selectedPaths: JSON.stringify(["/storage/emulated/0/ADM/face1.jpg", "/storage/emulated/0/ADM/face2.jpg"])
+    }, function (data) {
+        console.log(data["paths"])
+    })
 }
 
-function custom2(){
-        myBridge.callHandler("custom3.toast", {text:"custom3"}, function (responseData) {
+function requestFile() {
+    $.ajax({
+        //        url: "http://android_file/storage/emulated/0/ADM/adbd_downcc.apk",
+        // url: "http://android_file/storage/emulated/0/ADM/hello.apk",
+        url: "http://android_file/storage/emulated/0/ADM/face1.jpg",
+        method: 'post',
+        success(data) {
+            console.log(typeof (data))
+            console.log(data.length)
+            // $.ajax({
+            //     url: "http://submit_file",
+            //     method: 'post',
+            //     //提交文件测试
+            // })
+        }
+    })
+}
 
-        })
+function filebase64() {
+    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
+        console.log(data)
+    })
+}
+
+function custom1() {
+    myBridge.callHandler("custom1.myToast", { text: "custom1" }, function (responseData) {
+
+    })
+}
+
+function custom2() {
+    myBridge.callHandler("custom3.toast", { text: "custom3" }, function (responseData) {
+
+    })
 }
 
 //这这里将js方法注册给原生调用

@@ -157,6 +157,15 @@ function regBridgeMethod() {
              */
             load(url, callback) {
                 convertFunc("common.load", { url: url }, callback)
+            },
+
+            /**
+             * 开启新的页面打开h5页面
+             * @param {String} url  h5页面路径
+             * @param {*} callback
+             */
+            scan(requestCode, callback) {
+                convertFunc("common.scan", { requestCode: requestCode }, callback)
             }
         },
 
@@ -165,6 +174,14 @@ function regBridgeMethod() {
             //选择图片
             selectImg(params, callback) {
                 convertFunc("file.selectImg", params, callback)
+            },
+            //获取文件base64
+            base64(path, callback) {
+                convertFunc("file.base64", { path: path }, callback)
+            },
+            //删除文件
+            delete(path, callback) {
+                convertFunc("file.delete", { path: path }, callback)
             },
         },
 
@@ -239,9 +256,9 @@ function regBridgeMethod() {
 
         //顶部标题栏
         topbar: {
-        	/**
-        	 * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
-        	 */
+            /**
+             * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
+             */
             bgcolor(color, callback) {
                 convertFunc('topbar.bgcolor', { color: color }, callback)
             },

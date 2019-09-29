@@ -37,13 +37,14 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
     var txt: String by Delegates.observable("init value") { prop, old, newValue ->
         tv.text = newValue
     }
+    var floatingView: FloatingView? = null
 
     override fun initView() {
 
         setSwipeBackEnable(false)
 
-        val floatingView = FloatingView(this)
-        floatingView.show()
+        floatingView = FloatingView(this)
+        floatingView?.show()
 
         topbar.backImageButton.visibility = View.GONE
 
@@ -144,5 +145,10 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        floatingView?.destory()
+        super.onDestroy()
     }
 }

@@ -67,12 +67,14 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         }
     }
 
+    private var floatingView: FloatingView? = null
+
     override fun initView() {
 
         setSwipeBackEnable(false)
 
-        val floatingView = FloatingView(this)
-        floatingView.show()
+        floatingView = FloatingView(this)
+        floatingView?.show()
 
         topbar.backImageButton.visibility = View.GONE
 
@@ -252,5 +254,10 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             val resultPaths = data?.getStringArrayListExtra(EasyPhotos.RESULT_PATHS)
             L.json(resultPaths)
         }
+    }
+
+    override fun onDestroy() {
+        floatingView?.destory()
+        super.onDestroy()
     }
 }

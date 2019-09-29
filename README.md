@@ -31,8 +31,9 @@ demo\app module中用于个人测试
 - fileprovider  --  ok
 - easyphoto  提供engine  -- ok
 - 使用wcdb  --  ok 
+- 提供拍照,选文件图片 base64等ajs api -- ok
 
-- 提供拍照,选文件图片 base64等ajs api -- doing
+- 分离ajs回调,改为success  和 error 方法分别回调  --  doing
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆

@@ -10,6 +10,8 @@ import com.jsongo.ajs.AJs
 object ConstValue {
     const val webpath = "webpath"
     const val LocalPicPrefix = "http://androidimg"
+    //暂时不使用,涉及到跨域
+    const val LocalFilePrefix = "http://android_file"
 
     const val jsBasePath = "web/js/lib"
     val jsList = ArrayList<String>()
