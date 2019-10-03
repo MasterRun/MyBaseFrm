@@ -9,7 +9,7 @@ import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
-import com.jsongo.ajs.webloader.DefaultWebLoader
+import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.AjsApi
 import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.annotation.anno.Presenter
@@ -55,7 +55,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         fun toast(
             jsWebLoader: AJsWebLoader,
             bridgeWebView: BridgeWebView,
-            params: Map<String, String>, callback: AjsCallback
+            params: Map<String, String>,
+            callback: AjsCallback
         ) {
             val text = params["text"]
             if (TextUtils.isEmpty(text)) {
@@ -99,11 +100,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
         btn_jsloader.setOnClickListener {
             val webPath = "file:///android_asset/web/index.html"
-            DefaultWebLoader.load(webPath)
+            AJsWebPage.load(webPath)
         }
 
         btn_loadbaidu.setOnClickListener {
-            DefaultWebLoader.load("https://www.baidu.com")
+            AJsWebPage.load("https://www.baidu.com")
         }
 
         var times = 0
@@ -238,7 +239,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
                 if (str.startsWith("http://") || str.startsWith("https://")) {
-                    DefaultWebLoader.load(str)
+                    AJsWebPage.load(str)
                 } else {
                     QMUIDialog.MessageDialogBuilder(this@MainActivity)
                         .setTitle("扫描结果")

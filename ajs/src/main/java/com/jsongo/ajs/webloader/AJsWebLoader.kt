@@ -4,31 +4,38 @@ import android.app.Activity
 import android.content.Intent
 import android.util.SparseArray
 import android.view.View
-import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.InteractionRegisterCollector
 import com.jsongo.ajs.helper.LongCallback
-import com.vondear.rxtool.RxKeyboardTool
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
 
 /**
- * @author jsongo
- * @date 2019/5/9 14:48
- * @desc modify from RxUI activitywebloader  mixin jsbridge replace by tencent x5 core
+ * @author ： jsongo
+ * @date ： 19-10-3 下午5:13
+ * @desc : fragment 加载html
  */
-abstract class AJsWebLoader : BaseWebLoader() {
+class AJsWebLoader : BaseWebLoader() {
+
+    companion object {
+
+        fun newInstance(url: String) = AJsWebLoader().apply {
+            webPath = url
+        }
+
+    }
 
     override var containerIndex = 2
 
-    override var mainLayoutId = R.layout.activity_ajs_webloader
+    var loadingDialog: QMUITipDialog? = null
 
     val longCallbacks = SparseArray<LongCallback<Intent>>()
 
     override fun init() {
     }
 
-    override fun initView() {
-        //默认禁用侧滑返回
-        setSwipeBackEnable(false)
+    override fun initView(view: View) {
+        super.initView(view)
 
         topbar.setTitle("")
         //左上角直接退出页面
@@ -38,14 +45,9 @@ abstract class AJsWebLoader : BaseWebLoader() {
               } else {
                   finish()
               }*/
-            finish()
+            activity?.finish()
         }
 
-        //隐藏输入法
-        RxKeyboardTool.hideSoftInput(this)
-        //可取消dialog
-        loadingDialog.setCancelable(true)
-        loadingDialog.show()
         /*if (bridgeWebView.progress < 100) {
             //显示加载中
         }else{
@@ -63,9 +65,25 @@ abstract class AJsWebLoader : BaseWebLoader() {
                 //显示进度
                 pb_webview.visibility = View.VISIBLE
                 pb_webview.progress = 0
-                //显示加载dialog
-                loadingDialog.show()
+                //显示加载
+                if (loadingDialog != null) {
+                    loadingDialog?.show()
+                } else {
+                    inflateEmptyView()?.show(true)
+                }
             }
+    }
+
+    /**
+     * 页面加载完成
+     */
+    override fun onLoadFinish(wv: WebView, url: String) {
+        super.onLoadFinish(wv, url)
+        if (loadingDialog != null) {
+            loadingDialog?.dismiss()
+        } else {
+            inflateEmptyView()?.hide()
+        }
     }
 
     /**

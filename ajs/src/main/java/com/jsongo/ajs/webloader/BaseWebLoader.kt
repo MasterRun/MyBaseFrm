@@ -6,36 +6,55 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
-import com.jsongo.core.mvp.base.BaseActivity
+import android.widget.ProgressBar
+import com.jsongo.ajs.R
+import com.jsongo.ajs.jsbridge.BridgeWebView
+import com.jsongo.core.mvp.base.BaseFragment
 import com.safframework.log.L
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
+import kotlinx.android.synthetic.main.activity_ajs_webloader.view.*
 
 /**
  * @author ： jsongo
- * @date ： 19-9-28 下午4:00
- * @desc :  modify from RxUI activitywebloader  mixin jsbridge replace by tencent x5 core
+ * @date ： 19-10-3 下午5:14
+ * @desc : modify from RxUI activitywebloader  mixin jsbridge replace by tencent x5 core
  */
-abstract class BaseWebLoader : BaseActivity() {
+abstract class BaseWebLoader : BaseFragment() {
 
-    protected var webPath = ""
+    /**
+     * 加载的url
+     */
+    var webPath = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override var mainLayoutId = R.layout.activity_ajs_webloader
+
+    protected lateinit var pbWebview: ProgressBar
+    protected lateinit var bridgeWebView: BridgeWebView
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         init()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
-        initView()// 初始化控件 - findViewById之类的操作
-        initData()// 初始化控件的数据及监听事件
+        // 初始化控件 - findViewById之类的操作
+        initView(view)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        // 初始化控件的数据及监听事件
+        initData()
     }
 
     protected abstract fun init()
 
-    protected abstract fun initView()
+    protected open fun initView(view: View) {
+        pbWebview = view.pb_webview
+        bridgeWebView = view.bridgeWebView
+    }
 
     protected fun initData() {
         pb_webview.max = 100//设置加载进度最大值
@@ -55,6 +74,7 @@ abstract class BaseWebLoader : BaseActivity() {
 //            bridgeWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)//软件解码
 //        }
 //        bridgeWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)//硬件解码
+
         //允许webview对文件的操作
         webSettings.setAllowUniversalAccessFromFileURLs(true)
         webSettings.allowFileAccess = true
@@ -69,22 +89,29 @@ abstract class BaseWebLoader : BaseActivity() {
 
         // setMediaPlaybackRequiresUserGesture(boolean require) //是否需要用户手势来播放Media，默认true
 
-        webSettings.javaScriptEnabled = true // 设置支持javascript脚本
-        //        webSettings.setPluginState(WebSettings.PluginState.ON);
-        webSettings.setSupportZoom(false)// 设置可以支持缩放
-        webSettings.builtInZoomControls =
-            false// 设置出现缩放工具 是否使用WebView内置的缩放组件，由浮动在窗口上的缩放控制和手势缩放控制组成，默认false
+        // 设置支持javascript脚本
+        webSettings.javaScriptEnabled = true
+        //webSettings.setPluginState(WebSettings.PluginState.ON);
 
-        webSettings.displayZoomControls = false//隐藏缩放工具
-        webSettings.useWideViewPort = true// 扩大比例的缩放
+        // 设置可以支持缩放
+        webSettings.setSupportZoom(false)
+        // 设置出现缩放工具 是否使用WebView内置的缩放组件，由浮动在窗口上的缩放控制和手势缩放控制组成，默认false
+        webSettings.builtInZoomControls = false
 
-        webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN//自适应屏幕
+        //隐藏缩放工具
+        webSettings.displayZoomControls = false
+        // 扩大比例的缩放
+        webSettings.useWideViewPort = true
+
+        //自适应屏幕
+        webSettings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
         webSettings.loadWithOverviewMode = true
 
         webSettings.databaseEnabled = true//
-        webSettings.savePassword = true//保存密码
-        webSettings.domStorageEnabled =
-            true//是否开启本地DOM存储  鉴于它的安全特性（任何人都能读取到它，尽管有相应的限制，将敏感数据存储在这里依然不是明智之举），Android 默认是关闭该功能的。
+        //保存密码
+        webSettings.savePassword = true
+        //是否开启本地DOM存储  鉴于它的安全特性（任何人都能读取到它，尽管有相应的限制，将敏感数据存储在这里依然不是明智之举），Android 默认是关闭该功能的。
+        webSettings.domStorageEnabled = true
         bridgeWebView.isSaveEnabled = true
         bridgeWebView.keepScreenOn = true
 
@@ -102,10 +129,7 @@ abstract class BaseWebLoader : BaseActivity() {
         }
 
         bridgeWebView.setOnPageFinishListener { view, url ->
-            //页面加载完成后 隐藏加载进度和加载dialog
-            pb_webview.visibility = View.GONE
-            loadingDialog.dismiss()
-            smartRefreshLayout.finishRefresh()
+            onLoadFinish(view, url)
         }
 
         bridgeWebView.setDownloadListener { paramStr1, paramStr2, paramStr3, paramStr4, paramLong ->
@@ -117,6 +141,7 @@ abstract class BaseWebLoader : BaseActivity() {
 
         bridgeWebView.loadUrl(webPath)
         L.d("url ", webPath)
+
         //ridgeWebView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,bridgeWebView.getHeight()));
 
         registerHandler()
@@ -124,12 +149,16 @@ abstract class BaseWebLoader : BaseActivity() {
 
     protected abstract fun registerHandler()
 
-    override fun onSaveInstanceState(paramBundle: Bundle) {
-        super.onSaveInstanceState(paramBundle)
-        paramBundle.putString("url", bridgeWebView.url)
+    /**
+     * 页面加载完成
+     */
+    protected open fun onLoadFinish(wv: WebView, url: String) {
+        //页面加载完成后 隐藏加载进度和加载dialog
+        pb_webview.visibility = View.GONE
+        smartRefreshLayout.finishRefresh()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
+    override fun onConfigurationChanged(newConfig: Configuration?) {
         try {
             super.onConfigurationChanged(newConfig)
             if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -142,13 +171,12 @@ abstract class BaseWebLoader : BaseActivity() {
         }
     }
 
-    override fun onBackPressed() {
-
+    fun onBackPressed(): Boolean {
         if (bridgeWebView.canGoBack()) {
             bridgeWebView.goBack()
-        } else {
-            super.onBackPressed()
+            return true
         }
+        return false
     }
 
 }

@@ -115,9 +115,9 @@ object Topbar {
     ) {
         val mode = (params["mode"] ?: "0").toString().toDouble().toInt()
         if (mode == 1) {
-            QMUIStatusBarHelper.setStatusBarDarkMode(jsWebLoader)
+            QMUIStatusBarHelper.setStatusBarDarkMode(jsWebLoader.activity)
         } else {
-            QMUIStatusBarHelper.setStatusBarLightMode(jsWebLoader)
+            QMUIStatusBarHelper.setStatusBarLightMode(jsWebLoader.activity)
         }
         callback.success()
     }

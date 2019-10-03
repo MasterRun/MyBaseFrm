@@ -1,7 +1,7 @@
 package com.jsongo.mybasefrm.view.fragment
 
 import android.view.View
-import com.jsongo.ajs.webloader.DefaultWebLoader
+import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.annotation.anno.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
@@ -32,12 +32,11 @@ class MainFragment : BaseMvpFragment<IMainModule.IModel, IMainModule.IView>(), I
 
             btn_jsloader.setOnClickListener {
                 val webPath = "file:///android_asset/web/index.html"
-
-                DefaultWebLoader.load(webPath)
+                AJsWebPage.load(webPath)
             }
 
             btn_loadbaidu.setOnClickListener {
-                DefaultWebLoader.load("https://www.baidu.com")
+                AJsWebPage.load("https://www.baidu.com")
             }
 
             var times = 0

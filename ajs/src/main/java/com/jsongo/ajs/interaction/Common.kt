@@ -8,7 +8,7 @@ import com.jsongo.ajs.helper.LongCallback
 import com.jsongo.ajs.helper.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
-import com.jsongo.ajs.webloader.DefaultWebLoader
+import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ui.component.ImagePreview.ImgPreviewClick
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
@@ -47,7 +47,12 @@ object Common {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val qmuiDialogBuilder = QMUIDialog.MessageDialogBuilder(jsWebLoader)
+        val activity = jsWebLoader.activity
+        if (activity == null) {
+            callback.failure(message = "hostActivity is null")
+            return
+        }
+        val qmuiDialogBuilder = QMUIDialog.MessageDialogBuilder(activity)
         val title = params["title"] ?: ""
         val message = params["message"] ?: ""
         if (title.isNotEmpty()) {
@@ -129,12 +134,17 @@ object Common {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
+        val hostActivity = jsWebLoader.activity
+        if (hostActivity == null) {
+            callback.failure(message = "hostActivity is null")
+            return
+        }
         val urls = params["urls"].toString()
         val urlList =
             Util.gson.fromJson<List<String>>(urls, object : TypeToken<List<String>>() {}.type)
         val index = (params["index"] ?: "0").toInt()
 
-        ImgPreviewClick(jsWebLoader, index, urlList).start()
+        ImgPreviewClick(hostActivity, index, urlList).start()
 
         callback.success()
     }
@@ -150,7 +160,7 @@ object Common {
         callback: AjsCallback
     ) {
         val url = params["url"].toString()
-        DefaultWebLoader.load(url)
+        AJsWebPage.load(url)
         callback.success()
     }
 
@@ -164,9 +174,14 @@ object Common {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
+        val hostActivity = jsWebLoader.activity
+        if (hostActivity == null) {
+            callback.failure(message = "hostActivity is null")
+            return
+        }
         val activity = params["activity"].toString()
         val activityClazz = Class.forName(activity)
-        val intent = Intent(jsWebLoader, activityClazz)
+        val intent = Intent(hostActivity, activityClazz)
         jsWebLoader.startActivity(intent)
         callback.success()
     }
@@ -181,11 +196,16 @@ object Common {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
+        val hostActivity = jsWebLoader.activity
+        if (hostActivity == null) {
+            callback.failure(message = "hostActivity is null")
+            return
+        }
         var requestCode = (params["requestCode"] ?: "0").toInt()
         if (requestCode == 0) {
             requestCode = Random.nextInt()
         }
-        val intent = Intent(jsWebLoader, CaptureActivity::class.java)
+        val intent = Intent(hostActivity, CaptureActivity::class.java)
         jsWebLoader.startActivityForResult(intent, requestCode)
 
         jsWebLoader.addLongCallback(requestCode, object : LongCallback<Intent> {

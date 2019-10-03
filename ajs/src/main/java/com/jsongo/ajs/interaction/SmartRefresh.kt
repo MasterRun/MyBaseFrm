@@ -73,8 +73,13 @@ object SmartRefresh {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
+        val context = jsWebLoader.context
+        if (context == null) {
+            callback.failure(message = "context od webLoader id null")
+            return
+        }
         val header = params["header"].toString()
-        jsWebLoader.smartRefreshLayout.useHeader(jsWebLoader, SmartRefreshHeader.valueOf(header))
+        jsWebLoader.smartRefreshLayout.useHeader(context, SmartRefreshHeader.valueOf(header))
 
         callback.success()
     }
@@ -89,8 +94,13 @@ object SmartRefresh {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
+        val context = jsWebLoader.context
+        if (context == null) {
+            callback.failure(message = "context od webLoader id null")
+            return
+        }
         val footer = params["footer"].toString()
-        jsWebLoader.smartRefreshLayout.useFooter(jsWebLoader, SmartRefreshFooter.valueOf(footer))
+        jsWebLoader.smartRefreshLayout.useFooter(context, SmartRefreshFooter.valueOf(footer))
 
         callback.success()
     }

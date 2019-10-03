@@ -3,6 +3,7 @@ package com.jsongo.ajs.interaction
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.core.mvp.base.BaseActivity
 
 /**
  * author ： jsongo
@@ -20,8 +21,13 @@ object Loading {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        jsWebLoader.loadingDialog.show()
-        callback.success()
+        val hostActivity = jsWebLoader.activity
+        if (hostActivity is BaseActivity) {
+            hostActivity.loadingDialog.show()
+            callback.success()
+        } else {
+            callback.failure(message = "hostActivity is not BaseActivity")
+        }
     }
 
     /**
@@ -34,8 +40,13 @@ object Loading {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        jsWebLoader.loadingDialog.dismiss()
-        callback.success()
+        val hostActivity = jsWebLoader.activity
+        if (hostActivity is BaseActivity) {
+            hostActivity.loadingDialog.dismiss()
+            callback.success()
+        } else {
+            callback.failure(message = "hostActivity is not BaseActivity")
+        }
     }
 
     /**
@@ -48,8 +59,14 @@ object Loading {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val cancelable = !params["cancelable"].equals("false")
-        jsWebLoader.loadingDialog.setCancelable(cancelable)
-        callback.success()
+        val hostActivity = jsWebLoader.activity
+        if (hostActivity is BaseActivity) {
+            val cancelable = !params["cancelable"].equals("false")
+            hostActivity.loadingDialog.setCancelable(cancelable)
+            hostActivity.loadingDialog.dismiss()
+            callback.success()
+        } else {
+            callback.failure(message = "hostActivity is not BaseActivity")
+        }
     }
 }

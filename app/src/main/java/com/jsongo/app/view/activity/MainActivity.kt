@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
-import com.jsongo.ajs.webloader.DefaultWebLoader
+import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.annotation.anno.Presenter
 import com.jsongo.app.mvp.IMain
@@ -63,12 +63,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             }
         btn.setOnClickListener {
             val webPath = "file:///android_asset/web/index.html"
-
-            DefaultWebLoader.load(webPath)
+            AJsWebPage.load(webPath)
         }
 
         btn_loadbaidu.setOnClickListener {
-            DefaultWebLoader.load("https://www.baidu.com")
+            AJsWebPage.load("https://www.baidu.com")
         }
 
         var times = 0
@@ -132,7 +131,7 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
                 if (str.startsWith("http://") || str.startsWith("https://")) {
-                    DefaultWebLoader.load(str)
+                    AJsWebPage.load(str)
                 } else {
                     QMUIDialog.MessageDialogBuilder(this@MainActivity)
                         .setTitle("扫描结果")
