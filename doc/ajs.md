@@ -230,17 +230,16 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 参数：
 
-- 参数1: callback  方法回调  可选
+- 参数1: success  成功回调  可选
+- 参数2: error  错误回调  可选
   
 - demo:
 ```js
     //有回调
     ajs.common.back(function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("common.back success")
-        } else {
-            console.log("common.back failed")
-        }
+        console.log("common.back success")
+    }, function (msg, data) {
+        console.log("common.back failed")
     });
 
     //无回调简化调用
@@ -288,7 +287,8 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 注：后文会介绍如何给原生提供js方法
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -305,11 +305,9 @@ myBridge.callHandler(callname, params, function (responseData) {
         method2: "dialogaction2",
         params2: "params222"
     }, function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("common.dialog success")
-        } else {
-            console.log("common.dialog failed")
-        }
+        console.log("common.dialog success")
+    }, function (msg, data) {
+        console.log("common.dialog failed")
     })
 ```
 
@@ -327,8 +325,9 @@ myBridge.callHandler(callname, params, function (responseData) {
   | 字段 | 描述         | 必填 | 说明 |
   | ---- | ------------ | ---- | ---- |
   | path | 图片本地路径 | 是   |      |
-- 
-- 参数2: callback  方法回调  必选
+
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
 
     说明:方法回调的的path参数获取可用于加载的图片路径 data['path']
   
@@ -359,9 +358,10 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ----- | ------------------------ | ---- | ---------------------- |
   | urls  | 图片url数组              | 是   | ['url1','url2','url3'] |
   | index | 值：打开时显示的图片下标 | 是   |                        |
-  
-- 参数3: callback  方法回调  可选
-  
+    
+- 参数3: success  成功回调  可选
+- 参数4: error  错误回调  可选
+
 - demo:
 ```js
     var urls = [
@@ -387,7 +387,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | -------- | ------------ | ---- | ---------- |
   | activity | 原生页面路径 | 是   | 由原生提供 |
  
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -409,7 +410,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ---- | ---------- | ---- | ---- |
   | url  | h5页面地址 | 是   |      |
  
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -466,7 +468,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ---- | -------- | ---- | ---- |
   | text | 吐司内容 | 是   |      |
   
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -560,7 +563,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | showCamera   | 是否显示拍照按钮               | 否   |                            |
   | seletedPaths | 已选的图片路径                 | 否   | 使用"/sdcard/path"可能无效 |
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
 
 返回值  
      当回调成功时,通过`data["paths"]`获取选取的文件路径的数组
@@ -594,7 +598,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ---- | --------- | ---- | ---- |
   | path | 文件路径, | 是   |      |
  
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
 
 
 返回值:
@@ -621,8 +626,9 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ---- | --------- | ---- | ---- |
   | path | 文件路径, | 是   |      |
  
-- 参数2: callback  方法回调  可选
 
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -653,7 +659,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ------ | ---------------- | ---- | ------------------------------- |
   | enable | 是否启用下拉刷新 | 是   | true/false,页面默认启用下拉刷新 |
  
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -678,7 +685,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ------ | -------------------- | ---- | ----------------------------------- |
   | enable | 是否启用上拉加载更多 | 是   | true/false,页面默认禁用上拉加载更多 |
  
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -708,7 +716,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | primaryColor | 刷新的背景色 | 是   | #开头后面6位的色值 有的样式不建议更改颜色 |
   | accentColor  | 刷新的前景色 | 是   | #开头后面6位的色值 有的样式不建议更改颜色 |
  
-- 参数3: callback  方法回调  可选
+- 参数3: success  成功回调  可选
+- 参数4: error  错误回调  可选
   
 - demo:
 ```js
@@ -726,7 +735,8 @@ myBridge.callHandler(callname, params, function (responseData) {
 
     值 参考 `smartrefresh.header.xxx`
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
 
 - 下拉刷新样式参考：
   | 样式名                  | 值                                          | 说明                                                                     |
@@ -762,7 +772,8 @@ myBridge.callHandler(callname, params, function (responseData) {
 
     值 参考 `smartrefresh.footer.xxx`
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
 
 - 上拉加载样式参考:
   | 样式名          | 值                                  | 说明                     |

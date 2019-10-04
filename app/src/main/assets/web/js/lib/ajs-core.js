@@ -63,10 +63,19 @@ function connectWebViewJavascriptBridge(callback) {
  * 注册原生方法
  */
 function regBridgeMethod() {
-    var convertFunc = function (callname, params, callback) {
+    var convertFunc = function (callname, params, success, error) {
         myBridge.callHandler(callname, params, function (responseData) {
-            if (callback != undefined) {
-                callback(JSON.parse(responseData))
+            var data = JSON.parse(responseData)
+            if (data['result'].toString() == "1") {
+                if (success != undefined) {
+                    success(data)
+                }
+            } else {
+                if (error != undefined) {
+                    error(data['message'], data)
+                } else {
+                    console.log("error occor data:" + responseData)
+                }
             }
         })
     };
@@ -83,11 +92,11 @@ function regBridgeMethod() {
          * 缓存
          */
         cache: {
-            put(key, value, callback) {
-                convertFunc("cache.put", { key: key, value: value }, callback)
+            put(key, value, success, error) {
+                convertFunc("cache.put", { key: key, value: value }, success, error)
             },
-            get(key, callback) {
-                convertFunc("cache.get", { key: key }, callback)
+            get(key, success, error) {
+                convertFunc("cache.get", { key: key }, success, error)
             }
         },
 
@@ -96,8 +105,8 @@ function regBridgeMethod() {
          */
         common: {
             //模拟Android的返回键
-            back(callback) {
-                convertFunc("common.back", {}, callback)
+            back(success, error) {
+                convertFunc("common.back", {}, success, error)
             },
 
 
@@ -118,8 +127,8 @@ function regBridgeMethod() {
                     params2: "params222"
                 }
              */
-            messagedialog(params, callback) {
-                convertFunc('common.messagedialog', params, callback)
+            messagedialog(params, success, error) {
+                convertFunc('common.messagedialog', params, success, error)
             },
 
             /**
@@ -127,8 +136,8 @@ function regBridgeMethod() {
              * @param {String} path Android本地图片路径
              * @param {function} callback  callback 回调的参数中data['path'] 值是可以直接加载的图片url
              */
-            localpic(path, callback) {
-                convertFunc("common.localpic", { path: path }, callback)
+            localpic(path, success, error) {
+                convertFunc("common.localpic", { path: path }, success, error)
             },
 
             /**
@@ -137,8 +146,8 @@ function regBridgeMethod() {
              * @param {int} index  打开时显示的图片下标
              * @param {function} callback  回调
              */
-            showpic(urls, index, callback) {
-                convertFunc("common.showpic", { urls: JSON.stringify(urls), index: index }, callback)
+            showpic(urls, index, success, error) {
+                convertFunc("common.showpic", { urls: JSON.stringify(urls), index: index }, success, error)
             },
 
             /**
@@ -146,8 +155,8 @@ function regBridgeMethod() {
              * @param {String} activity  原生提供的原生页面路径
              * @param {function} callback
              */
-            go(activity, callback) {
-                convertFunc("common.go", { activity: activity }, callback)
+            go(activity, success, error) {
+                convertFunc("common.go", { activity: activity }, success, error)
             },
 
             /**
@@ -155,8 +164,8 @@ function regBridgeMethod() {
              * @param {String} url  h5页面路径
              * @param {*} callback
              */
-            load(url, callback) {
-                convertFunc("common.load", { url: url }, callback)
+            load(url, success, error) {
+                convertFunc("common.load", { url: url }, success, error)
             },
 
             /**
@@ -164,52 +173,52 @@ function regBridgeMethod() {
              * @param {String} url  h5页面路径
              * @param {*} callback
              */
-            scan(requestCode, callback) {
-                convertFunc("common.scan", { requestCode: requestCode }, callback)
+            scan(requestCode, success, error) {
+                convertFunc("common.scan", { requestCode: requestCode }, success, error)
             }
         },
 
         //文件相关操作
         file: {
             //选择图片
-            selectImg(params, callback) {
-                convertFunc("file.selectImg", params, callback)
+            selectImg(params, success, error) {
+                convertFunc("file.selectImg", params, success, error)
             },
             //获取文件base64
-            base64(path, callback) {
-                convertFunc("file.base64", { path: path }, callback)
+            base64(path, success, error) {
+                convertFunc("file.base64", { path: path }, success, error)
             },
             //删除文件
-            delete(path, callback) {
-                convertFunc("file.delete", { path: path }, callback)
+            delete(path, success, error) {
+                convertFunc("file.delete", { path: path }, success, error)
             },
         },
 
         //加载的弹窗
         loading: {
             //显示
-            show(callback) {
-                convertFunc("loading.show", {}, callback)
+            show(success, error) {
+                convertFunc("loading.show", {}, success, error)
             },
             //隐藏
-            hide(callback) {
-                convertFunc("loading.hide", {}, callback)
+            hide(success, error) {
+                convertFunc("loading.hide", {}, success, error)
             },
             //是否可取消    true/false
-            cancelable(cancelable, callback) {
-                convertFunc("loading.cancelable", { cancelable: cancelable }, callback)
+            cancelable(cancelable, success, error) {
+                convertFunc("loading.cancelable", { cancelable: cancelable }, success, error)
             }
         },
 
         //原生的刷新
         smartrefresh: {
             //是否启用下拉刷新  默认启用
-            enableRefresh(enable, callback) {
-                convertFunc("smartrefresh.enableRefresh", { enable: enable }, callback)
+            enableRefresh(enable, success, error) {
+                convertFunc("smartrefresh.enableRefresh", { enable: enable }, success, error)
             },
             //是否启用加载更多 默认关闭
-            enableLoadmore(enable, callback) {
-                convertFunc("smartrefresh.enableLoadmore", { enable: enable }, callback)
+            enableLoadmore(enable, success, error) {
+                convertFunc("smartrefresh.enableLoadmore", { enable: enable }, success, error)
             },
             /**
              * 设置刷新的颜色
@@ -217,40 +226,40 @@ function regBridgeMethod() {
              * @param {String} accentColor  刷新的前景色
              * @param {function} callback
              */
-            color(primaryColor, accentColor, callback) {
-                convertFunc("smartrefresh.color", { primaryColor: primaryColor, accentColor: accentColor }, callback)
+            color(primaryColor, accentColor, success, error) {
+                convertFunc("smartrefresh.color", { primaryColor: primaryColor, accentColor: accentColor }, success, error)
             },
             //设置刷新头样式  参数：smartrefresh.header.xxx
-            header(header, callback) {
-                convertFunc("smartrefresh.header", { header: header }, callback)
+            header(header, success, error) {
+                convertFunc("smartrefresh.header", { header: header }, success, error)
             },
             //设置加载更所样式  参数：smartrefresh.footer.xxx
-            footer(footer, callback) {
-                convertFunc("smartrefresh.footer", { footer: footer }, callback)
+            footer(footer, success, error) {
+                convertFunc("smartrefresh.footer", { footer: footer }, success, error)
             }
         },
 
         //toast 吐司
         toast: {
             //错误 红色吐司
-            error(text, callback) {
-                convertFunc("toast.error", { text: text }, callback)
+            error(text, success, error) {
+                convertFunc("toast.error", { text: text }, success, error)
             },
             //警告 黄色吐司
-            warning(text, callback) {
-                convertFunc("toast.warning", { text: text }, callback)
+            warning(text, success, error) {
+                convertFunc("toast.warning", { text: text }, success, error)
             },
             //提示 蓝色吐司
-            info(text, callback) {
-                convertFunc("toast.info", { text: text }, callback)
+            info(text, success, error) {
+                convertFunc("toast.info", { text: text }, success, error)
             },
             //普通 黑色吐司
-            normal(text, callback) {
-                convertFunc("toast.normal", { text: text }, callback)
+            normal(text, success, error) {
+                convertFunc("toast.normal", { text: text }, success, error)
             },
             //成功 绿色吐司
-            success(text, callback) {
-                convertFunc("toast.success", { text: text }, callback)
+            success(text, success, error) {
+                convertFunc("toast.success", { text: text }, success, error)
             },
         },
 
@@ -259,16 +268,16 @@ function regBridgeMethod() {
             /**
              * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
              */
-            bgcolor(color, callback) {
-                convertFunc('topbar.bgcolor', { color: color }, callback)
+            bgcolor(color, success, error) {
+                convertFunc('topbar.bgcolor', { color: color }, success, error)
             },
             /**
              * 隐藏标题栏
              * 参数   true  隐藏
              * 参数   false 显示
              */
-            hide(hide, callback) {
-                convertFunc('topbar.hide', { hide: hide }, callback)
+            hide(hide, success, error) {
+                convertFunc('topbar.hide', { hide: hide }, success, error)
             },
 
             /**
@@ -280,22 +289,22 @@ function regBridgeMethod() {
                   size: 22	      //标题字体大小
               }
              */
-            title(params, callback) {
-                convertFunc('topbar.title', params, callback)
+            title(params, success, error) {
+                convertFunc('topbar.title', params, success, error)
             },
             /**
              * 设置状态栏
              * 参数   1  状态栏字体为白色
              * 		其余参数  状态栏字体为黑色
              */
-            statusbar(mode, callback) {
-                convertFunc('topbar.statusbar', { mode: mode }, callback)
+            statusbar(mode, success, error) {
+                convertFunc('topbar.statusbar', { mode: mode }, success, error)
             },
             /**
             * 获取状态栏高度
             */
-            statusbarHeight(callback){
-                convertFunc('topbar.statusbarHeight', {}, callback)
+            statusbarHeight(success, error) {
+                convertFunc('topbar.statusbarHeight', {}, success, error)
             }
         }
     };

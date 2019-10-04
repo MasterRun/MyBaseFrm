@@ -25,7 +25,6 @@ demo\app module中用于个人测试
     > 底部导航类型  
     > 顶部导航类型
         
-- 分离ajs回调,改为success  和 error 方法分别回调  --  preparing
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
@@ -57,6 +56,7 @@ demo\app module中用于个人测试
 - 使用wcdb  --  ok 
 - 提供拍照,选文件图片 base64等ajs api -- ok
 - 添加ajsfragment -- ok
+- 分离ajs回调,改为 success 和 error 方法分别回调  --  ok
 
 
 ### module依赖关系

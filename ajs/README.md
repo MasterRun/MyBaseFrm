@@ -9,6 +9,7 @@
 - AJsWebPage添加backpress处理
 - 更改activity_ajs_webloader.xml布局
 - 添加ajswebloader,topbar是否可见参数
+- ajs 的js的回调分为 success 和 error 回调方法
 
 ##### 2019-9-29
 - 添加ajax请求获取本地文件的方法,不建议使用

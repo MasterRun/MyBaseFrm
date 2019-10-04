@@ -4,11 +4,9 @@ function onEnvReady() {
     });
     //设置topbar背景颜色
     ajs.topbar.bgcolor("#EE7AE9", function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("topbar.bgcolor success")
-        } else {
-            console.log("topbar.bgcolor failed")
-        }
+        console.log("topbar.bgcolor success")
+    }, function (msg, data) {
+        console.log("topbar.bgcolor failed")
     });
 
     //使用原始方法，设置topbar背景颜色
@@ -33,20 +31,16 @@ function onEnvReady() {
         color: '#E8E8E8',
         size: 22
     }, function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("topbar.title success")
-        } else {
-            console.log("topbar.title failed")
-        }
+        console.log("topbar.title success")
+    }, function (message, data) {
+        console.log("topbar.title failed")
     });
 
     //设置状态栏字体颜色   参数    1:白色   其他参数 ：黑色
     ajs.topbar.statusbar(0, function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("topbar.statusbar success")
-        } else {
-            console.log("topbar.statusbar failed")
-        }
+        console.log("topbar.statusbar success")
+    }, function (msg, data) {
+        console.log("topbar.statusbar failed")
     })
 
 }
@@ -54,19 +48,19 @@ function onEnvReady() {
 function backclick() {
     //返回键
     /*ajs.common.back(function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("common.back success")
-        } else {
-            console.log("common.back failed")
-        }
+        console.log("common.back success")
+    }, function (msg, data) {
+        console.log("common.back failed")
     });*/
     ajs.common.back();
 
 }
 
-function statusbarHeight(){
+function statusbarHeight() {
     ajs.topbar.statusbarHeight(function (data) {
         ajs.toast.info("状态栏高度:" + data['height'])
+    }, function (msg, data) {
+        console.log("error:" + msg)
     })
 }
 
@@ -85,12 +79,10 @@ function dialogclick() {
         method2: "dialogaction2",
         params2: "params222"
     }, function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("common.dialog success")
-        } else {
-            console.log("common.dialog failed")
-        }
-    })
+        console.log("common.dialog success")
+    }, function (msg, data) {
+        console.log("common.dialog failed")
+    });
 
 }
 
@@ -98,26 +90,25 @@ function dialogclick() {
  * toast  参数为text
  */
 function toastclick() {
-    var toastcallback = function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("toast success")
-        } else {
-            console.log("toast failed")
-        }
+    var toastSuccess = function (data) {
+        console.log("toast success")
+    };
+    var toastError = function (msg, data) {
+        console.log("toast failed")
     };
     var type = $("#toasttype").val();
     switch (type) {
         case "2":
-            ajs.toast.warning("warning toast", toastcallback);
+            ajs.toast.warning("warning toast", toastSuccess, toastError);
             break;
         case "3":
-            ajs.toast.info("info toast", toastcallback);
+            ajs.toast.info("info toast", toastSuccess, toastError);
             break;
         case "4":
-            ajs.toast.normal("normal toast", toastcallback);
+            ajs.toast.normal("normal toast", toastSuccess, toastError);
             break;
         case "5":
-            ajs.toast.success("success toast", toastcallback);
+            ajs.toast.success("success toast", toastSuccess);
             break;
         default:
             ajs.toast.error("error toast");
@@ -127,11 +118,9 @@ function toastclick() {
 
 function loadingclick() {
     /*ajs.loading.show(function (data) {
-        if(data['result']=='1'){
-            consol  e.log("loading success")
-        }else{
-            console.log("loading failed")
-        }
+        console.log("loading success")
+    }, function (msg, data) {
+        console.log("loading failed")
     });*/
     ajs.loading.cancelable(true)
     ajs.loading.show();
@@ -261,14 +250,14 @@ function regHandler() {
 }
 
 function dialogaction1(data, responseCallback) {
-    console.log("dialogaction1 params:" + JSON.parse(data));
+    console.log("dialogaction1 params:" + JSON.stringify(data));
     ajs.toast.normal("action1");
     var responseData = "response from js on dialogaction1";
     responseCallback(responseData);
 }
 
 function dialogaction2(data, responseCallback) {
-    console.log("dialogaction2 params:" + data);
+    console.log("dialogaction2 params:" + JSON.stringify(data));
     ajs.toast.normal("action2");
     var responseData = "response from js on dialogaction2";
     responseCallback(responseData);
