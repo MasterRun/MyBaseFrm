@@ -18,6 +18,30 @@ demo\app module中用于个人测试
 
 
 ### todo list
+
+- 添加圆角卡片及扁平卡片 -- preparing
+- 添加app首页主体模型
+    > 侧滑抽屉类型  
+    > 底部导航类型  
+    > 顶部导航类型
+        
+- 分离ajs回调,改为success  和 error 方法分别回调  --  preparing
+- QMUIGroupListView 实现设置页面  -- doing
+- 过度绘制及布局优化 -- doing
+- 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
+- IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
+- 封装RecyclerView
+- 使用FloatLayoutHelper 封装QMUIFloatLayout
+- 封装网络请求返回处理
+- 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
+- 使用kotlin观察代理
+- 添加flutter混合开发
+- topbar添加底部灰色线 --abandon
+- 使用依赖注入框架  aop  aspectj   apt  javassist
+
+
+### complete of todo
+
 - 启动页  --ok 
 - BaseFragment  --ok
 - 使用自定义注解  --ok
@@ -32,21 +56,7 @@ demo\app module中用于个人测试
 - easyphoto  提供engine  -- ok
 - 使用wcdb  --  ok 
 - 提供拍照,选文件图片 base64等ajs api -- ok
-
-- 添加ajsfragment -- doing
-- 分离ajs回调,改为success  和 error 方法分别回调  --  doing
-- QMUIGroupListView 实现设置页面  -- doing
-- 过度绘制及布局优化 -- doing
-- 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
-- IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
-- 封装RecyclerView
-- 使用FloatLayoutHelper 封装QMUIFloatLayout
-- 封装网络请求返回处理
-- 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
-- 使用kotlin观察代理
-- 添加flutter混合开发
-- topbar添加底部灰色线 --abandon
-- 使用依赖注入框架  aop  aspectj   apt  javassist
+- 添加ajsfragment -- ok
 
 
 ### module依赖关系

@@ -1,4 +1,14 @@
 
+<b>ajs api文档在[这里](../doc/ajs.md)</b>
+
+
+##### 2019-10-4
+- 将WebLoader改为fragment
+- 添加获取状态栏高度的ajs方法
+- AJsWebPage添加状态栏增补高度
+- AJsWebPage添加backpress处理
+- 更改activity_ajs_webloader.xml布局
+- 添加ajswebloader,topbar是否可见参数
 
 ##### 2019-9-29
 - 添加ajax请求获取本地文件的方法,不建议使用
