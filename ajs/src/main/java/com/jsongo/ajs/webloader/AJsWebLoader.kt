@@ -2,6 +2,7 @@ package com.jsongo.ajs.webloader
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Bundle
 import android.util.SparseArray
 import android.view.View
 import com.jsongo.ajs.helper.InteractionRegisterCollector
@@ -19,16 +20,28 @@ class AJsWebLoader : BaseWebLoader() {
 
     companion object {
 
-        fun newInstance(url: String) = AJsWebLoader().apply {
+        const val SHOW_TOPBAR = "showTopBar"
+
+        fun newInstance(url: String, showTopBar: Boolean = true) = AJsWebLoader().apply {
             webPath = url
+            arguments = Bundle().apply {
+                putBoolean(SHOW_TOPBAR, showTopBar)
+            }
+
         }
 
     }
 
     override var containerIndex = 2
 
+    /**
+     * hostActivity 设置加载dialog之后不会使用emptyview
+     */
     var loadingDialog: QMUITipDialog? = null
 
+    /**
+     * 长回调
+     */
     val longCallbacks = SparseArray<LongCallback<Intent>>()
 
     override fun init() {
@@ -37,20 +50,24 @@ class AJsWebLoader : BaseWebLoader() {
     override fun initView(view: View) {
         super.initView(view)
 
-        topbar.setTitle("")
-        //左上角直接退出页面
-        topbar.backImageButton.setOnClickListener { view ->
-            /*if (bridgeWebView.canGoBack()) {
+        if (arguments?.getBoolean(SHOW_TOPBAR) == false) {
+            topbar.visibility = View.GONE
+        } else {
+            topbar.setTitle("")
+            //左上角直接退出页面
+            topbar.backImageButton.setOnClickListener { view ->
+                /*if (bridgeWebView.canGoBack()) {
                   bridgeWebView.goBack()
               } else {
                   finish()
               }*/
-            activity?.finish()
+                activity?.finish()
+            }
         }
 
         /*if (bridgeWebView.progress < 100) {
             //显示加载中
-        }else{
+        } else {
             loadingDialog?.dismiss()
         }*/
 
@@ -68,10 +85,19 @@ class AJsWebLoader : BaseWebLoader() {
                 //显示加载
                 if (loadingDialog != null) {
                     loadingDialog?.show()
-                } else {
-                    inflateEmptyView()?.show(true)
                 }
             }
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        //显示加载
+        if (loadingDialog != null) {
+            loadingDialog?.show()
+        } else {
+            inflateEmptyView()?.show(true, "加载中...", null, null, null)
+        }
     }
 
     /**

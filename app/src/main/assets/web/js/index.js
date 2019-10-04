@@ -64,6 +64,12 @@ function backclick() {
 
 }
 
+function statusbarHeight(){
+    ajs.topbar.statusbarHeight(function (data) {
+        ajs.toast.info("状态栏高度:" + data['height'])
+    })
+}
+
 function dialogclick() {
 
     //消息弹窗 参数都是可选

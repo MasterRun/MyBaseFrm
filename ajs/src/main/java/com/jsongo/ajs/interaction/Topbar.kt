@@ -121,4 +121,20 @@ object Topbar {
         }
         callback.success()
     }
+
+    @JvmStatic
+    fun statusbarHeight(
+        jsWebLoader: AJsWebLoader,
+        bridgeWebView: BridgeWebView,
+        params: Map<String, String>,
+        callback: AjsCallback
+    ) {
+        val context = jsWebLoader.context
+        if (context == null) {
+            callback.failure(message = "context is null!")
+            return
+        }
+        val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
+        callback.success(Pair("height", statusbarHeight))
+    }
 }

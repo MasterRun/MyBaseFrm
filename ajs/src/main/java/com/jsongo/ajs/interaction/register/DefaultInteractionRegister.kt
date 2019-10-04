@@ -44,6 +44,7 @@ object DefaultInteractionRegister : BaseInteractionRegister() {
         Pair("topbar.bgcolor", "com.jsongo.ajs.interaction.Topbar.bgcolor"),
         Pair("topbar.hide", "com.jsongo.ajs.interaction.Topbar.hide"),
         Pair("topbar.title", "com.jsongo.ajs.interaction.Topbar.title"),
-        Pair("topbar.statusbar", "com.jsongo.ajs.interaction.Topbar.statusbar")
+        Pair("topbar.statusbar", "com.jsongo.ajs.interaction.Topbar.statusbar"),
+        Pair("topbar.statusbarHeight", "com.jsongo.ajs.interaction.Topbar.statusbarHeight")
     )
 }

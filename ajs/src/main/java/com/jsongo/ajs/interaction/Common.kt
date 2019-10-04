@@ -33,7 +33,12 @@ object Common {
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        jsWebLoader.onBackPressed()
+        val hostActivity = jsWebLoader.activity
+        if (hostActivity == null) {
+            callback.failure(message = "hostActivity is null")
+            return
+        }
+        hostActivity.onBackPressed()
         callback.success()
     }
 

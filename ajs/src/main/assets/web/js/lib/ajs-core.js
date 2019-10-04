@@ -290,6 +290,12 @@ function regBridgeMethod() {
              */
             statusbar(mode, callback) {
                 convertFunc('topbar.statusbar', { mode: mode }, callback)
+            },
+            /**
+            * 获取状态栏高度
+            */
+            statusbarHeight(callback){
+                convertFunc('topbar.statusbarHeight', {}, callback)
             }
         }
     };

@@ -27,7 +27,6 @@ import com.jsongo.mybasefrm.view.fragment.MyPageFragment
 import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.safframework.log.L
 import com.vondear.rxtool.view.RxToast
 import com.yzq.zxinglibrary.common.Constant
@@ -141,22 +140,31 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
         val mainFragment = MainFragment()
         val myPageFragment = MyPageFragment()
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.add(
-            com.jsongo.mybasefrm.R.id.fl_fragment_container,
-            mainFragment,
-            "MainFragment"
-        )
-        transaction.add(
-            com.jsongo.mybasefrm.R.id.fl_fragment_container,
-            myPageFragment,
-            "MyPageFragment"
-        )
-        transaction.commit()
+        val aJsWebLoader = AJsWebLoader.newInstance("file:///android_asset/web/index.html", false)
+
+        supportFragmentManager.beginTransaction().apply {
+            add(
+                R.id.fl_fragment_container,
+                mainFragment,
+                "MainFragment"
+            )
+            add(
+                R.id.fl_fragment_container,
+                myPageFragment,
+                "MyPageFragment"
+            )
+            add(
+                R.id.fl_fragment_container,
+                aJsWebLoader,
+                "ajsWebloader"
+            )
+            commit()
+        }
 
         fun showMainFragment() {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.hide(myPageFragment)
+            transaction.hide(aJsWebLoader)
             transaction.show(mainFragment)
             transaction.commit()
         }
@@ -164,43 +172,40 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         fun showMyPageFragment() {
             val transaction = supportFragmentManager.beginTransaction()
             transaction.hide(mainFragment)
+            transaction.hide(aJsWebLoader)
             transaction.show(myPageFragment)
             transaction.commit()
         }
 
-        btn_change.setOnClickListener(object : View.OnClickListener {
-            @AopOnclick(3000)
-            override fun onClick(v: View?) {
+        fun showAjsWebLoader() = supportFragmentManager.beginTransaction().apply {
+            hide(mainFragment)
+            hide(myPageFragment)
+            show(aJsWebLoader)
+            commit()
+        }
 
-                if (times % 2 == 0) {
-                    showMyPageFragment()
-                } else {
-                    showMainFragment()
+        btn_change.setOnClickListener(object : View.OnClickListener {
+            @AopOnclick(1500)
+            override fun onClick(v: View?) {
+                val i = times % 3
+                when (i) {
+                    0 -> showMyPageFragment()
+                    1 -> showMainFragment()
+                    else -> showAjsWebLoader()
                 }
                 times++
             }
         })
-
-/*        btn_change.setOnClickListener {
-
-            if (times % 2 == 0) {
-                showMyPageFragment()
-            } else {
-                showMainFragment()
-            }
-            times++
-        }*/
 
 /*        btn.visibility = View.GONE
         btn_loadbaidu.visibility = View.GONE
         btn_testdb.visibility = View.GONE
         btn_crash.visibility = View.GONE
         tv.visibility = View.GONE*/
-        showMainFragment()
+        showAjsWebLoader()
 
         ActivityCollector.finish(SplashActivity::class.java)
     }
-
 
     override fun onGetDailyGank(txt: String?) {
 //        tv.text = txt
@@ -244,11 +249,11 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                     QMUIDialog.MessageDialogBuilder(this@MainActivity)
                         .setTitle("扫描结果")
                         .setMessage(str)
-                        .addAction("OK", object : QMUIDialogAction.ActionListener {
-                            override fun onClick(dialog: QMUIDialog?, index: Int) {
-                                dialog?.dismiss()
-                            }
-                        }).show()
+                        .addAction(
+                            "OK"
+                        ) { dialog, index ->
+                            dialog?.dismiss()
+                        }.show()
                 }
             }
         } else if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
