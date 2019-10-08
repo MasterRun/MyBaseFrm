@@ -2,6 +2,10 @@
 <b>ajs api文档在[这里](../doc/ajs.md)</b>
 
 
+#### 1.0.0.h-SNAPSHOT
+2019-10-8
+- 发布1.0.0.h
+
 ##### 2019-10-4
 - 将WebLoader改为fragment
 - 添加获取状态栏高度的ajs方法

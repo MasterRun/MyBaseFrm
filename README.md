@@ -20,7 +20,7 @@ demo\app module中用于个人测试
 ### todo list
 
 - 添加圆角卡片及扁平卡片 -- preparing
-- 添加app首页主体模型
+- 添加app首页主体模型  -- preparing
     > 侧滑抽屉类型  
     > 底部导航类型  
     > 顶部导航类型
