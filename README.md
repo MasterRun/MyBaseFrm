@@ -24,7 +24,9 @@ demo\app module中用于个人测试
     > 侧滑抽屉类型  
     > 底部导航类型  
     > 顶部导航类型
-        
+       
+- 添加vConsole显示隐藏开关 ajsConfig
+- ajswebloader 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4
 - QMUIGroupListView 实现设置页面  -- doing
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆

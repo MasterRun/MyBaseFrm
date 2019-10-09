@@ -138,6 +138,10 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 .start(101)
         }
 
+        btn_goActivity2.setOnClickListener {
+            startActivity(Intent(this@MainActivity, Main2Activity::class.java))
+        }
+
         val mainFragment = MainFragment()
         val myPageFragment = MyPageFragment()
         val aJsWebLoader = AJsWebLoader.newInstance("file:///android_asset/web/index.html", false)

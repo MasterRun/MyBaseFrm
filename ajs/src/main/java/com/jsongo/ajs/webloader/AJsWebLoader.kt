@@ -142,9 +142,9 @@ class AJsWebLoader : BaseWebLoader() {
         longCallbacks.put(requestCode, longCallback)
     }
 
-    override fun onIPageDestory() {
+    override fun onIPageDestroy() {
         bridgeWebView.destroy()
-        super.onIPageDestory()
+        super.onIPageDestroy()
     }
 
 }

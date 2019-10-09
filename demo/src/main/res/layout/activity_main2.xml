@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@color/light_gray"
+	android:orientation="vertical"
+	tools:context="com.jsongo.mybasefrm.view.activity.Main2Activity">
+	
+	<com.jsongo.ui.widget.cardciew.FlatCardView
+		android:id="@+id/flat_card"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="15dp"
+		android:layout_marginTop="15dp"
+		android:layout_marginRight="15dp"
+		android:layout_marginBottom="20dp"
+		app:cardCornerRadius="5dp"
+		app:cardElevation="3dp"
+		app:contentPadding="5dp">
+		
+		<fragment
+			android:id="@+id/ajswebloader_flat_card"
+			android:name="com.jsongo.ajs.webloader.AJsWebLoader"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" />
+	
+	</com.jsongo.ui.widget.cardciew.FlatCardView>
+	
+	<com.jsongo.ui.widget.cardciew.FloatCardView
+		android:id="@+id/float_card"
+		android:layout_width="match_parent"
+		android:layout_height="160dp">
+		
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="222" />
+	</com.jsongo.ui.widget.cardciew.FloatCardView>
+
+</LinearLayout>

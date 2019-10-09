@@ -106,7 +106,7 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     }
 
     override fun onDestroy() {
-        onIPageDestory()
+        onIPageDestroy()
         loadingDialog.dismiss()
         clearFindViewByIdCache()
         ActivityCollector.removeActivity(this)

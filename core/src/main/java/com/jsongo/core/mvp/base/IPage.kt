@@ -136,7 +136,7 @@ interface IPage {
 
     }
 
-    fun onIPageDestory() {
+    fun onIPageDestroy() {
         emptyView?.hide()
         smartRefreshLayout.finishRefresh().finishLoadMore()
     }
