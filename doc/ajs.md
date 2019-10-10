@@ -110,17 +110,16 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ----- | ---------- | ---- | ---------------------------- |
   | color | 标题背景色 | 是   | 必须是#开头，后面6位的颜色值 |
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
     //设置topbar背景颜色
     ajs.topbar.bgcolor("#EE7AE9", function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("topbar.bgcolor success")
-        } else {
-            console.log("topbar.bgcolor failed")
-        }
+        console.log("topbar.bgcolor success")
+    }, function (msg, data) {
+        console.log("topbar.bgcolor failed")
     });
 ```
 
@@ -139,7 +138,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | color | 标题字体颜色 | 否   | 必须是#开头，后面6位的颜色值 |
   | size  | 标题字体大小 | 否   |                              |
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
@@ -149,11 +149,9 @@ myBridge.callHandler(callname, params, function (responseData) {
         color: '#E8E8E8',
         size: 22
     }, function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("topbar.title success")
-        } else {
-            console.log("topbar.title failed")
-        }
+        console.log("topbar.title success")
+    }, function (message, data) {
+        console.log("topbar.title failed")
     });
 ```
 
@@ -170,14 +168,15 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ---- | ---------------- | ---- | ----------------- |
   | hide | 隐藏或显示标题栏 | 是   | 可选值 true/false |
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
     //设置topbar文字  参数都是可选
-    ajs.topbar.hide(true, function (responseData) {
-        console.log(typeof responseData)
-        console.log(responseData)
+    ajs.topbar.hide(true, function (result) {
+        console.log(typeof result)
+        console.log(result)
     });
 ```
 
@@ -195,17 +194,16 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ---- | -------------- | ---- | ------------------------------------------------------------------ |
   | mode | 状态栏字体颜色 | 是   | 可选值 1或其他值，1 表示状态栏白色字体，其余参数表示标题栏黑色字体 |
 
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
   
 - demo:
 ```js
     //设置状态栏字体颜色   参数    1:白色   其他参数 ：黑色
     ajs.topbar.statusbar(0, function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("topbar.statusbar success")
-        } else {
-            console.log("topbar.statusbar failed")
-        }
+        console.log("topbar.statusbar success")
+    }, function (msg, data) {
+        console.log("topbar.statusbar failed")
     })
 ```
 
@@ -213,12 +211,16 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 方法：`ajs.topbar.statusbarHeight()`
 
-参数： callback  方法回调 
+参数：
+- 参数1: success  成功回调  可选
+- 参数2: error  错误回调  可选
   
 - demo:
 ```js
     ajs.topbar.statusbarHeight(function (data) {
         ajs.toast.info("状态栏高度:" + data['height'])
+    }, function (msg, data) {
+        console.log("error:" + msg)
     })
 ```
 
@@ -434,7 +436,8 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ----------- | ------------- | ---- | --------------- |
   | requestCode | 长回调请求码, | 是   | 自定义,不可冲突 |
  
-- 参数2: callback  方法回调  可选
+- 参数2: success  成功回调  可选
+- 参数3: error  错误回调  可选
 
 
 返回值:
@@ -474,27 +477,26 @@ myBridge.callHandler(callname, params, function (responseData) {
 - demo:
 ```js
     //toast回调
-    var toastcallback = function (data) {
-        if (data['result'].toString() == "1") {
-            console.log("toast success")
-        } else {
-            console.log("toast failed")
-        }
+    var toastSuccess = function (data) {
+        console.log("toast success")
+    };
+    var toastError = function (msg, data) {
+        console.log("toast failed")
     };
 
     var type = "1";// "1"  "2"  "3"  "4"  "5" 
     switch (type) {
         case "2":
-            ajs.toast.warning("warning toast", toastcallback);
+            ajs.toast.warning("warning toast", toastSuccess, toastError);
             break;
         case "3":
-            ajs.toast.info("info toast", toastcallback);
+            ajs.toast.info("info toast", toastSuccess, toastError);
             break;
         case "4":
-            ajs.toast.normal("normal toast", toastcallback);
+            ajs.toast.normal("normal toast", toastSuccess, toastError);
             break;
         case "5":
-            ajs.toast.success("success toast", toastcallback);
+            ajs.toast.success("success toast", toastSuccess);
             break;
         default:
             ajs.toast.error("error toast");
@@ -503,30 +505,28 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 ### 4 加载弹窗
 
-| 调用方法                   | 方法说明             | 参数                                        |
-| -------------------------- | -------------------- | ------------------------------------------- |
-| `ajs.loading.show()`       | 显示加载dialog       | callback 回调参数  可选                     |
-| `ajs.loading.hide()`       | 隐藏加载dialog       | callback 回调参数  可选                     |
-| `ajs.loading.cancelable()` | 设置dialog是否可取消 | true/false 必选<br/>callback 回调参数  可选 |
+| 调用方法                   | 方法说明             | 参数                                                                |
+| -------------------------- | -------------------- | ------------------------------------------------------------------- |
+| `ajs.loading.show()`       | 显示加载dialog       | success 成功回调    error 错误参数                                  |
+| `ajs.loading.hide()`       | 隐藏加载dialog       | success 成功回调    error 错误参数                                  |
+| `ajs.loading.cancelable()` | 设置dialog是否可取消 | true/false 必选<br/>    success 成功回调    error 错误参数          |
 
 - demo
 ```js
     ajs.loading.show(function (data) {
-        if(data['result']=='1'){
-            consol  e.log("loading success")
-        }else{
-            console.log("loading failed")
-        }
+        console.log("loading success")
+    }, function (msg, data) {
+        console.log("loading failed")
     });
     ajs.loading.cancelable(true)
     ajs.loading.hide()
 ```
 
 ### 5 缓存
-| 调用方法        | 方法说明 | 参数                                                |
-| --------------- | -------- | --------------------------------------------------- |
-| ajs.cache.put() | 保存键值 | key(键) value(值)  callback(可选回调)               |
-| ajs.cache.get() | 保存键值 | key(键)  callback(回调,通过data["value"]取返回的值) |
+| 调用方法        | 方法说明 | 参数                                                                     |
+| --------------- | -------- | ------------------------------------------------------------------------ |
+| ajs.cache.put() | 保存键值 | key(键) value(值)  success 成功回调    error 错误参数                    |
+| ajs.cache.get() | 取出  值 | key(键)  success 成功回调,通过data["value"]取返回的值    error 错误参数  |
 - demo
 ```js
     ajs.cache.put("h5Cache", "这是我的缓存内容");
@@ -577,11 +577,7 @@ myBridge.callHandler(callname, params, function (responseData) {
             requestCode:302,
             selectedPaths:JSON.stringify(["/storage/emulated/0/ADM/face1.jpg","/storage/emulated/0/ADM/face2.jpg"])
     }, function (data) {
-        if (data['result'].toString() == "1") {
-            console.log(data["paths"])
-        } else {
-            console.log("file.selectImg failed")
-        }
+        console.log(data["paths"])
     })
 ```
 

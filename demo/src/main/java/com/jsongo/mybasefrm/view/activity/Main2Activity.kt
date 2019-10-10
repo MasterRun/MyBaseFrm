@@ -16,7 +16,8 @@ class Main2Activity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val webPath = "file:///android_asset/web/index.html"
+//        val webPath = "file:///android_asset/web/index.html"
+        val webPath = "https://www.baidu.com"
 
         val fragWebLoader = ajswebloader_flat_card
         if (fragWebLoader is BaseWebLoader) {

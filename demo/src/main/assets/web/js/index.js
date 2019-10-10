@@ -20,9 +20,9 @@ function onEnvReady() {
         })*/
 
     //隐藏topbar  参数  true/false
-    /*ajs.topbar.hide(true, function (responseData) {
-        console.log(typeof responseData)
-        console.log(responseData)
+    /*ajs.topbar.hide(true, function (result) {
+        console.log(typeof result)
+        console.log(result)
     });*/
 
     //设置topbar文字  参数都是可选
