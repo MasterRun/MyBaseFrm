@@ -8,7 +8,7 @@
 	android:orientation="vertical"
 	tools:context="com.jsongo.mybasefrm.view.activity.Main2Activity">
 	
-	<com.jsongo.ui.widget.cardciew.FlatCardView
+	<com.jsongo.ui.widget.cardview.FlatCardView
 		android:id="@+id/flat_card"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -26,9 +26,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" />
 	
-	</com.jsongo.ui.widget.cardciew.FlatCardView>
+	</com.jsongo.ui.widget.cardview.FlatCardView>
 	
-	<com.jsongo.ui.widget.cardciew.FloatCardView
+	<com.jsongo.ui.widget.cardview.FloatCardView
 		android:id="@+id/float_card"
 		android:layout_width="match_parent"
 		android:layout_height="160dp">
@@ -37,6 +37,6 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:text="222" />
-	</com.jsongo.ui.widget.cardciew.FloatCardView>
+	</com.jsongo.ui.widget.cardview.FloatCardView>
 
 </LinearLayout>

@@ -8,7 +8,7 @@ import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
-import com.jsongo.ui.component.SettingListFragment.SettingListFragment
+import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 @ConfPage(R.layout.activity_personal_info, 1)
@@ -27,7 +27,9 @@ class PersonalInfoActivity : BaseActivity() {
 
         QMUIStatusBarHelper.setStatusBarLightMode(this)
 
-        val fragment = SettingListFragment.newInstance(SettingListFragment.sectionListDemo)
+        val fragment = SettingListFragment.newInstance(
+            SettingListFragment.sectionListDemo
+        )
         val transaction = supportFragmentManager.beginTransaction()
         transaction.replace(R.id.fl_container, fragment)
         transaction.commit()

@@ -1,4 +1,4 @@
-package com.jsongo.ui.component.SettingListFragment
+package com.jsongo.ui.component.fragment.settinglist
 
 /**
  * author ： jsongo

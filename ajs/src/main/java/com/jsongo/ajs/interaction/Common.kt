@@ -9,7 +9,7 @@ import com.jsongo.ajs.helper.Util
 import com.jsongo.ajs.jsbridge.BridgeWebView
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
-import com.jsongo.ui.component.ImagePreview.ImgPreviewClick
+import com.jsongo.ui.component.imagepreview.ImgPreviewClick
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.yzq.zxinglibrary.android.CaptureActivity

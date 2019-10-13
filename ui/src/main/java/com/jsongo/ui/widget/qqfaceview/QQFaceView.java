@@ -1,4 +1,4 @@
-package com.jsongo.ui.widget.QQFaceView;
+package com.jsongo.ui.widget.qqfaceview;
 
 import android.content.Context;
 import android.util.AttributeSet;

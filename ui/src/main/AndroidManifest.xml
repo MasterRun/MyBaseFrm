@@ -2,6 +2,6 @@
 	package="com.jsongo.ui">
 	
 	<application>
-		<activity android:name=".component.ImagePreview.ImagePreviewActivity" />
+		<activity android:name=".component.imagepreview.ImagePreviewActivity" />
 	</application>
 </manifest>

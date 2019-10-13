@@ -9,10 +9,10 @@ import com.jsongo.app.AppApplication
 import com.jsongo.app.R
 import com.jsongo.app.view.activity.PersonalInfoActivity
 import com.jsongo.core.mvp.base.BaseFragment
-import com.jsongo.ui.component.SettingListFragment.SettingItem
-import com.jsongo.ui.component.SettingListFragment.SettingListFragment
-import com.jsongo.ui.component.SettingListFragment.SettingSection
-import com.jsongo.ui.component.SettingListFragment.correctDetailTextPosition
+import com.jsongo.ui.component.fragment.settinglist.SettingItem
+import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
+import com.jsongo.ui.component.fragment.settinglist.SettingSection
+import com.jsongo.ui.component.fragment.settinglist.correctDetailTextPosition
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -42,7 +42,11 @@ class MyPageFragment : BaseFragment() {
             SettingSection(
                 items = arrayListOf(
                     SettingItem("item1"),
-                    SettingItem("item2", null, "hello"),
+                    SettingItem(
+                        "item2",
+                        null,
+                        "hello"
+                    ),
                     SettingItem("item3", null, "hi")
                 )
             ),

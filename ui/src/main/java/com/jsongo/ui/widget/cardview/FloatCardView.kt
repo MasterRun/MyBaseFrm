@@ -1,4 +1,4 @@
-package com.jsongo.ui.widget.cardciew
+package com.jsongo.ui.widget.cardview
 
 import android.content.Context
 import android.util.AttributeSet

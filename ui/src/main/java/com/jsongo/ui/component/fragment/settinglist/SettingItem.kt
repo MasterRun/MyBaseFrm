@@ -1,4 +1,4 @@
-package com.jsongo.ui.component.SettingListFragment
+package com.jsongo.ui.component.fragment.settinglist
 
 import android.support.annotation.DrawableRes
 import android.view.View

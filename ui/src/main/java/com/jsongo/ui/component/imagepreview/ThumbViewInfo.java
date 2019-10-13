@@ -1,4 +1,4 @@
-package com.jsongo.ui.component.ImagePreview;
+package com.jsongo.ui.component.imagepreview;
 
 import android.graphics.Rect;
 import android.os.Parcel;

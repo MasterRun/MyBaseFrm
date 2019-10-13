@@ -9,10 +9,10 @@ import com.jsongo.core.mvp.base.BaseFragment
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.view.activity.PersonalInfoActivity
-import com.jsongo.ui.component.SettingListFragment.SettingItem
-import com.jsongo.ui.component.SettingListFragment.SettingListFragment
-import com.jsongo.ui.component.SettingListFragment.SettingSection
-import com.jsongo.ui.component.SettingListFragment.correctDetailTextPosition
+import com.jsongo.ui.component.fragment.settinglist.SettingItem
+import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
+import com.jsongo.ui.component.fragment.settinglist.SettingSection
+import com.jsongo.ui.component.fragment.settinglist.correctDetailTextPosition
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -42,7 +42,11 @@ class MyPageFragment : BaseFragment() {
             SettingSection(
                 items = arrayListOf(
                     SettingItem("精选新闻"),
-                    SettingItem("糖豆任务", null, "215948糖豆"),
+                    SettingItem(
+                        "糖豆任务",
+                        null,
+                        "215948糖豆"
+                    ),
                     SettingItem("校区认证", null, "已认证")
                 )
             ),
