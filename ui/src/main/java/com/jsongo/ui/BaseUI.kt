@@ -2,7 +2,7 @@ package com.jsongo.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.jsongo.ui.component.imagepreview.ZoomImageLoader
+import com.jsongo.ui.component.image.preview.ZoomImageLoader
 import com.previewlibrary.ZoomMediaLoader
 
 /**

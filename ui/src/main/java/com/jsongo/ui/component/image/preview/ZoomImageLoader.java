@@ -1,4 +1,4 @@
-package com.jsongo.ui.component.imagepreview;
+package com.jsongo.ui.component.image.preview;
 
 import android.content.Context;
 import android.graphics.Bitmap;

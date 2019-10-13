@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.jsongo.core.BaseCore;
 import com.jsongo.core.util.GlideUtil;
 import com.jsongo.ui.R;
-import com.jsongo.ui.component.imagepreview.ImgPreviewClick;
+import com.jsongo.ui.component.image.preview.ImgPreviewClick;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIFloatLayout;
 

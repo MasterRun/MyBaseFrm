@@ -19,12 +19,13 @@ demo\app module中用于个人测试
 
 ### todo list
 
-- 添加圆角卡片及扁平卡片 -- preparing
-- 添加app首页主体模型  -- preparing
+- 添加圆角卡片及扁平的webloader卡片 -- doing
+- 添加app首页主体模型  -- doing
     > 侧滑抽屉类型  
     > 底部导航类型  
     > 顶部导航类型
-       
+
+-  考虑使用ARouter解耦       
 - 添加vConsole显示隐藏开关 ajsConfig
 - ajswebloader 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4
 - QMUIGroupListView 实现设置页面  -- doing
