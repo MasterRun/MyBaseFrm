@@ -8,35 +8,70 @@
 	android:orientation="vertical"
 	tools:context="com.jsongo.mybasefrm.view.activity.Main2Activity">
 	
-	<com.jsongo.ui.widget.cardview.FlatCardView
-		android:id="@+id/flat_card"
+	<com.jsongo.ui.component.image.banner.widget.banner.SimpleImageBanner
+		android:id="@+id/simple_ib"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="15dp"
-		android:layout_marginTop="15dp"
-		android:layout_marginRight="15dp"
-		android:layout_marginBottom="20dp"
-		app:cardCornerRadius="5dp"
-		app:cardElevation="3dp"
-		app:contentPadding="5dp">
-		
-		<fragment
-			android:id="@+id/ajswebloader_flat_card"
-			android:name="com.jsongo.ajs.webloader.AJsWebLoader"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content" />
+		app:bb_indicatorGravity="RIGHT"
+		app:bb_isTitleShow="true"
+		app:bb_scale="0.5625" />
 	
-	</com.jsongo.ui.widget.cardview.FlatCardView>
-	
-	<com.jsongo.ui.widget.cardview.FloatCardView
-		android:id="@+id/float_card"
+	<ScrollView
+		android:id="@+id/sv"
 		android:layout_width="match_parent"
-		android:layout_height="160dp">
+		android:layout_height="wrap_content">
 		
-		<TextView
-			android:layout_width="wrap_content"
+		<LinearLayout
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="222" />
-	</com.jsongo.ui.widget.cardview.FloatCardView>
+			android:orientation="vertical">
+			
+			<android.support.v7.widget.CardView
+				android:id="@+id/flat_card"
+				android:layout_width="match_parent"
+				android:layout_height="250dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginRight="15dp"
+				android:layout_marginBottom="20dp"
+				app:cardCornerRadius="5dp"
+				app:cardElevation="3dp"
+				app:contentPadding="5dp">
+				
+				<fragment
+					android:id="@+id/ajswebloader_flat_card"
+					android:name="com.jsongo.ajs.webloader.AJsWebLoader"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content" />
+			
+			</android.support.v7.widget.CardView>
+			
+			<com.jsongo.ajs.widget.WebLoaderCard
+				android:id="@+id/card_webloader"
+				android:layout_width="match_parent"
+				android:layout_height="250dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginRight="15dp"
+				android:layout_marginBottom="20dp"
+				app:cardCornerRadius="3dp"
+				app:cardElevation="5dp"
+				app:contentPadding="5dp"
+				app:url="https://www.baidu.com" />
+			
+			<com.jsongo.ajs.widget.WebLoaderCard
+				android:id="@+id/card_webloader2"
+				android:layout_width="match_parent"
+				android:layout_height="250dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginRight="15dp"
+				android:layout_marginBottom="20dp"
+				app:scrollable="true"
+				app:url="https://www.baidu.com" />
+		
+		</LinearLayout>
+	</ScrollView>
+
 
 </LinearLayout>

@@ -1,11 +1,10 @@
 package com.jsongo.ajs.interaction.register
 
-import android.util.Log
 import com.google.gson.reflect.TypeToken
 import com.jsongo.ajs.helper.AjsCallback
+import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.Util
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.widget.AJsWebView
 import com.safframework.log.L
 
 /**
@@ -24,8 +23,8 @@ abstract class BaseInteractionRegister {
 
     //注册api
     fun register(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView
     ) {
 
         interactionAPI.forEach {
@@ -37,21 +36,22 @@ abstract class BaseInteractionRegister {
 
             if (className.isNotEmpty() && methodName.isNotEmpty()) {
                 //注册api
-                registerApi(jsWebLoader, bridgeWebView, it.key, className, methodName)
+                L.d("registerApi", "registerName:${it.key}")
+                registerApi(ajsWebViewHost, aJsWebView, it.key, className, methodName)
             }
         }
     }
 
     private fun registerApi(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         registerName: String,
         className: String,
         methodName: String
     ) {
-        bridgeWebView.registerHandler(registerName) { data, function ->
+        aJsWebView.registerHandler(registerName) { data, function ->
             val ajsCallback = AjsCallback(function)
-            Log.e("registerApi", "registerName:$registerName,param_str:$data")
+            L.d("invokeAjsApi", "registerName:$registerName, param_str:$data")
             try {
                 val params = Util.gson.fromJson<Map<String, String>>(
                     data, type
@@ -59,13 +59,13 @@ abstract class BaseInteractionRegister {
                 val clazz = Class.forName(className)
                 val method = clazz.getDeclaredMethod(
                     methodName,
-                    AJsWebLoader::class.java,
-                    BridgeWebView::class.java,
+                    AjsWebViewHost::class.java,
+                    AJsWebView::class.java,
                     Map::class.java,
                     AjsCallback::class.java
                 )
                 method.isAccessible = true
-                method.invoke(null, jsWebLoader, bridgeWebView, params, ajsCallback)
+                method.invoke(null, ajsWebViewHost, aJsWebView, params, ajsCallback)
             } catch (e: Exception) {
                 L.e("exception occured", e.cause ?: e)
                 ajsCallback.failure(e)

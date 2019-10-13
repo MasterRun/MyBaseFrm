@@ -2,8 +2,8 @@ package com.jsongo.ajs.interaction
 
 import android.graphics.Color
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.core.util.*
 
 /**
@@ -18,14 +18,19 @@ object SmartRefresh {
      */
     @JvmStatic
     fun enableRefresh(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val enable = !params["enable"].equals("false")
-        jsWebLoader.smartRefreshLayout.setEnableRefresh(enable)
-        callback.success()
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val enable = !params["enable"].equals("false")
+            hostIPage.smartRefreshLayout.setEnableRefresh(enable)
+            callback.success()
+        } else {
+            callback.failure()
+        }
     }
 
     /**
@@ -33,14 +38,19 @@ object SmartRefresh {
      */
     @JvmStatic
     fun enableLoadmore(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val enable = !params["enable"].equals("false")
-        jsWebLoader.smartRefreshLayout.setEnableLoadMore(enable)
-        callback.success()
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val enable = !params["enable"].equals("false")
+            hostIPage.smartRefreshLayout.setEnableLoadMore(enable)
+            callback.success()
+        } else {
+            callback.failure()
+        }
     }
 
     /**
@@ -48,19 +58,24 @@ object SmartRefresh {
      */
     @JvmStatic
     fun color(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val primaryColorStr = params["primaryColor"].toString()
-        val accentColor = params["accentColor"].toString()
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val primaryColorStr = params["primaryColor"].toString()
+            val accentColor = params["accentColor"].toString()
 
-        jsWebLoader.smartRefreshLayout.userColors(
-            Color.parseColor(primaryColorStr),
-            Color.parseColor(accentColor)
-        )
-        callback.success()
+            hostIPage.smartRefreshLayout.userColors(
+                Color.parseColor(primaryColorStr),
+                Color.parseColor(accentColor)
+            )
+            callback.success()
+        } else {
+            callback.failure()
+        }
     }
 
     /**
@@ -68,20 +83,25 @@ object SmartRefresh {
      */
     @JvmStatic
     fun header(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val context = jsWebLoader.context
-        if (context == null) {
-            callback.failure(message = "context od webLoader id null")
-            return
-        }
-        val header = params["header"].toString()
-        jsWebLoader.smartRefreshLayout.useHeader(context, SmartRefreshHeader.valueOf(header))
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val context = ajsWebViewHost.hostActivity
+            if (context == null) {
+                callback.failure(message = "context of webLoader id null")
+                return
+            }
+            val header = params["header"].toString()
+            hostIPage.smartRefreshLayout.useHeader(context, SmartRefreshHeader.valueOf(header))
 
-        callback.success()
+            callback.success()
+        } else {
+            callback.failure()
+        }
     }
 
     /**
@@ -89,20 +109,25 @@ object SmartRefresh {
      */
     @JvmStatic
     fun footer(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val context = jsWebLoader.context
-        if (context == null) {
-            callback.failure(message = "context od webLoader id null")
-            return
-        }
-        val footer = params["footer"].toString()
-        jsWebLoader.smartRefreshLayout.useFooter(context, SmartRefreshFooter.valueOf(footer))
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val context = ajsWebViewHost.hostActivity
+            if (context == null) {
+                callback.failure(message = "context of webLoader id null")
+                return
+            }
+            val footer = params["footer"].toString()
+            hostIPage.smartRefreshLayout.useFooter(context, SmartRefreshFooter.valueOf(footer))
 
-        callback.success()
+            callback.success()
+        } else {
+            callback.failure()
+        }
     }
 
 

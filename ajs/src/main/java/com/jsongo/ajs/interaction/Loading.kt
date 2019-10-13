@@ -1,8 +1,8 @@
 package com.jsongo.ajs.interaction
 
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.core.mvp.base.BaseActivity
 
 /**
@@ -16,12 +16,12 @@ object Loading {
      */
     @JvmStatic
     fun show(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hostActivity = jsWebLoader.activity
+        val hostActivity = ajsWebViewHost.hostActivity
         if (hostActivity is BaseActivity) {
             hostActivity.loadingDialog.show()
             callback.success()
@@ -35,12 +35,12 @@ object Loading {
      */
     @JvmStatic
     fun hide(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hostActivity = jsWebLoader.activity
+        val hostActivity = ajsWebViewHost.hostActivity
         if (hostActivity is BaseActivity) {
             hostActivity.loadingDialog.dismiss()
             callback.success()
@@ -54,12 +54,12 @@ object Loading {
      */
     @JvmStatic
     fun cancelable(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hostActivity = jsWebLoader.activity
+        val hostActivity = ajsWebViewHost.hostActivity
         if (hostActivity is BaseActivity) {
             val cancelable = !params["cancelable"].equals("false")
             hostActivity.loadingDialog.setCancelable(cancelable)

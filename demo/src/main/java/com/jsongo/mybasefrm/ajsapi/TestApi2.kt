@@ -1,8 +1,8 @@
 package com.jsongo.mybasefrm.ajsapi
 
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
 import com.vondear.rxtool.view.RxToast
 
@@ -15,8 +15,8 @@ object TestApi2 {
     @AjsApi(prefix = "custom2")
     @JvmStatic
     fun toast(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
@@ -37,8 +37,8 @@ class TestApi3{
         @AjsApi(prefix = "custom3")
         @JvmStatic
         fun toast(
-            jsWebLoader: AJsWebLoader,
-            bridgeWebView: BridgeWebView,
+            ajsWebViewHost: AjsWebViewHost,
+            aJsWebView: AJsWebView,
             params: Map<String, String>, callback: AjsCallback
         ) {
             val text = params["text"]

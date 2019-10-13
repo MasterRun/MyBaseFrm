@@ -7,9 +7,10 @@ import android.view.KeyEvent
 import android.view.View
 import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.jsbridge.BridgeWebView
+import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
+import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
 import com.jsongo.annotation.anno.ConfPage
 import com.jsongo.annotation.anno.Presenter
@@ -52,8 +53,8 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         @AjsApi(prefix = "custom3")
         @JvmStatic
         fun toast(
-            jsWebLoader: AJsWebLoader,
-            bridgeWebView: BridgeWebView,
+            ajsWebViewHost: AjsWebViewHost,
+            aJsWebView: AJsWebView,
             params: Map<String, String>,
             callback: AjsCallback
         ) {

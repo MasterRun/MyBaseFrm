@@ -1,12 +1,12 @@
 package com.jsongo.ajs.webloader
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.SparseArray
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentActivity
 import android.view.View
-import com.jsongo.ajs.helper.InteractionRegisterCollector
-import com.jsongo.ajs.helper.LongCallback
+import com.jsongo.ajs.helper.AjsWebViewHost
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
@@ -16,48 +16,63 @@ import kotlinx.android.synthetic.main.activity_ajs_webloader.*
  * @date ： 19-10-3 下午5:13
  * @desc : fragment 加载html
  */
-class AJsWebLoader : BaseWebLoader() {
+class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
+
+    override val hostActivity: FragmentActivity?
+        get() = activity
+    override val hostFragment: Fragment?
+        get() = this
 
     companion object {
 
-        const val SHOW_TOPBAR = "showTopBar"
-
-        fun newInstance(url: String, showTopBar: Boolean = true) = AJsWebLoader().apply {
-            webPath = url
-            arguments = Bundle().apply {
-                putBoolean(SHOW_TOPBAR, showTopBar)
+        /**
+         * @param url 加载的utl
+         * @param showTopBar 是否显示topbar  默认是
+         * @param scrollable 是否可以滑动  默认否   当卡片模式时，设置true，weview可滑动
+         */
+        fun newInstance(url: String, showTopBar: Boolean = true, scrollable: Boolean = false) =
+            AJsWebLoader().apply {
+                webPath = url
+                this.showTopBar = showTopBar
+                this.scrollable = scrollable
             }
-
-        }
 
     }
 
     override var containerIndex = 2
 
     /**
+     * 是否显示topbar
+     */
+    var showTopBar = true
+    /**
+     * 是否可以滑动  默认否   当卡片模式时，设置true，weview可滑动
+     */
+    var scrollable = false
+
+    /**
      * hostActivity 设置加载dialog之后不会使用emptyview
      */
     var loadingDialog: QMUITipDialog? = null
 
-    /**
-     * 长回调
-     */
-    val longCallbacks = SparseArray<LongCallback<Intent>>()
-
     override fun init() {
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun initView(view: View) {
         super.initView(view)
 
-        if (arguments?.getBoolean(SHOW_TOPBAR) == false) {
+        aJsWebView.scrollable = scrollable
+
+        //是否显示topbar
+        if (!showTopBar) {
             topbar.visibility = View.GONE
         } else {
             topbar.setTitle("")
             //左上角直接退出页面
             topbar.backImageButton.setOnClickListener { view ->
-                /*if (bridgeWebView.canGoBack()) {
-                  bridgeWebView.goBack()
+                /*if (aJsWebView.canGoBack()) {
+                  aJsWebView.goBack()
               } else {
                   finish()
               }*/
@@ -65,7 +80,7 @@ class AJsWebLoader : BaseWebLoader() {
             }
         }
 
-        /*if (bridgeWebView.progress < 100) {
+        /*if (aJsWebView.progress < 100) {
             //显示加载中
         } else {
             loadingDialog?.dismiss()
@@ -78,7 +93,7 @@ class AJsWebLoader : BaseWebLoader() {
             .setEnableLoadMore(false)
             //下拉重新加载
             .setOnRefreshListener {
-                bridgeWebView.reload()
+                aJsWebView.reload()
                 //显示进度
                 pb_webview.visibility = View.VISIBLE
                 pb_webview.progress = 0
@@ -103,7 +118,7 @@ class AJsWebLoader : BaseWebLoader() {
     /**
      * 页面加载完成
      */
-    override fun onLoadFinish(wv: WebView, url: String) {
+    override fun onLoadFinish(wv: WebView?, url: String) {
         super.onLoadFinish(wv, url)
         if (loadingDialog != null) {
             loadingDialog?.dismiss()
@@ -112,38 +127,13 @@ class AJsWebLoader : BaseWebLoader() {
         }
     }
 
-    /**
-     * 用于注册java js交互
-     */
-    override fun registerHandler() {
-        //注册交互api
-        InteractionRegisterCollector.interactionRegisterList.forEach {
-            it.register(this, bridgeWebView)
-        }
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val longCallback = longCallbacks.get(requestCode)
-        longCallback?.let {
-            if (resultCode == Activity.RESULT_OK) {
-                it.success(data)
-            } else {
-                it.failed(data)
-            }
-            longCallbacks.remove(requestCode)
-        }
-    }
-
-    /**
-     * 添加长回调
-     */
-    fun addLongCallback(requestCode: Int, longCallback: LongCallback<Intent>) {
-        longCallbacks.put(requestCode, longCallback)
+        onAjsLongCallBack(requestCode, resultCode, data)
     }
 
     override fun onIPageDestroy() {
-        bridgeWebView.destroy()
+        aJsWebView.destroy()
         super.onIPageDestroy()
     }
 

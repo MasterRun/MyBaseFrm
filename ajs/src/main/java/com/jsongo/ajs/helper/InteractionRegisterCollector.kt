@@ -7,7 +7,7 @@ import com.safframework.log.L
 /**
  * author ： jsongo
  * createtime ： 19-8-29 下午11:16
- * desc :
+ * desc : 保存要注册的ajs  api的集合
  */
 object InteractionRegisterCollector {
     val interactionRegisterList = ArrayList<BaseInteractionRegister>()

@@ -3,8 +3,8 @@ package com.jsongo.ajs.interaction
 import android.graphics.Color
 import android.view.View
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.widget.AJsWebView
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**
@@ -19,14 +19,19 @@ object Topbar {
      */
     @JvmStatic
     fun bgcolor(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val colorStr = params["color"]
-        jsWebLoader.topbar.setBackgroundColor(Color.parseColor(colorStr))
-        callback.success()
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val colorStr = params["color"]
+            hostIPage.topbar.setBackgroundColor(Color.parseColor(colorStr))
+            callback.success()
+        } else {
+            callback.failure()
+        }
     }
 
     /**
@@ -34,18 +39,23 @@ object Topbar {
      */
     @JvmStatic
     fun hide(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hide = (params["hide"] ?: "false").toBoolean()
-        if (hide) {
-            jsWebLoader.topbar.visibility = View.GONE
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val hide = (params["hide"] ?: "false").toBoolean()
+            if (hide) {
+                hostIPage.topbar.visibility = View.GONE
+            } else {
+                hostIPage.topbar.visibility = View.VISIBLE
+            }
+            callback.success()
         } else {
-            jsWebLoader.topbar.visibility = View.VISIBLE
+            callback.failure()
         }
-        callback.success()
     }
 
     /**
@@ -53,36 +63,41 @@ object Topbar {
      */
     @JvmStatic
     fun title(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val topbarTitle = jsWebLoader.topbar.tvTitle
-        val text = params["text"]
-        if (text != null) {
-            topbarTitle.text = text
-        }
-        val colorStr = params["color"]
-        if (colorStr != null) {
-            topbarTitle.setTextColor(Color.parseColor(colorStr))
-        }
-        val textSizeStr = params["size"]
-        if (textSizeStr != null) {
-            val toDoublet = textSizeStr.toDoubleOrNull()
-            toDoublet?.let {
-                topbarTitle.textSize = it.toFloat()
+        val hostIPage = ajsWebViewHost.hostIPage
+        if (hostIPage != null) {
+            val topbarTitle = hostIPage.topbar.tvTitle
+            val text = params["text"]
+            if (text != null) {
+                topbarTitle.text = text
             }
+            val colorStr = params["color"]
+            if (colorStr != null) {
+                topbarTitle.setTextColor(Color.parseColor(colorStr))
+            }
+            val textSizeStr = params["size"]
+            if (textSizeStr != null) {
+                val toDoublet = textSizeStr.toDoubleOrNull()
+                toDoublet?.let {
+                    topbarTitle.textSize = it.toFloat()
+                }
+            }
+            callback.success()
+        } else {
+            callback.failure()
         }
-        callback.success()
     }
 
     /* @JvmStatic
      fun subtitle(
-         jsWebLoader: AJsWebLoader,
-         bridgeWebView: BridgeWebView,
-         params: Map<String, String>,
-         callback: AjsCallback
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
+        params: Map<String, String>,
+        callback: AjsCallback
      ) {
          val topbarTitle = jsWebLoader.topbarTitle
          val text = params["text"]
@@ -108,33 +123,38 @@ object Topbar {
      */
     @JvmStatic
     fun statusbar(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val mode = (params["mode"] ?: "0").toString().toDouble().toInt()
-        if (mode == 1) {
-            QMUIStatusBarHelper.setStatusBarDarkMode(jsWebLoader.activity)
+        val hostActivity = ajsWebViewHost.hostActivity
+        if (hostActivity != null) {
+            val mode = (params["mode"] ?: "0").toString().toDouble().toInt()
+            if (mode == 1) {
+                QMUIStatusBarHelper.setStatusBarDarkMode(hostActivity)
+            } else {
+                QMUIStatusBarHelper.setStatusBarLightMode(hostActivity)
+            }
+            callback.success()
         } else {
-            QMUIStatusBarHelper.setStatusBarLightMode(jsWebLoader.activity)
+            callback.failure(message = "activity is null!")
         }
-        callback.success()
     }
 
     @JvmStatic
     fun statusbarHeight(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val context = jsWebLoader.context
-        if (context == null) {
-            callback.failure(message = "context is null!")
-            return
+        val hostActivity = ajsWebViewHost.hostActivity
+        if (hostActivity != null) {
+            val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(hostActivity)
+            callback.success(Pair("height", statusbarHeight))
+        } else {
+            callback.failure(message = "activity is null!")
         }
-        val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
-        callback.success(Pair("height", statusbarHeight))
     }
 }

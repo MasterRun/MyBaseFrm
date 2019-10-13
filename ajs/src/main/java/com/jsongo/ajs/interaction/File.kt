@@ -3,12 +3,13 @@ package com.jsongo.ajs.interaction
 import android.content.Intent
 import android.text.TextUtils
 import com.google.gson.reflect.TypeToken
+import com.huantansheng.easyphotos.Builder.AlbumBuilder
 import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
+import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.LongCallback
 import com.jsongo.ajs.helper.Util
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.core.util.ConstConf
 import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.vondear.rxtool.RxFileTool
@@ -24,8 +25,8 @@ object File {
 
     @JvmStatic
     fun selectImg(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
@@ -40,16 +41,33 @@ object File {
             object : TypeToken<ArrayList<String>>() {}.type
         )
 
-        val builder =
-            EasyPhotos.createAlbum(jsWebLoader, showCamera, EasyPhotoGlideEngine.getInstance())
-                .setCount(count)
-                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+        val builder: AlbumBuilder
+        val hostFragment = ajsWebViewHost.hostFragment
+        if (hostFragment != null) {
+            builder = EasyPhotos.createAlbum(
+                ajsWebViewHost.hostFragment,
+                showCamera,
+                EasyPhotoGlideEngine.getInstance()
+            )
+        } else {
+            if (ajsWebViewHost.hostActivity == null) {
+                callback.failure()
+                return
+            }
+            builder = EasyPhotos.createAlbum(
+                ajsWebViewHost.hostActivity,
+                showCamera,
+                EasyPhotoGlideEngine.getInstance()
+            )
+        }
+        builder.setCount(count)
+            .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
         if (!paths.isNullOrEmpty()) {
             builder.setSelectedPhotoPaths(paths)
         }
         builder.start(requestCode)
 
-        jsWebLoader.addLongCallback(requestCode, object : LongCallback<Intent> {
+        ajsWebViewHost.addLongCallback(requestCode, object : LongCallback<Intent> {
             override fun success(data: Intent?) {
                 if (data == null) {
                     failed(data)
@@ -70,8 +88,8 @@ object File {
      */
     @JvmStatic
     fun base64(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
@@ -90,8 +108,8 @@ object File {
      */
     @JvmStatic
     fun delete(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {

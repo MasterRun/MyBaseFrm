@@ -2,14 +2,10 @@ package com.jsongo.ajs.interaction
 
 import android.content.Intent
 import com.google.gson.reflect.TypeToken
-import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.helper.ConstValue
-import com.jsongo.ajs.helper.LongCallback
-import com.jsongo.ajs.helper.Util
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.helper.*
 import com.jsongo.ajs.webloader.AJsWebPage
-import com.jsongo.ui.component.imagepreview.ImgPreviewClick
+import com.jsongo.ajs.widget.AJsWebView
+import com.jsongo.ui.component.image.preview.ImgPreviewClick
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.yzq.zxinglibrary.android.CaptureActivity
@@ -28,12 +24,12 @@ object Common {
      */
     @JvmStatic
     fun back(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hostActivity = jsWebLoader.activity
+        val hostActivity = ajsWebViewHost.hostActivity
         if (hostActivity == null) {
             callback.failure(message = "hostActivity is null")
             return
@@ -47,12 +43,12 @@ object Common {
      */
     @JvmStatic
     fun messagedialog(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val activity = jsWebLoader.activity
+        val activity = ajsWebViewHost.hostActivity
         if (activity == null) {
             callback.failure(message = "hostActivity is null")
             return
@@ -73,7 +69,7 @@ object Common {
             val method1 = params["method1"] ?: ""
             val params1 = params["params1"] ?: ""
             val actionListener1 = QMUIDialogAction.ActionListener { dialog, index ->
-                bridgeWebView.callHandler(method1, params1) { data ->
+                aJsWebView.callHandler(method1, params1) { data ->
 
                 }
                 dialog?.dismiss()
@@ -93,7 +89,7 @@ object Common {
             val method2 = params["method2"] ?: ""
             val params2 = params["params2"] ?: ""
             val actionListener2 = QMUIDialogAction.ActionListener { dialog, index ->
-                bridgeWebView.callHandler(method2, params2) { data ->
+                aJsWebView.callHandler(method2, params2) { data ->
 
                 }
                 dialog?.dismiss()
@@ -120,8 +116,8 @@ object Common {
      */
     @JvmStatic
     fun localpic(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
@@ -134,12 +130,12 @@ object Common {
      */
     @JvmStatic
     fun showpic(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hostActivity = jsWebLoader.activity
+        val hostActivity = ajsWebViewHost.hostActivity
         if (hostActivity == null) {
             callback.failure(message = "hostActivity is null")
             return
@@ -159,8 +155,8 @@ object Common {
      */
     @JvmStatic
     fun load(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
@@ -174,12 +170,12 @@ object Common {
      */
     @JvmStatic
     fun go(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hostActivity = jsWebLoader.activity
+        val hostActivity = ajsWebViewHost.hostActivity
         if (hostActivity == null) {
             callback.failure(message = "hostActivity is null")
             return
@@ -187,7 +183,7 @@ object Common {
         val activity = params["activity"].toString()
         val activityClazz = Class.forName(activity)
         val intent = Intent(hostActivity, activityClazz)
-        jsWebLoader.startActivity(intent)
+        hostActivity.startActivity(intent)
         callback.success()
     }
 
@@ -196,12 +192,12 @@ object Common {
      */
     @JvmStatic
     fun scan(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        val hostActivity = jsWebLoader.activity
+        val hostActivity = ajsWebViewHost.hostActivity
         if (hostActivity == null) {
             callback.failure(message = "hostActivity is null")
             return
@@ -211,9 +207,14 @@ object Common {
             requestCode = Random.nextInt()
         }
         val intent = Intent(hostActivity, CaptureActivity::class.java)
-        jsWebLoader.startActivityForResult(intent, requestCode)
+        val hostFragment = ajsWebViewHost.hostFragment
+        if (hostFragment != null) {
+            hostFragment.startActivityForResult(intent, requestCode)
+        } else {
+            hostActivity.startActivityForResult(intent, requestCode)
+        }
 
-        jsWebLoader.addLongCallback(requestCode, object : LongCallback<Intent> {
+        ajsWebViewHost.addLongCallback(requestCode, object : LongCallback<Intent> {
             override fun success(data: Intent?) {
                 if (data != null) {
                     val str = data.getStringExtra(Constant.CODED_CONTENT)

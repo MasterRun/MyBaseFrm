@@ -1,8 +1,8 @@
 package com.jsongo.ajs.interaction
 
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.widget.AJsWebView
 import com.vondear.rxtool.view.RxToast
 
 /**
@@ -13,60 +13,58 @@ import com.vondear.rxtool.view.RxToast
 object Toast {
     @JvmStatic
     fun error(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        toast(1, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
+        toast(1, params["text"].toString(), callback)
     }
 
     @JvmStatic
     fun warning(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        toast(2, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
+        toast(2, params["text"].toString(), callback)
     }
 
     @JvmStatic
     fun info(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        toast(3, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
+        toast(3, params["text"].toString(), callback)
     }
 
     @JvmStatic
     fun normal(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        toast(4, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
+        toast(4, params["text"].toString(), callback)
     }
 
     @JvmStatic
     fun success(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {
-        toast(5, params["text"].toString(), jsWebLoader, bridgeWebView, callback)
+        toast(5, params["text"].toString(), callback)
     }
 
     @JvmStatic
     fun toast(
         type: Int,
         text: String?,
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
         callback: AjsCallback
     ) {
         if (text.isNullOrEmpty()) {

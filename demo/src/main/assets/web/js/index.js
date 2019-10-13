@@ -128,7 +128,14 @@ function loadingclick() {
 
 function loadurl() {
     // ajs.common.load("https://www.baidu.com")
-    ajs.common.load("file:///android_asset/web/index.html")
+    console.log("load url")
+    ajs.common.load("file:///android_asset/web/index.html",function(data){
+            console.log("success"+data)
+        },function(msg,data){
+            console.log("failed"+msg)
+        }
+    )
+    console.log("load url finish")
 }
 function goactivity() {
     ajs.common.go("com.jsongo.mybasefrm.view.activity.MyPageActivity")

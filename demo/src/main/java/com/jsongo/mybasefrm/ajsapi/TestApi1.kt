@@ -1,8 +1,8 @@
 package com.jsongo.mybasefrm.ajsapi
 
 import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.jsbridge.BridgeWebView
-import com.jsongo.ajs.webloader.AJsWebLoader
+import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
 import com.vondear.rxtool.view.RxToast
 
@@ -15,8 +15,8 @@ object TestApi1 {
     @AjsApi(prefix = "custom1", methodName = "myToast")
     @JvmStatic
     fun toast(
-        jsWebLoader: AJsWebLoader,
-        bridgeWebView: BridgeWebView,
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
         params: Map<String, String>,
         callback: AjsCallback
     ) {

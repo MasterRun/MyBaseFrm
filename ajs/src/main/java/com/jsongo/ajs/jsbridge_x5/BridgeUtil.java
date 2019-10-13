@@ -1,4 +1,4 @@
-package com.jsongo.ajs.jsbridge;
+package com.jsongo.ajs.jsbridge_x5;
 
 import android.content.Context;
 

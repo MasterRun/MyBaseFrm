@@ -4,12 +4,11 @@
 	android:id="@+id/fl_ajsloader_root"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white"
 	android:gravity="center"
 	android:orientation="vertical"
 	tools:context="com.jsongo.ajs.webloader.AJsWebLoader">
 	
-	<com.jsongo.ajs.jsbridge.BridgeWebView
+	<com.jsongo.ajs.widget.AJsWebView
 		android:id="@+id/bridgeWebView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
