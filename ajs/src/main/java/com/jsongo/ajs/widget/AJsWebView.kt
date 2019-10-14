@@ -8,7 +8,11 @@ import android.util.AttributeSet
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.InteractionRegisterCollector
 import com.jsongo.ajs.jsbridge_x5.BridgeWebView
+import com.jsongo.ajs.jsbridge_x5.BridgeWebViewClient
 import com.safframework.log.L
+import com.tencent.smtt.export.external.interfaces.WebResourceError
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest
+import com.tencent.smtt.export.external.interfaces.WebResourceResponse
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
@@ -18,13 +22,13 @@ import com.tencent.smtt.sdk.WebView
  * @date ： 19-10-13 下午6:11
  * @desc : 可单独使用的WebView  需要fragment/activity实现 AjsWebViewHost 即可
  */
-class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     BridgeWebView(context, attrs, defStyleAttr) {
 
     /**
      * 加载的url
      */
-    var webPath = ""
+    open var webPath = ""
 
     /**
      * 是否可以滑动  默认否   当卡片模式时，设置true，weview可滑动
@@ -34,12 +38,12 @@ class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     /**
      * 持有ajswebview的对象一般为AJsWebLoader  当 ajswebview作为view单独使用时，需要设置此对象为FragmentActivity/Fragment
      */
-    var ajsWebViewHost: AjsWebViewHost? = null
+    open var ajsWebViewHost: AjsWebViewHost? = null
 
     /**
      * 加载进度监听
      */
-    var loadingProgressListener: LoadingProgressListener? = null
+    open var loadingProgressListener: LoadingProgressListener? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -48,7 +52,7 @@ class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     /**
      * 初始化配置，并加载网页
      */
-    fun initLoad() {
+    open fun initLoad() {
 
         initWebSetting()
 
@@ -66,6 +70,7 @@ class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
                 super.onProgressChanged(view, newProgress)
                 loadingProgressListener?.onProgressChanged(view, progress)
             }
+
         }
 
         setOnPageFinishListener { view, url ->
@@ -93,7 +98,31 @@ class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         registerHandler()
     }
 
-    fun load() {
+    /**
+     * webviewclient 添加错误监听
+     */
+    override fun generateBridgeWebViewClient() = object : BridgeWebViewClient(this) {
+        override fun onReceivedHttpError(
+            p0: WebView?,
+            p1: WebResourceRequest?,
+            p2: WebResourceResponse?
+        ) {
+            super.onReceivedHttpError(p0, p1, p2)
+            loadingProgressListener?.onReceiveError(p0, p1, p2?.statusCode, null)
+        }
+
+        override fun onReceivedError(
+            p0: WebView?,
+            p1: WebResourceRequest?,
+            p2: WebResourceError?
+        ) {
+            super.onReceivedError(p0, p1, p2)
+            loadingProgressListener?.onReceiveError(p0, p1, p2?.errorCode, p2)
+        }
+    }
+
+
+    open fun load() {
         loadUrl(webPath)
         L.d("url ", webPath)
     }
@@ -101,7 +130,7 @@ class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     /**
      * 初始化websetting
      */
-    fun initWebSetting() {
+    open fun initWebSetting() {
         settings.apply {
 
             userAgentString += "@${this.javaClass}"
@@ -178,5 +207,12 @@ class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         fun onProgressChanged(wv: WebView?, newProgress: Int)
 
         fun onLoadFinish(wv: WebView?, url: String)
+
+        fun onReceiveError(
+            wv: WebView?,
+            webResourceRequest: WebResourceRequest?,
+            code: Int?,
+            webResourceError: WebResourceError?
+        )
     }
 }

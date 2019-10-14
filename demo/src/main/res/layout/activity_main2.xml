@@ -57,6 +57,7 @@
 				app:cardCornerRadius="3dp"
 				app:cardElevation="5dp"
 				app:contentPadding="5dp"
+				app:showEmptyViewLoading="false"
 				app:url="https://www.baidu.com" />
 			
 			<com.jsongo.ajs.widget.WebLoaderCard
@@ -68,6 +69,7 @@
 				android:layout_marginRight="15dp"
 				android:layout_marginBottom="20dp"
 				app:scrollable="true"
+				app:showEmptyViewLoading="true"
 				app:url="https://www.baidu.com" />
 		
 		</LinearLayout>

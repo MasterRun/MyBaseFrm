@@ -3,5 +3,8 @@
 	<declare-styleable name="WebLoaderCard">
 		<attr name="scrollable" format="boolean" />
 		<attr name="url" format="string" />
+		<attr name="showLoadingProgress" format="boolean" />
+		<attr name="showEmptyViewLoading" format="boolean" />
+		<attr name="showEmptyViewOnError" format="boolean" />
 	</declare-styleable>
 </resources>

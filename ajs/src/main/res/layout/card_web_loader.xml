@@ -7,4 +7,12 @@
 		android:id="@+id/ajs_webview"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
+	
+	<ProgressBar
+		android:id="@+id/pb_webview"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:layout_width="match_parent"
+		android:layout_height="3dp" />
+	
+	<include layout="@layout/view_emptyview" />
 </FrameLayout>

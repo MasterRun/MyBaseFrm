@@ -56,7 +56,7 @@ class Main2Activity : BaseActivity(), AjsWebViewHost {
         })
 
         //使用ajswebview
-        card_webloader.url = "file:///android_asset/web/index.html"
+//        card_webloader.url = "file:///android_asset/web/index.html"
         card_webloader.scrollable = true
         card_webloader.ajsWebViewHost = this
         card_webloader.initLoad()
@@ -96,6 +96,12 @@ class Main2Activity : BaseActivity(), AjsWebViewHost {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         onAjsLongCallBack(requestCode, resultCode, data)
+    }
+
+    override fun onIPageDestroy() {
+        card_webloader.destroy()
+        card_webloader2.destroy()
+        super.onIPageDestroy()
     }
 
 }

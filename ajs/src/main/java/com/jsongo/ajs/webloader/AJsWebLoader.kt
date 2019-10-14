@@ -116,6 +116,18 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
     }
 
     /**
+     * 重新加载
+     */
+    override fun reload() {
+        super.reload()
+        if (loadingDialog != null) {
+            loadingDialog?.show()
+        } else {
+            inflateEmptyView()?.show(true, "加载中...", null, null, null)
+        }
+    }
+
+    /**
      * 页面加载完成
      */
     override fun onLoadFinish(wv: WebView?, url: String) {

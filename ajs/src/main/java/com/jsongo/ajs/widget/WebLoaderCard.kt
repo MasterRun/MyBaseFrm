@@ -1,11 +1,18 @@
 package com.jsongo.ajs.widget
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.CardView
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.ProgressBar
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
+import com.qmuiteam.qmui.widget.QMUIEmptyView
+import com.tencent.smtt.export.external.interfaces.WebResourceError
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest
+import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.card_web_loader.view.*
 
 /**
@@ -13,27 +20,43 @@ import kotlinx.android.synthetic.main.card_web_loader.view.*
  * @date ： 19-10-13 下午5:03
  * @desc : webloader的card
  */
-class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
+open class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     CardView(context, attrs, defStyleAttr) {
 
-    var scrollable = false
+    open var scrollable = false
         set(value) {
             field = value
             aJsWebView?.scrollable = value
         }
 
-    var url = ""
+    open var url = ""
         set(value) {
             field = value
             aJsWebView?.webPath = url
         }
 
-    var ajsWebViewHost: AjsWebViewHost? = null
+    open var ajsWebViewHost: AjsWebViewHost? = null
         set(value) {
             field = value
             aJsWebView?.ajsWebViewHost = value
         }
-    var aJsWebView: AJsWebView
+
+    /**
+     * 适用emptyview的加载
+     */
+    open var showEmptyViewLoading = true
+    /**
+     * 显示加载进入的progressbar
+     */
+    open var showLoadingProgress = true
+    /**
+     * 错误时使用emptyview
+     */
+    open var showEmptyViewOnError = true
+
+    val aJsWebView: AJsWebView
+    val emptyView: QMUIEmptyView
+    val pbWebview: ProgressBar
 
     constructor(context: Context) : this(context, null)
 
@@ -50,6 +73,12 @@ class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
             scrollable =
                 typedArray.getBoolean(R.styleable.WebLoaderCard_scrollable, false)
             url = typedArray.getString(R.styleable.WebLoaderCard_url) ?: ""
+            showEmptyViewLoading =
+                typedArray.getBoolean(R.styleable.WebLoaderCard_showEmptyViewLoading, true)
+            showLoadingProgress =
+                typedArray.getBoolean(R.styleable.WebLoaderCard_showLoadingProgress, true)
+            showEmptyViewOnError =
+                typedArray.getBoolean(R.styleable.WebLoaderCard_showEmptyViewOnError, true)
             typedArray.recycle()
         }
 
@@ -57,18 +86,96 @@ class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
         aJsWebView = ajs_webview
         aJsWebView.webPath = url
         aJsWebView.scrollable = scrollable
+
+        emptyView = findViewById(R.id.empty_view)
+        pbWebview = pb_webview
+
+        //设置加载进度最大值
+        pbWebview.max = 100
+
+        emptyView.setBackgroundColor(Color.WHITE)
+
+        if (showEmptyViewLoading) {
+            pbWebview.visibility = View.VISIBLE
+        } else {
+            pbWebview.visibility = View.GONE
+        }
+        if (showEmptyViewLoading.not()) {
+            emptyView.visibility = View.GONE
+        }
     }
 
-    fun initLoad() {
+    open fun initLoad() {
+        if (showEmptyViewLoading) {
+            emptyView.show(true, "加载中...", null, null, null)
+        }
+        aJsWebView.loadingProgressListener = object : AJsWebView.LoadingProgressListener {
+            override fun onReceiveTitle(wv: WebView?, title: String?) {
+            }
+
+            override fun onProgressChanged(wv: WebView?, newProgress: Int) {
+                if (showLoadingProgress) {
+                    if (pbWebview.visibility != View.VISIBLE) {
+                        pbWebview.visibility = View.VISIBLE
+                    }
+                    pbWebview.progress = newProgress
+                }
+            }
+
+            override fun onLoadFinish(wv: WebView?, url: String) {
+                if (showLoadingProgress) {
+                    pbWebview.visibility = View.GONE
+                }
+                if (showEmptyViewLoading) {
+                    emptyView.hide()
+                }
+            }
+
+            override fun onReceiveError(
+                wv: WebView?,
+                webResourceRequest: WebResourceRequest?,
+                code: Int?,
+                webResourceError: WebResourceError?
+            ) {
+                if (showLoadingProgress) {
+                    pbWebview.visibility = View.GONE
+                }
+                if (showEmptyViewOnError) {
+                    emptyView.show(
+                        false,
+                        "哎呀,出错了!",
+                        "url:${aJsWebView.webPath}\n\n错误码:$code" + (if (webResourceError == null) "" else "\n错误信息:${webResourceError.description}"),
+                        "重新加载"
+                    ) {
+                        reload()
+                        if (showEmptyViewLoading.not()) {
+                            emptyView.hide()
+                        }
+                    }
+                } else {
+                    emptyView.hide()
+                }
+            }
+        }
         aJsWebView.initLoad()
     }
 
-    fun load(url: String) {
+    open fun load(url: String) {
+        if (showEmptyViewLoading) {
+            emptyView.show(true, "加载中...", null, null, null)
+        }
         this.url = url
         aJsWebView.load()
     }
 
-    fun reload() {
+    open fun reload() {
+        if (showEmptyViewLoading) {
+            emptyView.show(true, "加载中...", null, null, null)
+        }
         aJsWebView.reload()
+    }
+
+    open fun destroy() {
+        aJsWebView.destroy()
     }
 }

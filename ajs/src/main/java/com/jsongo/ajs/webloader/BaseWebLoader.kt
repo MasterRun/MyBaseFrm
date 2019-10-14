@@ -9,6 +9,8 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.core.mvp.base.BaseFragment
 import com.safframework.log.L
+import com.tencent.smtt.export.external.interfaces.WebResourceError
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
 import kotlinx.android.synthetic.main.activity_ajs_webloader.view.*
@@ -52,7 +54,8 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
         aJsWebView = view.bridgeWebView
         aJsWebView.ajsWebViewHost = this
 
-        pbWebview.max = 100//设置加载进度最大值
+        //设置加载进度最大值
+        pbWebview.max = 100
     }
 
     protected fun initData() {
@@ -63,14 +66,37 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
             }
 
             override fun onProgressChanged(wv: WebView?, newProgress: Int) {
+                if (pbWebview.visibility != View.VISIBLE) {
+                    pbWebview.visibility = View.VISIBLE
+                }
                 pbWebview.progress = newProgress
             }
 
             override fun onLoadFinish(wv: WebView?, url: String) {
                 this@BaseWebLoader.onLoadFinish(wv, url)
             }
+
+            override fun onReceiveError(
+                wv: WebView?,
+                webResourceRequest: WebResourceRequest?,
+                code: Int?,
+                webResourceError: WebResourceError?
+            ) {
+                inflateEmptyView()?.show(
+                    false,
+                    "哎呀,出错了!",
+                    "url:${aJsWebView.webPath}\n\n错误码:$code" + (if (webResourceError == null) "" else "\n错误信息:${webResourceError.description}"),
+                    "重新加载"
+                ) {
+                    reload()
+                }
+            }
         }
         aJsWebView.initLoad()
+    }
+
+    open fun reload() {
+        aJsWebView.reload()
     }
 
     /**
