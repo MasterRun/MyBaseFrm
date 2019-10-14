@@ -19,7 +19,6 @@ demo\app module中用于个人测试
 
 ### todo list
 
-- 添加圆角卡片及扁平的webloader卡片 -- doing
 - 添加app首页主体模型  -- doing
     > 侧滑抽屉类型  
     > 底部导航类型  
@@ -61,6 +60,7 @@ demo\app module中用于个人测试
 - 分离ajs回调,改为 success 和 error 方法分别回调  --  ok
 - 抽离ajsWebView 使用ajsWebView 实现ajs api调用  --  ok
 - 添加vConsole显示隐藏开关 ajs_config  --  ok
+- 添加圆角卡片及扁平的webloader卡片 -- ok
 
 
 ### module依赖关系

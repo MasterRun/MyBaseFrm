@@ -3,6 +3,7 @@
 
 ##### 2019-10-14
 - 添加vConsole开关
+- 完善WebLoaderCard.kt    AJsWebView.kt   AJsWebLoader.kt  的加载监听和错误监听
 
 ##### 2019-10-13
 - 大改动！！

@@ -56,7 +56,7 @@ class Main2Activity : BaseActivity(), AjsWebViewHost {
         })
 
         //使用ajswebview
-//        card_webloader.url = "file:///android_asset/web/index.html"
+        card_webloader.url = "file:///android_asset/web/index.html"
         card_webloader.scrollable = true
         card_webloader.ajsWebViewHost = this
         card_webloader.initLoad()
