@@ -1,3 +1,6 @@
+
+ajs_config.open_vconsole = true;
+
 function onEnvReady() {
     ajs.common.localpic("/storage/emulated/0/ADM/1606142160956.jpg", function (data) {
         $("#myimg").attr("src", data["path"].toString());

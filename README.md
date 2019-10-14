@@ -25,10 +25,9 @@ demo\app module中用于个人测试
     > 底部导航类型  
     > 顶部导航类型
 
--  考虑使用ARouter解耦       
-- 添加vConsole显示隐藏开关 ajsConfig
 - ajswebloader 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4
 - QMUIGroupListView 实现设置页面  -- doing
+- 考虑使用ARouter解耦       
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
 - IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
@@ -60,6 +59,8 @@ demo\app module中用于个人测试
 - 提供拍照,选文件图片 base64等ajs api -- ok
 - 添加ajsfragment -- ok
 - 分离ajs回调,改为 success 和 error 方法分别回调  --  ok
+- 抽离ajsWebView 使用ajsWebView 实现ajs api调用  --  ok
+- 添加vConsole显示隐藏开关 ajs_config  --  ok
 
 
 ### module依赖关系

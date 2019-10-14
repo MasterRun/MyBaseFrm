@@ -1,6 +1,8 @@
 
 <b>ajs api文档在[这里](../doc/ajs.md)</b>
 
+##### 2019-10-14
+- 添加vConsole开关
 
 ##### 2019-10-13
 - 大改动！！
@@ -9,7 +11,6 @@
 - 添加AjsWebViewHost接口，用于在其它的Activity和Fragment中使用ajs api
 - 更改所有ajs api参数
 - 添加webviewcard 不采用ajswebloader（fragment）实现card
-
 
 #### 1.0.0.h-SNAPSHOT
 2019-10-8

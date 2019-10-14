@@ -3,25 +3,30 @@ let myBridge;
  * 核心对象
  */
 let ajs = {};
+let ajs_config = {
+  open_vconsole : true
+};
 
 $(function () {
-    try {
-        /**
-        * 使用vConsole
-        */
-        window.vConsole = new window.VConsole({
-            defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
-            maxLogNumber: 1000,
-            // disableLogScrolling: true,
-            onReady: function () {
-                console.log('vConsole is ready.');
-            },
-            onClearLog: function () {
-                console.log('on clearLog');
-            }
-        });
-    } catch (e) {
-        console.log(eval)
+    if(ajs_config.open_vconsole){
+        try {
+            /**
+            * 使用vConsole
+            */
+            window.vConsole = new window.VConsole({
+                defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
+                maxLogNumber: 1000,
+                // disableLogScrolling: true,
+                onReady: function () {
+                    console.log('vConsole is ready.');
+                },
+                onClearLog: function () {
+                    console.log('on clearLog');
+                }
+            });
+        } catch (e) {
+            console.log(eval)
+        }
     }
 
     //连接Android webview
