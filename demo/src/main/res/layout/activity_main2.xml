@@ -26,26 +26,6 @@
 			android:layout_height="wrap_content"
 			android:orientation="vertical">
 			
-			<android.support.v7.widget.CardView
-				android:id="@+id/flat_card"
-				android:layout_width="match_parent"
-				android:layout_height="250dp"
-				android:layout_marginLeft="15dp"
-				android:layout_marginTop="15dp"
-				android:layout_marginRight="15dp"
-				android:layout_marginBottom="20dp"
-				app:cardCornerRadius="5dp"
-				app:cardElevation="3dp"
-				app:contentPadding="5dp">
-				
-				<fragment
-					android:id="@+id/ajswebloader_flat_card"
-					android:name="com.jsongo.ajs.webloader.AJsWebLoader"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content" />
-			
-			</android.support.v7.widget.CardView>
-			
 			<com.jsongo.ajs.widget.WebLoaderCard
 				android:id="@+id/card_webloader"
 				android:layout_width="match_parent"
@@ -57,18 +37,31 @@
 				app:cardCornerRadius="3dp"
 				app:cardElevation="5dp"
 				app:contentPadding="5dp"
+				app:scrollable="false"
 				app:showEmptyViewLoading="false"
 				app:url="https://www.baidu.com" />
 			
 			<com.jsongo.ajs.widget.WebLoaderCard
 				android:id="@+id/card_webloader2"
 				android:layout_width="match_parent"
-				android:layout_height="250dp"
+				android:layout_height="200dp"
 				android:layout_marginLeft="15dp"
 				android:layout_marginTop="15dp"
 				android:layout_marginRight="15dp"
 				android:layout_marginBottom="20dp"
-				app:scrollable="true"
+				app:scrollable="false"
+				app:showEmptyViewLoading="true"
+				app:url="https://www.baidu.com" />
+			
+			<com.jsongo.ajs.widget.WebLoaderCard
+				android:id="@+id/card_webloader3"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:layout_marginLeft="15dp"
+				android:layout_marginTop="15dp"
+				android:layout_marginRight="15dp"
+				android:layout_marginBottom="20dp"
+				app:scrollable="false"
 				app:showEmptyViewLoading="true"
 				app:url="https://www.baidu.com" />
 		
