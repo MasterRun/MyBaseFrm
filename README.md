@@ -5,7 +5,7 @@ Building...  尚无demo
 
 demo\app module中用于个人测试
 
-基于`mvp` `kotlin` `retrofit` `rxjava` `apt` `qmui` `jsbridge` `腾讯x5内核` 等搭建
+基于`MVP` `Kotlin` `Retrofit` `RxJava` `APT` `AOP` `javapoet` `QMUI` `JsBridge` `腾讯x5内核` 等搭建
 
 > activity fragment  
   注解+apt 实现 配置布局、注入presenter、注入model  
@@ -23,8 +23,7 @@ demo\app module中用于个人测试
     > 侧滑抽屉类型  
     > 底部导航类型  
     > 顶部导航类型
-
-- ajswebloader 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4
+    
 - QMUIGroupListView 实现设置页面  -- doing
 - 考虑使用ARouter解耦       
 - 过度绘制及布局优化 -- doing
@@ -61,6 +60,8 @@ demo\app module中用于个人测试
 - 抽离ajsWebView 使用ajsWebView 实现ajs api调用  --  ok
 - 添加vConsole显示隐藏开关 ajs_config  --  ok
 - 添加圆角卡片及扁平的webloader卡片 -- ok
+- webview 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4
+- 将anno中的PageConfig注解改为Page
 
 
 ### module依赖关系
@@ -92,3 +93,4 @@ demo\app module中用于个人测试
 - `com.google.zxing`  扫描二维码
 - `com.squareup:javapoet` 方便apt创建java文件
 - `org.aspectj:aspectjrt` aop aspectjrt
+- FlycoBanner_Master 轮播图,引导页

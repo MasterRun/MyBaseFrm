@@ -12,7 +12,7 @@ import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
-import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpActivity
@@ -35,7 +35,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.properties.Delegates
 
-@ConfPage(R.layout.activity_main, 2)
+@Page(R.layout.activity_main, 2)
 class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
     @Presenter(MainPresenter::class)

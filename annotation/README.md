@@ -14,7 +14,7 @@
 - kotlin因为要配合@JvmStatic注解，所以不能作为顶层方法或写在普通类中
 - 建议新建类，在其中自定义api
 
-### @ConfPage
+### @Page
 
 用于方便配置页面的mainLayoutId 和 containerId
 
@@ -25,6 +25,11 @@
 ### @Model
 
 用于注入MVP 的Presenter 中的Model
+
+
+
+##### 2019-10-15
+- 将ConfigPage注解更名为Page
 
 #### 1.0.0.a-SNAPSHOT
 2019-9-21

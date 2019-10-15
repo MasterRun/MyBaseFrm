@@ -1,6 +1,6 @@
 package com.jsongo.processor
 
-import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.Presenter
 import com.jsongo.annotation.configor.Configor
 import com.jsongo.annotation.register.ViewConfigor
@@ -19,7 +19,7 @@ import javax.tools.Diagnostic
 /**
  * @author jsongo
  * @date 19-9-9 上午11:01
- * @desc 用于 @ConfPage  和 @Presenter注解
+ * @desc 用于 @Page  和 @Presenter注解
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 class ViewConfigorProcessor : AbstractProcessor() {
@@ -49,9 +49,9 @@ class ViewConfigorProcessor : AbstractProcessor() {
 
         //找到被注解的元素
 
-        val elementsAnnotatedWithConfPage = roundEnv?.getElementsAnnotatedWith(ConfPage::class.java)
-        elementsAnnotatedWithConfPage?.forEach {
-            dealConfPageAnno(it)
+        val elementsAnnotatedWithPage = roundEnv?.getElementsAnnotatedWith(Page::class.java)
+        elementsAnnotatedWithPage?.forEach {
+            dealPageAnno(it)
         }
 
         val elementsAnnotatedWithPresenter =
@@ -73,16 +73,16 @@ class ViewConfigorProcessor : AbstractProcessor() {
     }
 
     /**
-     * 处理ConfPage注解
+     * 处理Page注解
      */
-    private fun dealConfPageAnno(ele: Element) {
+    private fun dealPageAnno(ele: Element) {
         val eleStr = ele.toString()
         //需要构建的类和方法
         val fourPair = getTypeSpecBuilder(eleStr)
 
         val (pkgName, clazzName) = getPkgClazzName(eleStr)
         //注解对象
-        val confPage = ele.getAnnotation(ConfPage::class.java)
+        val page = ele.getAnnotation(Page::class.java)
 
         //构建方法
         val methodName = "confPage"
@@ -91,8 +91,8 @@ class ViewConfigorProcessor : AbstractProcessor() {
             .addParameter(ClassName.get(pkgName, clazzName), var0Name)
             .addModifiers(Modifier.PRIVATE)
             .returns(TypeName.VOID)
-            .addStatement("${var0Name}.setMainLayoutId(${confPage.mainLayoutId})")
-            .addStatement("${var0Name}.setContainerIndex(${confPage.containerIndex})")
+            .addStatement("${var0Name}.setMainLayoutId(${page.mainLayoutId})")
+            .addStatement("${var0Name}.setContainerIndex(${page.containerIndex})")
 
         //添加方法
         fourPair.second.addMethod(methodSpec.build())
@@ -207,7 +207,7 @@ class ViewConfigorProcessor : AbstractProcessor() {
 
 
     override fun getSupportedAnnotationTypes() = linkedSetOf(
-        ConfPage::class.java.canonicalName,
+        Page::class.java.canonicalName,
         Presenter::class.java.canonicalName
     )
 

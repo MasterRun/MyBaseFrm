@@ -4,14 +4,14 @@ import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Page
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
-@ConfPage(R.layout.activity_personal_info, 1)
+@Page(R.layout.activity_personal_info, 1)
 class PersonalInfoActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

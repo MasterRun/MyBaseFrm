@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
-import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Page
 import com.jsongo.app.AppApplication
 import com.jsongo.app.R
 import com.jsongo.app.view.activity.PersonalInfoActivity
@@ -18,7 +18,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import kotlinx.android.synthetic.main.fragment_my_page.*
 import java.util.*
 
-@ConfPage(R.layout.fragment_my_page, 1)
+@Page(R.layout.fragment_my_page, 1)
 class MyPageFragment : BaseFragment() {
 
     lateinit var settingFragment: SettingListFragment

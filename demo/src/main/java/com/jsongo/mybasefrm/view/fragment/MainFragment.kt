@@ -2,7 +2,7 @@ package com.jsongo.mybasefrm.view.fragment
 
 import android.view.View
 import com.jsongo.ajs.webloader.AJsWebPage
-import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.Presenter
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.mvp.base.BaseMvpFragment
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * createtime ： 2019/7/28 9:39
  * desc :
  */
-@ConfPage(R.layout.activity_main, 1)
+@Page(R.layout.activity_main, 1)
 class MainFragment : BaseMvpFragment<IMainModule.IModel, IMainModule.IView>(), IMainModule.IView {
 
     @Presenter(MainModulePresenter::class)

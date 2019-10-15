@@ -7,4 +7,4 @@ package com.jsongo.annotation.anno
  */
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.RUNTIME)
-annotation class ConfPage(val mainLayoutId: Int, val containerIndex: Int = 1)
+annotation class Page(val mainLayoutId: Int, val containerIndex: Int = 1)

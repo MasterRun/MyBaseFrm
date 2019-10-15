@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.webloader.AJsWebLoader
-import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Page
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.mybasefrm.R
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
@@ -17,7 +17,7 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main2.*
 
-@ConfPage(R.layout.activity_main2, 0)
+@Page(R.layout.activity_main2, 0)
 class Main2Activity : BaseActivity(), AjsWebViewHost {
     override val hostActivity: FragmentActivity?
         get() = this

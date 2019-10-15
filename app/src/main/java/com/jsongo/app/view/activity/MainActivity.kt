@@ -5,7 +5,7 @@ import android.content.Intent
 import android.view.KeyEvent
 import android.view.View
 import com.jsongo.ajs.webloader.AJsWebPage
-import com.jsongo.annotation.anno.ConfPage
+import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.Presenter
 import com.jsongo.app.mvp.IMain
 import com.jsongo.app.presenter.MainPresenter
@@ -26,7 +26,7 @@ import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 
-@ConfPage(com.jsongo.app.R.layout.activity_main, 2)
+@Page(com.jsongo.app.R.layout.activity_main, 2)
 class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
 
     @Presenter(MainPresenter::class)

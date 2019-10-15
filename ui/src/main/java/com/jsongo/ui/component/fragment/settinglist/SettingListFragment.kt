@@ -12,7 +12,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.vondear.rxtool.view.RxToast
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
-//@ConfPage(R.layout.layout_setting_list, 0)
+//@Page(R.layout.layout_setting_list, 0)
 class SettingListFragment : BaseFragment() {
 
     /**
