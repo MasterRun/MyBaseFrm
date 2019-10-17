@@ -71,6 +71,7 @@ demo\app module中用于个人测试
 |processor|annotation|
 |core|annotation|
 |ui|core|
+|ui-enhance|ui|
 |ajs|core ui|
 |app/demo|core ajs ui annotation processor|
 

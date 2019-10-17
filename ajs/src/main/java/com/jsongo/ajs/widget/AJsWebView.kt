@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.text.TextUtils
 import android.util.AttributeSet
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.InteractionRegisterCollector
@@ -108,7 +109,9 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             p2: WebResourceResponse?
         ) {
             super.onReceivedHttpError(p0, p1, p2)
-            loadingProgressListener?.onReceiveError(p0, p1, p2?.statusCode, null)
+            if (TextUtils.equals(webPath, p1?.url.toString())) {
+                loadingProgressListener?.onReceiveError(p0, p1, p2?.statusCode, null)
+            }
         }
 
         override fun onReceivedError(
@@ -117,7 +120,9 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             p2: WebResourceError?
         ) {
             super.onReceivedError(p0, p1, p2)
-            loadingProgressListener?.onReceiveError(p0, p1, p2?.errorCode, p2)
+            if (TextUtils.equals(webPath, p1?.url.toString())) {
+                loadingProgressListener?.onReceiveError(p0, p1, p2?.errorCode, p2)
+            }
         }
     }
 
@@ -192,12 +197,11 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
     /**
      * 注册交互api
      */
-    fun registerHandler() =
-        ajsWebViewHost?.let { host ->
-            InteractionRegisterCollector.interactionRegisterList.forEach {
-                it.register(host, this@AJsWebView)
-            }
+    fun registerHandler() = ajsWebViewHost?.let { host ->
+        InteractionRegisterCollector.interactionRegisterList.forEach {
+            it.register(host, this@AJsWebView)
         }
+    }
 
 
     interface LoadingProgressListener {
