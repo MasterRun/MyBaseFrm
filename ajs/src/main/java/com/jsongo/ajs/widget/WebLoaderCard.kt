@@ -148,9 +148,6 @@ open class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: I
                         "重新加载"
                     ) {
                         reload()
-                        if (showEmptyViewLoading.not()) {
-                            emptyView.hide()
-                        }
                     }
                 } else {
                     emptyView.hide()
@@ -171,6 +168,8 @@ open class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: I
     open fun reload() {
         if (showEmptyViewLoading) {
             emptyView.show(true, "加载中...", null, null, null)
+        } else {
+            emptyView.hide()
         }
         aJsWebView.reload()
     }

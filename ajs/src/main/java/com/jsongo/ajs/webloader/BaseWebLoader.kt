@@ -96,6 +96,8 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
     }
 
     open fun reload() {
+        pbWebview.visibility = View.VISIBLE
+        inflateEmptyView()?.hide()
         aJsWebView.reload()
     }
 
