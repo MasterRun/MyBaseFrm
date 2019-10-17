@@ -8,14 +8,23 @@ android {
     compileSdkVersion proVer.compileSdk
     defaultConfig {
         minSdkVersion proVer.minSdk
-        versionCode libConf.ui.verCode
-        versionName libConf.ui.verName
+        versionCode libConf.ui_enhance.verCode
+        versionName libConf.ui_enhance.verName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/qqface'
+            ]
+        }
     }
 
     buildTypes {
@@ -35,16 +44,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     if (libConf.useOnlineAAR) {
-        api "com.jsongo.basefrm:core:${libConf.core.aarVer}"
+        api "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
     } else {
-        api project(path: ':core')
+        api project(path: ':ui')
     }
-
-    //easyphoto 图片选取
-    api 'com.github.HuanTanSheng:EasyPhotos:2.4.2'
-    //image preview
-    api 'com.ycjiang:ImagePreview:2.2.2'
-    //zxing 二维码
-//    api 'com.google.zxing:core:3.3.0'
-    api 'com.github.yuzhiqiang1993:zxing:2.2.8'
 }

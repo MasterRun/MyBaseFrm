@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/demo" />
             <option value="$PROJECT_DIR$/processor" />
             <option value="$PROJECT_DIR$/ui" />
+            <option value="$PROJECT_DIR$/ui-enhance" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

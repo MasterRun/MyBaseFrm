@@ -1,4 +1,4 @@
-package com.jsongo.ui.widget.qqfaceview;
+package com.jsongo.ui.enhance.qqfaceview;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.util.ArrayMap;

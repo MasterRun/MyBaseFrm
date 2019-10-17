@@ -4,7 +4,7 @@ import com.google.gson.*
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.util.ConstConf
-import com.safframework.http.interceptor.LoggingInterceptor
+import com.safframework.log.okhttp.LoggingInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -95,15 +95,7 @@ object ApiManager {
      */
     private fun OkHttpClient.Builder.addLogIntercepter(): OkHttpClient.Builder {
         if (BaseCore.isDebug) {
-            addInterceptor(
-                LoggingInterceptor.Builder()
-                    .loggable(true)
-                    .request()
-                    .requestTag("Request")
-                    .response()
-                    .requestTag("Response")
-                    .build()
-            )
+            addInterceptor(LoggingInterceptor())
         }
         return this
     }

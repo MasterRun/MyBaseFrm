@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.support.multidex.MultiDex
 import com.jsongo.core.crash.CrashHandler
+import com.safframework.log.L
 import com.vondear.rxtool.RxTool
 
 /**
@@ -22,6 +23,11 @@ object BaseCore {
         val contextField = RxTool::class.java.getDeclaredField("context")
         contextField.isAccessible = true
         contextField.set(null, context.applicationContext)
+
+        //如果不是debug,移除所有打印
+        if (!isDebug) {
+            L.printers().clear()
+        }
     }
 
     fun attachBaseContext(context: Context) {
