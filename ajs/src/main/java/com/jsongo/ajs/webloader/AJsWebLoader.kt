@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.View
+import com.jsongo.ajs.AJs
+import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.sdk.WebView
@@ -111,7 +113,13 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
         if (loadingDialog != null) {
             loadingDialog?.show()
         } else {
-            inflateEmptyView()?.show(true, "加载中...", null, null, null)
+            inflateEmptyView()?.show(
+                true,
+                AJs.context.getString(R.string.ajs_loading),
+                null,
+                null,
+                null
+            )
         }
     }
 
@@ -123,7 +131,13 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
         if (loadingDialog != null) {
             loadingDialog?.show()
         } else {
-            inflateEmptyView()?.show(true, "加载中...", null, null, null)
+            inflateEmptyView()?.show(
+                true,
+                AJs.context.getString(R.string.ajs_loading),
+                null,
+                null,
+                null
+            )
         }
     }
 

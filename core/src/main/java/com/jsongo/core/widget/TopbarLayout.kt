@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.TextView
+import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
@@ -63,7 +64,7 @@ class TopbarLayout(
 
         //设置默认样式
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_color_theme))
-        tvTitle = setTitle("标题")
+        tvTitle = setTitle(BaseCore.context.getString(R.string.topbat_title))
         tvTitle.setTextColor(Color.WHITE)
 
         backImageButton = addLeftBackImageButton()

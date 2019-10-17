@@ -41,7 +41,7 @@ class AJsWebPage : BaseActivity() {
             webPath = intent.getStringExtra(ConstValue.webpath)
         }
         if (webPath.isEmpty()) {
-            webPath = "https://www.baidu.com";
+            webPath = getString(R.string.ajs_default_url);
         }
         val fragWebLoader = frag_webloader
         if (fragWebLoader is BaseWebLoader) {

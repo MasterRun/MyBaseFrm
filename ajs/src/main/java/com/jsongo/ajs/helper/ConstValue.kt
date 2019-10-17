@@ -5,7 +5,7 @@ import com.jsongo.ajs.AJs
 /**
  * @author  jsongo
  * @date 2019/6/16 16:45
- * @desc
+ * @desc  常量
  */
 object ConstValue {
     const val webpath = "webpath"

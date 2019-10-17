@@ -3,6 +3,8 @@ package com.jsongo.core.mvp.base
 import android.Manifest
 import android.support.v4.app.FragmentActivity
 import com.jsongo.annotation.register.PresenterConfigor
+import com.jsongo.core.BaseCore
+import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.vondear.rxtool.view.RxToast
@@ -64,7 +66,7 @@ abstract class BasePresenter<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBase
         ).subscribe { granted ->
             if (!granted) {
                 if (permissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE).not()) {
-                    RxToast.warning("程序即将退出!")
+                    RxToast.warning(BaseCore.context.getString(R.string.nopermission_exit))
                     val disposable = Observable.timer(2, TimeUnit.SECONDS)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())

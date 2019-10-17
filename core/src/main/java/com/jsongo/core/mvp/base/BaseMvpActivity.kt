@@ -2,6 +2,7 @@ package com.jsongo.core.mvp.base
 
 import android.os.Bundle
 import android.view.View
+import com.jsongo.core.R
 import kotlinx.android.synthetic.*
 
 /**
@@ -60,14 +61,19 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
     override fun onPageReloading() {
         pageStatus = Status.RELOADING
         loadingDialog.dismiss()
-        inflateEmptyView()?.show(true, "加载中...", null, null, null)
+        inflateEmptyView()?.show(true, getString(R.string.empty_view_loading), null, null, null)
     }
 
     override fun onPageEmpty() {
         pageStatus = Status.NO_DATA
         smartRefreshLayout.finishRefresh()
         loadingDialog.dismiss()
-        inflateEmptyView()?.show(false, "暂无数据", "这里什么都没有哦", "重试") {
+        inflateEmptyView()?.show(
+            false,
+            getString(R.string.empty_view_nodata_title),
+            getString(R.string.empty_view_nodata_detail),
+            getString(R.string.empty_view_retry)
+        ) {
             onPageReloading()
         }
     }
@@ -76,8 +82,13 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
         pageStatus = Status.ERROR
         smartRefreshLayout.finishRefresh()
         loadingDialog.dismiss()
-        val message = if (msg.isNullOrEmpty()) "数据找不到了" else msg
-        inflateEmptyView()?.show(false, "出错喽", message, "重试") {
+        val message = if (msg.isNullOrEmpty()) getString(R.string.empty_view_error_detail) else msg
+        inflateEmptyView()?.show(
+            false,
+            getString(R.string.empty_view_error_title),
+            message,
+            getString(R.string.empty_view_retry)
+        ) {
             onPageReloading()
         }
     }

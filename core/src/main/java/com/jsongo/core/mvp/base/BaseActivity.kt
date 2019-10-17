@@ -61,7 +61,7 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         //loadingDialog
         loadingDialog = QMUITipDialog.Builder(this)
             .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-            .setTipWord("加载中...")
+            .setTipWord(getString(R.string.dialog_loading))
             .create()
 
         //侧滑返回

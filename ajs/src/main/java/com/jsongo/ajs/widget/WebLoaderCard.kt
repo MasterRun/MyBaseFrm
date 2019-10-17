@@ -7,6 +7,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ProgressBar
+import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.qmuiteam.qmui.widget.QMUIEmptyView
@@ -107,7 +108,7 @@ open class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: I
 
     open fun initLoad() {
         if (showEmptyViewLoading) {
-            emptyView.show(true, "加载中...", null, null, null)
+            emptyView.show(true, AJs.context.getString(R.string.ajs_loading), null, null, null)
         }
         aJsWebView.loadingProgressListener = object : AJsWebView.LoadingProgressListener {
             override fun onReceiveTitle(wv: WebView?, title: String?) {
@@ -143,9 +144,9 @@ open class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: I
                 if (showEmptyViewOnError) {
                     emptyView.show(
                         false,
-                        "哎呀,出错了!",
+                        AJs.context.getString(R.string.ajs_load_error),
                         "url:${aJsWebView.webPath}\n\n错误码:$code" + (if (webResourceError == null) "" else "\n错误信息:${webResourceError.description}"),
-                        "重新加载"
+                        AJs.context.getString(R.string.ajs_reload)
                     ) {
                         reload()
                     }
@@ -159,7 +160,7 @@ open class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: I
 
     open fun load(url: String) {
         if (showEmptyViewLoading) {
-            emptyView.show(true, "加载中...", null, null, null)
+            emptyView.show(true, AJs.context.getString(R.string.ajs_loading), null, null, null)
         }
         this.url = url
         aJsWebView.load()
@@ -167,7 +168,7 @@ open class WebLoaderCard(context: Context, attrs: AttributeSet?, defStyleAttr: I
 
     open fun reload() {
         if (showEmptyViewLoading) {
-            emptyView.show(true, "加载中...", null, null, null)
+            emptyView.show(true, AJs.context.getString(R.string.ajs_loading), null, null, null)
         } else {
             emptyView.hide()
         }

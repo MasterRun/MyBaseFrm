@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
+import com.jsongo.core.crash.CrashHandler.Companion.CRASH_LOG
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.core.util.ConstConf
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
@@ -55,7 +56,7 @@ class CrashActivity : BaseActivity() {
         occurTime = RxTimeTool.getCurTimeString()
         var crashLog = crashHeader
         if (intent.hasExtra("crash_log")) {
-            crashLog = crashHeader + intent.getStringExtra("crash_log")
+            crashLog = crashHeader + intent.getStringExtra(CRASH_LOG)
         }
 
         saveCrashLog(crashLog)
@@ -100,16 +101,16 @@ class CrashActivity : BaseActivity() {
      */
     private fun showCrashDialog(crashLog: String?) {
         val dialogBuilder = QMUIDialog.MessageDialogBuilder(this)
-            .setTitle("出错啦！")
+            .setTitle(getString(R.string.crash_title))
             .setMessage(crashLog)
             .setCanceledOnTouchOutside(false)
-            .addAction("请联系管理员反馈") { dialog, index ->
+            .addAction(getString(R.string.crash_btn1)) { dialog, index ->
                 dialog?.dismiss()
                 finish()
             }
             .addAction(
                 0,
-                "取消",
+                getString(R.string.crash_btn2),
                 QMUIDialogAction.ACTION_PROP_NEGATIVE
             ) { dialog, index ->
                 dialog?.dismiss()

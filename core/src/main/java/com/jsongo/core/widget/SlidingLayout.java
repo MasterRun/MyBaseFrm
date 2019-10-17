@@ -116,6 +116,7 @@ public class SlidingLayout extends FrameLayout {
 
                     this.mLastInterceptX = x;
                     this.mLastInterceptY = y;
+                default:
             }
 
             return intercept;

@@ -2,6 +2,7 @@ package com.jsongo.core.network
 
 import com.google.gson.*
 import com.jsongo.core.BaseCore
+import com.jsongo.core.R
 import com.jsongo.core.util.ConstConf
 import com.safframework.http.interceptor.LoggingInterceptor
 import okhttp3.Cache
@@ -22,7 +23,7 @@ import kotlin.collections.HashMap
  * @date 2019/3/26 15:54
  */
 object ApiManager {
-    const val TIMEOUT = 10L
+    private val TIMEOUT = BaseCore.context.getString(R.string.network_time_out).toLong()
     private var gson: Gson? = null
     private var mOkHttpClient: OkHttpClient? = null
     private var mRetrofit: Retrofit? = null

@@ -14,6 +14,9 @@ import java.io.StringWriter
 class CrashHandler : Thread.UncaughtExceptionHandler {
 
     companion object {
+
+        const val CRASH_LOG = "crash_log"
+
         private val crashHandler: CrashHandler by lazy {
             CrashHandler()
         }
@@ -51,7 +54,7 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
             val intent = Intent(it, CrashActivity::class.java)
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
             if (result.isNotEmpty()) {
-                intent.putExtra("crash_log", result)
+                intent.putExtra(CRASH_LOG, result)
             }
             it.startActivity(intent)
         }

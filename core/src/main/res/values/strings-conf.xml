@@ -4,5 +4,8 @@
 	<string name="SERVER_ADDRESS_DEBUG">https://server-url-debug/</string>
 	<string name="MainActivity">com.jsongo.core.view.activity.SplashActivity</string>
 	
+	<!--	common存储键值对的加密密码-->
 	<string name="common_db_pwd">jsongo.base.core.db.common</string>
+	<!--	超时时间配置  单位s-->
+	<string name="network_time_out">10</string>
 </resources>

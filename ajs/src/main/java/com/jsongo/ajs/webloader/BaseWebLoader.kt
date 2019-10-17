@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
@@ -84,9 +85,9 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
             ) {
                 inflateEmptyView()?.show(
                     false,
-                    "哎呀,出错了!",
+                    AJs.context.getString(R.string.ajs_load_error),
                     "url:${aJsWebView.webPath}\n\n错误码:$code" + (if (webResourceError == null) "" else "\n错误信息:${webResourceError.description}"),
-                    "重新加载"
+                    AJs.context.getString(R.string.ajs_reload)
                 ) {
                     reload()
                 }

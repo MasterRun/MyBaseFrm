@@ -72,13 +72,16 @@ public class FloatingView extends RelativeLayout {
         wm.addView(this, wmParams);
 
         setOnClickListener(v -> {
-            Intent intent = new Intent(activity, CaptureActivity.class);
-            activity.startActivityForResult(intent, SCAN_REQUEST_CODE);
+            onClick(activity);
         });
 
         hide();
     }
 
+    public void onClick(Activity activity) {
+        Intent intent = new Intent(activity, CaptureActivity.class);
+        activity.startActivityForResult(intent, SCAN_REQUEST_CODE);
+    }
 
     /**
      * 根据密度选择控件大小
