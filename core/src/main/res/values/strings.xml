@@ -16,5 +16,5 @@
 	
 	<string name="nopermission_exit">程序即将退出!</string>
 	
-	<string name="topbat_title">标题</string>
+	<string name="topbar_title">标题</string>
 </resources>

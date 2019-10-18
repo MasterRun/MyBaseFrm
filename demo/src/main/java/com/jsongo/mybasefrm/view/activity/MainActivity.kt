@@ -25,12 +25,12 @@ import com.jsongo.mybasefrm.mvp.IMain
 import com.jsongo.mybasefrm.presenter.MainPresenter
 import com.jsongo.mybasefrm.view.fragment.MainFragment
 import com.jsongo.mybasefrm.view.fragment.MyPageFragment
+import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
 import com.vondear.rxtool.view.RxToast
-import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.properties.Delegates

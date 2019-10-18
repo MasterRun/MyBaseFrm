@@ -9,6 +9,7 @@ import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITopBar
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 
@@ -64,12 +65,20 @@ class TopbarLayout(
 
         //设置默认样式
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_color_theme))
-        tvTitle = setTitle(BaseCore.context.getString(R.string.topbat_title))
+        tvTitle = setTitle(BaseCore.context.getString(R.string.topbar_title))
         tvTitle.setTextColor(Color.WHITE)
 
         backImageButton = addLeftBackImageButton()
         backImageButton.setOnClickListener {
             ActivityCollector.topActivity.onBackPressed()
         }
+    }
+
+    /**
+     * 添加状态栏的高度
+     */
+    fun addStatusBarHeight() {
+        val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
+        setPadding(paddingLeft, paddingTop + statusbarHeight, paddingRight, paddingBottom)
     }
 }

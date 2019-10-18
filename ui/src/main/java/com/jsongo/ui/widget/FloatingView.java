@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.jsongo.ui.R;
-import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.jsongo.ui.component.zxing.android.CaptureActivity;
 
 /**
  * @author jsongo

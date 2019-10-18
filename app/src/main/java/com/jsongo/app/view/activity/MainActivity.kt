@@ -17,12 +17,12 @@ import com.jsongo.core.util.SmartRefreshHeader
 import com.jsongo.core.util.initWithStr
 import com.jsongo.core.util.useHeader
 import com.jsongo.core.view.activity.SplashActivity
+import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.widget.FloatingView
 import com.jsongo.ui.widget.FloatingView.SCAN_REQUEST_CODE
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.vondear.rxtool.view.RxToast
-import com.yzq.zxinglibrary.common.Constant
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
 

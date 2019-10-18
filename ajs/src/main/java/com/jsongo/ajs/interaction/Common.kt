@@ -6,10 +6,10 @@ import com.jsongo.ajs.helper.*
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.ui.component.image.preview.ImgPreviewClick
+import com.jsongo.ui.component.zxing.Constant
+import com.jsongo.ui.component.zxing.android.CaptureActivity
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
-import com.yzq.zxinglibrary.android.CaptureActivity
-import com.yzq.zxinglibrary.common.Constant
 import kotlin.random.Random
 
 /**
