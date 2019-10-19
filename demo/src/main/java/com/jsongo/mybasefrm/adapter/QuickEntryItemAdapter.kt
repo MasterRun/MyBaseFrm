@@ -24,12 +24,11 @@ import kotlinx.android.synthetic.main.item_quick_entry.view.*
  * @desc : 快捷入口适配器
  */
 class QuickEntryItemAdapter(
-    context: Context,
+    context: Context?,
     dataList: MutableList<QuickEntryItemBean>
-) :
-    RecyclerViewAdapter<QuickEntryItemAdapter, QuickEntryItemAdapter.ViewHolder, QuickEntryItemBean>(
-        context, dataList
-    ) {
+) : RecyclerViewAdapter<QuickEntryItemAdapter, QuickEntryItemAdapter.ViewHolder, QuickEntryItemBean>(
+    context, dataList
+) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -65,7 +64,7 @@ class QuickEntryItemAdapter(
                     AJsWebPage.load(dataItem.entryTag)
                 } else {
                     try {
-                        context.startActivity(Intent(context, Class.forName(dataItem.entryTag)))
+                        context?.startActivity(Intent(context, Class.forName(dataItem.entryTag)))
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

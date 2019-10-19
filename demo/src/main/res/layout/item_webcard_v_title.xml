@@ -17,7 +17,7 @@
 			android:id="@+id/tv_title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_margin="10dp"
+			android:layout_margin="8dp"
 			android:textSize="20sp"
 			tools:text="标题" />
 		
@@ -58,9 +58,10 @@
 		android:id="@+id/web_card"
 		android:layout_width="match_parent"
 		android:layout_height="250dp"
-		app:cardCornerRadius="3dp"
+		app:cardCornerRadius="5dp"
 		app:cardElevation="5dp"
-		app:contentPadding="5dp"
+		app:cardUseCompatPadding="true"
+		app:contentPadding="4dp"
 		app:scrollable="false"
 		app:showEmptyViewLoading="true"
 		app:url="https://www.baidu.com" />

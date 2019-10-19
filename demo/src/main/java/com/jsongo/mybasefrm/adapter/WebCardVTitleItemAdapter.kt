@@ -22,7 +22,7 @@ import kotlinx.android.synthetic.main.item_webcard_v_title.view.*
  * @desc : web卡片适配器
  */
 open class WebCardVTitleItemAdapter(
-    context: Context,
+    context: Context?,
     val webViewHost: AjsWebViewHost,
     dataList: MutableList<WebCardItemBean>
 ) :

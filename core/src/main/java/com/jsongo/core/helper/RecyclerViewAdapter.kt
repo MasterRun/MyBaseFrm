@@ -16,10 +16,9 @@ import android.view.ViewGroup
  *  type_position = position/typeQuota  整除
  */
 abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerView.ViewHolder, T>(
-    val context: Context,
+    var context: Context?,
     dataList: MutableList<T>
-) :
-    RecyclerView.Adapter<VH>() {
+) : RecyclerView.Adapter<VH>() {
 
     open var dataList: MutableList<T> = ArrayList()
         set(value) {
@@ -41,8 +40,10 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
         const val typeQuota = 100
     }
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): VH =
-        onCreateViewHolder(p0, LayoutInflater.from(p0.context), getItemType(p1), p1)
+    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): VH {
+        context = p0.context
+        return onCreateViewHolder(p0, LayoutInflater.from(p0.context), getItemType(p1), p1)
+    }
 
     abstract fun onCreateViewHolder(
         parent: ViewGroup,
