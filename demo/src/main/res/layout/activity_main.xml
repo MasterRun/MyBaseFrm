@@ -80,6 +80,14 @@
 		app:layout_constraintStart_toEndOf="@id/btn_testdb"
 		app:layout_constraintTop_toBottomOf="@id/btn_choosePhoto" />
 	
+	<Button
+		android:id="@+id/btn_godemo1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="demo1"
+		app:layout_constraintStart_toEndOf="@id/btn_crash"
+		app:layout_constraintTop_toBottomOf="@id/btn_goActivity2" />
+	
 	<FrameLayout
 		android:id="@+id/fl_fragment_container"
 		android:layout_width="0dp"

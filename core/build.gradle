@@ -32,6 +32,12 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
+    if (libConf.useOnlineAAR) {
+        implementation "com.jsongo.basefrm:annotation:${libConf.annotation.aarVer}"
+    } else {
+        implementation project(path: ':annotation')
+    }
+
     //android support
     api "com.android.support:multidex:${proVer.multidex}"
     api "com.android.support:support-v4:${proVer.androidSupport}"

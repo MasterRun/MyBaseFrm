@@ -130,8 +130,8 @@ function loadingclick() {
 }
 
 function loadurl() {
-    // ajs.common.load("https://www.baidu.com")
-    ajs.common.load("file:///android_asset/web/index.html")
+    // ajs.common.load({url:"https://www.baidu.com"})
+    ajs.common.load({url:"file:///android_asset/web/index.html"})
 }
 function goactivity() {
     ajs.common.go("com.jsongo.app.view.activity.MyPageActivity")
@@ -185,7 +185,9 @@ function getCache() {
 function scan() {
     ajs.common.scan(107, function (data) {
         console.log(data)
-        ajs.common.load(data["data"])
+        ajs.common.load({
+            url: data["data"]
+        })
     })
 }
 

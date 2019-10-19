@@ -166,11 +166,11 @@ function regBridgeMethod() {
 
             /**
              * 开启新的页面打开h5页面
-             * @param {String} url  h5页面路径
+             * @param {url:"",bgColor:"#ffffff",fixHeight:true} url  h5页面路径
              * @param {*} callback
              */
-            load(url, success, error) {
-                convertFunc("common.load", { url: url }, success, error)
+            load(params, success, error) {
+                convertFunc("common.load", params, success, error)
             },
 
             /**

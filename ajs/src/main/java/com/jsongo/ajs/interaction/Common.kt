@@ -1,7 +1,11 @@
 package com.jsongo.ajs.interaction
 
 import android.content.Intent
+import android.graphics.Color
+import android.text.TextUtils
 import com.google.gson.reflect.TypeToken
+import com.jsongo.ajs.AJs
+import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.*
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
@@ -161,7 +165,22 @@ object Common {
         callback: AjsCallback
     ) {
         val url = params["url"].toString()
-        AJsWebPage.load(url)
+        val showTopBar = params["showTopBar"]?.toBoolean() ?: true
+        val s = params["bgColor"]
+        val bgColor: String
+        if (TextUtils.isEmpty(s)) {
+            bgColor = AJs.context.getString(R.string.ajs_default_bg_color)
+        } else {
+            bgColor = s!!
+        }
+        try {
+            Color.parseColor(bgColor)
+        } catch (e: Exception) {
+            callback.failure(e)
+            return
+        }
+        val fixHeight = params["fixHeight"]?.toBoolean() ?: true
+        AJsWebPage.load(url, showTopBar, bgColor, fixHeight)
         callback.success()
     }
 

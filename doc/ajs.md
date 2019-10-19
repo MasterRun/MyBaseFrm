@@ -402,15 +402,24 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 方法：`ajs.common.load();`
 
-参数：
+- 参数1: params
 
-- 参数1: url 
+  值: 
+```js
+    {
+        url: "https://www.baidu.com",
+        showTopBar: false,
+        bgColor: "#ffffff",
+        fixHeight: true
+    }
+```
 
-    值 h5页面地址
-
-  | 字段 | 描述       | 必填 | 说明 |
-  | ---- | ---------- | ---- | ---- |
-  | url  | h5页面地址 | 是   |      |
+  | 字段        | 描述           | 必填 | 说明                                                 |
+  | ------------| ---------------| ---- | - -------------------------------------------------- |
+  | url         | h5页面地址     |  是  |                                                      |
+  | showTopBar  | 是否显示标题栏 |  否  | 默认是                                               |
+  | bgColor     | 背景色         |  否  | 修复状态栏高度使用的背景色                           |
+  | fixHeight   | 是否修复高度   |  否  | 默认是,在隐藏标题栏时,不修复高度,会导致内容顶到状态栏|
  
 - 参数2: success  成功回调  可选
 - 参数3: error  错误回调  可选
@@ -418,9 +427,9 @@ myBridge.callHandler(callname, params, function (responseData) {
 - demo:
 ```js
     //加载百度
-    ajs.common.load("https://www.baidu.com")
+    ajs.common.load({url:"https://www.baidu.com"})
     //加载本地h5页面
-    ajs.common.load("file:///android_asset/web/index.html")
+    ajs.common.load({url:"file:///android_asset/web/index.html"})
 ```
 
 

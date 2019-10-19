@@ -8,7 +8,11 @@ import com.jsongo.ajs.AJs
  * @desc  常量
  */
 object ConstValue {
+    const val showTopBar = "showTopBar"
     const val webpath = "webpath"
+    const val bgColor = "bgColor"
+    const val fixHeight = "fixHeight"
+
     const val LocalPicPrefix = "http://androidimg"
     //暂时不使用,涉及到跨域
     const val LocalFilePrefix = "http://android_file"
