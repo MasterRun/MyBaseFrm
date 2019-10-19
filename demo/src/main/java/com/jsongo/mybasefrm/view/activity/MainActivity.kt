@@ -30,6 +30,7 @@ import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
+import com.vondear.rxtool.RxRegTool
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -252,15 +253,13 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         if (requestCode == FloatingView.SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
-                if (str.startsWith("http://") || str.startsWith("https://")) {
+                if (RxRegTool.isURL(str)) {
                     AJsWebPage.load(str)
                 } else {
                     QMUIDialog.MessageDialogBuilder(this@MainActivity)
                         .setTitle("扫描结果")
                         .setMessage(str)
-                        .addAction(
-                            "OK"
-                        ) { dialog, index ->
+                        .addAction("OK") { dialog, index ->
                             dialog?.dismiss()
                         }.show()
                 }

@@ -23,3 +23,5 @@
 -keep class com.jsongo.core.** {
     public * ;
 }
+
+-keep class com.jsongo.core.bean .** { *; }

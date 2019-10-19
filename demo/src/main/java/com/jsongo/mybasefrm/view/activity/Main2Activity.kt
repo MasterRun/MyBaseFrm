@@ -3,12 +3,17 @@ package com.jsongo.mybasefrm.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.mvp.base.BaseActivity
-import com.jsongo.core.network.ServerAddr
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.adapter.QuickEntryItemAdapter
+import com.jsongo.mybasefrm.adapter.WebCardVTitleItemAdapter
+import com.jsongo.mybasefrm.bean.QuickEntryItemBean
+import com.jsongo.mybasefrm.bean.WebCardItemBean
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.component.image.banner.widget.bean.BannerItem
@@ -24,33 +29,70 @@ class Main2Activity : BaseActivity(), AjsWebViewHost {
 
         initImageBanner()
 
-        initWebLoador()
+        initQuickEntry()
 
+        initWebCard()
     }
 
-    private fun initWebLoador() {
+    private fun initQuickEntry() {
+        rv_quick_entry.setHasFixedSize(true)
+        rv_quick_entry.isNestedScrollingEnabled = false
+        val quickEntryItemAdapter = QuickEntryItemAdapter(
+            this, mutableListOf(
+                QuickEntryItemBean(
+                    "http://www.jq22.com/demo/appyymoban201910161119/images/nav-001.png",
+                    -1,
+                    "FM",
+                    "https://www.baidu.com"
+                ),
+                QuickEntryItemBean(
+                    "http://www.jq22.com/demo/appyymoban201910161119/images/nav-002.png",
+                    -1,
+                    "免费试听",
+                    "https://www.baidu.com"
+                ),
+                QuickEntryItemBean(
+                    "http://www.jq22.com/demo/appyymoban201910161119/images/nav-003.png",
+                    -1,
+                    "等级课程",
+                    "https://www.baidu.com"
+                ),
+                QuickEntryItemBean(
+                    "http://www.jq22.com/demo/appyymoban201910161119/images/nav-004.png",
+                    -1,
+                    "主题课程",
+                    "https://www.baidu.com"
+                )
+            )
+        )
+        rv_quick_entry.adapter = quickEntryItemAdapter
+        rv_quick_entry.layoutManager = GridLayoutManager(this, 4)
+    }
 
-        val serverAddress = ServerAddr.SERVER_ADDRESS
+    private fun initWebCard() {
+        //解决scrollview嵌套滑动冲突问题
+        rv_web_cards.setHasFixedSize(true)
+        rv_web_cards.isNestedScrollingEnabled = false
 
-        //使用ajswebview
-//        card_webloader.url = "file:///android_asset/web/index.html"
-        card_webloader.url = "${serverAddress}image/others/banner/img_banner_4.jpg"
-        card_webloader.ajsWebViewHost = this
-        card_webloader.initLoad()
-        card_webloader2.url = "${serverAddress}image/others/banner/img_banner_3.jpg"
-        card_webloader2.ajsWebViewHost = this
-        card_webloader2.initLoad()
-        card_webloader3.url = "${serverAddress}image/others/banner/img_banner_5.jpg"
-        card_webloader3.ajsWebViewHost = this
-        card_webloader3.initLoad()
+
+        val webCardVTitleItemAdapter = WebCardVTitleItemAdapter(
+            this,
+            this,
+            mutableListOf(
+                WebCardItemBean("https://www.baidu.com", "新生必看", "", "查看全部"),
+                WebCardItemBean("file:///android_asset/web/index.html", "FM", "双语脱口秀，聊美国文化、学地道的英语"),
+                WebCardItemBean("https://github.com", "为你推荐", "根据你的兴趣为你精选优质课程")
+            )
+        )
+        rv_web_cards.adapter = webCardVTitleItemAdapter
+        rv_web_cards.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initImageBanner() {
-        val serverAddress = ServerAddr.SERVER_ADDRESS
         val items = arrayListOf(
-            BannerItem("${serverAddress}image/others/banner/img_banner_1.jpg", "我是江小白"),
-            BannerItem("${serverAddress}image/others/banner/img_banner_2.jpg", "画江湖之不良人"),
-            BannerItem("${serverAddress}image/others/banner/img_banner_8.jpg", "罗小黑战记")
+            BannerItem("http://www.jq22.com/demo/appyymoban201910161119/images/banner.png", "图片1"),
+            BannerItem("http://www.jq22.com/demo/appyymoban201910161119/images/banner.png", "图片2"),
+            BannerItem("http://www.jq22.com/demo/appyymoban201910161119/images/banner.png", "图片3")
         )
         simple_ib.setSelectAnimClass(ZoomInEnter::class.java)//set indicator select anim
             .setSource(items)//data source list
@@ -65,13 +107,6 @@ class Main2Activity : BaseActivity(), AjsWebViewHost {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         onAjsLongCallBack(requestCode, resultCode, data)
-    }
-
-    override fun onIPageDestroy() {
-        card_webloader.destroy()
-        card_webloader2.destroy()
-        card_webloader3.destroy()
-        super.onIPageDestroy()
     }
 
 }

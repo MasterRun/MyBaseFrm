@@ -21,7 +21,7 @@ import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.widget.FloatingView
 import com.jsongo.ui.widget.FloatingView.SCAN_REQUEST_CODE
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
+import com.vondear.rxtool.RxRegTool
 import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.properties.Delegates
@@ -130,17 +130,14 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
         if (requestCode == SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
-                if (str.startsWith("http://") || str.startsWith("https://")) {
+                if (RxRegTool.isURL(str)) {
                     AJsWebPage.load(str)
                 } else {
                     QMUIDialog.MessageDialogBuilder(this@MainActivity)
                         .setTitle("扫描结果")
                         .setMessage(str)
-                        .addAction("OK", object : QMUIDialogAction.ActionListener {
-                            override fun onClick(dialog: QMUIDialog?, index: Int) {
-                                dialog?.dismiss()
-                            }
-                        }).show()
+                        .addAction("OK") { dialog, index -> dialog?.dismiss() }
+                        .show()
                 }
             }
         }

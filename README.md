@@ -22,21 +22,21 @@ demo\app module中用于个人测试
 - 添加app首页主体模型  -- doing
     > 侧滑抽屉类型  
     > 底部导航类型  
-    > 顶部导航类型
-    
+    > 顶部导航类型  
+
+- 首页卡片添加图标和点击事件的设置
 - QMUIGroupListView 实现设置页面  -- doing
 - 考虑使用ARouter解耦       
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
 - IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
-- 封装RecyclerView
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
 - 封装网络请求返回处理
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - 使用kotlin观察代理
 - 添加flutter混合开发
-- topbar添加底部灰色线 --abandon
 - 使用依赖注入框架  aop  aspectj   apt  javassist
+- topbar添加底部灰色线 --abandon
 
 
 ### complete of todo
@@ -60,8 +60,9 @@ demo\app module中用于个人测试
 - 抽离ajsWebView 使用ajsWebView 实现ajs api调用  --  ok
 - 添加vConsole显示隐藏开关 ajs_config  --  ok
 - 添加圆角卡片及扁平的webloader卡片 -- ok
-- webview 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4
-- 将anno中的PageConfig注解改为Page
+- webview 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4  --  ok
+- 将anno中的PageConfig注解改为Page --  ok
+- 简单封装recyclerview adapter ,点击和长按事件接口--  ok
 
 
 ### module依赖关系

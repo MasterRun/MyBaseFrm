@@ -45,13 +45,13 @@ public class SimpleImageBanner extends BaseIndicatorBanner<BannerItem, SimpleIma
         final BannerItem item = mDatas.get(position);
         int itemWidth = mDisplayMetrics.widthPixels;
         int itemHeight = (int) (itemWidth * 360 * 1.0f / 640);
-        iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        iv.setScaleType(ImageView.ScaleType.FIT_XY);
         iv.setLayoutParams(new LinearLayout.LayoutParams(itemWidth, itemHeight));
 
         String imgUrl = item.getImgUrl();
 
         if (!TextUtils.isEmpty(imgUrl)) {
-            RequestOptions options = RequestOptions.centerCropTransform().placeholder(colorDrawable)
+            RequestOptions options = RequestOptions.placeholderOf(colorDrawable)
                     .override(itemWidth, itemHeight);
             Glide.with(mContext)
                     .load(imgUrl)
