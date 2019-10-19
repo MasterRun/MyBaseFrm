@@ -23,7 +23,7 @@ demo\app module中用于个人测试
     > 侧滑抽屉类型  
     > 底部导航类型  
     > 顶部导航类型  
-
+    
 - 首页卡片添加图标和点击事件的设置
 - QMUIGroupListView 实现设置页面  -- doing
 - 考虑使用ARouter解耦       
@@ -61,8 +61,9 @@ demo\app module中用于个人测试
 - 添加vConsole显示隐藏开关 ajs_config  --  ok
 - 添加圆角卡片及扁平的webloader卡片 -- ok
 - webview 加载失败使用状态页 https://www.jianshu.com/p/12a011af51c4  --  ok
-- 将anno中的PageConfig注解改为Page --  ok
-- 简单封装recyclerview adapter ,点击和长按事件接口--  ok
+- 将anno中的PageConfig注解改为Page  --  ok
+- 简单封装recyclerview adapter ,点击和长按事件接口  --  ok
+- 搜索框  --  ok
 
 
 ### module依赖关系

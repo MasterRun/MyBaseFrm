@@ -30,6 +30,7 @@ import com.jsongo.ui.component.zxing.decode.DecodeImgCallback;
 import com.jsongo.ui.component.zxing.decode.DecodeImgThread;
 import com.jsongo.ui.component.zxing.view.ViewfinderView;
 import com.jsongo.ui.util.EasyPhotoGlideEngine;
+import com.jsongo.ui.util.UtilKt;
 import com.safframework.log.L;
 import com.vondear.rxtool.view.RxToast;
 
@@ -152,7 +153,7 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
 
         topbarLayout.getTopBar().setTitle(R.string.scan_activity_title);
         topbarLayout.setBackgroundResource(R.color.scan_bg);
-        topbarLayout.addStatusBarHeight();
+        UtilKt.addStatusBarHeightPadding(topbarLayout);
         setSwipeBackEnable(false);
     }
 

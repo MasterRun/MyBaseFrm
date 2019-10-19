@@ -9,9 +9,8 @@ import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import com.qmuiteam.qmui.widget.MyQMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUITopBar
-import com.qmuiteam.qmui.widget.QMUITopBarLayout
 
 /**
  * author ： jsongo
@@ -22,7 +21,7 @@ class TopbarLayout(
     mContext: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = R.attr.QMUITopBarStyle
-) : QMUITopBarLayout(mContext, attrs, defStyleAttr) {
+) : MyQMUITopBarLayout(mContext, attrs, defStyleAttr) {
 
     // TODO: 2019/8/9 封装设置返回按钮颜色  添加topbar底部横线
 
@@ -43,25 +42,10 @@ class TopbarLayout(
     val backImageButton: QMUIAlphaImageButton
 
     init {
-        //获取QMUITopBarLayout中topbar等字段
-        QMUITopBarLayout::class.java.apply {
-            getDeclaredField("mTopBar").apply {
-                isAccessible = true
-                topBar = get(this@TopbarLayout) as QMUITopBar
-            }
-            getDeclaredField("mTopBarSeparatorColor").apply {
-                isAccessible = true
-                topBarSeparatorColor = get(this@TopbarLayout) as Int
-            }
-            getDeclaredField("mTopBarBgColor").apply {
-                isAccessible = true
-                topBarBgColor = get(this@TopbarLayout) as Int
-            }
-            getDeclaredField("mTopBarSeparatorHeight").apply {
-                isAccessible = true
-                topBarSeparatorHeight = get(this@TopbarLayout) as Int
-            }
-        }
+        topBar = mTopBar
+        topBarBgColor = mTopBarBgColor
+        topBarSeparatorColor = mTopBarSeparatorColor
+        topBarSeparatorHeight = mTopBarSeparatorHeight
 
         //设置默认样式
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_color_theme))
@@ -72,13 +56,5 @@ class TopbarLayout(
         backImageButton.setOnClickListener {
             ActivityCollector.topActivity.onBackPressed()
         }
-    }
-
-    /**
-     * 添加状态栏的高度
-     */
-    fun addStatusBarHeight() {
-        val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
-        setPadding(paddingLeft, paddingTop + statusbarHeight, paddingRight, paddingBottom)
     }
 }

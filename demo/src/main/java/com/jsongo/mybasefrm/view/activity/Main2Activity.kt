@@ -17,6 +17,7 @@ import com.jsongo.mybasefrm.bean.WebCardItemBean
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.component.image.banner.widget.bean.BannerItem
+import com.jsongo.ui.util.addStatusBarHeightPadding
 import kotlinx.android.synthetic.main.activity_main2.*
 
 @Page(R.layout.activity_main2, 0)
@@ -26,6 +27,8 @@ class Main2Activity : BaseActivity(), AjsWebViewHost {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        ll_sb_container.addStatusBarHeightPadding()
 
         initImageBanner()
 

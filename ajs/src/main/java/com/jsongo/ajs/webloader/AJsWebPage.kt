@@ -10,6 +10,7 @@ import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.ConstValue
 import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.vondear.rxtool.RxKeyboardTool
 import kotlinx.android.synthetic.main.activity_ajs_web_page.*
@@ -66,22 +67,17 @@ class AJsWebPage : BaseActivity() {
             //设置topbar
             if (showTopBar) {
                 if (fixHeight) {
-                    fragWebLoader.topbar.addStatusBarHeight()
+                    fragWebLoader.topbar.addStatusBarHeightPadding()
                 }
             } else {
                 fragWebLoader.topbar.visibility = View.GONE
                 if (fixHeight) {
                     QMUIStatusBarHelper.setStatusBarLightMode(this)
                     val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(this)
-                    //加padding,需付高度问题
+                    //加padding,修复高度问题
                     fragWebLoader.rlLayoutRoot.apply {
                         setBackgroundColor(defaultColor)
-                        setPadding(
-                            paddingLeft,
-                            paddingTop + statusbarHeight,
-                            paddingRight,
-                            paddingBottom
-                        )
+                        addStatusBarHeightPadding()
                     }
                 }
             }
