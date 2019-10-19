@@ -69,7 +69,7 @@ demo\app module中用于个人测试
 |---|---|
 |annotation|-|
 |processor|annotation|
-|core|annotation|
+|core|-|
 |ui|core|
 |ui-enhance|ui|
 |ajs|core ui|

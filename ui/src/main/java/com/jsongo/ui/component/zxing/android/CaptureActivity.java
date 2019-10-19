@@ -104,7 +104,6 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
         try {
             config = (ZxingConfig) getIntent().getExtras().get(Constant.INTENT_ZXING_CONFIG);
         } catch (Exception e) {
-
             L.i("config", e.toString());
         }
 
@@ -326,7 +325,6 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
                     .start(Constant.REQUEST_IMAGE);
         }
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
