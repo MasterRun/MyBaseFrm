@@ -22,8 +22,9 @@ demo\app module中用于个人测试
 - 添加app首页主体模型
     > 侧滑抽屉类型  
     > 底部导航类型   --  doing
-    > 顶部导航类型  
-    
+    > 顶部导航类型
+      
+- 登录页
 - 首页卡片添加图标和点击事件的设置
 - QMUIGroupListView 实现设置页面  -- doing
 - 考虑使用ARouter解耦       

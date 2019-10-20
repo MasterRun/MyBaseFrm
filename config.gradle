@@ -2,8 +2,8 @@ ext {
 
     libConf = [
             //是否上采用在线引用方式  打包上传时使用true
-            'useOnlineAAR': true,
-//            'useOnlineAAR': false,
+//            'useOnlineAAR': true,
+            'useOnlineAAR': false,
 
             /**
              * 三个变量分别为
@@ -14,8 +14,8 @@ ext {
 
             'core'        : [
                     'verCode': 1,
-                    'verName': '1.0.0.g2-SNAPSHOT',
-                    'aarVer' : '1.0.0.g2-SNAPSHOT'
+                    'verName': '1.0.0.g3-SNAPSHOT',
+                    'aarVer' : '1.0.0.g3-SNAPSHOT'
             ],
 
             'ajs'         : [
