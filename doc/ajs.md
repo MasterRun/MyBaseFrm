@@ -414,8 +414,8 @@ myBridge.callHandler(callname, params, function (responseData) {
     }
 ```
 
-  | 字段        | 描述           | 必填 | 说明                                                 |
-  | ------------| ---------------| ---- | - -------------------------------------------------- |
+  | 字段 | 描述 | 必填 | 说明 |
+  | ---- | ---- | ---- | ---- |-------------------------------------------------- |
   | url         | h5页面地址     |  是  |                                                      |
   | showTopBar  | 是否显示标题栏 |  否  | 默认是                                               |
   | bgColor     | 背景色         |  否  | 修复状态栏高度使用的背景色                           |
@@ -514,11 +514,11 @@ myBridge.callHandler(callname, params, function (responseData) {
 
 ### 4 加载弹窗
 
-| 调用方法                   | 方法说明             | 参数                                                                |
-| -------------------------- | -------------------- | ------------------------------------------------------------------- |
-| `ajs.loading.show()`       | 显示加载dialog       | success 成功回调    error 错误参数                                  |
-| `ajs.loading.hide()`       | 隐藏加载dialog       | success 成功回调    error 错误参数                                  |
-| `ajs.loading.cancelable()` | 设置dialog是否可取消 | true/false 必选<br/>    success 成功回调    error 错误参数          |
+| 调用方法                   | 方法说明             | 参数                                                       |
+| -------------------------- | -------------------- | ---------------------------------------------------------- |
+| `ajs.loading.show()`       | 显示加载dialog       | success 成功回调    error 错误参数                         |
+| `ajs.loading.hide()`       | 隐藏加载dialog       | success 成功回调    error 错误参数                         |
+| `ajs.loading.cancelable()` | 设置dialog是否可取消 | true/false 必选<br/>    success 成功回调    error 错误参数 |
 
 - demo
 ```js
@@ -532,10 +532,10 @@ myBridge.callHandler(callname, params, function (responseData) {
 ```
 
 ### 5 缓存
-| 调用方法        | 方法说明 | 参数                                                                     |
-| --------------- | -------- | ------------------------------------------------------------------------ |
-| ajs.cache.put() | 保存键值 | key(键) value(值)  success 成功回调    error 错误参数                    |
-| ajs.cache.get() | 取出  值 | key(键)  success 成功回调,通过data["value"]取返回的值    error 错误参数  |
+| 调用方法        | 方法说明 | 参数                                                                    |
+| --------------- | -------- | ----------------------------------------------------------------------- |
+| ajs.cache.put() | 保存键值 | key(键) value(值)  success 成功回调    error 错误参数                   |
+| ajs.cache.get() | 取出  值 | key(键)  success 成功回调,通过data["value"]取返回的值    error 错误参数 |
 - demo
 ```js
     ajs.cache.put("h5Cache", "这是我的缓存内容");
