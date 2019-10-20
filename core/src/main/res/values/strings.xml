@@ -4,6 +4,7 @@
 	<string name="crash_title">出错啦！</string>
 	<string name="crash_btn1">请联系管理员反馈</string>
 	<string name="crash_btn2">取消</string>
+	<string name="copy_to_clipboard">已复制到剪切板</string>
 	
 	<string name="dialog_loading">加载中...</string>
 	

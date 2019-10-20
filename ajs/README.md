@@ -9,7 +9,7 @@
 
 ##### 2019-10-20
 - AjsWebLoader添加修正状态栏高度问题此参数
-- AjsWebPage改为动态添加AjsWebLoader,传递参数给AjsWebLoder处理
+- AjsWebPage改为动态添加AjsWebLoader,传递参数给AjsWebLoader处理
 - 添加AjsWebLoader背景色参数(i1)
 
 ##### 2019-10-19

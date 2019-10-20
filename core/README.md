@@ -8,6 +8,7 @@
 ##### 2019-10-20
 - 将strings-conf 改为 values-conf
 - 将权限从presenter移除放到启动页中(g2)
+- 添加崩溃日志可点击文字复制(g3)
 
 ##### 2019-10-19
 - 将注解的依赖改为implementation

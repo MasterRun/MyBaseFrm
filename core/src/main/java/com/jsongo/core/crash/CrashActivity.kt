@@ -1,8 +1,12 @@
 package com.jsongo.core.crash
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.crash.CrashHandler.Companion.CRASH_LOG
@@ -109,15 +113,22 @@ class CrashActivity : BaseActivity() {
                 finish()
             }
             .addAction(
-                0,
-                getString(R.string.crash_btn2),
-                QMUIDialogAction.ACTION_PROP_NEGATIVE
+                0, getString(R.string.crash_btn2), QMUIDialogAction.ACTION_PROP_NEGATIVE
             ) { dialog, index ->
                 dialog?.dismiss()
                 finish()
             }
         dialogBuilder.show()
-        dialogBuilder.textView?.textSize = 12f
+        val textView = dialogBuilder.textView
+        textView?.isEnabled = true
+        textView?.isClickable = true
+        textView.setOnClickListener {
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboard.primaryClip = ClipData.newPlainText("crashLog", crashLog)
+            Toast.makeText(this@CrashActivity, R.string.copy_to_clipboard, Toast.LENGTH_SHORT)
+                .show()
+        }
+        textView?.textSize = 12f
     }
 
     override fun onDestroy() {
