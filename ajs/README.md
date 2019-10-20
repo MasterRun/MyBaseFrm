@@ -1,6 +1,21 @@
 
 <b>ajs api文档在[这里](../doc/ajs.md)</b>
 
+
+#### 1.0.0.i-snapshot
+2019-10-20
+- 发布1.0.0.i
+
+##### 2019-10-20
+- AjsWebLoader添加修正状态栏高度问题此参数
+- AjsWebPage改为动态添加AjsWebLoader,传递参数给AjsWebLoder处理
+
+##### 2019-10-19
+- AjsWebPage 打开页面添加参数 ,同时更改还相关ajs api
+
+##### 2019-10-17
+- webview错误回调不处理其它请求
+
 ##### 2019-10-14
 - 添加vConsole开关
 - 完善WebLoaderCard.kt    AJsWebView.kt   AJsWebLoader.kt  的加载监听和错误监听

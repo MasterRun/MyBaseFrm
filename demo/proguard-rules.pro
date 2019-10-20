@@ -21,4 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 
--keep class com.jsongo.mybasefrm.bean .** { *; }
+-keep class com.jsongo.mybasefrm.bean.** { *; }

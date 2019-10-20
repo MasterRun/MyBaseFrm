@@ -27,6 +27,9 @@
 用于注入MVP 的Presenter 中的Model
 
 
+#### 1.0.0.b-SNAPSHOT
+2019-10-20
+- 注解初版发布 1.0.0.b
 
 ##### 2019-10-15
 - 将ConfigPage注解更名为Page

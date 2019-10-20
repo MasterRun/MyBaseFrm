@@ -91,7 +91,7 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // 保持Activity处于唤醒状态
@@ -288,7 +288,7 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         inactivityTimer.shutdown();
         viewfinderView.stopAnimator();
         super.onDestroy();

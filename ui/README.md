@@ -1,5 +1,17 @@
 
 
+
+#### 1.0.0.f-snapshot
+2019-10-20
+- 发布1.0.0.f
+
+##### 2019-10-19
+- 添加searchbar
+- 提取状态栏padding方法给View
+ 
+##### 2019-10-18 
+- 将com.github.yuzhiqiang1993:zxing:2.2.8源码引入项目,配合EasyPhotos
+
 ##### 2019-10-17
 - 将qqface移植ui_enhance
 

@@ -1,5 +1,17 @@
 
 
+#### 1.0.0.g-SNAPSHOT
+2019-10-20
+- 发布1.0.0.g
+
+##### 2019-10-20
+- 将strings-conf 改为 values-conf
+
+##### 2019-10-19
+- 将注解的依赖改为implementation
+- 简易封装recyclerview adapter 和点击长按事件
+- 拷贝MyQMUITopBarLayout  避免反射
+
 ##### 2019-10-17
 - 更新saf-log
 

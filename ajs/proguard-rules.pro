@@ -21,3 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.jsongo.ajs.** { public *; }
+-repackageclasses 'com.jsongo.ajs'

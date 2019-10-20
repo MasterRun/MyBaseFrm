@@ -40,7 +40,6 @@ buildscript {
 
 allprojects {
     repositories {
-        flatDir { dirs 'libs' }
         //gitee/github上文件绝对路径
 //        maven { url "https://gitee.com/runrunrun/maven_repository/raw/master" }
 //        maven { url "https://raw.githubusercontent.com/MasterRun/maven_repository/master" }
@@ -71,6 +70,7 @@ allprojects {
         maven { url "http://mvn.mob.com/android" }
 //        maven { url 'https://esri.bintray.com/arcgis' }
         mavenCentral()
+        flatDir { dirs 'libs' }
         google()
         jcenter()
     }
