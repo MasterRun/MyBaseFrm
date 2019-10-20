@@ -15,6 +15,7 @@
 	<string name="empty_view_error_detail">哎呀,数据出错了</string>
 	
 	<string name="nopermission_exit">程序即将退出!</string>
+	<string name="permission_missing">权限缺失可能导致程序异常!</string>
 	
 	<string name="topbar_title">标题</string>
 </resources>

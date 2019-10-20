@@ -2,6 +2,7 @@ package com.jsongo.app.view.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.content.ContextCompat
@@ -34,9 +35,17 @@ class MainActivity : BaseActivity() {
     var floatingView: FloatingView? = null
 
     val fragments = arrayOf(
-        AJsWebLoader.newInstance("http://www.jq22.com/demo/appsjqg201910152359/", false),
+        AJsWebLoader.newInstance(
+            "http://www.jq22.com/demo/appsjqg201910152359/",
+            false,
+            bgColor = Color.WHITE
+        ),
         MainSample1Fragment(),
-        AJsWebLoader.newInstance("http://www.jq22.com/demo/appjymoban201908222316/", false),
+        AJsWebLoader.newInstance(
+            "http://www.jq22.com/demo/appjymoban201908222316/",
+            false,
+            bgColor = Color.WHITE
+        ),
         MyPageFragment()
     )
 

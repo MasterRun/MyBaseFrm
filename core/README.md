@@ -3,9 +3,11 @@
 #### 1.0.0.g-SNAPSHOT
 2019-10-20
 - 发布1.0.0.g
+- 发布1.0.0.g2
 
 ##### 2019-10-20
 - 将strings-conf 改为 values-conf
+- 将权限从presenter移除放到启动页中(g2)
 
 ##### 2019-10-19
 - 将注解的依赖改为implementation

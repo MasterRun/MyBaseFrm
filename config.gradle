@@ -14,14 +14,14 @@ ext {
 
             'core'        : [
                     'verCode': 1,
-                    'verName': '1.0.0.g-SNAPSHOT',
-                    'aarVer' : '1.0.0.g-SNAPSHOT'
+                    'verName': '1.0.0.g2-SNAPSHOT',
+                    'aarVer' : '1.0.0.g2-SNAPSHOT'
             ],
 
             'ajs'         : [
                     'verCode': 1,
-                    'verName': '1.0.0.i-SNAPSHOT',
-                    'aarVer' : '1.0.0.i-SNAPSHOT'
+                    'verName': '1.0.0.i1-SNAPSHOT',
+                    'aarVer' : '1.0.0.i1-SNAPSHOT'
             ],
 
             'ui'          : [

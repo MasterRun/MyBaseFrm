@@ -35,7 +35,6 @@ abstract class BaseMvpActivity<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBa
         initPresenter()
 
         initView()
-        basePresenter?.validatePermission(this)
         basePresenter?.start()
     }
 

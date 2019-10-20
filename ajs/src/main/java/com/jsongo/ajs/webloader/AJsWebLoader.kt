@@ -2,6 +2,7 @@ package com.jsongo.ajs.webloader
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -37,13 +38,15 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
             url: String,
             showTopBar: Boolean = true,
             scrollable: Boolean = false,
-            fixHeight: Boolean = true
+            fixHeight: Boolean = true,
+            bgColor: Int = Color.TRANSPARENT
         ) =
             AJsWebLoader().apply {
                 webPath = url
                 this.showTopBar = showTopBar
                 this.scrollable = scrollable
                 this.fixHeight = fixHeight
+                this.bgColor = bgColor
             }
 
     }
@@ -59,7 +62,15 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
      */
     var scrollable = false
 
+    /**
+     * 修复高度
+     */
     var fixHeight = true
+
+    /**
+     * 背景色
+     */
+    var bgColor: Int = Color.TRANSPARENT
 
     /**
      * hostActivity 设置加载dialog之后不会使用emptyview
@@ -91,6 +102,7 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
             }
         }
 
+
         /*if (aJsWebView.progress < 100) {
             //显示加载中
         } else {
@@ -119,9 +131,11 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
             if (showTopBar) {
                 topbar.addStatusBarHeightPadding()
             } else {
-                bridgeWebView.addStatusBarHeightPadding()
+                flAjsWebRoot.addStatusBarHeightPadding()
             }
         }
+        //设置背景色
+        flAjsWebRoot.setBackgroundColor(bgColor)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

@@ -3,6 +3,7 @@ package com.jsongo.ajs.webloader
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ProgressBar
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
@@ -32,6 +33,7 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
 
     protected lateinit var pbWebview: ProgressBar
     protected lateinit var aJsWebView: AJsWebView
+    protected lateinit var flAjsWebRoot: FrameLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,6 +53,7 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
     protected abstract fun init()
 
     protected open fun initView(view: View) {
+        flAjsWebRoot = view.fl_ajsloader_root
         pbWebview = view.pb_webview
         aJsWebView = view.bridgeWebView
         aJsWebView.ajsWebViewHost = this

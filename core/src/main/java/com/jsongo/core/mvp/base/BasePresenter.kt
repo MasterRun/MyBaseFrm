@@ -1,23 +1,11 @@
 package com.jsongo.core.mvp.base
 
-import android.Manifest
-import android.support.v4.app.FragmentActivity
 import com.jsongo.annotation.register.PresenterConfigor
-import com.jsongo.core.BaseCore
-import com.jsongo.core.R
-import com.jsongo.core.util.ActivityCollector
-import com.tbruyelle.rxpermissions2.RxPermissions
-import com.vondear.rxtool.view.RxToast
-import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 import java.lang.ref.WeakReference
-import java.util.concurrent.TimeUnit
 
 /**
  * @author  jsongo
@@ -44,44 +32,6 @@ abstract class BasePresenter<out M : IBaseMvp.IBaseModel, out V : IBaseMvp.IBase
     init {
         weakView = WeakReference(view)
         PresenterConfigor.config(this)
-    }
-
-    fun addDisposable(disposable: Disposable) {
-        compositeDisposable.add(disposable)
-    }
-
-
-    fun validatePermission(fragmentActivity: FragmentActivity) {
-        val permissions = RxPermissions(fragmentActivity)
-        //noinspection ResultOfMethodCallIgnored
-        val disposable = permissions.request(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
-            Manifest.permission.READ_PHONE_STATE,
-            Manifest.permission.CAMERA,
-            Manifest.permission.RECORD_AUDIO
-        ).subscribe { granted ->
-            if (!granted) {
-                if (permissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE).not()) {
-                    RxToast.warning(BaseCore.context.getString(R.string.nopermission_exit))
-                    val disposable = Observable.timer(2, TimeUnit.SECONDS)
-                        .subscribeOn(Schedulers.computation())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            ActivityCollector.appExit()
-                        }
-                    addDisposable(disposable)
-                }
-            }
-        }
-        addDisposable(disposable)
-    }
-
-    companion object {
-
     }
 
     override fun onDestory() {
