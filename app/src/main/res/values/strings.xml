@@ -1,3 +1,11 @@
 <resources>
 	<string name="app_name">SAPP</string>
+	
+	<string-array name="main_seg_tabs">
+		<item>学习</item>
+		<item>发现</item>
+		<item>复习</item>
+		<item>我的</item>
+	</string-array>
+
 </resources>

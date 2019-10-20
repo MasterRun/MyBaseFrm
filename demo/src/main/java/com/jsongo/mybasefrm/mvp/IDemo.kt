@@ -8,7 +8,7 @@ import com.jsongo.core.mvp.base.IBaseMvp
  * createtime ： 2019/7/23 13:46
  * desc :
  */
-interface IMain {
+interface IDemo {
     interface IModel : IBaseMvp.IBaseModel {
         suspend fun getDailyGank(): JsonObject
         suspend fun getAuthtypes(): JsonObject

@@ -2,229 +2,136 @@ package com.jsongo.mybasefrm.view.activity
 
 import android.app.Activity
 import android.content.Intent
-import android.text.TextUtils
+import android.os.Bundle
+import android.support.v4.app.FragmentStatePagerAdapter
+import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
-import android.view.View
-import com.huantansheng.easyphotos.EasyPhotos
-import com.jsongo.ajs.helper.AjsCallback
-import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
-import com.jsongo.ajs.widget.AJsWebView
-import com.jsongo.annotation.anno.AjsApi
 import com.jsongo.annotation.anno.Page
-import com.jsongo.annotation.anno.Presenter
-import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.mvp.base.BaseMvpActivity
-import com.jsongo.core.mvp.base.BasePresenter
-import com.jsongo.core.util.*
+import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.aop.AopOnclick
-import com.jsongo.mybasefrm.mvp.IMain
-import com.jsongo.mybasefrm.presenter.MainPresenter
-import com.jsongo.mybasefrm.view.fragment.MainFragment
+import com.jsongo.mybasefrm.view.fragment.MainSample1Fragment
 import com.jsongo.mybasefrm.view.fragment.MyPageFragment
 import com.jsongo.ui.component.zxing.Constant
-import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
+import com.qmuiteam.qmui.util.QMUIDisplayHelper
+import com.qmuiteam.qmui.util.QMUIResHelper
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
 import com.vondear.rxtool.RxRegTool
-import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.properties.Delegates
 
-@Page(R.layout.activity_main, 2)
-class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
+@Page(R.layout.activity_main, 0)
+class MainActivity : BaseActivity() {
 
-    @Presenter(MainPresenter::class)
-    override lateinit var basePresenter: BasePresenter<IMain.IModel, IMain.IView>
-    @Presenter(MainPresenter::class)
-    lateinit var presenter: IMain.IPresenter<IMain.IModel, IMain.IView>
+    lateinit var pagerAdapter: FragmentStatePagerAdapter
 
-    var txt: String by Delegates.observable("init value") { prop, old, newValue ->
-        tv.text = newValue
-    }
+    var floatingView: FloatingView? = null
 
-    companion object zzz {
+    val fragments = arrayOf(
+        AJsWebLoader.newInstance("http://www.jq22.com/demo/appsjqg201910152359/", false),
+        MainSample1Fragment(),
+        AJsWebLoader.newInstance("http://www.jq22.com/demo/appjymoban201908222316/", false),
+        MyPageFragment()
+    )
 
-        //测试
-        @AjsApi(prefix = "custom3")
-        @JvmStatic
-        fun toast(
-            ajsWebViewHost: AjsWebViewHost,
-            aJsWebView: AJsWebView,
-            params: Map<String, String>,
-            callback: AjsCallback
-        ) {
-            val text = params["text"]
-            if (TextUtils.isEmpty(text)) {
-                callback.failure(HashMap(), 0, "")
-                return
-            }
-            RxToast.error(text!!)
-            callback.success(HashMap(), 1, "success")
-        }
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    private var floatingView: FloatingView? = null
-
-    override fun initView() {
-
+        //禁用侧滑返回
         setSwipeBackEnable(false)
+        //结束启动页
+        ActivityCollector.finish(SplashActivity::class.java)
 
+        //悬浮扫码按钮
         floatingView = FloatingView(this)
         floatingView?.show()
 
-        topbar.backImageButton.visibility = View.GONE
+        initTabBar()
 
-        smartRefreshLayout
-            .useHeader(this, SmartRefreshHeader.StoreHouseHeader)
-//            .useFooter(this, SmartRefreshFooter.BallPulseFooter)
-            .initWithStr("loading...")
-
-            .setOnRefreshListener {
-                RxToast.success("refresh")
-                it.finishRefresh(1000)
-            }
-            .setOnLoadMoreListener {
-                RxToast.success("loadmore")
-                it.finishLoadMore(1000)
-            }
-
-/*        topbar.setOnClickListener {
-            val intent = Intent(this@MainActivity, MainActivity::class.java)
-            startActivity(intent)
-        }*/
-
-        btn_jsloader.setOnClickListener {
-            val webPath = "file:///android_asset/web/index.html"
-            AJsWebPage.load(webPath)
-        }
-
-        btn_loadbaidu.setOnClickListener {
-            AJsWebPage.load("https://www.baidu.com")
-        }
-
-        var times = 0
-
-        btn_testdb.setOnClickListener {
-            if (times % 2 == 0) {
-                val value = CommonDbOpenHelper.getValue("times")
-                RxToast.normal("get $value")
-            } else {
-                CommonDbOpenHelper.setKeyValue("times", times.toString())
-                RxToast.normal("set value $times")
-            }
-            times++
-        }
-
-        btn_crash.setOnClickListener {
-            val a = 0
-            println(2 / a)
-        }
-
-        btn_goMyPage.setOnClickListener {
-            startActivity(Intent(this@MainActivity, MyPageActivity::class.java))
-        }
-
-        btn_choosePhoto.setOnClickListener {
-            EasyPhotos.createAlbum(
-                this@MainActivity, true,
-                EasyPhotoGlideEngine.getInstance()
-            )
-                .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
-                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
-                .start(101)
-        }
-
-        btn_goActivity2.setOnClickListener {
-            startActivity(Intent(this@MainActivity, Main2Activity::class.java))
-        }
-
-        btn_godemo1.setOnClickListener {
-            AJsWebPage.load("file:///android_asset/web/demo1/index.html", false)
-        }
-
-        val mainFragment = MainFragment()
-        val myPageFragment = MyPageFragment()
-        val aJsWebLoader = AJsWebLoader.newInstance("file:///android_asset/web/index.html", false)
-
-        supportFragmentManager.beginTransaction().apply {
-            add(
-                R.id.fl_fragment_container,
-                mainFragment,
-                "MainFragment"
-            )
-            add(
-                R.id.fl_fragment_container,
-                myPageFragment,
-                "MyPageFragment"
-            )
-            add(
-                R.id.fl_fragment_container,
-                aJsWebLoader,
-                "ajsWebloader"
-            )
-            commit()
-        }
-
-        fun showMainFragment() {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.hide(myPageFragment)
-            transaction.hide(aJsWebLoader)
-            transaction.show(mainFragment)
-            transaction.commit()
-        }
-
-        fun showMyPageFragment() {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.hide(mainFragment)
-            transaction.hide(aJsWebLoader)
-            transaction.show(myPageFragment)
-            transaction.commit()
-        }
-
-        fun showAjsWebLoader() = supportFragmentManager.beginTransaction().apply {
-            hide(mainFragment)
-            hide(myPageFragment)
-            show(aJsWebLoader)
-            commit()
-        }
-
-        btn_change.setOnClickListener(object : View.OnClickListener {
-            @AopOnclick(1500)
-            override fun onClick(v: View?) {
-                val i = times % 3
-                when (i) {
-                    0 -> showMyPageFragment()
-                    1 -> showMainFragment()
-                    else -> showAjsWebLoader()
-                }
-                times++
-            }
-        })
-
-/*        btn.visibility = View.GONE
-        btn_loadbaidu.visibility = View.GONE
-        btn_testdb.visibility = View.GONE
-        btn_crash.visibility = View.GONE
-        tv.visibility = View.GONE*/
-        showAjsWebLoader()
-
-        ActivityCollector.finish(SplashActivity::class.java)
+        QMUIStatusBarHelper.setStatusBarLightMode(this)
     }
 
-    override fun onGetDailyGank(txt: String?) {
-//        tv.text = txt
-        this.txt = txt ?: ""
-    }
+    private fun initTabBar() {
+        //字体的选中和未选中颜色
+        val normalColor = QMUIResHelper.getAttrColor(this, R.attr.qmui_config_color_gray_6)
+        val selectColor = ContextCompat.getColor(this, R.color.seg_tab_selected)
 
-    override fun onPageReloading() {
-        super.onPageReloading()
-        presenter.start()
+        tab_seg.setDefaultNormalColor(normalColor)
+        tab_seg.setDefaultSelectedColor(selectColor)
+        // tab_seg.setDefaultTabIconPosition(QMUITabSegment.ICON_POSITION_BOTTOM);
+
+        // 如果 icon 显示大小和实际大小不吻合:
+        // 1. 设置icon 的 bounds
+        // 2. Tab 使用拥有5个参数的构造器
+        // 3. 最后一个参数（setIntrinsicSize）设置为false
+        val tab1NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab1)
+        val tab1SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab1_selected)
+        val tab2NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab2)
+        val tab2SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab2_selected)
+        val tab3NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab3)
+        val tab3SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab3_selected)
+        val tab4NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab4)
+        val tab4SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab4_selected)
+
+        // 设置大小
+        val iconShowSize = QMUIDisplayHelper.dp2px(this, 20)
+        tab1NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+        tab1SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+        tab2NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+        tab2SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+        tab3NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+        tab3SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+        tab4NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+        tab4SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
+
+        val mainSegTabTexts = resources.getStringArray(R.array.main_seg_tabs)
+
+        val seg1 = QMUITabSegment.Tab(
+            tab1NormalDrawable,
+            tab1SelectedDrawable,
+            mainSegTabTexts[0], false, false
+        )
+
+        val seg2 = QMUITabSegment.Tab(
+            tab2NormalDrawable,
+            tab2SelectedDrawable,
+            mainSegTabTexts[1], false, false
+        )
+        val seg3 = QMUITabSegment.Tab(
+            tab3NormalDrawable,
+            tab3SelectedDrawable,
+            mainSegTabTexts[2], false, false
+        )
+
+        val seg4 = QMUITabSegment.Tab(
+            tab4NormalDrawable,
+            tab4SelectedDrawable,
+            mainSegTabTexts[3], false, false
+        )
+        tab_seg.addTab(seg1)
+            .addTab(seg2)
+            .addTab(seg3)
+            .addTab(seg4)
+
+        //viewpager的adapter
+        pagerAdapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
+            override fun getItem(position: Int) = fragments[position]
+
+            override fun getCount() = fragments.size
+
+        }
+        pager.adapter = pagerAdapter
+        pager.offscreenPageLimit = 3
+        tab_seg.setupWithViewPager(pager, false)
+
+        //默认选中的tab
+        tab_seg.selectTab(resources.getInteger(R.integer.main_selected_tab))
     }
 
     /**
@@ -256,22 +163,25 @@ class MainActivity : BaseMvpActivity<IMain.IModel, IMain.IView>(), IMain.IView {
                 if (RxRegTool.isURL(str)) {
                     AJsWebPage.load(str)
                 } else {
-                    QMUIDialog.MessageDialogBuilder(this@MainActivity)
-                        .setTitle("扫描结果")
-                        .setMessage(str)
-                        .addAction("OK") { dialog, index ->
-                            dialog?.dismiss()
-                        }.show()
+                    try {
+                        startActivity(Intent(this, Class.forName(str)))
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        QMUIDialog.MessageDialogBuilder(this@MainActivity)
+                            .setTitle("扫描结果")
+                            .setMessage(str)
+                            .addAction("OK") { dialog, index ->
+                                dialog?.dismiss()
+                            }.show()
+                    }
                 }
             }
-        } else if (requestCode == 101 && resultCode == Activity.RESULT_OK) {
-            val resultPaths = data?.getStringArrayListExtra(EasyPhotos.RESULT_PATHS)
-            L.json(resultPaths)
         }
     }
 
-    override fun onDestroy() {
+    override fun onIPageDestroy() {
         floatingView?.destory()
-        super.onDestroy()
+        super.onIPageDestroy()
     }
+
 }

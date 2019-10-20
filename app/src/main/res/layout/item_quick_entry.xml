@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/ll_quick_entry"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:gravity="center_horizontal"
+	android:orientation="vertical"
+	android:padding="12dp"
+	tools:background="@color/white">
+	
+	<android.support.v7.widget.AppCompatImageView
+		android:id="@+id/iv_quick_icon"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
+		tools:src="@drawable/anim_heart" />
+	
+	<android.support.v7.widget.AppCompatTextView
+		android:id="@+id/tv_quick_txt"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="6dp"
+		tools:text="爱心捐赠" />
+</android.support.v7.widget.LinearLayoutCompat>

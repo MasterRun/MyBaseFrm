@@ -1,100 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white"
 	android:fitsSystemWindows="true"
 	tools:context=".view.activity.MainActivity">
 	
-	<Button
-		android:id="@+id/btn_jsloader"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="go jswebloader!"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+	<com.qmuiteam.qmui.widget.QMUIViewPager
+		android:id="@+id/pager"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="@dimen/home_tab_height"
+		android:fitsSystemWindows="true" />
 	
-	
-	<Button
-		android:id="@+id/btn_loadbaidu"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="load baidu"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_jsloader" />
-	
-	<Button
-		android:id="@+id/btn_testdb"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="testdb"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_loadbaidu" />
-	
-	<Button
-		android:id="@+id/btn_crash"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="crash"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_testdb" />
-	
-	<Button
-		android:id="@+id/btn_change"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="切换fragment"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_crash" />
-	
-	<TextView
-		android:id="@+id/tv"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/btn_change" />
-	
-	<Button
-		android:id="@+id/btn_goMyPage"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="goMyPage"
-		app:layout_constraintStart_toEndOf="@id/btn_jsloader"
-		app:layout_constraintTop_toTopOf="parent" />
-	
-	<Button
-		android:id="@+id/btn_choosePhoto"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="choosePhoto"
-		app:layout_constraintStart_toEndOf="@id/btn_loadbaidu"
-		app:layout_constraintTop_toBottomOf="@id/btn_goMyPage" />
-	
-	<Button
-		android:id="@+id/btn_goActivity2"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="goActivity2"
-		app:layout_constraintStart_toEndOf="@id/btn_testdb"
-		app:layout_constraintTop_toBottomOf="@id/btn_choosePhoto" />
-	
-	<Button
-		android:id="@+id/btn_godemo1"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="demo1"
-		app:layout_constraintStart_toEndOf="@id/btn_crash"
-		app:layout_constraintTop_toBottomOf="@id/btn_goActivity2" />
-	
-	<FrameLayout
-		android:id="@+id/fl_fragment_container"
-		android:layout_width="0dp"
-		android:layout_height="0dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/tv" />
-
-</android.support.constraint.ConstraintLayout>
+	<com.qmuiteam.qmui.widget.QMUITabSegment
+		android:id="@+id/tab_seg"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/home_tab_height"
+		android:layout_gravity="bottom"
+		android:background="?attr/qmui_list_item_bg_with_border_top"
+		android:textSize="12sp"
+		app:qmui_tab_icon_position="top" />
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

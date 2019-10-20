@@ -9,6 +9,7 @@ import android.view.View
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
@@ -30,13 +31,19 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
         /**
          * @param url 加载的utl
          * @param showTopBar 是否显示topbar  默认是
-         * @param scrollable 是否可以滑动  默认否   当卡片模式时，设置true，weview可滑动
+         * @param scrollable 是否可以滑动  默认否  当卡片模式时，设置true，weview可滑动
          */
-        fun newInstance(url: String, showTopBar: Boolean = true, scrollable: Boolean = false) =
+        fun newInstance(
+            url: String,
+            showTopBar: Boolean = true,
+            scrollable: Boolean = false,
+            fixHeight: Boolean = true
+        ) =
             AJsWebLoader().apply {
                 webPath = url
                 this.showTopBar = showTopBar
                 this.scrollable = scrollable
+                this.fixHeight = fixHeight
             }
 
     }
@@ -51,6 +58,8 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
      * 是否可以滑动  默认否   当卡片模式时，设置true，weview可滑动
      */
     var scrollable = false
+
+    var fixHeight = true
 
     /**
      * hostActivity 设置加载dialog之后不会使用emptyview
@@ -105,6 +114,14 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
                 }
             }
 
+        //修正高度
+        if (fixHeight) {
+            if (showTopBar) {
+                topbar.addStatusBarHeightPadding()
+            } else {
+                bridgeWebView.addStatusBarHeightPadding()
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

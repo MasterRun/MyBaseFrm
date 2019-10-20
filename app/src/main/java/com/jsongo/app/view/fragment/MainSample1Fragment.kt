@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.view.fragment
+package com.jsongo.app.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,8 +9,8 @@ import android.support.v7.widget.LinearLayoutManager
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
+import com.jsongo.app.R
 import com.jsongo.core.mvp.base.BaseFragment
-import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.adapter.QuickEntryItemAdapter
 import com.jsongo.mybasefrm.adapter.WebCardVTitleItemAdapter
 import com.jsongo.mybasefrm.bean.QuickEntryItemBean

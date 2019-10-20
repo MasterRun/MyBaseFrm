@@ -21,9 +21,9 @@ class MyLogAop {
      * 你自己项目中AopOnclick这个类的全路径
      */
     //@Pointcut("execution(* com.jsongo.mybasefrm.view..*.onC*(..))")  //  --  ok
-    //@Pointcut("execution(* com.jsongo.mybasefrm.presenter.MainPresenter.*(..))")
-    //@Pointcut("execution(* com.jsongo.mybasefrm.view.activity.MainActivity.onGetDailyGank(..))")//  --ok
-    //@Pointcut("execution(* com.jsongo.mybasefrm.presenter.MainPresenter.getAuthtypes(..))")
+    //@Pointcut("execution(* com.jsongo.mybasefrm.presenter.DemoPresenter.*(..))")
+    //@Pointcut("execution(* com.jsongo.mybasefrm.view.activity.DemoActivity.onGetDailyGank(..))")//  --ok
+    //@Pointcut("execution(* com.jsongo.mybasefrm.presenter.DemoPresenter.getAuthtypes(..))")
     //@Pointcut("execution(* com.jsongo.mybasefrm.presenter..*(..))")
     //@Pointcut("execution(android.view.View.OnClickListener.onClick(..))")
 //    @Pointcut("execution(* com.jsongo.core.mvp.base.BaseActivity.onCreate(..))")  // -- ok

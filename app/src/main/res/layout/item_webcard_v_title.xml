@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/ll_card_root"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/light_gray"
+	android:orientation="vertical">
+	
+	<RelativeLayout
+		android:id="@+id/rl_card_title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+		
+		<android.support.v7.widget.AppCompatTextView
+			android:id="@+id/tv_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="8dp"
+			android:textSize="20sp"
+			tools:text="标题" />
+		
+		<android.support.v7.widget.AppCompatTextView
+			android:id="@+id/tv_subtitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_title"
+			android:layout_alignStart="@id/tv_title"
+			android:layout_marginBottom="8dp"
+			android:textColor="@color/gray"
+			android:visibility="gone"
+			tools:text="副标题"
+			tools:visibility="visible" />
+		
+		<android.support.v7.widget.AppCompatTextView
+			android:id="@+id/tv_end_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignTop="@id/tv_title"
+			android:layout_alignBottom="@id/tv_title"
+			android:layout_alignParentEnd="true"
+			android:layout_marginEnd="10dp"
+			android:gravity="center"
+			tools:text="右边标题" />
+		
+		<android.support.v7.widget.AppCompatTextView
+			android:id="@+id/tv_end_subtitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/tv_end_title"
+			android:layout_alignEnd="@id/tv_end_title"
+			android:textColor="@color/gray"
+			tools:text="右边副标题" />
+	</RelativeLayout>
+	
+	<com.jsongo.ajs.widget.WebLoaderCard
+		android:id="@+id/web_card"
+		android:layout_width="match_parent"
+		android:layout_height="250dp"
+		app:cardCornerRadius="5dp"
+		app:cardElevation="5dp"
+		app:cardUseCompatPadding="true"
+		app:contentPadding="4dp"
+		app:scrollable="false"
+		app:showEmptyViewLoading="true"
+		app:url="https://www.baidu.com" />
+</android.support.v7.widget.LinearLayoutCompat>

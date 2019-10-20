@@ -13,7 +13,7 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		tools:replace="android:allowBackup">
-		<activity android:name=".view.activity.Main2Activity"></activity>
+		<activity android:name=".view.activity.MainActivity" />
 		<activity android:name="com.jsongo.core.view.activity.SplashActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
@@ -22,7 +22,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name=".view.activity.PersonalInfoActivity" />
-		<activity android:name=".view.activity.MainActivity" />
+		<activity android:name=".view.activity.DemoActivity" />
 		<activity android:name=".view.activity.MyPageActivity" />
 	</application>
 

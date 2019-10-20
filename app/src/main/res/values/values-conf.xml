@@ -4,4 +4,7 @@
 	<!--<string name="SERVER_ADDRESS_RELEASE">http://gank.io/api/</string>-->
 	<!--<string name="SERVER_ADDRESS_DEBUG">http://gank.io/api/</string>-->
 	<string name="MainActivity">com.jsongo.app.view.activity.MainActivity</string>
+	
+	<!--	首页默认选中的tab-->
+	<integer name="main_selected_tab">1</integer>
 </resources>

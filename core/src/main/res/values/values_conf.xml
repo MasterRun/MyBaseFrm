@@ -7,5 +7,5 @@
 	<!--	common存储键值对的加密密码-->
 	<string name="common_db_pwd">jsongo.base.core.db.common</string>
 	<!--	超时时间配置  单位s-->
-	<string name="network_time_out">10</string>
+	<integer name="network_time_out">10</integer>
 </resources>

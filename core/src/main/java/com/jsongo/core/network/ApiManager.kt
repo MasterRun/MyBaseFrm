@@ -23,7 +23,7 @@ import kotlin.collections.HashMap
  * @date 2019/3/26 15:54
  */
 object ApiManager {
-    private val TIMEOUT = BaseCore.context.getString(R.string.network_time_out).toLong()
+    private val TIMEOUT = BaseCore.context.resources.getInteger(R.integer.network_time_out).toLong()
     private var gson: Gson? = null
     private var mOkHttpClient: OkHttpClient? = null
     private var mRetrofit: Retrofit? = null

@@ -4,24 +4,21 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.view.WindowManager
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.ConstValue
 import com.jsongo.core.mvp.base.BaseActivity
-import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.vondear.rxtool.RxKeyboardTool
-import kotlinx.android.synthetic.main.activity_ajs_web_page.*
 
-class AJsWebPage : BaseActivity() {
+open class AJsWebPage : BaseActivity() {
 
     override var mainLayoutId: Int = R.layout.activity_ajs_web_page
 
     override var containerIndex: Int = 0
 
-    var jsWebLoader: BaseWebLoader? = null
+    lateinit var jsWebLoader: BaseWebLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +34,10 @@ class AJsWebPage : BaseActivity() {
         loadingDialog.setCancelable(true)
         loadingDialog.show()
 
+        initWebLoader()
+    }
+
+    open fun initWebLoader() {
         //设置加载的url
         var webPath = ""
 
@@ -60,38 +61,24 @@ class AJsWebPage : BaseActivity() {
             defaultColor = Color.WHITE
         }
 
-        val fragWebLoader = frag_webloader
-        if (fragWebLoader is BaseWebLoader) {
-            jsWebLoader = fragWebLoader
-            fragWebLoader.webPath = webPath
-            //设置topbar
-            if (showTopBar) {
-                if (fixHeight) {
-                    fragWebLoader.topbar.addStatusBarHeightPadding()
-                }
-            } else {
-                fragWebLoader.topbar.visibility = View.GONE
-                if (fixHeight) {
-                    QMUIStatusBarHelper.setStatusBarLightMode(this)
-                    val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(this)
-                    //加padding,修复高度问题
-                    fragWebLoader.rlLayoutRoot.apply {
-                        setBackgroundColor(defaultColor)
-                        addStatusBarHeightPadding()
-                    }
-                }
-            }
-            //设置loading
-            if (fragWebLoader is AJsWebLoader) {
-                fragWebLoader.loadingDialog = loadingDialog
+        jsWebLoader = AJsWebLoader.newInstance(webPath, showTopBar, fixHeight = fixHeight)
+        (jsWebLoader as AJsWebLoader).loadingDialog = loadingDialog
+
+        if (fixHeight && !showTopBar) {
+            QMUIStatusBarHelper.setStatusBarLightMode(this)
+            jsWebLoader.rlLayoutRoot.apply {
+                setBackgroundColor(defaultColor)
             }
         }
 
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.fl_webloader_container, jsWebLoader)
+        transaction.commit()
     }
 
     override fun onBackPressed() {
-        val onBackPressed = jsWebLoader?.onBackPressed()
-        if (onBackPressed != true) {
+        val onBackPressed = jsWebLoader.onBackPressed()
+        if (!onBackPressed) {
             super.onBackPressed()
         }
     }

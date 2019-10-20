@@ -11,15 +11,15 @@ import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.mvp.IMainModule
 import com.jsongo.mybasefrm.presenter.MainModulePresenter
 import com.vondear.rxtool.view.RxToast
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_demo.*
 
 /**
  * author ： jsongo
  * createtime ： 2019/7/28 9:39
  * desc :
  */
-@Page(R.layout.activity_main, 1)
-class MainFragment : BaseMvpFragment<IMainModule.IModel, IMainModule.IView>(), IMainModule.IView {
+@Page(R.layout.activity_demo, 1)
+class DemoFragment : BaseMvpFragment<IMainModule.IModel, IMainModule.IView>(), IMainModule.IView {
 
     @Presenter(MainModulePresenter::class)
     override lateinit var basePresenter: BasePresenter<IMainModule.IModel, IMainModule.IView>

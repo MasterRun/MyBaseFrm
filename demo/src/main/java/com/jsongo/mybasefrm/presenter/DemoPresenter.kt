@@ -1,9 +1,9 @@
-package com.jsongo.app.presenter
+package com.jsongo.mybasefrm.presenter
 
 import com.jsongo.annotation.anno.Model
-import com.jsongo.app.model.MainModel
-import com.jsongo.app.mvp.IMain
 import com.jsongo.core.mvp.base.BasePresenter
+import com.jsongo.mybasefrm.model.DemoModel
+import com.jsongo.mybasefrm.mvp.IDemo
 import kotlinx.coroutines.launch
 
 /**
@@ -11,11 +11,11 @@ import kotlinx.coroutines.launch
  * createtime ： 2019/7/23 13:52
  * desc :
  */
-class MainPresenter(view: IMain.IView) : BasePresenter<IMain.IModel, IMain.IView>(view),
-    IMain.IPresenter<IMain.IModel, IMain.IView> {
+class DemoPresenter(view: IDemo.IView) : BasePresenter<IDemo.IModel, IDemo.IView>(view),
+    IDemo.IPresenter<IDemo.IModel, IDemo.IView> {
 
-    @Model(MainModel::class)
-    override lateinit var model: IMain.IModel
+    @Model(DemoModel::class)
+    override lateinit var model: IDemo.IModel
 
     override fun start() {
         getAuthtypes()
