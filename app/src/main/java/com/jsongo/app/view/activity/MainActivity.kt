@@ -15,6 +15,7 @@ import com.jsongo.app.view.fragment.MainSample1Fragment
 import com.jsongo.app.view.fragment.MyPageFragment
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.util.URL_REG
 import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.widget.FloatingView
@@ -169,7 +170,7 @@ class MainActivity : BaseActivity() {
         if (requestCode == FloatingView.SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
-                if (RxRegTool.isURL(str)) {
+                if (RxRegTool.isMatch(URL_REG, str)) {
                     AJsWebPage.load(str)
                 } else {
                     try {
@@ -179,6 +180,10 @@ class MainActivity : BaseActivity() {
                         QMUIDialog.MessageDialogBuilder(this@MainActivity)
                             .setTitle("扫描结果")
                             .setMessage(str)
+                            .addAction("打开") { dialog, index ->
+                                dialog?.dismiss()
+                                AJsWebPage.load(str)
+                            }
                             .addAction("OK") { dialog, index ->
                                 dialog?.dismiss()
                             }.show()

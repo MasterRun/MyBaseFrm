@@ -12,3 +12,5 @@ import com.google.gson.reflect.TypeToken
 val gson: Gson = Gson()
 val strHashMapType = object : TypeToken<HashMap<String, String>>() {
 }.type
+
+const val URL_REG = "[a-zA-z]+://[^\\s]*"

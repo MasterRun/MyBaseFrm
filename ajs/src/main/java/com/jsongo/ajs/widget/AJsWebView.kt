@@ -26,6 +26,26 @@ import com.tencent.smtt.sdk.WebView
 open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int) :
     BridgeWebView(context, attrs, defStyleAttr) {
 
+    companion object {
+
+        /**
+         * 加载纯文字的html模板
+         */
+        val infoHtml = """
+            <html>
+                <head>
+                    <meta charset="UTF-8"/>
+                    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.5,maximum-scale=2.0, user-scalable=yes">
+                    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+                </head>
+                <body>
+                <h4>%s<h4>
+                </body>
+            </html>
+        """.trimIndent()
+
+    }
+
     /**
      * 加载的url
      */
@@ -126,9 +146,26 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         }
     }
 
+    /**
+     * 加载文本
+     */
+    open fun loadNormalInfo(info: String) = loadDataWithBaseURL(
+        null,
+        String.format(infoHtml, info),
+        "text/html",
+        "utf-8",
+        null
+    )
 
+    /**
+     * 加载页面
+     */
     open fun load() {
-        loadUrl(webPath)
+        if (webPath.trim().startsWith("http")) {
+            loadUrl(webPath)
+        } else {
+            loadNormalInfo(webPath)
+        }
         L.d("url ", webPath)
     }
 
