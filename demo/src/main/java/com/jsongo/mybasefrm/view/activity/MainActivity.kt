@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
+import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
@@ -171,7 +172,7 @@ class MainActivity : BaseActivity() {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
                 if (RxRegTool.isMatch(URL_REG, str)) {
-                    AJsWebPage.load(str)
+                    AJsApplet.load(str)
                 } else {
                     try {
                         startActivity(Intent(this, Class.forName(str)))

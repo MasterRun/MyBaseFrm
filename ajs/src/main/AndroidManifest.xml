@@ -8,6 +8,11 @@
 	
 	<application>
 		<activity android:name=".webloader.AJsWebPage" />
+
+        <activity
+            android:name=".webloader.AJsApplet"
+            android:launchMode="singleInstance"
+            android:taskAffinity="com.jsongo.ajs.applet" />
 	</application>
 
 </manifest>

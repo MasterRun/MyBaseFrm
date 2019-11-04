@@ -84,6 +84,7 @@ open class AJsWebPage : BaseActivity() {
     }
 
     companion object {
+        @JvmStatic
         fun load(
             url: String,
             showTopBar: Boolean = true,

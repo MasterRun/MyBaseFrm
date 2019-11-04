@@ -19,7 +19,9 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".view.activity.MainActivity" />
+        <activity
+            android:name=".view.activity.MainActivity"
+            android:launchMode="singleTop" />
 		<activity android:name=".view.activity.PersonalInfoActivity" />
 		<activity android:name=".view.activity.MyPageActivity" />
 	</application>
