@@ -20,13 +20,15 @@ demo\app module中用于个人测试
 ### todo list
 
 - 添加app首页主体模型
+    > 底部导航类型   --  ok
+    > 顶部导航类型  
     > 侧滑抽屉类型  
-    > 底部导航类型   --  doing
-    > 顶部导航类型
-      
+
 - 登录页
 - 首页卡片添加图标和点击事件的设置
 - QMUIGroupListView 实现设置页面  -- doing
+- 改造MVVM
+- 迁移AndroidX
 - 考虑使用ARouter解耦       
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆

@@ -19,7 +19,7 @@ import com.jsongo.core.mvp.base.IPage
 interface AjsWebViewHost {
     companion object {
         /**
-         * 长回调所有的集合
+         * 长回调所有的集合，map的key为类名，SparseArray的key为requestCode
          */
         val longCallBackMap = HashMap<String, SparseArray<LongCallback<Intent>>>()
     }
@@ -29,7 +29,7 @@ interface AjsWebViewHost {
      */
     val longCallbacks: SparseArray<LongCallback<Intent>>
         get() {
-            //获取到对应的长回调
+            //获取到对应的长回调,目前key为类名（Activity/Fragment）
             val name = this::class.java.name
             var sparseArray = longCallBackMap[name]
             if (sparseArray == null) {
