@@ -1,0 +1,8 @@
+body,
+ul,
+li,
+ol,
+p{
+    padding: 0;
+    margin: 0;
+}

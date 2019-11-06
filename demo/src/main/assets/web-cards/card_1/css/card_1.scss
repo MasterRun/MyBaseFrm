@@ -1,0 +1,55 @@
+$width: 80%;
+$height: 35vh;
+
+ul,
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.mui-content{
+    padding: 0 10%;
+    width: 100vw;
+    height: 100vh;
+    background: url(../img/bg_sunset.jpg) 0 0 no-repeat;
+    background-size: 100vw 110vh;
+}
+
+.title{
+    width: 100%;
+    height: $height;
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 20px;
+    text-align: center;
+    line-height: $height;
+}
+.content{
+    position: absolute;
+    left: 10%;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    width: $width;
+    height: $height;
+    list-style: none;
+
+    li{
+        width: 20%;
+        height: 100%;
+        background-size: 100% 100%;
+        transition: all 1s;
+    }
+}
+
+@for $i from 1 to 5 {
+    .item-#{$i}{
+        background: url(../img/li_#{$i}.jpeg) 0 0 no-repeat;
+    }    
+}
+
+li.active{
+    transform: scale(25%, 110%);
+}
+

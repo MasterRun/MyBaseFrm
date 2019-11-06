@@ -1,0 +1,25 @@
+
+
+
+.wrap{
+    width: 100vw;
+    height: 100vh;
+    background: url(../img/page-a-bg.png) 0 0 no-repeat;
+    background-size: 100% 100%;
+}
+
+.spirit{
+    width: 742px * .4;
+    height: 269px * .4;
+    background: url(../img/boy-sleigh-car.png) 0 0 no-repeat;
+    background-size: 400% 100%; 
+    -webkit-animation: spirit 400ms step-start infinite normal;
+}
+
+@-webkit-keyframes spirit{
+    0% {background-position-x: 0;}
+    25% {background-position-x: 34%;}
+    50% {background-position-x: 66%;}
+    75% {background-position-x: 100%;}
+    100% {background-position-x: 0;}
+}

@@ -7,6 +7,7 @@ import android.view.View
 import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
@@ -234,15 +235,24 @@ class DemoActivity : BaseMvpActivity<IDemo.IModel, IDemo.IView>(), IDemo.IView {
         if (requestCode == FloatingView.SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
-                if (RxRegTool.isURL(str)) {
-                    AJsWebPage.load(str)
+                if (RxRegTool.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
+                    AJsApplet.load(str)
                 } else {
-                    QMUIDialog.MessageDialogBuilder(this@DemoActivity)
-                        .setTitle("扫描结果")
-                        .setMessage(str)
-                        .addAction("OK") { dialog, index ->
-                            dialog?.dismiss()
-                        }.show()
+                    try {
+                        startActivity(Intent(this, Class.forName(str)))
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                        QMUIDialog.MessageDialogBuilder(this@DemoActivity)
+                            .setTitle("扫描结果")
+                            .setMessage(str)
+                            .addAction("打开") { dialog, index ->
+                                dialog?.dismiss()
+                                AJsWebPage.load(str)
+                            }
+                            .addAction("OK") { dialog, index ->
+                                dialog?.dismiss()
+                            }.show()
+                    }
                 }
             }
         } else if (requestCode == 101 && resultCode == Activity.RESULT_OK) {

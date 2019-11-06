@@ -13,6 +13,7 @@ import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.mvp.base.BaseActivity
 import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.util.PRE_ANDROID_ASSET
 import com.jsongo.core.util.URL_REG
 import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.mybasefrm.R
@@ -125,6 +126,7 @@ class MainActivity : BaseActivity() {
             tab4SelectedDrawable,
             mainSegTabTexts[3], false, false
         )
+        //添加tab
         tab_seg.addTab(seg1)
             .addTab(seg2)
             .addTab(seg3)
@@ -171,7 +173,7 @@ class MainActivity : BaseActivity() {
         if (requestCode == FloatingView.SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
-                if (RxRegTool.isMatch(URL_REG, str)) {
+                if (RxRegTool.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
                     AJsApplet.load(str)
                 } else {
                     try {

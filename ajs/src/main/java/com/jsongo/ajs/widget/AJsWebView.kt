@@ -10,6 +10,8 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.InteractionRegisterCollector
 import com.jsongo.ajs.jsbridge_x5.BridgeWebView
 import com.jsongo.ajs.jsbridge_x5.BridgeWebViewClient
+import com.jsongo.core.util.PRE_ANDROID_ASSET
+import com.jsongo.core.util.SRT_HTTP
 import com.safframework.log.L
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
@@ -161,7 +163,7 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
      * 加载页面
      */
     open fun load() {
-        if (webPath.trim().startsWith("http")) {
+        if (webPath.trim().startsWith(SRT_HTTP) || webPath.trim().startsWith(PRE_ANDROID_ASSET)) {
             loadUrl(webPath)
         } else {
             loadNormalInfo(webPath)
