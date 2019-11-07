@@ -42,7 +42,4 @@ dependencies {
         api project(path: ':core')
         api project(path: ':ui')
     }
-
-    //jsbridge
-//    api "com.github.lzyzsd:jsbridge:${proVer.jsbridge}"
 }
