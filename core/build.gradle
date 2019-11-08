@@ -40,14 +40,24 @@ dependencies {
 
     //android support
     api "com.android.support:multidex:${proVer.multidex}"
-    api "com.android.support:support-v4:${proVer.androidSupport}"
-    api "com.android.support:design:${proVer.androidSupport}"
-    api "com.android.support:cardview-v7:${proVer.androidSupport}"
-    api "com.android.support:appcompat-v7:${proVer.androidSupport}"
-    api "com.android.support:recyclerview-v7:${proVer.androidSupport}"
-    api "com.android.support:support-annotations:${proVer.androidSupport}"
-    api "com.android.support:support-core-utils:${proVer.androidSupport}"
+    api "com.android.support:support-v4:${proVer.support}"
+    api "com.android.support:design:${proVer.support}"
+    api "com.android.support:cardview-v7:${proVer.support}"
+    api "com.android.support:appcompat-v7:${proVer.support}"
+    api "com.android.support:recyclerview-v7:${proVer.support}"
+    api "com.android.support:support-annotations:${proVer.support}"
+    api "com.android.support:support-core-utils:${proVer.support}"
     api 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
+
+    //android arch
+    api "android.arch.core:common:${proVer.arch}"
+    api "android.arch.core:runtime:${proVer.arch}"
+    api "android.arch.lifecycle:common:${proVer.arch}"
+    api "android.arch.lifecycle:extensions:${proVer.arch}"
+    api "android.arch.lifecycle:livedata-core:${proVer.arch}"
+    api "android.arch.lifecycle:livedata:${proVer.arch}"
+    api "android.arch.lifecycle:runtime:${proVer.arch}"
+    api "android.arch.lifecycle:viewmodel:${proVer.arch}"
 
     //test
     testImplementation 'junit:junit:4.12'
