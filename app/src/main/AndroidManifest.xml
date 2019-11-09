@@ -13,7 +13,7 @@
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning"
 		tools:replace="android:allowBackup">
-		<activity android:name="com.jsongo.core.view.activity.SplashActivity">
+        <activity android:name="com.jsongo.core.ui.splash.SplashActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />

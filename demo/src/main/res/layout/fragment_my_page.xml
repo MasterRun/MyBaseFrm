@@ -4,7 +4,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	tools:context=".view.fragment.MyPageFragment">
+    tools:context=".ui.mypage.mypage.MyPageFragment">
 	
 	<android.support.v7.widget.AppCompatImageView
 		android:id="@+id/img_head_bg"

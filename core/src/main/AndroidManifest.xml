@@ -34,7 +34,7 @@
 		android:networkSecurityConfig="@xml/network_security_config"
 		android:theme="@style/AppTheme">
 		<activity
-			android:name=".view.activity.SplashActivity"
+            android:name=".ui.splash.SplashActivity"
 			android:theme="@style/SplashTheme">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

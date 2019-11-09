@@ -19,4 +19,6 @@
 	<string name="permission_missing">权限缺失可能导致程序异常!</string>
 	
 	<string name="topbar_title">标题</string>
+
+    <string name="please_config_mainpage">请配置首页</string>
 </resources>

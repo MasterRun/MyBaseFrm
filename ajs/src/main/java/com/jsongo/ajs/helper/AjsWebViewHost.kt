@@ -5,9 +5,9 @@ import android.content.Intent
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.util.SparseArray
-import com.jsongo.core.mvp.base.BaseActivity
-import com.jsongo.core.mvp.base.BaseFragment
-import com.jsongo.core.mvp.base.IPage
+import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.base.BaseFragment
+import com.jsongo.core.base.IPage
 
 /**
  * @author ： jsongo

@@ -6,7 +6,7 @@
 	android:layout_height="match_parent"
 	android:background="@color/white"
 	android:fitsSystemWindows="true"
-	tools:context=".view.activity.DemoActivity">
+    tools:context=".ui.demo.DemoActivity">
 	
 	<Button
 		android:id="@+id/btn_jsloader"

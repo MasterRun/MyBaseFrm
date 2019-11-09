@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="SERVER_ADDRESS_RELEASE">https://server-url-release/</string>
+	<string name="SERVER_ADDRESS_DEBUG">https://server-url-debug/</string>
+
+    <string name="MainActivity">com.jsongo.core.ui.splash.SplashActivity</string>
+	
+	<!--	common存储键值对的加密密码-->
+	<string name="common_db_pwd">jsongo.base.core.db.common</string>
+	<!--	超时时间配置  单位s-->
+	<integer name="network_time_out">10</integer>
+</resources>

@@ -9,7 +9,7 @@ import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
-import com.jsongo.core.mvp.base.BaseFragment
+import com.jsongo.core.base.BaseFragment
 import com.safframework.log.L
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
