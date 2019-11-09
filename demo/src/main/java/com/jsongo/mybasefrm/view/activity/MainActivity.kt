@@ -1,6 +1,8 @@
 package com.jsongo.mybasefrm.view.activity
 
 import android.app.Activity
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -33,10 +35,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 @Page(R.layout.activity_main, 0)
 class MainActivity : BaseActivity() {
 
-    lateinit var pagerAdapter: FragmentStatePagerAdapter
-
+    /**
+     * 悬浮按钮
+     */
     var floatingView: FloatingView? = null
 
+    /**
+     * 首页的fragment
+     */
     val fragments = arrayOf(
         AJsWebLoader.newInstance(
             "http://www.jq22.com/demo/appsjqg201910152359/",
@@ -52,8 +58,25 @@ class MainActivity : BaseActivity() {
         MyPageFragment()
     )
 
+    /**
+     * Fragment ViewPager的page adapter
+     */
+    lateinit var pagerAdapter: FragmentStatePagerAdapter
+
+    /**
+     * 底部bar的数组
+     */
+    lateinit var bottomTabs: Array<QMUITabSegment.Tab>
+
+    /**
+     * mainViewModel
+     */
+    lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initViewModel()
 
         //禁用侧滑返回
         setSwipeBackEnable(false)
@@ -67,6 +90,27 @@ class MainActivity : BaseActivity() {
         initTabBar()
 
         QMUIStatusBarHelper.setStatusBarLightMode(this)
+
+        observeLiveData()
+    }
+
+    /**
+     * 初始化ViewModel
+     */
+    fun initViewModel() {
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+    }
+
+    /**
+     * 观察LiveData
+     */
+    fun observeLiveData() {
+        //监听角标数据
+        mainViewModel.mainTabTips.observe(this, Observer { tipArray ->
+            tipArray?.forEachIndexed { tabIndex, tipCount ->
+                setTabTipCount(tabIndex, tipCount)
+            }
+        })
     }
 
     private fun initTabBar() {
@@ -126,6 +170,8 @@ class MainActivity : BaseActivity() {
             tab4SelectedDrawable,
             mainSegTabTexts[3], false, false
         )
+
+        bottomTabs = arrayOf(seg1, seg2, seg3, seg4)
         //添加tab
         tab_seg.addTab(seg1)
             .addTab(seg2)
@@ -145,6 +191,25 @@ class MainActivity : BaseActivity() {
 
         //默认选中的tab
         tab_seg.selectTab(resources.getInteger(R.integer.main_selected_tab))
+    }
+
+    /**
+     * 设置未读消息数量
+     *
+     * @param count
+     */
+    open fun setTabTipCount(tabIndex: Int, count: Int) {
+        //获取到tab
+        val tabSeg = bottomTabs[tabIndex]
+        if (count > 0) {
+            tabSeg.setSignCountMargin(0, -QMUIDisplayHelper.dp2px(this, 4))//设置红点显示位置
+            tabSeg.setmSignCountDigits(2)//设置红点中数字显示的最大位数
+            tabSeg.showSignCountView(this, count)//第二个参数表示：显示的消息数
+        } else {
+            tabSeg.hideSignCountView()
+        }
+        tab_seg.replaceTab(tabIndex, tabSeg)
+        tab_seg.notifyDataChanged()
     }
 
     /**
