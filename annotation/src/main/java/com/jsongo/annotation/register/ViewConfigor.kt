@@ -6,7 +6,7 @@ import com.jsongo.annotation.util.Util
 /**
  * @author ： jsongo
  * @date ： 19-9-19 下午11:25
- * @desc :用于配置mvp的View  ，配置布局id，容器id，以及presenter的注入
+ * @desc : 入口类 调用config方法使用生成的 configor 配置View  ，配置布局id，容器id
  */
 object ViewConfigor {
     fun config(any: Any) {

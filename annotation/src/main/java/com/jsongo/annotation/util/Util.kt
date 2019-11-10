@@ -20,26 +20,4 @@ object Util {
         return Pair(pkgName.toString(), simpleName.toString())
     }
 
-
-}
-
-/**
- * 获取注解的参数
- */
-fun Annotation.getParamsMap(): Map<String, String> {
-
-    // @com.jsongo.annotation.anno.Presenter(MainPresenter::class,"value a")
-    // @com.jsongo.annotation.anno.Presenter(clazz=com.jsongo.mybasefrm.presenter.MainPresenter, s=value a)
-    val annoStr = this.toString()
-    val indexStart = annoStr.indexOf("(") + 1
-    val indexEnd = annoStr.lastIndexOf(")")
-    //clazz=com.jsongo.mybasefrm.presenter.MainPresenter, s=value a
-    val paramsMapStr = annoStr.substring(indexStart, indexEnd)
-    val split = paramsMapStr.split(", ")
-    val paramMap = HashMap<String, String>()
-    for (s in split) {
-        val indexOfEq = s.indexOf('=')
-        paramMap[s.substring(0, indexOfEq)] = s.substring(indexOfEq + 1, s.length)
-    }
-    return paramMap
 }

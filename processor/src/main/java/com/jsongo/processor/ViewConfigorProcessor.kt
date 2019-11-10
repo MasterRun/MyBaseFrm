@@ -1,11 +1,9 @@
 package com.jsongo.processor
 
 import com.jsongo.annotation.anno.Page
-import com.jsongo.annotation.anno.Presenter
 import com.jsongo.annotation.configor.Configor
 import com.jsongo.annotation.register.ViewConfigor
 import com.jsongo.annotation.util.Util.getPkgClazzName
-import com.jsongo.annotation.util.getParamsMap
 import com.jsongo.processor.bean.FourPair
 import com.squareup.javapoet.*
 import javafx.beans.property.SimpleBooleanProperty
@@ -19,7 +17,7 @@ import javax.tools.Diagnostic
 /**
  * @author jsongo
  * @date 19-9-9 上午11:01
- * @desc 用于 @Page  和 @Presenter注解
+ * @desc 用于 @Page 注解
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 class ViewConfigorProcessor : AbstractProcessor() {
@@ -54,11 +52,6 @@ class ViewConfigorProcessor : AbstractProcessor() {
             dealPageAnno(it)
         }
 
-        val elementsAnnotatedWithPresenter =
-            roundEnv?.getElementsAnnotatedWith(Presenter::class.java)
-        elementsAnnotatedWithPresenter?.forEach {
-            dealPresenterAnno(it)
-        }
         //生成所有文件
         genTypeSpecBuilders.forEach { clazzName, pair ->
             try {
@@ -93,60 +86,6 @@ class ViewConfigorProcessor : AbstractProcessor() {
             .returns(TypeName.VOID)
             .addStatement("${var0Name}.setMainLayoutId(${page.mainLayoutId})")
             .addStatement("${var0Name}.setContainerIndex(${page.containerIndex})")
-
-        //添加方法
-        fourPair.second.addMethod(methodSpec.build())
-        //调用方法
-        fourPair.third.addStatement("\$N(\$N)", methodName, targetVarName)
-    }
-
-    /**
-     * 处理Presenter注解
-     */
-    private fun dealPresenterAnno(ele: Element) {
-        //所在类的全类名
-        val rawClazzName = ele.enclosingElement.toString()
-
-        //所在类的类名
-        val (pkgName, clazzName) = getPkgClazzName(rawClazzName)
-        //获取注解对象的参数  因为直接拿到KClass对象无法获取值，出次下策
-        val presenterAnnoParams = ele.getAnnotation(Presenter::class.java).getParamsMap()
-        //注解传入的要注入的presenter类
-        val presenterClazznameStr = presenterAnnoParams["clazz"]
-        if (presenterClazznameStr.isNullOrEmpty()) {
-            return
-        }
-        val (presenterPkgName, presenterSimpleName) = getPkgClazzName(presenterClazznameStr)
-        //Presenter的类名
-        val presenterClassName =
-            ClassName.get(presenterPkgName, presenterSimpleName)
-        //需要构建的类和方法
-        val fourPair = getTypeSpecBuilder(rawClazzName)
-
-        //构建presenter，并赋值，但是要是同一presenter对象
-        //如果还没有presenter，创建presenter
-        val presenterVarName = "presenterGen"
-        if (!fourPair.fourth.value) {
-            //声明presenter变量
-            fourPair.second.addField(presenterClassName, presenterVarName, Modifier.PRIVATE)
-            //在config方法中初始化变量
-            fourPair.third.addStatement(
-                "${presenterVarName} = new \$T(${targetVarName})",
-                presenterClassName
-            )
-            fourPair.fourth.value = true
-        }
-
-        //构建方法
-        val methodName = "inject_${ele.simpleName}"
-        val var0Name = "var0"
-        val methodSpec = MethodSpec.methodBuilder(methodName)
-            //方法参数，是所在类/当前类对象
-            .addParameter(ClassName.get(pkgName, clazzName), var0Name)
-            .addModifiers(Modifier.PRIVATE)
-            .returns(TypeName.VOID)
-            //赋值，给所在类/当前类对象的presenter变量赋值
-            .addStatement("${var0Name}.${ele.simpleName} = ${presenterVarName}")
 
         //添加方法
         fourPair.second.addMethod(methodSpec.build())
@@ -205,10 +144,8 @@ class ViewConfigorProcessor : AbstractProcessor() {
         return fourPair
     }
 
-
     override fun getSupportedAnnotationTypes() = linkedSetOf(
-        Page::class.java.canonicalName,
-        Presenter::class.java.canonicalName
+        Page::class.java.canonicalName
     )
 
 }
