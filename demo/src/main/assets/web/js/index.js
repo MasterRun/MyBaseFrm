@@ -143,7 +143,7 @@ function loadurl() {
     console.log("load url finish")
 }
 function goactivity() {
-    ajs.common.go("com.jsongo.mybasefrm.view.activity.MyPageActivity")
+    ajs.common.go("com.jsongo.mybasefrm.ui.mypage.MyPageActivity")
 }
 
 let isEnableRefresh = true
@@ -230,7 +230,8 @@ function requestFile() {
 }
 
 function filebase64() {
-    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
+//    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
+    ajs.file.base64("/sdcard/ADM/PrinterShare-11.22.8.apk", function (data) {
         console.log(data)
     })
 }

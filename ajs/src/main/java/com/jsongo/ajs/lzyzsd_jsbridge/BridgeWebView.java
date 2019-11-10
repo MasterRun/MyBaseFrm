@@ -153,7 +153,16 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         String javascriptCommand = String.format(BridgeUtil.JS_HANDLE_MESSAGE_FROM_JAVA, messageJson);
         // 必须要找主线程才会将数据传递出去 --- 划重点
         if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
-            this.loadUrl(javascriptCommand);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                // 19级之前用loadUrl
+                this.loadUrl(javascriptCommand);
+            } else {
+                // 19级以后用evaluateJavascript
+                this.evaluateJavascript(javascriptCommand, value -> {
+                    // 如果不需要JS返回数据，该回调方法参数可以写成null
+                });
+
+            }
         }
     }
 
