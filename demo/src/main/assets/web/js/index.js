@@ -232,6 +232,13 @@ function requestFile() {
 function filebase64() {
 //    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
     ajs.file.base64("/sdcard/ADM/PrinterShare-11.22.8.apk", function (data) {
+        if(data["result"]=="9999"){
+            ajs.longDataTransfer.get({
+                key: data["dataKey"]
+            },function (data) {
+                console.log(data)
+            })
+        }
         console.log(data)
     })
 }

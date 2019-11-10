@@ -26,6 +26,9 @@ object DefaultInteractionRegister : BaseInteractionRegister() {
         Pair("loading.show", "com.jsongo.ajs.interaction.Loading.show"),
         Pair("loading.hide", "com.jsongo.ajs.interaction.Loading.hide"),
 
+        Pair("longDataTransfer.get", "com.jsongo.ajs.interaction.LongDataTransfer.get"),
+        Pair("longDataTransfer.complete", "com.jsongo.ajs.interaction.LongDataTransfer.complete"),
+
         Pair("smartrefresh.enableRefresh", "com.jsongo.ajs.interaction.SmartRefresh.enableRefresh"),
         Pair(
             "smartrefresh.enableLoadmore",

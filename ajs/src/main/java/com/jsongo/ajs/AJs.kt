@@ -10,8 +10,6 @@ import com.tencent.smtt.sdk.QbSdk
  * author ： jsongo
  * createtime ： 2019/7/23 9:26
  * desc :
- * //x5内核加载失败可能原因
- * https://www.yimenapp.com/info/X5-nei-he-kai-qi-hou-dan-shi-bu-sheng-xiao-143.html
  *
  */
 @SuppressLint("StaticFieldLeak")

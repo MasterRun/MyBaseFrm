@@ -75,11 +75,17 @@ function regBridgeMethod() {
                 if (success != undefined) {
                     success(data)
                 }
+            } else if (data['result'].toString() == "9999"){
+                console.log("long data tip: " + responseData)
+                //todo 长数据自动接收
+                if (success != undefined) {
+                    success(data)
+                }
             } else {
                 if (error != undefined) {
                     error(data['message'], data)
                 } else {
-                    console.log("error occor data:" + responseData)
+                    console.log("error occur data:" + responseData)
                 }
             }
         })
@@ -212,6 +218,18 @@ function regBridgeMethod() {
             //是否可取消    true/false
             cancelable(cancelable, success, error) {
                 convertFunc("loading.cancelable", { cancelable: cancelable }, success, error)
+            }
+        },
+
+        //长数据传输
+        longDataTransfer: {
+            //获取长数据的部分
+            get(params, success, error) {
+                convertFunc("longDataTransfer.get", params, success, error)
+            },
+            //传输完成
+            complete(key, success, error) {
+                convertFunc("longDataTransfer.complete", { key: key }, success, error)
             }
         },
 

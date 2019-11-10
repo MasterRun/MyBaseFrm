@@ -4,34 +4,35 @@ let myBridge;
  */
 let ajs = {};
 let ajs_config = {
-    open_vconsole: true
+  open_vconsole : true
 };
 
-$(function() {
-    if (ajs_config.open_vconsole) {
+$(function () {
+    if(ajs_config.open_vconsole){
         try {
             /**
-             * 使用vConsole
-             */
+            * 使用vConsole
+            */
             window.vConsole = new window.VConsole({
                 defaultPlugins: ['system', 'network', 'element', 'storage'], // 可以在此设定要默认加载的面板
                 maxLogNumber: 1000,
                 // disableLogScrolling: true,
-                onReady: function() {
+                onReady: function () {
                     console.log('vConsole is ready.');
                 },
-                onClearLog: function() {
+                onClearLog: function () {
                     console.log('on clearLog');
                 }
             });
         } catch (e) {
-            console.log(e)
+            console.log(eval)
         }
     }
 
     //连接Android webview
-    connectWebViewJavascriptBridge(function(bridge) {
-        bridge.init(function(message, responseCallback) {});
+    connectWebViewJavascriptBridge(function (bridge) {
+        bridge.init(function (message, responseCallback) {
+        });
 
         myBridge = bridge;
         regBridgeMethod();
@@ -57,8 +58,7 @@ function connectWebViewJavascriptBridge(callback) {
         callback(WebViewJavascriptBridge)
     } else {
         document.addEventListener(
-            'WebViewJavascriptBridgeReady',
-            function() {
+            'WebViewJavascriptBridgeReady', function () {
                 callback(WebViewJavascriptBridge)
             }, false);
     }
@@ -68,10 +68,15 @@ function connectWebViewJavascriptBridge(callback) {
  * 注册原生方法
  */
 function regBridgeMethod() {
-    var convertFunc = function(callname, params, success, error) {
-        myBridge.callHandler(callname, params, function(responseData) {
+    var convertFunc = function (callname, params, success, error) {
+        myBridge.callHandler(callname, params, function (responseData) {
             var data = JSON.parse(responseData)
             if (data['result'].toString() == "1") {
+                if (success != undefined) {
+                    success(data)
+                }
+            } else if (data['result'].toString() == "9999"){
+                console.log("long data tip: " + responseData)
                 if (success != undefined) {
                     success(data)
                 }
@@ -79,7 +84,7 @@ function regBridgeMethod() {
                 if (error != undefined) {
                     error(data['message'], data)
                 } else {
-                    console.log("error occor data:" + responseData)
+                    console.log("error occur data:" + responseData)
                 }
             }
         })
@@ -215,6 +220,18 @@ function regBridgeMethod() {
             }
         },
 
+        //长数据传输
+        longDataTransfer: {
+            //获取长数据的部分
+            get(params, success, error) {
+                convertFunc("longDataTransfer.get", params, success, error)
+            },
+            //传输完成
+            complete(key, success, error) {
+                convertFunc("longDataTransfer.complete", { key: key }, success, error)
+            }
+        },
+
         //原生的刷新
         smartrefresh: {
             //是否启用下拉刷新  默认启用
@@ -306,8 +323,8 @@ function regBridgeMethod() {
                 convertFunc('topbar.statusbar', { mode: mode }, success, error)
             },
             /**
-             * 获取状态栏高度
-             */
+            * 获取状态栏高度
+            */
             statusbarHeight(success, error) {
                 convertFunc('topbar.statusbarHeight', {}, success, error)
             }
@@ -323,27 +340,27 @@ function regBridgeMethod() {
          * 刷新header样式可选
          */
         header: {
-            DeliveryHeader: 'DeliveryHeader', //气球
-            DropBoxHeader: 'DropBoxHeader', //盒子
-            BezierRadarHeader: 'BezierRadarHeader', //贝塞尔雷达 颜色更换异常！ 不建议是使用
-            BezierCircleHeader: 'BezierCircleHeader', //贝塞尔圆圈 颜色可改
-            FlyRefreshHeader: 'FlyRefreshHeader', // 纸飞机 无效果！
-            ClassicsHeader: 'ClassicsHeader', // 经典刷新 颜色可改
-            PhoenixHeader: 'PhoenixHeader', // 金色校园 颜色不建议更改
-            TaurusHeader: 'TaurusHeader', // 飞机冲上云霄 颜色不建议更改
-            FunGameBattleCityHeader: 'FunGameBattleCityHeader', // 战争城市游戏 颜色不建议更改
-            FunGameHitBlockHeader: 'FunGameHitBlockHeader', // 打砖块游戏 颜色不建议更改
-            WaveSwipeHeader: 'WaveSwipeHeader', // 全屏水波 颜色可更改
-            MaterialHeader: 'MaterialHeader', // material 颜色不可更改
-            StoreHouseHeader: 'StoreHouseHeader', // .initWithString("loading...") // StoreHouse 颜色可更改 内容只可设置英文
-            WaterDropHeader: 'WaterDropHeader', // 水滴 颜色可更改
+            DeliveryHeader: 'DeliveryHeader',//气球
+            DropBoxHeader: 'DropBoxHeader',//盒子
+            BezierRadarHeader: 'BezierRadarHeader',//贝塞尔雷达 颜色更换异常！ 不建议是使用
+            BezierCircleHeader: 'BezierCircleHeader',//贝塞尔圆圈 颜色可改
+            FlyRefreshHeader: 'FlyRefreshHeader',// 纸飞机 无效果！
+            ClassicsHeader: 'ClassicsHeader',// 经典刷新 颜色可改
+            PhoenixHeader: 'PhoenixHeader',// 金色校园 颜色不建议更改
+            TaurusHeader: 'TaurusHeader',// 飞机冲上云霄 颜色不建议更改
+            FunGameBattleCityHeader: 'FunGameBattleCityHeader',// 战争城市游戏 颜色不建议更改
+            FunGameHitBlockHeader: 'FunGameHitBlockHeader',// 打砖块游戏 颜色不建议更改
+            WaveSwipeHeader: 'WaveSwipeHeader',// 全屏水波 颜色可更改
+            MaterialHeader: 'MaterialHeader',// material 颜色不可更改
+            StoreHouseHeader: 'StoreHouseHeader',// .initWithString("loading...") // StoreHouse 颜色可更改 内容只可设置英文
+            WaterDropHeader: 'WaterDropHeader',// 水滴 颜色可更改
         },
         /**
          * 刷新footer样式可选
          */
         footer: {
-            BallPulseFooter: 'BallPulseFooter', //球脉冲  颜色可改
-            ClassicsFooter: 'ClassicsFooter' //经典加载更多  颜色不可改
+            BallPulseFooter: 'BallPulseFooter',   //球脉冲  颜色可改
+            ClassicsFooter: 'ClassicsFooter'//经典加载更多  颜色不可改
         }
     };
 
