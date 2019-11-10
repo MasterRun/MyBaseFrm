@@ -13,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.core.helper.RecyclerViewAdapter
 import com.jsongo.core.util.GlideUtil
+import com.jsongo.core.util.PRE_ANDROID_ASSET
+import com.jsongo.core.util.URL_REG
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.bean.QuickEntryItemBean
 import com.vondear.rxtool.RxRegTool
@@ -60,11 +62,14 @@ class QuickEntryItemAdapter(
                 ivQuickIcon
             )
             itemView.setOnClickListener {
-                if (RxRegTool.isURL(dataItem.entryTag)) {
-                    AJsWebPage.load(dataItem.entryTag)
+                val entryTag = dataItem.entryTag
+                if (RxRegTool.isMatch(URL_REG, entryTag)
+                    || entryTag.trim().startsWith(PRE_ANDROID_ASSET)
+                ) {
+                    AJsWebPage.load(entryTag)
                 } else {
                     try {
-                        context?.startActivity(Intent(context, Class.forName(dataItem.entryTag)))
+                        context?.startActivity(Intent(context, Class.forName(entryTag)))
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }

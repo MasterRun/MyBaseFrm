@@ -22,8 +22,11 @@ class DemoFragment : StatefulFragment() {
 
     lateinit var demoViewModel: DemoViewModel
 
+    lateinit var clickProxy: ClickProxy
+
     override fun initViewModel() {
         demoViewModel = ViewModelProviders.of(this).get(DemoViewModel::class.java)
+        clickProxy = ClickProxy(demoViewModel)
     }
 
     override fun initView() {
@@ -32,24 +35,16 @@ class DemoFragment : StatefulFragment() {
 
             btn_jsloader.setOnClickListener {
                 val webPath = "file:///android_asset/web/index.html"
-                AJsWebPage.load(webPath)
+                clickProxy.loadUrl(webPath)
             }
 
             btn_loadbaidu.setOnClickListener {
-                AJsWebPage.load("https://www.baidu.com")
+                val webPath = "https://www.baidu.com"
+                clickProxy.loadUrl(webPath)
             }
 
-            var times = 0
-
             btn_testdb.setOnClickListener {
-                if (times % 2 == 0) {
-                    val value = CommonDbOpenHelper.getValue("times")
-                    RxToast.normal("get $value")
-                } else {
-                    CommonDbOpenHelper.setKeyValue("times", times.toString())
-                    RxToast.normal("set value $times")
-                }
-                times++
+                clickProxy.clickTestDb()
             }
 
             btn_crash.setOnClickListener {
@@ -71,10 +66,38 @@ class DemoFragment : StatefulFragment() {
         demoViewModel.errorLiverData.observe(this, Observer {
             onPageError(it?.message)
         })
+
+        //监听次数
+        demoViewModel.testDbCount.observe(this, Observer {
+            val times = it ?: 0
+            if (times % 2 == 0) {
+                val value = CommonDbOpenHelper.getValue("times")
+                RxToast.normal("get $value")
+            } else {
+                CommonDbOpenHelper.setKeyValue("times", times.toString())
+                RxToast.normal("set value $times")
+            }
+
+        })
     }
 
     override fun onPageReloading() {
         super.onPageReloading()
         demoViewModel.getAuthtypes()
+    }
+
+    /**
+     * 点击事件代理
+     */
+    class ClickProxy(private val viewModel: DemoViewModel) {
+
+        fun loadUrl(url: String) {
+            AJsWebPage.load(url)
+        }
+
+        fun clickTestDb() {
+            val times = viewModel.testDbCount.value ?: 0
+            viewModel.testDbCount.value = times + 1
+        }
     }
 }

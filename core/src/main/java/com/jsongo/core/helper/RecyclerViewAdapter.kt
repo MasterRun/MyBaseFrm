@@ -8,7 +8,7 @@ import android.view.ViewGroup
 /**
  * @author ： jsongo
  * @date ： 19-10-19 下午2:38
- * @desc :  简单封装的recyclerview  adapter
+ * @desc :  简单封装的RecyclerView  adapter
  *  约定:
  *  viewType = position
  *  position = type + typeQuota * type_position
@@ -20,13 +20,23 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
     dataList: MutableList<T>
 ) : RecyclerView.Adapter<VH>() {
 
+    /**
+     * 数据,默认是清空后重新添加
+     */
     open var dataList: MutableList<T> = ArrayList()
         set(value) {
+            //清空数据重新添加
             field.clear()
             field.addAll(value)
         }
 
+    /**
+     * 点击事件
+     */
     var itemClickListener: OnRvItemClickListener<A, VH>? = null
+    /**
+     * 长按事件
+     */
     var itemLongClickListener: OnRvItemLongClickListener<A, VH>? = null
 
     init {
@@ -40,9 +50,14 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
         const val typeQuota = 100
     }
 
-    override fun onCreateViewHolder(p0: ViewGroup, p1: Int): VH {
-        context = p0.context
-        return onCreateViewHolder(p0, LayoutInflater.from(p0.context), getItemType(p1), p1)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+        context = parent.context
+        return onCreateViewHolder(
+            parent,
+            LayoutInflater.from(parent.context),
+            getItemType(viewType),
+            viewType
+        )
     }
 
     abstract fun onCreateViewHolder(
@@ -52,12 +67,15 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
         position: Int
     ): VH
 
-    override fun onBindViewHolder(p0: VH, p1: Int) {
-        onBindViewHolder(p0, getItem(p1), getItemType(p1), p1)
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        onBindViewHolder(holder, getItem(position), getItemType(position), position)
     }
 
     abstract fun onBindViewHolder(holder: VH, dataItem: T, type: Int, position: Int)
 
+    /**
+     * 设置点击事件
+     */
     protected fun setClickListener(
         adapter: A, holder: VH, position: Int, type: Int
     ) {
@@ -66,6 +84,9 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
         }
     }
 
+    /**
+     * 设置长按事件
+     */
     protected fun setLongClickListener(
         adapter: A, holder: VH, position: Int, type: Int
     ) {
@@ -82,13 +103,18 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
     override fun getItemCount() = dataList.size
 
     override fun getItemViewType(position: Int): Int {
+        //type使用position
         return position
     }
 
+    /**
+     * 获取item的类型
+     */
     open fun getItemType(position: Int): Int {
         return position % typeQuota
     }
 
+    //获取数据项
     open fun getItem(position: Int): T {
         return dataList[position]
     }

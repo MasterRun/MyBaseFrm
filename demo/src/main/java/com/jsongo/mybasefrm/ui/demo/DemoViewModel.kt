@@ -15,9 +15,7 @@ class DemoViewModel : StatefulViewModel() {
 
     val txtContent = MutableLiveData<String>()
 
-    init {
-        txtContent.value = ""
-    }
+    val testDbCount = MutableLiveData<Int>()
 
     fun getAuthtypes() {
         mainScope.launch {
