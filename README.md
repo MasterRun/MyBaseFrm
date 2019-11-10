@@ -5,10 +5,10 @@ Building...  尚无demo
 
 demo\app module中用于个人测试
 
-基于`MVP` `Kotlin` `Retrofit` `RxJava` `APT` `AOP` `javapoet` `QMUI` `JsBridge` `腾讯x5内核` 等搭建
+基于`MVVM` `Kotlin` `Retrofit` `RxJava` `APT` `AOP` `javapoet` `QMUI` `JsBridge` `腾讯x5内核` 等搭建
 
 > activity fragment  
-  注解+apt 实现 配置布局、注入presenter、注入model  
+  注解+apt 实现 配置布局  
   页面多容器可选  
   简便的状态管理  
   封装设置列表，使用实体类配置  
@@ -26,8 +26,9 @@ demo\app module中用于个人测试
 
 - 登录页
 - 首页卡片添加图标和点击事件的设置
+- 改造MVVM  --  doing  
+- js与原生交互大量数据传递解决方案  -- preparing  
 - QMUIGroupListView 实现设置页面  -- doing
-- 改造MVVM
 - 迁移AndroidX
 - 考虑使用ARouter解耦       
 - 过度绘制及布局优化 -- doing
