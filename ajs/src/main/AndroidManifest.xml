@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.jsongo.ajs">
-	
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.INTERNET" />
-	
-	<application>
-		<activity android:name=".webloader.AJsWebPage" />
+    package="com.jsongo.ajs">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity android:name=".webloader.AJsWebPage" />
 
         <activity
             android:name=".webloader.AJsApplet"
             android:launchMode="singleInstance"
             android:taskAffinity="com.jsongo.ajs.applet" />
-	</application>
+
+        <service
+            android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService"
+            android:enabled="true"
+            android:label="dexopt"
+            android:process=":dexopt" />
+
+        <service
+            android:name=".PreLoadX5Service"
+            android:enabled="true" />
+
+    </application>
 
 </manifest>

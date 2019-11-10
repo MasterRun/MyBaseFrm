@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.adapter
+package com.jsongo.app.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -12,9 +12,9 @@ import android.view.ViewGroup
 import com.bumptech.glide.request.RequestOptions
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.app.R
+import com.jsongo.app.bean.QuickEntryItemBean
 import com.jsongo.core.helper.RecyclerViewAdapter
 import com.jsongo.core.util.GlideUtil
-import com.jsongo.mybasefrm.bean.QuickEntryItemBean
 import com.vondear.rxtool.RxRegTool
 import kotlinx.android.synthetic.main.item_quick_entry.view.*
 

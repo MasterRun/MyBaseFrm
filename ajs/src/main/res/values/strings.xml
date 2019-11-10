@@ -1,6 +1,11 @@
 <resources>
 	<string name="app_name">ajs</string>
-	
+
+	<string name="x5_init_env">initX5Environment</string>
+	<string name="x5_pre_init">preInitX5WebCore</string>
+	<string name="x5_core_init_finish">CoreInitFinished</string>
+	<string name="x5_view_init_finish">ViewInitFinished %s </string>
+
 	<string name="ajs_loading">加载中...</string>
 	<string name="ajs_reload">重新加载</string>
 	<string name="ajs_load_error">哎呀,出错了!</string>

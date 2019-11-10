@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.bean
+package com.jsongo.app.bean
 
 import android.os.Parcel
 import android.os.Parcelable

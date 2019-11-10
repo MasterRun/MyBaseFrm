@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.adapter
+package com.jsongo.app.adapter
 
 import android.content.Context
 import android.support.v7.widget.AppCompatTextView
@@ -12,8 +12,8 @@ import android.widget.RelativeLayout
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.WebLoaderCard
 import com.jsongo.app.R
+import com.jsongo.app.bean.WebCardItemBean
 import com.jsongo.core.helper.RecyclerViewAdapter
-import com.jsongo.mybasefrm.bean.WebCardItemBean
 import kotlinx.android.synthetic.main.item_webcard_v_title.view.*
 
 /**

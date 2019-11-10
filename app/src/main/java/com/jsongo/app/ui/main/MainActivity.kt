@@ -1,22 +1,27 @@
-package com.jsongo.app.view.activity
+package com.jsongo.app.ui.main
 
 import android.app.Activity
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
+import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
 import com.jsongo.app.R
-import com.jsongo.app.view.fragment.MainSample1Fragment
-import com.jsongo.app.view.fragment.MyPageFragment
-import com.jsongo.core.mvp.base.BaseActivity
+import com.jsongo.app.ui.main.mainsample1.MainSample1Fragment
+import com.jsongo.app.ui.mypage.mypage.MyPageFragment
+import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.base.mvvm.IMvvmView
+import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.util.PRE_ANDROID_ASSET
 import com.jsongo.core.util.URL_REG
-import com.jsongo.core.view.activity.SplashActivity
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
@@ -29,12 +34,16 @@ import com.vondear.rxtool.RxRegTool
 import kotlinx.android.synthetic.main.activity_main.*
 
 @Page(R.layout.activity_main, 0)
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), IMvvmView {
 
-    lateinit var pagerAdapter: FragmentStatePagerAdapter
-
+    /**
+     * 悬浮按钮
+     */
     var floatingView: FloatingView? = null
 
+    /**
+     * 首页的fragment
+     */
     val fragments = arrayOf(
         AJsWebLoader.newInstance(
             "http://www.jq22.com/demo/appsjqg201910152359/",
@@ -50,8 +59,32 @@ class MainActivity : BaseActivity() {
         MyPageFragment()
     )
 
+    /**
+     * Fragment ViewPager的page adapter
+     */
+    lateinit var pagerAdapter: FragmentStatePagerAdapter
+
+    /**
+     * 底部bar的数组
+     */
+    lateinit var bottomTabs: Array<QMUITabSegment.Tab>
+
+    /**
+     * mainViewModel
+     */
+    lateinit var mainViewModel: MainViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        initViewModel()
+
+        initView()
+
+        observeLiveData()
+    }
+
+    override fun initView() {
 
         //禁用侧滑返回
         setSwipeBackEnable(false)
@@ -65,11 +98,32 @@ class MainActivity : BaseActivity() {
         initTabBar()
 
         QMUIStatusBarHelper.setStatusBarLightMode(this)
+
     }
 
-    private fun initTabBar() {
+    /**
+     * 初始化ViewModel
+     */
+    override fun initViewModel() {
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+    }
+
+    /**
+     * 观察LiveData
+     */
+    override fun observeLiveData() {
+        //监听角标数据
+        mainViewModel.mainTabTips.observe(this, Observer { tipArray ->
+            tipArray?.forEachIndexed { tabIndex, tipCount ->
+                setTabTipCount(tabIndex, tipCount)
+            }
+        })
+    }
+
+    fun initTabBar() {
         //字体的选中和未选中颜色
         val normalColor = QMUIResHelper.getAttrColor(this, R.attr.qmui_config_color_gray_6)
+//        val normalColor = QMUIResHelper.getAttrColor(this, R.color.seg_tab_unseleceted)
         val selectColor = ContextCompat.getColor(this, R.color.seg_tab_selected)
 
         tab_seg.setDefaultNormalColor(normalColor)
@@ -124,6 +178,9 @@ class MainActivity : BaseActivity() {
             tab4SelectedDrawable,
             mainSegTabTexts[3], false, false
         )
+
+        bottomTabs = arrayOf(seg1, seg2, seg3, seg4)
+        //添加tab
         tab_seg.addTab(seg1)
             .addTab(seg2)
             .addTab(seg3)
@@ -142,6 +199,25 @@ class MainActivity : BaseActivity() {
 
         //默认选中的tab
         tab_seg.selectTab(resources.getInteger(R.integer.main_selected_tab))
+    }
+
+    /**
+     * 设置未读消息数量
+     *
+     * @param count
+     */
+    open fun setTabTipCount(tabIndex: Int, count: Int) {
+        //获取到tab
+        val tabSeg = bottomTabs[tabIndex]
+        if (count > 0) {
+            tabSeg.setSignCountMargin(0, -QMUIDisplayHelper.dp2px(this, 4))//设置红点显示位置
+            tabSeg.setmSignCountDigits(2)//设置红点中数字显示的最大位数
+            tabSeg.showSignCountView(this, count)//第二个参数表示：显示的消息数
+        } else {
+            tabSeg.hideSignCountView()
+        }
+        tab_seg.replaceTab(tabIndex, tabSeg)
+        tab_seg.notifyDataChanged()
     }
 
     /**
@@ -170,32 +246,44 @@ class MainActivity : BaseActivity() {
         if (requestCode == FloatingView.SCAN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (data != null) {
                 val str = data.getStringExtra(Constant.CODED_CONTENT)
-                if (RxRegTool.isMatch(URL_REG, str)) {
-                    AJsWebPage.load(str)
-                } else {
-                    try {
-                        startActivity(Intent(this, Class.forName(str)))
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                        QMUIDialog.MessageDialogBuilder(this@MainActivity)
-                            .setTitle("扫描结果")
-                            .setMessage(str)
-                            .addAction("打开") { dialog, index ->
-                                dialog?.dismiss()
-                                AJsWebPage.load(str)
-                            }
-                            .addAction("OK") { dialog, index ->
-                                dialog?.dismiss()
-                            }.show()
+                onScanResult(str)
+            }
+        }
+    }
+
+    /**
+     * 扫码回调
+     */
+    fun onScanResult(str: String) {
+
+        if (RxRegTool.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
+            //加载页面
+            AJsApplet.load(str)
+        } else {
+            try {
+                //尝试打开原生页面
+                startActivity(Intent(this, Class.forName(str)))
+            } catch (e: Exception) {
+                e.printStackTrace()
+                //弹唱显示接口
+                QMUIDialog.MessageDialogBuilder(this@MainActivity)
+                    .setTitle("扫描结果")
+                    .setMessage(str)
+                    .addAction("打开") { dialog, index ->
+                        //WebLoader加载字符串
+                        dialog?.dismiss()
+                        AJsWebPage.load(str)
                     }
-                }
+                    .addAction("OK") { dialog, index ->
+                        dialog?.dismiss()
+                    }.show()
             }
         }
     }
 
     override fun onIPageDestroy() {
+        //销毁悬浮窗
         floatingView?.destory()
         super.onIPageDestroy()
     }
-
 }

@@ -21,4 +21,6 @@
 	<string name="topbar_title">标题</string>
 
     <string name="please_config_mainpage">请配置首页</string>
+
+    <string name="start_mainpage_error">启动MainActivity出错！\n </string>
 </resources>

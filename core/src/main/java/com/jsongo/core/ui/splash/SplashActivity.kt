@@ -73,7 +73,7 @@ open class SplashActivity : BaseActivity() {
         val disposable = Observable.timer(delay, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
+            .subscribe({
                 val mainActivityName = getString(R.string.MainActivity)
                 //如果MainActivity也是启动页，直接finish
                 if (mainActivityName.equals(this@SplashActivity::class.java.name)) {
@@ -86,7 +86,9 @@ open class SplashActivity : BaseActivity() {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
                 }
-            }
+            }, {
+                RxToast.error(getString(R.string.start_mainpage_error) + it.message)
+            })
         compositeDisposable.add(disposable)
     }
 

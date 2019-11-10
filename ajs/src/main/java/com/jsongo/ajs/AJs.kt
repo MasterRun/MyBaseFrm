@@ -2,35 +2,34 @@ package com.jsongo.ajs
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.safframework.log.L
+import android.content.Intent
+import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 
 /**
  * author ： jsongo
  * createtime ： 2019/7/23 9:26
  * desc :
+ * //x5内核加载失败可能原因
+ * https://www.yimenapp.com/info/X5-nei-he-kai-qi-hou-dan-shi-bu-sheng-xiao-143.html
+ *
  */
 @SuppressLint("StaticFieldLeak")
 object AJs {
     lateinit var context: Context
+
     fun init(context: Context) {
         this.context = context
 
-        //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
+        initX5()//启动预加载的服务
+    }
 
-        val cb = object : QbSdk.PreInitCallback {
+    private fun initX5() {
 
-            override fun onViewInitFinished(arg0: Boolean) {
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                L.d("tencentx5 init", " onViewInitFinished is $arg0")
-            }
-
-            override fun onCoreInitFinished() {
-                L.d("tencentx5 init", " onCoreInitFinished")
-            }
-        }
-        //x5内核初始化接口
-        QbSdk.setDownloadWithoutWifi(true)
-        QbSdk.initX5Environment(context.applicationContext, cb)
+        val tbsSettingMap =
+            hashMapOf(Pair(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true as Any))
+        QbSdk.initTbsSettings(tbsSettingMap)
+        val intent = Intent(context, PreLoadX5Service::class.java)
+        context.startService(intent)
     }
 }

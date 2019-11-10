@@ -20,10 +20,10 @@
 			</intent-filter>
 		</activity>
         <activity
-            android:name=".view.activity.MainActivity"
+			android:name=".ui.main.MainActivity"
             android:launchMode="singleTop" />
-		<activity android:name=".view.activity.PersonalInfoActivity" />
-		<activity android:name=".view.activity.MyPageActivity" />
+		<activity android:name=".ui.personalinfo.PersonalInfoActivity" />
+		<activity android:name=".ui.mypage.MyPageActivity" />
 	</application>
 
 </manifest>
