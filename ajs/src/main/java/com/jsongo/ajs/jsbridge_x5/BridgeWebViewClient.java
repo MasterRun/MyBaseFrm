@@ -3,8 +3,8 @@ package com.jsongo.ajs.jsbridge_x5;
 import android.graphics.Bitmap;
 import android.os.Build;
 
-import com.jsongo.ajs.helper.ConstValue;
 import com.jsongo.ajs.lzyzsd_jsbridge.Message;
+import com.jsongo.ajs.util.ConstValue;
 import com.safframework.log.L;
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest;
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse;

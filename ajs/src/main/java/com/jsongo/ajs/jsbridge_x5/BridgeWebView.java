@@ -20,12 +20,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * @author jsongo
  * @date 2019/5/9 18:16
  * @desc modify jsbridge replace by tencent x5 core
  */
 public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
+
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     private final String TAG = "BridgeWebView";
 
@@ -159,29 +167,38 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
      * @param m Message
      */
     void dispatchMessage(Message m) {
-        String messageJson = m.toJson();
-        //escape special characters for json string  为json字符串转义特殊字符
-        messageJson = messageJson.replaceAll("(\\\\)([^utrn])", "\\\\\\\\$1$2");
-        messageJson = messageJson.replaceAll("(?<=[^\\\\])(\")", "\\\\\"");
-        messageJson = messageJson.replaceAll("(?<=[^\\\\])(\')", "\\\\\'");
-        messageJson = messageJson.replaceAll("%7B", URLEncoder.encode("%7B"));
-        messageJson = messageJson.replaceAll("%7D", URLEncoder.encode("%7D"));
-        messageJson = messageJson.replaceAll("%22", URLEncoder.encode("%22"));
-        String javascriptCommand = String.format(BridgeUtil.JS_HANDLE_MESSAGE_FROM_JAVA, messageJson);
-        // 必须要找主线程才会将数据传递出去 --- 划重点
-        if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                // 19级之前用loadUrl
-                this.loadUrl(javascriptCommand);
-            } else {
-                // 19级以后用evaluateJavascript
-                this.evaluateJavascript(javascriptCommand, value -> {
-                    // 如果不需要JS返回数据，该回调方法参数可以写成null
+        //防止操作大量数据导致ui卡顿
+        Disposable disposable = Observable.just(m)
+                .map(message -> {
+                    String messageJson = m.toJson();
+                    //escape special characters for json string  为json字符串转义特殊字符
+                    messageJson = messageJson.replaceAll("(\\\\)([^utrn])", "\\\\\\\\$1$2");
+                    messageJson = messageJson.replaceAll("(?<=[^\\\\])(\")", "\\\\\"");
+                    messageJson = messageJson.replaceAll("(?<=[^\\\\])(\')", "\\\\\'");
+                    messageJson = messageJson.replaceAll("%7B", URLEncoder.encode("%7B"));
+                    messageJson = messageJson.replaceAll("%7D", URLEncoder.encode("%7D"));
+                    messageJson = messageJson.replaceAll("%22", URLEncoder.encode("%22"));
+                    return String.format(BridgeUtil.JS_HANDLE_MESSAGE_FROM_JAVA, messageJson);
+                })
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(javascriptCommand -> {
+                    // 必须要找主线程才会将数据传递出去 --- 划重点
+                    if (Thread.currentThread() == Looper.getMainLooper().getThread()) {
+                        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                            // 19级之前用loadUrl
+                            this.loadUrl(javascriptCommand);
+                        } else {
+                            // 19级以后用evaluateJavascript
+                            this.evaluateJavascript(javascriptCommand, value -> {
+                                // 如果不需要JS返回数据，该回调方法参数可以写成null
+                            });
+                        }
+                    }
                 });
-
-            }
-        }
+        compositeDisposable.add(disposable);
     }
+
 
     /**
      * 刷新消息队列
@@ -293,6 +310,12 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
      */
     public void callHandler(String handlerName, String data, CallBackFunction callBack) {
         doSend(handlerName, data, callBack);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        compositeDisposable.dispose();
     }
 
 }

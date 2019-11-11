@@ -27,17 +27,16 @@ demo\app module中用于个人测试
 - 登录页
 - 首页卡片添加图标和点击事件的设置
 - 改造MVVM  --  doing  
-- js与原生交互大量数据传递解决方案  -- preparing  
+- 整合MobileIM即时通讯  --  preparing  
+- js与原生交互大量数据传递解决方案（目前只解决原生传递大量数据给js）  -- doing  
 - QMUIGroupListView 实现设置页面  -- doing
 - 迁移AndroidX
 - 考虑使用ARouter解耦       
 - 过度绘制及布局优化 -- doing
-- 整理混淆规则，尝试开启混淆  --  porblem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
-- IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题
+- 整理混淆规则，尝试开启混淆  --  problem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
 - 封装网络请求返回处理
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
-- 使用kotlin观察代理
 - 添加flutter混合开发
 - 使用依赖注入框架  aop  aspectj   apt  javassist
 - topbar添加底部灰色线 --abandon
@@ -54,7 +53,9 @@ demo\app module中用于个人测试
 - ajs 模块简化原生api编写方法，提供对外自定义api方法 -- ok
     > 考虑使用注解标注api类,使用apt在编译时生成一个类,将所用注解的类放在集合中,在AjsWebloader中注册这些api  -- ok
 - SplashActivity点击回到桌面问题（下一跳解决，同时在下一Activity finish SplashActivity）  -- ok
-- 注解+apt 实现view的配置 presenter  model注入 ，解决反射严重耗时问题  -- ok
+- 使用kotlin观察代理  --  Deprecated  使用MVVM  
+- IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题  --  Deprecated  使用MVVM  
+- 注解+apt 实现view的配置 ，解决反射严重耗时问题  -- ok
 - fileprovider  --  ok
 - easyphoto  提供engine  -- ok
 - 使用wcdb  --  ok 

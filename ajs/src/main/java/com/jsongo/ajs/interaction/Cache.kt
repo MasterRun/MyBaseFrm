@@ -4,6 +4,8 @@ import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.core.db.CommonDbOpenHelper
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * author ： jsongo
@@ -27,8 +29,15 @@ object Cache {
         if (key.isEmpty()) {
             callback.failure()
         } else {
-            CommonDbOpenHelper.setKeyValue(key, value)
-            callback.success()
+            val disposable = Observable.just(Pair(key, value))
+                .map {
+                    CommonDbOpenHelper.setKeyValue(it.first, it.second)
+                }
+                .subscribeOn(Schedulers.io())
+                .subscribe {
+                    callback.success()
+                }
+            ajsWebViewHost.compositeDisposable.add(disposable)
         }
     }
 
@@ -46,8 +55,15 @@ object Cache {
         if (key.isEmpty()) {
             callback.failure()
         } else {
-            val value = CommonDbOpenHelper.getValue(key) ?: ""
-            callback.success(Pair("value", value))
+            val disposable = Observable.just(key)
+                .map {
+                    CommonDbOpenHelper.getValue(key) ?: ""
+                }
+                .subscribeOn(Schedulers.io())
+                .subscribe {
+                    callback.success(Pair("value", it))
+                }
+            ajsWebViewHost.compositeDisposable.add(disposable)
         }
     }
 }

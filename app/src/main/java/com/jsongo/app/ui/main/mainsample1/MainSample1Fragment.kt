@@ -21,6 +21,7 @@ import com.jsongo.core.base.mvvm.IMvvmView
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.util.addStatusBarHeightPadding
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_main_sample1.*
 
 /**
@@ -35,6 +36,10 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
 
     override val hostFragment: Fragment?
         get() = this
+
+    override val compositeDisposable: CompositeDisposable by lazy {
+        CompositeDisposable()
+    }
 
     /**
      * ViewModel
@@ -171,5 +176,10 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
         super.onActivityResult(requestCode, resultCode, data)
         //处理ajs回调
         onAjsLongCallBack(requestCode, resultCode, data)
+    }
+
+    override fun onIPageDestroy() {
+        super.onIPageDestroy()
+        compositeDisposable.dispose()
     }
 }

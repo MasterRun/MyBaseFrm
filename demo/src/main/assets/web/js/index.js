@@ -133,12 +133,12 @@ function loadurl() {
     // ajs.common.load({url:"https://www.baidu.com"})
     console.log("load url")
     ajs.common.load({
-            url:"file:///android_asset/web/index.html"
-        },function(data){
-            console.log("success"+data)
-        },function(msg,data){
-            console.log("failed"+msg)
-        }
+        url: "file:///android_asset/web/index.html"
+    }, function (data) {
+        console.log("success" + data)
+    }, function (msg, data) {
+        console.log("failed" + msg)
+    }
     )
     console.log("load url finish")
 }
@@ -213,7 +213,7 @@ function selectimg() {
 
 function requestFile() {
     $.ajax({
-        //        url: "http://android_file/storage/emulated/0/ADM/adbd_downcc.apk",
+        // url: "http://android_file/storage/emulated/0/ADM/adbd_downcc.apk",
         // url: "http://android_file/storage/emulated/0/ADM/hello.apk",
         url: "http://android_file/storage/emulated/0/ADM/face1.jpg",
         method: 'post',
@@ -230,28 +230,27 @@ function requestFile() {
 }
 
 function filebase64() {
-//    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
+    //    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
     ajs.file.base64("/sdcard/ADM/PrinterShare-11.22.8.apk", function (data) {
-        if(data["result"]=="9999"){
-            ajs.longDataTransfer.get({
-                key: data["dataKey"]
-            },function (data) {
-                console.log(data)
-            })
-        }
-        console.log(data)
+        console.log("get file base64 success")
+    }, function (msg, data) {
+        console.log("get file base64 error,message:" + msg + " ,base64:" + data["base64"].length)
     })
 }
 
 function custom1() {
-    myBridge.callHandler("custom1.myToast", { text: "custom1" }, function (responseData) {
-
+    ajs.callHandler("custom1.myToast", { text: "custom1" }, function (data) {
+        //成功回调
+    }, function (msg, data) {
+        //错误回调
     })
 }
 
 function custom2() {
-    myBridge.callHandler("custom3.toast", { text: "custom3" }, function (responseData) {
-
+    ajs.callHandler("custom3.toast", { text: "custom3" }, function (data) {
+        //成功回调
+    }, function (msg, data) {
+        //错误回调
     })
 }
 

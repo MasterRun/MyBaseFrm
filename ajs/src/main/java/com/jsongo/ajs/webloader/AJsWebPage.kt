@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
-import com.jsongo.ajs.helper.ConstValue
+import com.jsongo.ajs.util.ConstValue
 import com.jsongo.core.base.BaseActivity
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.vondear.rxtool.RxKeyboardTool

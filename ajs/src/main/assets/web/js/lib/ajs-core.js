@@ -4,11 +4,15 @@ let myBridge;
  */
 let ajs = {};
 let ajs_config = {
-  open_vconsole : true
+    //是否开启vConsole
+    open_vconsole: true,
+    long_data_code: "9999",
+    //长数据分段传输的默认一次长度
+    default_part_data_length: 1250000  //125w
 };
 
 $(function () {
-    if(ajs_config.open_vconsole){
+    if (ajs_config.open_vconsole) {
         try {
             /**
             * 使用vConsole
@@ -65,49 +69,106 @@ function connectWebViewJavascriptBridge(callback) {
 }
 
 /**
+ * 接收长数据
+ * @param  data  提示数据
+ * @param  success 成功回调
+ * @param  error 错误回调
+ */
+function receiveLongData(dataKey, completeData, length, startIndex, success, error) {
+    //获取长数据
+    if (startIndex < length) {
+        ajs.longDataTransfer.get({
+            key: dataKey,
+            startIndex: startIndex,
+            length: ajs_config.default_part_data_length
+        }, function (data) {
+            completeData += data["partData"]
+            //继续去下一部分数据
+            receiveLongData(dataKey, completeData, length, startIndex + ajs_config.default_part_data_length, success, error)
+        }, function (msg, data) {
+            if (error != undefined) {
+                error(msg, data)
+            } else {
+                console.log("get partData error: dataKey=" + dataKey + ", length=" + length + ", startIndex=" + startIndex)
+            }
+        })
+    } else {
+        //长数据传输已完成
+        var finalData = JSON.parse(completeData);
+        if (finalData['result'] == ajs_config.long_data_code) {
+            if (error != undefined) {
+                error("完整数据不能使用 result: " + ajs_config.long_data_code + " 标识！", finalData)
+            } else {
+                console.log("完整数据不能使用 result: " + ajs_config.long_data_code + " 标识！ " + JSON.stringify(data))
+            }
+        } else {
+            //传输完成
+            ajs.longDataTransfer.complete(dataKey, function (data) {
+                onReceiveData(finalData, success, error)
+            }, function (msg, data) {
+                if (error != undefined) {
+                    error(msg, data)
+                } else {
+                    console.log("传输数据完成回调失败！ " + JSON.stringify(data))
+                }
+            })
+        }
+    }
+}
+
+/**
+ * 接收到数据
+ * @param  data  JSON数据
+ */
+function onReceiveData(data, success, error) {
+
+    if (data['result'] == "1") {
+        if (success != undefined) {
+            success(data)
+        }
+    } else if (data['result'] == ajs_config.long_data_code) {
+        var key = data["dataKey"];
+        var length = parseInt(data["length"]);
+        //进行长数据传输
+        receiveLongData(key, "", length, 0, success, error)
+    } else {
+        if (error != undefined) {
+            error(data['message'], data)
+        } else {
+            console.log("error occur: message:" + data['message'])
+        }
+    }
+}
+
+/**
  * 注册原生方法
  */
 function regBridgeMethod() {
-    var convertFunc = function (callname, params, success, error) {
-        myBridge.callHandler(callname, params, function (responseData) {
-            var data = JSON.parse(responseData)
-            if (data['result'].toString() == "1") {
-                if (success != undefined) {
-                    success(data)
-                }
-            } else if (data['result'].toString() == "9999"){
-                console.log("long data tip: " + responseData)
-                //todo 长数据自动接收
-                if (success != undefined) {
-                    success(data)
-                }
-            } else {
-                if (error != undefined) {
-                    error(data['message'], data)
-                } else {
-                    console.log("error occur data:" + responseData)
-                }
-            }
-        })
-    };
-
     //核心对象
     ajs = {
+        //调用原生方法
+        callHandler(callname, params, success, error) {
+            myBridge.callHandler(callname, params, function (responseData) {
+                var data = JSON.parse(responseData)
+                onReceiveData(data, success, error)
+            })
+        },
+        //注册方法给原生调用
         regHandler(methodname, callback) {
-            WebViewJavascriptBridge.registerHandler(methodname, callback);
+            WebViewJavascriptBridge.registerHandler(methodname,  callback);
         },
 
-        //以下api callback参数不需要可以不传
+        //以下api success,error为成功回调和错误回调不需要可以不传
 
         /**
          * 缓存
          */
         cache: {
             put(key, value, success, error) {
-                convertFunc("cache.put", { key: key, value: value }, success, error)
+                ajs.callHandler("cache.put", { key: key, value: value }, success, error)
             },
             get(key, success, error) {
-                convertFunc("cache.get", { key: key }, success, error)
+                ajs.callHandler("cache.get", { key: key }, success, error)
             }
         },
 
@@ -117,7 +178,7 @@ function regBridgeMethod() {
         common: {
             //模拟Android的返回键
             back(success, error) {
-                convertFunc("common.back", {}, success, error)
+                ajs.callHandler("common.back", {}, success, error)
             },
 
 
@@ -139,7 +200,7 @@ function regBridgeMethod() {
                 }
              */
             messagedialog(params, success, error) {
-                convertFunc('common.messagedialog', params, success, error)
+                ajs.callHandler('common.messagedialog', params, success, error)
             },
 
             /**
@@ -148,7 +209,7 @@ function regBridgeMethod() {
              * @param {function} callback  callback 回调的参数中data['path'] 值是可以直接加载的图片url
              */
             localpic(path, success, error) {
-                convertFunc("common.localpic", { path: path }, success, error)
+                ajs.callHandler("common.localpic", { path: path }, success, error)
             },
 
             /**
@@ -158,7 +219,7 @@ function regBridgeMethod() {
              * @param {function} callback  回调
              */
             showpic(urls, index, success, error) {
-                convertFunc("common.showpic", { urls: JSON.stringify(urls), index: index }, success, error)
+                ajs.callHandler("common.showpic", { urls: JSON.stringify(urls), index: index }, success, error)
             },
 
             /**
@@ -167,7 +228,7 @@ function regBridgeMethod() {
              * @param {function} callback
              */
             go(activity, success, error) {
-                convertFunc("common.go", { activity: activity }, success, error)
+                ajs.callHandler("common.go", { activity: activity }, success, error)
             },
 
             /**
@@ -176,7 +237,7 @@ function regBridgeMethod() {
              * @param {*} callback
              */
             load(params, success, error) {
-                convertFunc("common.load", params, success, error)
+                ajs.callHandler("common.load", params, success, error)
             },
 
             /**
@@ -185,7 +246,7 @@ function regBridgeMethod() {
              * @param {*} callback
              */
             scan(requestCode, success, error) {
-                convertFunc("common.scan", { requestCode: requestCode }, success, error)
+                ajs.callHandler("common.scan", { requestCode: requestCode }, success, error)
             }
         },
 
@@ -193,15 +254,15 @@ function regBridgeMethod() {
         file: {
             //选择图片
             selectImg(params, success, error) {
-                convertFunc("file.selectImg", params, success, error)
+                ajs.callHandler("file.selectImg", params, success, error)
             },
             //获取文件base64
             base64(path, success, error) {
-                convertFunc("file.base64", { path: path }, success, error)
+                ajs.callHandler("file.base64", { path: path }, success, error)
             },
             //删除文件
             delete(path, success, error) {
-                convertFunc("file.delete", { path: path }, success, error)
+                ajs.callHandler("file.delete", { path: path }, success, error)
             },
         },
 
@@ -209,15 +270,15 @@ function regBridgeMethod() {
         loading: {
             //显示
             show(success, error) {
-                convertFunc("loading.show", {}, success, error)
+                ajs.callHandler("loading.show", {}, success, error)
             },
             //隐藏
             hide(success, error) {
-                convertFunc("loading.hide", {}, success, error)
+                ajs.callHandler("loading.hide", {}, success, error)
             },
             //是否可取消    true/false
             cancelable(cancelable, success, error) {
-                convertFunc("loading.cancelable", { cancelable: cancelable }, success, error)
+                ajs.callHandler("loading.cancelable", { cancelable: cancelable }, success, error)
             }
         },
 
@@ -225,11 +286,11 @@ function regBridgeMethod() {
         longDataTransfer: {
             //获取长数据的部分
             get(params, success, error) {
-                convertFunc("longDataTransfer.get", params, success, error)
+                ajs.callHandler("longDataTransfer.get", params, success, error)
             },
             //传输完成
             complete(key, success, error) {
-                convertFunc("longDataTransfer.complete", { key: key }, success, error)
+                ajs.callHandler("longDataTransfer.complete", { key: key }, success, error)
             }
         },
 
@@ -237,11 +298,11 @@ function regBridgeMethod() {
         smartrefresh: {
             //是否启用下拉刷新  默认启用
             enableRefresh(enable, success, error) {
-                convertFunc("smartrefresh.enableRefresh", { enable: enable }, success, error)
+                ajs.callHandler("smartrefresh.enableRefresh", { enable: enable }, success, error)
             },
             //是否启用加载更多 默认关闭
             enableLoadmore(enable, success, error) {
-                convertFunc("smartrefresh.enableLoadmore", { enable: enable }, success, error)
+                ajs.callHandler("smartrefresh.enableLoadmore", { enable: enable }, success, error)
             },
             /**
              * 设置刷新的颜色
@@ -250,15 +311,15 @@ function regBridgeMethod() {
              * @param {function} callback
              */
             color(primaryColor, accentColor, success, error) {
-                convertFunc("smartrefresh.color", { primaryColor: primaryColor, accentColor: accentColor }, success, error)
+                ajs.callHandler("smartrefresh.color", { primaryColor: primaryColor, accentColor: accentColor }, success, error)
             },
             //设置刷新头样式  参数：smartrefresh.header.xxx
             header(header, success, error) {
-                convertFunc("smartrefresh.header", { header: header }, success, error)
+                ajs.callHandler("smartrefresh.header", { header: header }, success, error)
             },
             //设置加载更所样式  参数：smartrefresh.footer.xxx
             footer(footer, success, error) {
-                convertFunc("smartrefresh.footer", { footer: footer }, success, error)
+                ajs.callHandler("smartrefresh.footer", { footer: footer }, success, error)
             }
         },
 
@@ -266,23 +327,23 @@ function regBridgeMethod() {
         toast: {
             //错误 红色吐司
             error(text, success, error) {
-                convertFunc("toast.error", { text: text }, success, error)
+                ajs.callHandler("toast.error", { text: text }, success, error)
             },
             //警告 黄色吐司
             warning(text, success, error) {
-                convertFunc("toast.warning", { text: text }, success, error)
+                ajs.callHandler("toast.warning", { text: text }, success, error)
             },
             //提示 蓝色吐司
             info(text, success, error) {
-                convertFunc("toast.info", { text: text }, success, error)
+                ajs.callHandler("toast.info", { text: text }, success, error)
             },
             //普通 黑色吐司
             normal(text, success, error) {
-                convertFunc("toast.normal", { text: text }, success, error)
+                ajs.callHandler("toast.normal", { text: text }, success, error)
             },
             //成功 绿色吐司
             success(text, success, error) {
-                convertFunc("toast.success", { text: text }, success, error)
+                ajs.callHandler("toast.success", { text: text }, success, error)
             },
         },
 
@@ -292,7 +353,7 @@ function regBridgeMethod() {
              * 背景颜色  color 是 '#000000'  这样的颜色值 注意！ #后必须是6位
              */
             bgcolor(color, success, error) {
-                convertFunc('topbar.bgcolor', { color: color }, success, error)
+                ajs.callHandler('topbar.bgcolor', { color: color }, success, error)
             },
             /**
              * 隐藏标题栏
@@ -300,7 +361,7 @@ function regBridgeMethod() {
              * 参数   false 显示
              */
             hide(hide, success, error) {
-                convertFunc('topbar.hide', { hide: hide }, success, error)
+                ajs.callHandler('topbar.hide', { hide: hide }, success, error)
             },
 
             /**
@@ -313,7 +374,7 @@ function regBridgeMethod() {
               }
              */
             title(params, success, error) {
-                convertFunc('topbar.title', params, success, error)
+                ajs.callHandler('topbar.title', params, success, error)
             },
             /**
              * 设置状态栏
@@ -321,13 +382,13 @@ function regBridgeMethod() {
              * 		其余参数  状态栏字体为黑色
              */
             statusbar(mode, success, error) {
-                convertFunc('topbar.statusbar', { mode: mode }, success, error)
+                ajs.callHandler('topbar.statusbar', { mode: mode }, success, error)
             },
             /**
             * 获取状态栏高度
             */
             statusbarHeight(success, error) {
-                convertFunc('topbar.statusbarHeight', {}, success, error)
+                ajs.callHandler('topbar.statusbarHeight', {}, success, error)
             }
         }
     };

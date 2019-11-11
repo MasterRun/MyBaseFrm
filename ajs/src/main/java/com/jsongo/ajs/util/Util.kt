@@ -1,4 +1,4 @@
-package com.jsongo.ajs.helper
+package com.jsongo.ajs.util
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

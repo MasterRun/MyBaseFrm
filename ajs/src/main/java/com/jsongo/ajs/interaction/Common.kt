@@ -6,7 +6,11 @@ import android.text.TextUtils
 import com.google.gson.reflect.TypeToken
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
-import com.jsongo.ajs.helper.*
+import com.jsongo.ajs.helper.AjsCallback
+import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ajs.helper.LongCallback
+import com.jsongo.ajs.util.ConstValue
+import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.ui.component.image.preview.ImgPreviewClick

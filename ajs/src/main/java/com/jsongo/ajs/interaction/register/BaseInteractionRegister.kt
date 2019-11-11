@@ -3,7 +3,7 @@ package com.jsongo.ajs.interaction.register
 import com.google.gson.reflect.TypeToken
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
-import com.jsongo.ajs.helper.Util
+import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
 import com.safframework.log.L
 

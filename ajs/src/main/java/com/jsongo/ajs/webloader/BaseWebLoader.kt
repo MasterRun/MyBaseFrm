@@ -14,6 +14,7 @@ import com.safframework.log.L
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
 import kotlinx.android.synthetic.main.activity_ajs_webloader.view.*
 
@@ -34,6 +35,10 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
     protected lateinit var pbWebview: ProgressBar
     protected lateinit var aJsWebView: AJsWebView
     protected lateinit var flAjsWebRoot: FrameLayout
+
+    override val compositeDisposable: CompositeDisposable by lazy {
+        CompositeDisposable()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -135,4 +140,8 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
         return false
     }
 
+    override fun onIPageDestroy() {
+        super.onIPageDestroy()
+        compositeDisposable.dispose()
+    }
 }

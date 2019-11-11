@@ -3,8 +3,11 @@ package com.jsongo.ajs.webloader
 import android.content.Intent
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
-import com.jsongo.ajs.helper.ConstValue
+import com.jsongo.ajs.util.ConstValue
 
+/**
+ * 不使用
+ */
 open class AJsApplet : AJsWebPage() {
 
     override fun onBackPressed() {

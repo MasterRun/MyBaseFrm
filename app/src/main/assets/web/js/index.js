@@ -131,7 +131,16 @@ function loadingclick() {
 
 function loadurl() {
     // ajs.common.load({url:"https://www.baidu.com"})
-    ajs.common.load({url:"file:///android_asset/web/index.html"})
+    console.log("load url")
+    ajs.common.load({
+        url: "file:///android_asset/web/index.html"
+    }, function (data) {
+        console.log("success" + data)
+    }, function (msg, data) {
+        console.log("failed" + msg)
+    }
+    )
+    console.log("load url finish")
 }
 function goactivity() {
     ajs.common.go("com.jsongo.app.ui.mypage.MyPageActivity")
@@ -204,7 +213,7 @@ function selectimg() {
 
 function requestFile() {
     $.ajax({
-        //        url: "http://android_file/storage/emulated/0/ADM/adbd_downcc.apk",
+        // url: "http://android_file/storage/emulated/0/ADM/adbd_downcc.apk",
         // url: "http://android_file/storage/emulated/0/ADM/hello.apk",
         url: "http://android_file/storage/emulated/0/ADM/face1.jpg",
         method: 'post',
@@ -221,8 +230,11 @@ function requestFile() {
 }
 
 function filebase64() {
-    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
-        console.log(data)
+    //    ajs.file.base64("/sdcard/ADM/face1.jpg", function (data) {
+    ajs.file.base64("/sdcard/ADM/PrinterShare-11.22.8.apk", function (data) {
+        console.log("get file base64 success")
+    }, function (msg, data) {
+        console.log("get file base64 error,message:" + msg + " ,base64:" + data["base64"].length)
     })
 }
 

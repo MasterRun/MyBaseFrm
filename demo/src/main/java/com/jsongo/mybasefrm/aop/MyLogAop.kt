@@ -42,6 +42,11 @@ class MyLogAop {
         val methodSignature = joinPoint.signature as MethodSignature
         val className = methodSignature.declaringType.simpleName
         val methodName = methodSignature.name
+        val parameterNames = methodSignature.parameterNames
+        val parameterTypes = methodSignature.parameterTypes
+        val args = joinPoint.args
+        val kind = joinPoint.kind
+        val sourceLocation = joinPoint.sourceLocation
         L.w("before --  ${className}#${methodName}")
         val proceed = joinPoint.proceed()
         L.w("after --  ${className}#${methodName}")

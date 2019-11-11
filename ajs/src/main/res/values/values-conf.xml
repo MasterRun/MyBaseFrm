@@ -4,9 +4,9 @@
     <string name="ajs_default_bg_color">#ffffff</string>
 
     <!-- loadUrl 方法 的上限是 2097152(200w+) -->
-    <integer name="long_data_max_length">500000</integer><!--50w-->
+    <integer name="long_data_max_length">1500000</integer><!--150w-->
     <!--长数据分片传输的默认一次的长度-->
-    <integer name="long_data_part_length">250000</integer><!--25w-->
+    <integer name="long_data_part_length">1250000</integer><!--125w-->
     <!--长数据分片传输的一次最小传输的长度-->
-    <integer name="long_data_part_min_length">100000</integer><!--10w-->
+    <integer name="long_data_part_min_length">500000</integer><!--50w-->
 </resources>

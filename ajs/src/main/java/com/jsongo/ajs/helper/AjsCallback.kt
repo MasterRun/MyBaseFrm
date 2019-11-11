@@ -4,6 +4,7 @@ import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.interaction.LongDataTransfer
 import com.jsongo.ajs.lzyzsd_jsbridge.CallBackFunction
+import com.jsongo.ajs.util.Util
 import java.util.*
 
 /**
@@ -72,7 +73,7 @@ class AjsCallback(val function: CallBackFunction) {
         data[CALLBACK_KEY_CODE] = "$resultCode"
         data[CALLBACK_KEY_MESSAGE] = message
         val result = Util.gson.toJson(data)
-        //数据为超出最大长度，直接传输
+        //数据未超出最大长度，直接传输
         if (result.length < AJs.context.resources.getInteger(R.integer.long_data_max_length)) {
             function.onCallBack(result)
         } else {

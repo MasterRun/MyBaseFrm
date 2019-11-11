@@ -8,6 +8,7 @@ import android.util.SparseArray
 import com.jsongo.core.base.BaseActivity
 import com.jsongo.core.base.BaseFragment
 import com.jsongo.core.base.IPage
+import io.reactivex.disposables.CompositeDisposable
 
 /**
  * @author ： jsongo
@@ -23,6 +24,8 @@ interface AjsWebViewHost {
          */
         val longCallBackMap = HashMap<String, SparseArray<LongCallback<Intent>>>()
     }
+
+    val compositeDisposable: CompositeDisposable
 
     /**
      * 长回调

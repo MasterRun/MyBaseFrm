@@ -3,6 +3,7 @@ package com.jsongo.ajs
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import com.jsongo.ajs.helper.PreLoadX5Service
 import com.tencent.smtt.export.external.TbsCoreSettings
 import com.tencent.smtt.sdk.QbSdk
 

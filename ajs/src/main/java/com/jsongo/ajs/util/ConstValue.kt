@@ -1,4 +1,4 @@
-package com.jsongo.ajs.helper
+package com.jsongo.ajs.util
 
 import com.jsongo.ajs.AJs
 

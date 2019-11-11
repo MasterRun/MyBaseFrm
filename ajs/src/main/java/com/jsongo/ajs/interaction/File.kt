@@ -8,11 +8,13 @@ import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.LongCallback
-import com.jsongo.ajs.helper.Util
+import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.core.util.ConstConf
 import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.vondear.rxtool.RxFileTool
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import kotlin.random.Random
 
 
@@ -98,8 +100,15 @@ object File {
         if (!file.exists()) {
             callback.failure(message = "file not existed")
         } else {
-            val file2Base64 = RxFileTool.file2Base64(path)
-            callback.success(Pair("base64", file2Base64))
+            val disposable = Observable.just(path)
+                .map {
+                    RxFileTool.file2Base64(it)
+                }
+                .subscribeOn(Schedulers.io())
+                .subscribe {
+                    callback.success(Pair("base64", it))
+                }
+            ajsWebViewHost.compositeDisposable.add(disposable)
         }
     }
 
