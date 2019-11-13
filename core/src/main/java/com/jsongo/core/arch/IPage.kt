@@ -9,11 +9,11 @@ import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import com.jsongo.annotation.register.ViewConfigor
 import com.jsongo.core.BaseCore
+import com.jsongo.core.util.SmartRefreshFooter
+import com.jsongo.core.util.SmartRefreshHeader
+import com.jsongo.core.util.useFooter
+import com.jsongo.core.util.useHeader
 import com.jsongo.core.widget.TopbarLayout
-import com.jsongo.ui.util.SmartRefreshFooter
-import com.jsongo.ui.util.SmartRefreshHeader
-import com.jsongo.ui.util.useFooter
-import com.jsongo.ui.util.useHeader
 import com.qmuiteam.qmui.widget.QMUIEmptyView
 import com.safframework.log.L
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -123,9 +123,9 @@ interface IPage {
                     smartRefreshLayout
                         .useHeader(
                             context,
-                            com.jsongo.ui.util.SmartRefreshHeader.BezierCircleHeader
+                            SmartRefreshHeader.BezierCircleHeader
                         )
-                        .useFooter(context, com.jsongo.ui.util.SmartRefreshFooter.ClassicsFooter)
+                        .useFooter(context, SmartRefreshFooter.ClassicsFooter)
                 }
                 2 -> {
                     val mainView =

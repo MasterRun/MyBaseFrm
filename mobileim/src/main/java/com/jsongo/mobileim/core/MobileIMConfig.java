@@ -32,7 +32,7 @@ public class MobileIMConfig {
         ClientCoreSDK.getInstance().setMessageQoSEvent(new MessageQoSEventImpl());
     }
 
-    public static void imlogin(String chatId, String token, SendCallback callback) {
+    public static void loginIM(String chatId, String token, SendCallback callback) {
         new LocalUDPDataSender.SendLoginDataAsync(MobileIM.context, chatId, token) {
             @Override
             protected void fireAfterSendLogin(int code) {

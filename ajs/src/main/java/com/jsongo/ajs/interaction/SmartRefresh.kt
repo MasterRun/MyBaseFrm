@@ -4,7 +4,7 @@ import android.graphics.Color
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
-import com.jsongo.ui.util.*
+import com.jsongo.core.util.*
 
 /**
  * author ： jsongo

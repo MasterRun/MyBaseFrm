@@ -31,30 +31,24 @@ class ChatMessageReceiver {
             } else if ("0" == fromUserid && udpData.type == UdpDataType.ServerData.ordinal) {
                 onReceiveServerEvent(udpJsonData)
             } else {
-                L.e(
-                    ChatMessageReceiver::class.java.name,
-                    "未解析的数据！ fromUserid:$fromUserid  data : $udpData"
-                )
+                L.e("未解析的数据！ fromUserid:$fromUserid  data : $udpData")
             }
         } catch (e: JsonSyntaxException) {
             e.printStackTrace()
-            L.e(ChatMessageReceiver::class.java.name, "数据解析错误！ fromUserid:$fromUserid")
+            L.e("数据解析错误！ fromUserid:$fromUserid")
         }
-        L.d(ChatMessageReceiver::class.java.name, "onReceive finish")
+        L.d("onReceive finish")
     }
 
     fun onError(errorCode: Int, errorMsg: String) {
-        L.e(
-            ChatMessageReceiver::class.java.name,
-            "收到服务端错误消息，errorCode=$errorCode, errorMsg=$errorMsg"
-        )
+        L.e("收到服务端错误消息，errorCode=$errorCode, errorMsg=$errorMsg")
     }
 
     private fun onReceiveMessage(jsonData: String) {
         val messageUdpData = gson.fromJson<UdpData<Message>>(jsonData, UdpData.messageUdpDataType)
         val busEvent = BusEvent(Constants.IM_RECEIVE_MESSAGE, "收到即时通讯消息", messageUdpData.content)
         RxBus.post(busEvent)
-        L.d(ChatMessageReceiver::class.java.name, "rxbus post message : " + messageUdpData.content)
+        L.d("rxbus post message : " + messageUdpData.content)
     }
 
     private fun onReceiveServerEvent(jsonData: String) {
@@ -63,9 +57,6 @@ class ChatMessageReceiver {
         val busEvent =
             BusEvent(Constants.IM_RECEIVE_SERVER_DATA, "收到服务端消息", serverEventUdpData.content)
         RxBus.post(busEvent)
-        L.d(
-            ChatMessageReceiver::class.java.name,
-            "rxbus post serverenevt: " + serverEventUdpData.content
-        )
+        L.d("rxbus post serverenevt: " + serverEventUdpData.content)
     }
 }

@@ -19,6 +19,10 @@ import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.PRE_ANDROID_ASSET
 import com.jsongo.core.util.URL_REG
+import com.jsongo.mobileim.bean.Message
+import com.jsongo.mobileim.core.MobileIMConfig
+import com.jsongo.mobileim.operator.ChatMessageSender
+import com.jsongo.mobileim.operator.SendCallback
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.main.mainsample1.MainSample1Fragment
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
@@ -31,7 +35,10 @@ import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
 import com.vondear.rxtool.RxRegTool
+import io.reactivex.Observable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.concurrent.TimeUnit
 
 @Page(R.layout.activity_main, 0)
 class MainActivity : BaseActivity(), IMvvmView {
@@ -82,6 +89,38 @@ class MainActivity : BaseActivity(), IMvvmView {
         initView()
 
         observeLiveData()
+        MobileIMConfig.init(this)
+        MobileIMConfig.loginIM("testChatId", "testToken", object : SendCallback {
+            override fun onSuccess() {
+                super.onSuccess()
+                L.e("login im success")
+                //发消息测试
+                Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
+                    .map {
+                        ChatMessageSender.sendMessageAsync(
+                            Message(
+                                sender_id = "testChatId",
+                                content = "这是消息内容"
+                            ), "0", object : SendCallback {
+                                override fun onSuccess() {
+                                    super.onSuccess()
+                                    L.e("send message success")
+                                }
+
+                                override fun onFailed() {
+                                    super.onFailed()
+                                    L.e("send message failed")
+                                }
+                            })
+                    }.subscribe()
+
+            }
+
+            override fun onFailed() {
+                super.onFailed()
+                L.e("login im failed")
+            }
+        })
     }
 
     override fun initView() {

@@ -18,10 +18,7 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulActivity
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.ui.splash.SplashActivity
-import com.jsongo.core.util.ActivityCollector
-import com.jsongo.core.util.ConstConf
-import com.jsongo.core.util.PRE_ANDROID_ASSET
-import com.jsongo.core.util.URL_REG
+import com.jsongo.core.util.*
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.aop.AopOnclick
 import com.jsongo.mybasefrm.ui.demo.demo.DemoFragment
@@ -30,9 +27,6 @@ import com.jsongo.mybasefrm.ui.mypage.MyPageActivity
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.util.EasyPhotoGlideEngine
-import com.jsongo.ui.util.SmartRefreshHeader
-import com.jsongo.ui.util.initWithStr
-import com.jsongo.ui.util.useHeader
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L

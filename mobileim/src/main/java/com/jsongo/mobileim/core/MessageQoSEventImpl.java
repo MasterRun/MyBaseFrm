@@ -18,7 +18,7 @@ public class MessageQoSEventImpl implements MessageQoSEvent {
     // 对方已成功收到消息的通知
     @Override
     public void messagesBeReceived(String theFingerPrint) {
-        L.e(MessageQoSEventImpl.class.getName(), "收到对方已收到消息事件的通知，消息指纹码=" + theFingerPrint);
+        L.d(MessageQoSEventImpl.class.getName(), "收到对方已收到消息事件的通知，消息指纹码=" + theFingerPrint);
     }
 
     // 消息无法完成实时送达的通知
