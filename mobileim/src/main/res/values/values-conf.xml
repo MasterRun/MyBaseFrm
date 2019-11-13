@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mobileIMKey">mobile im key</string>
+    <string name="im_ip">chat im ip</string>
+    <integer name="im_chat_port">18899</integer>
+</resources>

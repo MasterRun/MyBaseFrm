@@ -30,6 +30,12 @@ ext {
                     'aarVer' : '1.0.0.f-SNAPSHOT'
             ],
 
+            'mobileim'    : [
+                    'verCode': 1,
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
+            ],
+
             'ui_enhance'  : [
                     'verCode': 1,
                     'verName': '1.0.0.a-SNAPSHOT',

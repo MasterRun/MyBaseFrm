@@ -1,1 +1,1 @@
-include ':demo', ':app', ':core', ':ajs', ':ui', 'ui-enhance', ':annotation', ':processor'
+include ':demo', ':app', ':core', ':ajs', ':ui', 'mobileim', 'ui-enhance', ':annotation', ':processor'

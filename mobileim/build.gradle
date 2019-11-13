@@ -1,0 +1,42 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply from: './maven-repository.gradle'
+
+android {
+    compileSdkVersion proVer.compileSdk
+    defaultConfig {
+        minSdkVersion proVer.minSdk
+        versionCode libConf.mobileim.verCode
+        versionName libConf.mobileim.verName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', '../proguard-rules.pro', '../tencentx5_proguard.pro'
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    if (libConf.useOnlineAAR) {
+        api "com.jsongo.basefrm:core:${libConf.core.aarVer}"
+    } else {
+        api project(path: ':core')
+    }
+}
