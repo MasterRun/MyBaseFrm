@@ -16,8 +16,8 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.app.R
 import com.jsongo.app.ui.main.mainsample1.MainSample1Fragment
 import com.jsongo.app.ui.mypage.mypage.MyPageFragment
-import com.jsongo.core.base.BaseActivity
-import com.jsongo.core.base.mvvm.IMvvmView
+import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.PRE_ANDROID_ASSET

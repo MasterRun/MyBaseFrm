@@ -13,8 +13,8 @@ import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
-import com.jsongo.core.base.BaseActivity
-import com.jsongo.core.base.mvvm.IMvvmView
+import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.PRE_ANDROID_ASSET

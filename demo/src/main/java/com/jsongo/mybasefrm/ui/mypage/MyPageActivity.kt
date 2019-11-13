@@ -1,7 +1,7 @@
 package com.jsongo.mybasefrm.ui.mypage
 
 import android.os.Bundle
-import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.arch.BaseActivity
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper

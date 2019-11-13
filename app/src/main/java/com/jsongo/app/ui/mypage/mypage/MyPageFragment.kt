@@ -8,7 +8,7 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.app.AppApplication
 import com.jsongo.app.R
 import com.jsongo.app.ui.personalinfo.PersonalInfoActivity
-import com.jsongo.core.base.BaseFragment
+import com.jsongo.core.arch.BaseFragment
 import com.jsongo.ui.component.fragment.settinglist.SettingItem
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
 import com.jsongo.ui.component.fragment.settinglist.SettingSection

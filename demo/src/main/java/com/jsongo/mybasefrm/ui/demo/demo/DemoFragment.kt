@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.view.View
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
-import com.jsongo.core.base.mvvm.stateful.StatefulFragment
+import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.demo.DemoViewModel

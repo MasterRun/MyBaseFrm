@@ -1,10 +1,10 @@
-package com.jsongo.core.base.mvvm.stateful
+package com.jsongo.core.arch.mvvm.stateful
 
 import android.os.Bundle
 import android.view.View
 import com.jsongo.core.R
-import com.jsongo.core.base.BaseActivity
-import com.jsongo.core.base.mvvm.IMvvmView
+import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.mvvm.IMvvmView
 import kotlinx.android.synthetic.*
 
 /**

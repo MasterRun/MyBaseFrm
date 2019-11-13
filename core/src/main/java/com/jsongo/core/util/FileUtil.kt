@@ -16,8 +16,14 @@ import java.io.File
 
 class MyFileProvider : FileProvider()
 
+/**
+ * String  扩展方法，获取对应的文件
+ */
 fun String.toFile(): File? = RxFileTool.getFileByPath(this)
 
+/**
+ * File  扩展方法，用于获取文件Uri
+ */
 fun File.getUri(): Uri {
     val uri: Uri
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

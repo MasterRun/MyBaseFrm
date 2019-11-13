@@ -1,4 +1,4 @@
-package com.jsongo.core.base.mvvm
+package com.jsongo.core.arch.mvvm
 
 import android.arch.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

@@ -16,8 +16,8 @@ import com.jsongo.app.adapter.QuickEntryItemAdapter
 import com.jsongo.app.adapter.WebCardVTitleItemAdapter
 import com.jsongo.app.bean.QuickEntryItemBean
 import com.jsongo.app.bean.WebCardItemBean
-import com.jsongo.core.base.BaseFragment
-import com.jsongo.core.base.mvvm.IMvvmView
+import com.jsongo.core.arch.BaseFragment
+import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.util.addStatusBarHeightPadding

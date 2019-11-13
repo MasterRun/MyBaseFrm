@@ -3,7 +3,7 @@ package com.jsongo.app.ui.main.mainsample1
 import android.arch.lifecycle.MutableLiveData
 import com.jsongo.app.bean.QuickEntryItemBean
 import com.jsongo.app.bean.WebCardItemBean
-import com.jsongo.core.base.mvvm.BaseViewModel
+import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.ui.component.image.banner.widget.bean.BannerItem
 
 /**

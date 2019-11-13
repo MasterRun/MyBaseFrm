@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import com.jsongo.annotation.anno.Page
-import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.arch.BaseActivity
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment

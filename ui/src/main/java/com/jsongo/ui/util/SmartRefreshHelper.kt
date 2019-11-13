@@ -1,4 +1,4 @@
-package com.jsongo.core.util
+package com.jsongo.ui.util
 
 import android.content.Context
 import android.support.annotation.ColorRes

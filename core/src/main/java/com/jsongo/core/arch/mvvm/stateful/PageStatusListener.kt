@@ -1,4 +1,4 @@
-package com.jsongo.core.base.mvvm.stateful
+package com.jsongo.core.arch.mvvm.stateful
 
 /**
  * author ： jsongo

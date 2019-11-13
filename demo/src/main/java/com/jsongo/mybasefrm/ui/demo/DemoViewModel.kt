@@ -1,7 +1,7 @@
 package com.jsongo.mybasefrm.ui.demo
 
 import android.arch.lifecycle.MutableLiveData
-import com.jsongo.core.base.mvvm.stateful.StatefulViewModel
+import com.jsongo.core.arch.mvvm.stateful.StatefulViewModel
 import com.jsongo.core.bean.toErrorDataWrapper
 import com.jsongo.mybasefrm.data.repository.HttpRequestManager
 import kotlinx.coroutines.launch

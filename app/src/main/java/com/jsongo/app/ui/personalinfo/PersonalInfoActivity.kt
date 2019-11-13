@@ -7,7 +7,7 @@ import android.support.v4.content.ContextCompat
 import com.jsongo.annotation.anno.Page
 import com.jsongo.app.AppApplication
 import com.jsongo.app.R
-import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.arch.BaseActivity
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 

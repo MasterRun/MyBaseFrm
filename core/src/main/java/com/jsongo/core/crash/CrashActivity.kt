@@ -9,7 +9,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
-import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.crash.CrashHandler.Companion.CRASH_LOG
 import com.jsongo.core.util.ConstConf
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog

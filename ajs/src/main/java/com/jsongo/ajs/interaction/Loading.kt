@@ -3,7 +3,7 @@ package com.jsongo.ajs.interaction
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
-import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.arch.BaseActivity
 
 /**
  * author ： jsongo

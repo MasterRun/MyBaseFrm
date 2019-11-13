@@ -1,4 +1,4 @@
-package com.jsongo.core.base.mvvm
+package com.jsongo.core.arch.mvvm
 
 /**
  * @author ： jsongo

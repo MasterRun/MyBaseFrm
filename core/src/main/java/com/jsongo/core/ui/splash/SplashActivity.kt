@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import com.jsongo.core.R
-import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.util.ActivityCollector
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.vondear.rxtool.view.RxToast

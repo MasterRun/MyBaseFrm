@@ -1,7 +1,7 @@
 package com.jsongo.mybasefrm.ui.main.mainsample1
 
 import android.arch.lifecycle.MutableLiveData
-import com.jsongo.core.base.mvvm.BaseViewModel
+import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.mybasefrm.bean.QuickEntryItemBean
 import com.jsongo.mybasefrm.bean.WebCardItemBean
 import com.jsongo.ui.component.image.banner.widget.bean.BannerItem

@@ -1,4 +1,4 @@
-package com.jsongo.core.base
+package com.jsongo.core.arch
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

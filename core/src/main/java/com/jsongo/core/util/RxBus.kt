@@ -10,14 +10,14 @@ import io.reactivex.processors.PublishProcessor
  */
 object RxBus {
 
-    private val mBus: FlowableProcessor<BusEvent> =
-        PublishProcessor.create<BusEvent>().toSerialized()
+    private val mBus: FlowableProcessor<BusEvent<*>> =
+        PublishProcessor.create<BusEvent<*>>().toSerialized()
 
-    fun post(busEvent: BusEvent) {
+    fun post(busEvent: BusEvent<*>) {
         mBus.onNext(busEvent)
     }
 
-    fun toFlowable(): Flowable<BusEvent> {
+    fun toFlowable(): Flowable<BusEvent<*>> {
         return mBus.ofType(BusEvent::class.java)
     }
 
@@ -26,3 +26,15 @@ object RxBus {
     }
 
 }
+
+
+/**
+ * @author  jsongo
+ * @date 2019/3/29 16:19
+ * @desc rxbus event
+ */
+class BusEvent<T>(
+    var code: Int = -1,
+    var message: String = "",
+    var data: T? = null
+)

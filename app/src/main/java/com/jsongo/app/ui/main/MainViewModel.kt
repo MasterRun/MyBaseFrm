@@ -1,7 +1,7 @@
 package com.jsongo.app.ui.main
 
 import android.arch.lifecycle.MutableLiveData
-import com.jsongo.core.base.mvvm.BaseViewModel
+import com.jsongo.core.arch.mvvm.BaseViewModel
 
 /**
  * @author ： jsongo

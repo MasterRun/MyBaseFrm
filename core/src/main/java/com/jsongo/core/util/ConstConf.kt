@@ -12,11 +12,14 @@ import java.io.File
  */
 object ConstConf {
 
+    //app文件基础路径
     var BASE_DIR: String
         private set
+    //网络请求缓存路径
     val HTTP_CACHE_DIR: String
+    //崩溃日志保存路径
     val CRASH_LOG_DIR: String
-
+    //file uri的auth值
     val FILE_PROVIDER_AUTH: String
 
     init {

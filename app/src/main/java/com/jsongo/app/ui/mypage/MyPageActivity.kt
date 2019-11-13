@@ -3,7 +3,7 @@ package com.jsongo.app.ui.mypage
 import android.os.Bundle
 import com.jsongo.app.R
 import com.jsongo.app.ui.mypage.mypage.MyPageFragment
-import com.jsongo.core.base.BaseActivity
+import com.jsongo.core.arch.BaseActivity
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**

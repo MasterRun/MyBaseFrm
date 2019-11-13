@@ -5,7 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
-import com.jsongo.core.base.BaseFragment
+import com.jsongo.core.arch.BaseFragment
 import com.jsongo.ui.R
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView

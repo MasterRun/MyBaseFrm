@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.google.zxing.Result;
 import com.huantansheng.easyphotos.EasyPhotos;
-import com.jsongo.core.base.BaseActivity;
+import com.jsongo.core.arch.BaseActivity;
 import com.jsongo.core.widget.TopbarLayout;
 import com.jsongo.ui.R;
 import com.jsongo.ui.component.zxing.Constant;

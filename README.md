@@ -24,10 +24,10 @@ demo\app module中用于个人测试
     > 顶部导航类型  
     > 侧滑抽屉类型  
 
-- 登录页
+- 登录页  --  preparing  
+- 整合MobileIM即时通讯  --  preparing  
 - 首页卡片添加图标和点击事件的设置
 - 改造MVVM  --  doing  
-- 整合MobileIM即时通讯  --  preparing  
 - js与原生交互大量数据传递解决方案（目前只解决原生传递大量数据给js）  -- doing  
 - QMUIGroupListView 实现设置页面  -- doing
 - 迁移AndroidX
