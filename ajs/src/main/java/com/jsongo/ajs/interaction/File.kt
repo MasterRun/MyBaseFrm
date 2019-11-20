@@ -62,11 +62,13 @@ object File {
                 EasyPhotoGlideEngine.getInstance()
             )
         }
-        builder.setCount(count)
-            .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
         if (!paths.isNullOrEmpty()) {
             builder.setSelectedPhotoPaths(paths)
         }
+        builder.setGif(true)
+            .setVideo(true)
+            .setCount(count)
+            .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
         builder.start(requestCode)
 
         ajsWebViewHost.addLongCallback(requestCode, object : LongCallback<Intent> {

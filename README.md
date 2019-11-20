@@ -25,7 +25,9 @@ demo\app module中用于个人测试
     > 侧滑抽屉类型  
 
 - 登录页  --  preparing  
-- 整合MobileIM即时通讯  --  preparing  
+- 整合MobileIM即时通讯  --  doing  
+- aop实现动态权限申请  --  preparing  
+- 刘海屏web页面bug修复  --  preparing  
 - 首页卡片添加图标和点击事件的设置
 - 改造MVVM  --  doing  
 - js与原生交互大量数据传递解决方案（目前只解决原生传递大量数据给js）  -- doing  

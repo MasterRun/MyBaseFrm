@@ -24,7 +24,7 @@ class SettingListFragment : BaseFragment() {
     /**
      * 配置实体
      */
-    private lateinit var sectionList: List<SettingSection>
+    private var sectionList: List<SettingSection>? = null
 
     /**
      * onViewCreate回调
@@ -46,7 +46,7 @@ class SettingListFragment : BaseFragment() {
 //        val glv = view as QMUIGroupListView
 
         //循环创建SectionView并保存
-        sectionList.forEachIndexed { index, it ->
+        sectionList?.forEachIndexed { index, it ->
             val section = QMUIGroupListView.newSection(context)
                 .setTitle(it.title)
             section.apply {
