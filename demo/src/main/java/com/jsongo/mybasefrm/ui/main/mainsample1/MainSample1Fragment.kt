@@ -1,5 +1,6 @@
 package com.jsongo.mybasefrm.ui.main.mainsample1
 
+import android.Manifest
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
@@ -11,8 +12,12 @@ import android.support.v7.widget.LinearLayoutManager
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
+import com.jsongo.annotation.anno.PermissionNeed
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
+import com.jsongo.core.helper.OnRvItemClickListener
+import com.jsongo.core.util.PRE_ANDROID_ASSET
+import com.jsongo.core.util.URL_REG
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.adapter.QuickEntryItemAdapter
 import com.jsongo.mybasefrm.adapter.WebCardVTitleItemAdapter
@@ -21,6 +26,7 @@ import com.jsongo.mybasefrm.bean.WebCardItemBean
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.util.addStatusBarHeightPadding
+import com.vondear.rxtool.RxRegTool
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_main_sample1.*
 
@@ -144,6 +150,31 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
             mainSample1ViewModel.quickEntryItemList.value
                 ?: emptyList<QuickEntryItemBean>().toMutableList()
         )
+        //点击事件
+        quickEntryItemAdapter.itemClickListener = object :
+            OnRvItemClickListener<QuickEntryItemAdapter, QuickEntryItemAdapter.ViewHolder> {
+            //添加注解申请权限 demo
+            @PermissionNeed(Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
+            override fun onClick(
+                adapter: QuickEntryItemAdapter,
+                holder: QuickEntryItemAdapter.ViewHolder,
+                position: Int,
+                type: Int
+            ) {
+                val entryTag = quickEntryItemAdapter.dataList[position].entryTag
+                if (RxRegTool.isMatch(URL_REG, entryTag)
+                    || entryTag.trim().startsWith(PRE_ANDROID_ASSET)
+                ) {
+                    AJsWebPage.load(entryTag)
+                } else {
+                    try {
+                        context?.startActivity(Intent(context, Class.forName(entryTag)))
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
         //设置adapter
         rv_quick_entry.adapter = quickEntryItemAdapter
         //设置列数

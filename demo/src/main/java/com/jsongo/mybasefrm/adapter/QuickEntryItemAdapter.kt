@@ -1,7 +1,6 @@
 package com.jsongo.mybasefrm.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutCompat
@@ -10,14 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.request.RequestOptions
-import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.core.helper.RecyclerViewAdapter
 import com.jsongo.core.util.GlideUtil
-import com.jsongo.core.util.PRE_ANDROID_ASSET
-import com.jsongo.core.util.URL_REG
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.bean.QuickEntryItemBean
-import com.vondear.rxtool.RxRegTool
 import kotlinx.android.synthetic.main.item_quick_entry.view.*
 
 /**
@@ -61,20 +56,6 @@ class QuickEntryItemAdapter(
                 RequestOptions.errorOf(dataItem.iconRes),
                 ivQuickIcon
             )
-            itemView.setOnClickListener {
-                val entryTag = dataItem.entryTag
-                if (RxRegTool.isMatch(URL_REG, entryTag)
-                    || entryTag.trim().startsWith(PRE_ANDROID_ASSET)
-                ) {
-                    AJsWebPage.load(entryTag)
-                } else {
-                    try {
-                        context?.startActivity(Intent(context, Class.forName(entryTag)))
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            }
         }
     }
 

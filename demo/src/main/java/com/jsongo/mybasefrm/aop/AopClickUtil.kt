@@ -1,6 +1,7 @@
 package com.jsongo.mybasefrm.aop
 
 import android.os.SystemClock
+import kotlin.math.abs
 
 /**
  * @author ： jsongo
@@ -22,7 +23,7 @@ object AopClickUtil {
     fun isFastDoubleClick(intervalMillis: Long): Boolean {
         //        long time = System.currentTimeMillis();
         val time = SystemClock.elapsedRealtime()
-        val timeInterval = Math.abs(time - mLastClickTime)
+        val timeInterval = abs(time - mLastClickTime)
         return if (timeInterval < intervalMillis) {
             true
         } else {
