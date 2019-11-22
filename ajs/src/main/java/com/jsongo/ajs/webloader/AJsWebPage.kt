@@ -61,14 +61,16 @@ open class AJsWebPage : BaseActivity() {
             defaultColor = Color.WHITE
         }
 
-        jsWebLoader = AJsWebLoader.newInstance(webPath, showTopBar, fixHeight = fixHeight)
+        jsWebLoader = AJsWebLoader.newInstance(
+            webPath,
+            showTopBar,
+            fixHeight = fixHeight,
+            bgColor = defaultColor
+        )
         (jsWebLoader as AJsWebLoader).loadingDialog = loadingDialog
 
         if (fixHeight && !showTopBar) {
             QMUIStatusBarHelper.setStatusBarLightMode(this)
-            jsWebLoader.rlLayoutRoot.apply {
-                setBackgroundColor(defaultColor)
-            }
         }
 
         val transaction = supportFragmentManager.beginTransaction()

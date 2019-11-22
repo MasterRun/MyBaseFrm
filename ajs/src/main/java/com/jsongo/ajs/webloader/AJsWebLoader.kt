@@ -103,7 +103,6 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
             }
         }
 
-
         /*if (aJsWebView.progress < 100) {
             //显示加载中
         } else {
@@ -130,8 +129,12 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
         //修正高度
         if (fixHeight) {
             if (showTopBar) {
-                topbar.addStatusBarHeightPadding()
+                topbar.post {
+                    topbar.addStatusBarHeightPadding()
+                }
             } else {
+                //设置底部颜色，在添加padding
+                rlLayoutRoot.setBackgroundColor(bgColor)
                 flAjsWebRoot.addStatusBarHeightPadding()
             }
         }

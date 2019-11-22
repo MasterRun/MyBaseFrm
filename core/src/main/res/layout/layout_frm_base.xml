@@ -3,19 +3,19 @@
 	android:id="@+id/rl_layout_root"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
-	
+
 	<com.jsongo.core.widget.TopbarLayout
 		android:id="@+id/topbar"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:fitsSystemWindows="true" />
-	
+
 	<com.scwang.smartrefresh.layout.SmartRefreshLayout
 		android:id="@+id/smart_refresh_layout"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/topbar">
-		
+
 		<android.support.v4.widget.NestedScrollView
 			android:id="@+id/nsv"
 			android:layout_width="match_parent"
@@ -23,23 +23,23 @@
 			android:fillViewport="true"
 			android:focusable="true"
 			android:focusableInTouchMode="true">
-			
+
 			<FrameLayout
 				android:id="@+id/fl_main_container"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
-		
+
 		</android.support.v4.widget.NestedScrollView>
-	
+
 	</com.scwang.smartrefresh.layout.SmartRefreshLayout>
-	
+
 	<FrameLayout
 		android:id="@+id/fl_main_container2"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/topbar"
 		android:visibility="gone" />
-	
+
 	<ViewStub
 		android:id="@+id/vs_emptyview"
 		android:layout_width="match_parent"
