@@ -13,6 +13,7 @@ import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
+import com.jsongo.annotation.anno.WhenMobileIMEnable
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
@@ -89,6 +90,12 @@ class MainActivity : BaseActivity(), IMvvmView {
         initView()
 
         observeLiveData()
+
+        initMobileIM()
+    }
+
+    @WhenMobileIMEnable
+    fun initMobileIM() {
         MobileIMConfig.init(this)
         MobileIMConfig.loginIM("testChatId", "testToken", object : SendCallback {
             override fun onSuccess() {
@@ -113,7 +120,6 @@ class MainActivity : BaseActivity(), IMvvmView {
                                 }
                             })
                     }.subscribe()
-
             }
 
             override fun onFailed() {
