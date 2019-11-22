@@ -8,7 +8,8 @@ demo\app module中用于个人测试
 基于`MVVM` `Kotlin` `Retrofit` `RxJava` `APT` `AOP` `javapoet` `QMUI` `JsBridge` `腾讯x5内核` 等搭建
 
 > activity fragment  
-  注解+apt 实现 配置布局  
+  注解+apt 实现配置页面布局  
+  注解+aop 实现动态权限申请  
   页面多容器可选  
   简便的状态管理  
   封装设置列表，使用实体类配置  
@@ -26,7 +27,6 @@ demo\app module中用于个人测试
 
 - 登录页  --  preparing  
 - 整合MobileIM即时通讯  --  doing  
-- 刘海屏web页面bug修复  --  doing  
 - 首页卡片添加图标和点击事件的设置
 - 改造MVVM  --  doing  
 - js与原生交互大量数据传递解决方案（目前只解决原生传递大量数据给js）  -- doing  
@@ -71,6 +71,7 @@ demo\app module中用于个人测试
 - 简单封装recyclerview adapter ,点击和长按事件接口  --  ok
 - 搜索框  --  ok
 - aop实现动态权限申请  --  ok  
+- 刘海屏web页面bug修复  --  ok  
 
 
 ### module依赖关系
