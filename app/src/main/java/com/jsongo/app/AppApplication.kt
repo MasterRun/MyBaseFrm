@@ -18,10 +18,10 @@ class AppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        BaseCore.isDebug = isDebug
         BaseCore.init()
         AJs.init(this)
         BaseUI.init(this)
-        BaseCore.isDebug = isDebug
     }
 
     override fun attachBaseContext(context: Context) {
@@ -51,6 +51,6 @@ class AppApplication : Application() {
 
         val isDebug: Boolean
             @Contract(pure = true)
-            get() = true
+            get() = true && BuildConfig.DEBUG
     }
 }

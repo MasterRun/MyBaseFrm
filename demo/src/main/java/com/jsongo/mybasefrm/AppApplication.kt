@@ -20,8 +20,8 @@ class AppApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        BaseCore.init()
         BaseCore.isDebug = isDebug
+        BaseCore.init()
         AJs.init(this)
         BaseUI.init(this)
         initMobileIM()
@@ -59,6 +59,6 @@ class AppApplication : Application() {
 
         val isDebug: Boolean
             @Contract(pure = true)
-            get() = true
+            get() = true && BuildConfig.DEBUG
     }
 }
