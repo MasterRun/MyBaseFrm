@@ -3,11 +3,11 @@ package com.jsongo.core.ui.splash
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import com.jsongo.annotation.anno.permission.PermissionDeny
+import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.R
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.util.ActivityCollector
-import com.tbruyelle.rxpermissions2.RxPermissions
 import com.vondear.rxtool.view.RxToast
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,47 +28,16 @@ open class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        validatePermission(this)
-    }
-
-    /**
-     * 权限
-     */
-    open fun getPermissions() = arrayOf(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-        Manifest.permission.READ_EXTERNAL_STORAGE//,
-//        Manifest.permission.ACCESS_COARSE_LOCATION,
-//        Manifest.permission.ACCESS_FINE_LOCATION,
-//        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
-//        Manifest.permission.READ_PHONE_STATE,
-//        Manifest.permission.CAMERA,
-//        Manifest.permission.RECORD_AUDIO
-    )
-
-    protected open fun validatePermission(fragmentActivity: FragmentActivity) {
-        val permissions = RxPermissions(fragmentActivity)
-        //noinspection ResultOfMethodCallIgnored
-        val disposable = permissions.request(*getPermissions()).subscribe { granted ->
-            if (!granted) {
-                if (permissions.isGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE).not()) {
-                    //如果没有写权限，提示，延迟2秒退出
-                    RxToast.warning(getString(R.string.nopermission_exit))
-                    exitDelay()
-                } else {
-                    //提示权限丢失，启动首页
-                    RxToast.warning(getString(R.string.permission_missing))
-                    startMainActivity(0)
-                }
-            } else {
-                startMainActivity(0)
-            }
-        }
-        compositeDisposable.add(disposable)
+        startMainActivity(0)
     }
 
     /**
      * 启动MainActivity
      */
+    @PermissionNeed(
+        Manifest.permission.READ_EXTERNAL_STORAGE,
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    )
     open fun startMainActivity(delay: Long = 800) {
         val disposable = Observable.timer(delay, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.computation())
@@ -90,6 +59,12 @@ open class SplashActivity : BaseActivity() {
                 RxToast.error(getString(R.string.start_mainpage_error) + it.message)
             })
         compositeDisposable.add(disposable)
+    }
+
+    @PermissionDeny
+    fun permissionDeny() {
+        RxToast.warning(getString(R.string.nopermission_exit))
+        exitDelay()
     }
 
     /**

@@ -4,7 +4,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
 import android.os.Bundle
-import android.view.WindowManager
+import android.view.WindowManager.LayoutParams
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.util.ConstValue
@@ -26,7 +26,7 @@ open class AJsWebPage : BaseActivity() {
         //默认禁用侧滑返回
         setSwipeBackEnable(false)
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
+        window.setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         //隐藏输入法
         RxKeyboardTool.hideSoftInput(this)

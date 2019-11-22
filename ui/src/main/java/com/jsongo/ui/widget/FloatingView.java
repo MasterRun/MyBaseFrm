@@ -1,5 +1,6 @@
 package com.jsongo.ui.widget;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+import com.jsongo.annotation.anno.permission.PermissionNeed;
 import com.jsongo.ui.R;
 import com.jsongo.ui.component.zxing.android.CaptureActivity;
 
@@ -78,6 +80,7 @@ public class FloatingView extends RelativeLayout {
         hide();
     }
 
+    @PermissionNeed(permissions = Manifest.permission.CAMERA)
     public void onClick(Activity activity) {
         Intent intent = new Intent(activity, CaptureActivity.class);
         activity.startActivityForResult(intent, SCAN_REQUEST_CODE);

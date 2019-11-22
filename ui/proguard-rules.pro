@@ -19,6 +19,13 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
 -keep class com.jsongo.ui.** { public *; }
 
 -repackageclasses 'com.jsongo.ui'
+
+
+-keepclassmembers class * {
+    @com.jsongo.annotation.anno.permission.PermissionNeed <methods>;
+    @com.jsongo.annotation.anno.permission.PermissionDeny <methods>;
+}

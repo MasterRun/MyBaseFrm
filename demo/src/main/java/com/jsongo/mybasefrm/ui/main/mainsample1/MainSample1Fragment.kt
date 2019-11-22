@@ -12,7 +12,8 @@ import android.support.v7.widget.LinearLayoutManager
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
-import com.jsongo.annotation.anno.PermissionNeed
+import com.jsongo.annotation.anno.permission.PermissionDeny
+import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.helper.OnRvItemClickListener
@@ -27,6 +28,7 @@ import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.vondear.rxtool.RxRegTool
+import com.vondear.rxtool.view.RxToast
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_main_sample1.*
 
@@ -173,6 +175,12 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
                         e.printStackTrace()
                     }
                 }
+            }
+
+            @PermissionDeny
+            fun onPermissionDeny() {
+                RxToast.error("权限拒绝")
+
             }
         }
         //设置adapter

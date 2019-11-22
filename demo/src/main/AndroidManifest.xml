@@ -13,6 +13,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.login.ui.login.LoginActivity"
+            android:label="@string/title_activity_login"></activity>
         <activity android:name="com.jsongo.core.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
