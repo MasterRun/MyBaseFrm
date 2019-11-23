@@ -87,6 +87,14 @@
 		android:text="demo1"
 		app:layout_constraintStart_toEndOf="@id/btn_crash"
 		app:layout_constraintTop_toBottomOf="@id/btn_goActivity2" />
+
+    <com.qmuiteam.qmui.alpha.QMUIAlphaButton
+        android:id="@+id/qab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test support btn"
+        app:layout_constraintStart_toEndOf="@id/btn_change"
+        app:layout_constraintTop_toBottomOf="@id/btn_godemo1" />
 	
 	<FrameLayout
 		android:id="@+id/fl_fragment_container"

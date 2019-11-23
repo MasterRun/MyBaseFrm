@@ -25,7 +25,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86", "x86_64"
+            abiFilters "armeabi", "armeabi-v7a"
+//            abiFilters "armeabi", "armeabi-v7a", "x86", "x86_64"
         }
         javaCompileOptions {
             annotationProcessorOptions.includeCompileClasspath = true

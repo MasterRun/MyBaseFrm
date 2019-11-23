@@ -207,6 +207,10 @@ class DemoActivity : StatefulActivity() {
         showAjsWebLoader()
 
         ActivityCollector.finish(SplashActivity::class.java)
+
+        val javaClass = qab.javaClass.superclass
+        L.e(javaClass?.name)
+
     }
 
     override fun observeLiveData() {
