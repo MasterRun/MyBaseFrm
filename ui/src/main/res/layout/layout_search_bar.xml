@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:background="@drawable/bg_search_bar"
@@ -10,15 +10,15 @@
 	android:orientation="horizontal"
 	android:paddingTop="2dp"
 	android:paddingBottom="2dp">
-	
-	<android.support.v7.widget.AppCompatImageView
+
+    <androidx.appcompat.widget.AppCompatImageView
 		android:id="@+id/iv_search"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:src="@drawable/abc_ic_search_api_material"
 		android:tint="@color/light_black" />
-	
-	<android.support.v7.widget.AppCompatEditText
+
+    <androidx.appcompat.widget.AppCompatEditText
 		android:id="@+id/et_search"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
@@ -29,12 +29,12 @@
 		android:maxLines="1"
 		android:singleLine="true"
 		android:textSize="14sp" />
-	
-	<android.support.v7.widget.AppCompatImageView
+
+    <androidx.appcompat.widget.AppCompatImageView
 		android:id="@+id/iv_clear"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:src="@drawable/ic_clear"
 		android:tint="@color/light_black" />
 
-</android.support.v7.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

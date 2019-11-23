@@ -6,6 +6,7 @@ import android.text.TextUtils
 import com.google.gson.reflect.TypeToken
 import com.huantansheng.easyphotos.Builder.AlbumBuilder
 import com.huantansheng.easyphotos.EasyPhotos
+import com.huantansheng.easyphotos.models.album.entity.Photo
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.LongCallback
@@ -65,23 +66,27 @@ object File {
                 EasyPhotoGlideEngine.getInstance()
             )
         }
+        builder.setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
         if (!paths.isNullOrEmpty()) {
             builder.setSelectedPhotoPaths(paths)
         }
         builder.setGif(true)
             .setVideo(true)
             .setCount(count)
-            .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
-        builder.start(requestCode)
+            .start(requestCode)
 
         ajsWebViewHost.addLongCallback(requestCode, object : LongCallback<Intent> {
-            override fun success(data: Intent?) {
-                if (data == null) {
-                    failed(data)
-                } else {
-                    val resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS)
-                    callback.success(Pair("paths", resultPaths))
-                }
+            override fun success(data: Intent?) = if (data == null) {
+                failed(data)
+            } else {
+                val resultPhotos: ArrayList<Photo> =
+                    data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS)
+                callback.success(
+                    Pair(
+                        "paths",
+                        com.jsongo.ui.util.Util.getResultPhotosPaths(resultPhotos)
+                    )
+                )
             }
 
             override fun failed(data: Intent?) {

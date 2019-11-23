@@ -1,11 +1,11 @@
 package com.jsongo.mybasefrm.ui.demo
 
 import android.app.Activity
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.text.TextUtils
 import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
@@ -126,12 +126,9 @@ class DemoActivity : StatefulActivity() {
         }
 
         btn_choosePhoto.setOnClickListener {
-            EasyPhotos.createAlbum(
-                this@DemoActivity, true,
-                EasyPhotoGlideEngine.getInstance()
-            )
-                .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
+            EasyPhotos.createAlbum(this, true, EasyPhotoGlideEngine.getInstance())
                 .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+                .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
                 .start(101)
         }
 

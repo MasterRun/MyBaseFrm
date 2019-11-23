@@ -1,6 +1,6 @@
 package com.jsongo.core.arch.mvvm.stateful
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.bean.ErrorDataWrapper
 

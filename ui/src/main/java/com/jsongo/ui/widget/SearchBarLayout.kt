@@ -1,13 +1,13 @@
 package com.jsongo.ui.widget
 
 import android.content.Context
-import android.support.v7.widget.AppCompatEditText
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.LinearLayoutCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.LinearLayoutCompat
 import com.jsongo.core.util.KeyboardUtil
 import com.jsongo.ui.R
 import kotlinx.android.synthetic.main.layout_search_bar.view.*

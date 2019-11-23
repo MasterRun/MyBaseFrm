@@ -1,10 +1,10 @@
 package com.jsongo.ui.component.fragment.settinglist
 
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.core.content.ContextCompat
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.widget.RxToast
 import com.jsongo.ui.R

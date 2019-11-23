@@ -3,7 +3,7 @@ package com.jsongo.mybasefrm.ui.personalinfo
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.mybasefrm.AppApplication

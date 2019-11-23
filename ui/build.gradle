@@ -10,7 +10,7 @@ android {
         minSdkVersion proVer.minSdk
         versionCode libConf.ui.verCode
         versionName libConf.ui.verName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -31,8 +31,8 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     if (libConf.useOnlineAAR) {
         api "com.jsongo.basefrm:core:${libConf.core.aarVer}"
@@ -41,9 +41,9 @@ dependencies {
     }
 
     //easyphoto 图片选取
-    api 'com.github.HuanTanSheng:EasyPhotos:2.4.2'
+    api 'com.github.HuanTanSheng:EasyPhotos:3.0.3'
     //image preview
-    api 'com.ycjiang:ImagePreview:2.2.2'
+    api 'com.ycjiang:ImagePreview:2.2.8'
     //zxing 二维码
 //    api 'com.google.zxing:core:3.3.0'
 //    api 'com.github.yuzhiqiang1993:zxing:2.2.8'

@@ -1,11 +1,11 @@
 package com.jsongo.core.arch
 
 import android.os.Bundle
-import android.support.v4.widget.NestedScrollView
-import android.support.v7.app.AppCompatActivity
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.widget.SlidingLayout

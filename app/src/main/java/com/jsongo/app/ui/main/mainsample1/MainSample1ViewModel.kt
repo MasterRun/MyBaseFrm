@@ -1,6 +1,6 @@
 package com.jsongo.app.ui.main.mainsample1
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.jsongo.app.bean.QuickEntryItemBean
 import com.jsongo.app.bean.WebCardItemBean
 import com.jsongo.core.arch.mvvm.BaseViewModel

@@ -2,7 +2,7 @@ package com.jsongo.core.util
 
 import android.app.ActivityManager
 import android.content.Context
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.jsongo.core.BaseCore
 import com.safframework.log.L
 import java.util.*

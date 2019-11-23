@@ -1,14 +1,14 @@
 package com.jsongo.mybasefrm.ui.main
 
 import android.app.Activity
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.app.FragmentStatePagerAdapter
-import android.support.v4.content.ContextCompat
 import android.view.KeyEvent
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage

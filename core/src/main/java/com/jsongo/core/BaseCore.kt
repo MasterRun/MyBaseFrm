@@ -2,7 +2,7 @@ package com.jsongo.core
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 import com.jsongo.core.crash.CrashHandler
 import com.safframework.log.L
 

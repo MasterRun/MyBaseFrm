@@ -1,6 +1,6 @@
 package com.jsongo.core.helper
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * @author ： jsongo

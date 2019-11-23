@@ -2,9 +2,9 @@ package com.jsongo.ajs.helper
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
 import android.util.SparseArray
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.IPage

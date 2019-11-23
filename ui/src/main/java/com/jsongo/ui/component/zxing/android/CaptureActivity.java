@@ -8,9 +8,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -18,8 +15,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.LinearLayoutCompat;
+
 import com.google.zxing.Result;
 import com.huantansheng.easyphotos.EasyPhotos;
+import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.jsongo.core.arch.BaseActivity;
 import com.jsongo.core.widget.RxToast;
 import com.jsongo.core.widget.TopbarLayout;
@@ -31,11 +33,13 @@ import com.jsongo.ui.component.zxing.decode.DecodeImgCallback;
 import com.jsongo.ui.component.zxing.decode.DecodeImgThread;
 import com.jsongo.ui.component.zxing.view.ViewfinderView;
 import com.jsongo.ui.util.EasyPhotoGlideEngine;
+import com.jsongo.ui.util.Util;
 import com.jsongo.ui.util.UtilKt;
 import com.safframework.log.L;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: yzq
@@ -332,8 +336,10 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == Constant.REQUEST_IMAGE && resultCode == RESULT_OK) {
-            ArrayList<String> resultPaths = data.getStringArrayListExtra(EasyPhotos.RESULT_PATHS);
-            if (resultPaths != null && resultPaths.size() >= 1) {
+
+            ArrayList<Photo> photos = data.getParcelableArrayListExtra(EasyPhotos.RESULT_PHOTOS);
+            List<String> resultPaths = Util.INSTANCE.getResultPhotosPaths(photos);
+            if (resultPaths.size() >= 1) {
                 new DecodeImgThread(resultPaths.get(0), new DecodeImgCallback() {
                     @Override
                     public void onImageDecodeSuccess(Result result) {

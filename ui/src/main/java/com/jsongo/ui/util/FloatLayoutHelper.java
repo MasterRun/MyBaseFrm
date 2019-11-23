@@ -1,13 +1,14 @@
 package com.jsongo.ui.util;
 
 import android.app.Activity;
-import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.jsongo.core.BaseCore;
 import com.jsongo.core.util.GlideUtil;

@@ -3,7 +3,7 @@ package com.jsongo.ajs.helper
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import android.support.annotation.Nullable
+import androidx.annotation.Nullable
 import com.jsongo.ajs.R
 import com.safframework.log.L
 import com.tencent.smtt.sdk.QbSdk

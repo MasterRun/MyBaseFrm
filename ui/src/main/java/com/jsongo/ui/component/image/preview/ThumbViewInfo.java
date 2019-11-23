@@ -2,7 +2,8 @@ package com.jsongo.ui.component.image.preview;
 
 import android.graphics.Rect;
 import android.os.Parcel;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.previewlibrary.enitity.IThumbViewInfo;
 

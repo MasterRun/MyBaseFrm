@@ -1,7 +1,7 @@
 package com.jsongo.core.util
 
 import android.content.Context
-import android.support.annotation.ColorRes
+import androidx.annotation.ColorRes
 import com.scwang.smartrefresh.header.*
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter

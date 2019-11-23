@@ -2,9 +2,9 @@ package com.jsongo.core.widget
 
 import android.content.Context
 import android.graphics.Color
-import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector

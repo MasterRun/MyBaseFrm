@@ -1,14 +1,14 @@
 package com.jsongo.core.arch
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.Fragment
 import com.jsongo.core.R
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.widget.QMUIEmptyView

@@ -31,7 +31,6 @@ demo\app module中用于个人测试
 - 改造MVVM  --  doing  
 - js与原生交互大量数据传递解决方案（目前只解决原生传递大量数据给js）  -- doing  
 - QMUIGroupListView 实现设置页面  -- doing
-- 迁移AndroidX
 - 考虑使用ARouter解耦       
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  problem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
@@ -72,6 +71,7 @@ demo\app module中用于个人测试
 - 搜索框  --  ok
 - aop实现动态权限申请  --  ok  
 - 刘海屏web页面bug修复  --  ok  
+- 迁移AndroidX --  ok  
 
 
 ### module依赖关系

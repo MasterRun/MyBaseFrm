@@ -11,7 +11,7 @@ android {
         versionCode libConf.core.verCode
         versionName libConf.core.verName
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
 
@@ -39,30 +39,30 @@ dependencies {
     }
 
     //android support
-    api "com.android.support:multidex:${proVer.multidex}"
-    api "com.android.support:support-v4:${proVer.support}"
-    api "com.android.support:design:${proVer.support}"
-    api "com.android.support:cardview-v7:${proVer.support}"
-    api "com.android.support:appcompat-v7:${proVer.support}"
-    api "com.android.support:recyclerview-v7:${proVer.support}"
-    api "com.android.support:support-annotations:${proVer.support}"
-    api "com.android.support:support-core-utils:${proVer.support}"
-    api 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
+    api "androidx.multidex:multidex:${proVer.multidex}"
+    api "androidx.legacy:legacy-support-v4:${proVer.androidx}"
+    api "com.google.android.material:material:${proVer.androidx}"
+    api "androidx.cardview:cardview:${proVer.androidx}"
+    api "androidx.appcompat:appcompat:${proVer.androidx}"
+    api "androidx.recyclerview:recyclerview:${proVer.androidx}"
+    api "androidx.annotation:annotation:${proVer.androidx}"
+    api "androidx.legacy:legacy-support-core-utils:${proVer.androidx}"
+    api "androidx.constraintlayout:constraintlayout:1.1.3"
 
     //android arch
-    api "android.arch.core:common:${proVer.arch}"
-    api "android.arch.core:runtime:${proVer.arch}"
-    api "android.arch.lifecycle:common:${proVer.arch}"
-    api "android.arch.lifecycle:extensions:${proVer.arch}"
-    api "android.arch.lifecycle:livedata-core:${proVer.arch}"
-    api "android.arch.lifecycle:livedata:${proVer.arch}"
-    api "android.arch.lifecycle:runtime:${proVer.arch}"
-    api "android.arch.lifecycle:viewmodel:${proVer.arch}"
+    api "androidx.arch.core:core-common:${proVer.arch}"
+    api "androidx.arch.core:core-runtime:${proVer.arch}"
+    api "androidx.lifecycle:lifecycle-common:${proVer.arch}"
+    api "androidx.lifecycle:lifecycle-extensions:${proVer.arch}"
+    api "androidx.lifecycle:lifecycle-livedata-core:${proVer.arch}"
+    api "androidx.lifecycle:lifecycle-livedata:${proVer.arch}"
+    api "androidx.lifecycle:lifecycle-runtime:${proVer.arch}"
+    api "androidx.lifecycle:lifecycle-viewmodel:${proVer.arch}"
 
     //test
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     //kotlin
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${proVer.kotlin}"

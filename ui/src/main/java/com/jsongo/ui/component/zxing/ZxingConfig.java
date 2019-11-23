@@ -1,6 +1,6 @@
 package com.jsongo.ui.component.zxing;
 
-import android.support.annotation.ColorRes;
+import androidx.annotation.ColorRes;
 
 import com.jsongo.ui.R;
 

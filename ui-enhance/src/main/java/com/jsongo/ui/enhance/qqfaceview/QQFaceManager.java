@@ -1,8 +1,9 @@
 package com.jsongo.ui.enhance.qqfaceview;
 
 import android.graphics.drawable.Drawable;
-import android.support.v4.util.ArrayMap;
 import android.util.SparseIntArray;
+
+import androidx.collection.ArrayMap;
 
 import com.jsongo.ui.R;
 import com.qmuiteam.qmui.qqface.IQMUIQQFaceManager;

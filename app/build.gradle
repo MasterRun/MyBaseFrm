@@ -23,7 +23,7 @@ android {
         minSdkVersion proVer.minSdk
         versionCode libConf.app.verCode
         versionName libConf.app.verName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
         ndk {
             abiFilters "armeabi", "armeabi-v7a"
@@ -87,6 +87,6 @@ dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     //androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

@@ -10,7 +10,7 @@ android {
         minSdkVersion proVer.minSdk
         versionCode libConf.mobileim.verCode
         versionName libConf.mobileim.verName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -31,8 +31,8 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     if (libConf.useOnlineAAR) {
         api "com.jsongo.basefrm:core:${libConf.core.aarVer}"

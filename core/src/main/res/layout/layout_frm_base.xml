@@ -16,7 +16,7 @@
 		android:layout_height="match_parent"
 		android:layout_below="@id/topbar">
 
-		<android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
 			android:id="@+id/nsv"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content" />
 
-		</android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
 	</com.scwang.smartrefresh.layout.SmartRefreshLayout>
 

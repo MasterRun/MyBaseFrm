@@ -3,6 +3,7 @@ package com.jsongo.core.aop
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.widget.RxToast
 import com.tbruyelle.rxpermissions2.RxPermissions
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
@@ -37,7 +38,7 @@ class PermissionRequstor {
         } else {
             val rxPermissions = RxPermissions(ActivityCollector.topActivity)
             val disposable = rxPermissions.request(*permissions)
-                .subscribe { granted ->
+                .subscribe({ granted ->
                     if (granted) {
                         //权限通过
                         joinPoint.proceed()
@@ -45,7 +46,9 @@ class PermissionRequstor {
                         //权限未通过
                         permissionDeny(joinPoint)
                     }
-                }
+                }, {
+                    RxToast.error(it.message ?: "error in request permissions")
+                })
         }
 
     }

@@ -1,7 +1,8 @@
 package com.jsongo.ui.component.image.banner.lib.transform;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.jsongo.ui.component.image.banner.lib.util.ViewHelper;
 

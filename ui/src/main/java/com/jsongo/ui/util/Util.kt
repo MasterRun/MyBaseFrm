@@ -1,6 +1,7 @@
 package com.jsongo.ui.util
 
 import android.view.View
+import com.huantansheng.easyphotos.models.album.entity.Photo
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**
@@ -15,4 +16,14 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 fun View.addStatusBarHeightPadding() {
     val statusbarHeight = QMUIStatusBarHelper.getStatusbarHeight(context)
     setPadding(paddingLeft, paddingTop + statusbarHeight, paddingRight, paddingBottom)
+}
+
+object Util {
+    fun getResultPhotosPaths(photos: List<Photo>): List<String> {
+        val resultPaths = java.util.ArrayList<String>()
+        for (photo in photos) {
+            resultPaths.add(photo.path)
+        }
+        return resultPaths
+    }
 }

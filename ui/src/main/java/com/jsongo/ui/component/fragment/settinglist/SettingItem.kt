@@ -1,8 +1,8 @@
 package com.jsongo.ui.component.fragment.settinglist
 
-import android.support.annotation.DrawableRes
 import android.view.View
 import android.widget.CompoundButton
+import androidx.annotation.DrawableRes
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
 /**

@@ -1,6 +1,6 @@
 package com.jsongo.app.ui.main
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
 
 /**

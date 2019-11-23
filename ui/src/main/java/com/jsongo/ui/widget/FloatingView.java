@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
-import android.support.annotation.DrawableRes;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -13,6 +12,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.DrawableRes;
 
 import com.jsongo.annotation.anno.permission.PermissionNeed;
 import com.jsongo.ui.R;

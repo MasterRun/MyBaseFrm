@@ -1,12 +1,12 @@
 package com.jsongo.core.arch
 
 import android.content.Context
-import android.support.v4.widget.NestedScrollView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.core.widget.NestedScrollView
 import com.jsongo.annotation.register.ViewConfigor
 import com.jsongo.core.BaseCore
 import com.jsongo.core.util.SmartRefreshFooter
