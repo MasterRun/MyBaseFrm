@@ -127,6 +127,7 @@
 #---------------------------------默认保留区---------------------------------
 -keep public class * extends android.app.Activity { *; }
 -keep class * extends android.support.v4.app.Fragment.Fragment { *; }
+-keep class * extends androidx.fragment.app.Fragment { *; }
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
 -keep public class * extends android.content.BroadcastReceiver
@@ -136,6 +137,7 @@
 -keep public class * extends android.view.View
 -keep public class com.android.vending.licensing.ILicensingService
 -keep class android.support.** {*;}
+-keep class androidx.** {*;}
 -keep public class * extends android.view.View{
     *** get*();
     void set*(***);

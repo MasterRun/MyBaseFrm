@@ -61,7 +61,7 @@ object GlideUtil {
         }
     }
 
-    @Deprecated("use android.support.v4.app.Fragment instead")
+    @Deprecated("use androidx.fragment.app.Fragment instead")
     fun load(fragment: android.app.Fragment?, url: String, imageView: ImageView) {
         val activity = fragment?.activity
         if (fragment != null && activity != null && !(activity.isDestroyed)) {
