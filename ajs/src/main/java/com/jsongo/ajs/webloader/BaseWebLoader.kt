@@ -29,6 +29,10 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
      * 加载的url
      */
     var webPath = ""
+    /**
+     * 是否加载失败
+     */
+    var receiveError = false
 
     override var mainLayoutId = R.layout.activity_ajs_webloader
 
@@ -70,6 +74,7 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
     protected fun initData() {
         aJsWebView.webPath = webPath
         aJsWebView.loadingProgressListener = object : AJsWebView.LoadingProgressListener {
+
             override fun onReceiveTitle(wv: WebView?, title: String?) {
                 topbar.setTitle(title)
             }
@@ -82,7 +87,9 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
             }
 
             override fun onLoadFinish(wv: WebView?, url: String) {
-                this@BaseWebLoader.onLoadFinish(wv, url)
+                //如果加载失败，不再走加载完成回调
+                if (!receiveError)
+                    this@BaseWebLoader.onLoadFinish(wv, url)
             }
 
             override fun onReceiveError(
@@ -91,20 +98,34 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
                 code: Int?,
                 webResourceError: WebResourceError?
             ) {
-                inflateEmptyView()?.show(
-                    false,
-                    AJs.context.getString(R.string.ajs_load_error),
-                    "url:${aJsWebView.webPath}\n\n错误码:$code" + (if (webResourceError == null) "" else "\n错误信息:${webResourceError.description}"),
-                    AJs.context.getString(R.string.ajs_reload)
-                ) {
-                    reload()
-                }
+                this@BaseWebLoader.onReceiveError(wv, webResourceRequest, code, webResourceError)
             }
         }
         aJsWebView.initLoad()
     }
 
+    /**
+     * 加载失败回调
+     */
+    open fun onReceiveError(
+        wv: WebView?,
+        webResourceRequest: WebResourceRequest?,
+        code: Int?,
+        webResourceError: WebResourceError?
+    ) {
+        receiveError = true
+        inflateEmptyView()?.show(
+            false,
+            AJs.context.getString(R.string.ajs_load_error),
+            "url:${aJsWebView.webPath}\n\n错误码:$code" + (if (webResourceError == null) "" else "\n错误信息:${webResourceError.description}"),
+            AJs.context.getString(R.string.ajs_reload)
+        ) {
+            reload()
+        }
+    }
+
     open fun reload() {
+        receiveError = false
         pbWebview.visibility = View.VISIBLE
         inflateEmptyView()?.hide()
         aJsWebView.reload()

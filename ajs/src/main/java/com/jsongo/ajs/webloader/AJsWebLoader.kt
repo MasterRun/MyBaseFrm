@@ -12,6 +12,8 @@ import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import com.tencent.smtt.export.external.interfaces.WebResourceError
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
 import kotlinx.android.synthetic.main.activity_ajs_webloader.*
 
@@ -186,6 +188,19 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
         } else {
             inflateEmptyView()?.hide()
         }
+    }
+
+    /**
+     * 页面加载错误回调
+     */
+    override fun onReceiveError(
+        wv: WebView?,
+        webResourceRequest: WebResourceRequest?,
+        code: Int?,
+        webResourceError: WebResourceError?
+    ) {
+        super.onReceiveError(wv, webResourceRequest, code, webResourceError)
+        loadingDialog?.dismiss()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

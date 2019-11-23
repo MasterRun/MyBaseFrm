@@ -188,10 +188,10 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
                 loadsImagesAutomatically = false//图片自动缩放 关闭
             }
 
-//     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//         aJsWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)//软件解码
-//     }
-//     aJsWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)//硬件解码
+//           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//               aJsWebView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)//软件解码
+//           }
+//           aJsWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null)//硬件解码
 
             //允许webview对文件的操作
             setAllowUniversalAccessFromFileURLs(true)
