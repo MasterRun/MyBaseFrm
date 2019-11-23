@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.layout_frm_base.*
 abstract class BaseActivity : AppCompatActivity(), IPage {
 
     private lateinit var slidingLayout: SlidingLayout
-    //loadngDialog
+    //loadingDialog
     lateinit var loadingDialog: QMUITipDialog
         protected set
 

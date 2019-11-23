@@ -17,14 +17,12 @@ import com.jsongo.annotation.anno.WhenMobileIMEnable
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
-import com.jsongo.core.util.ActivityCollector
-import com.jsongo.core.util.PRE_ANDROID_ASSET
-import com.jsongo.core.util.RegUtil
-import com.jsongo.core.util.URL_REG
+import com.jsongo.core.util.*
 import com.jsongo.mobileim.bean.Message
 import com.jsongo.mobileim.core.MobileIMConfig
 import com.jsongo.mobileim.operator.ChatMessageSender
 import com.jsongo.mobileim.operator.SendCallback
+import com.jsongo.mobileim.util.MobileIMMessageSign
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.main.mainsample1.MainSample1Fragment
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
@@ -37,12 +35,15 @@ import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
 import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 
 @Page(R.layout.activity_main, 0)
 class MainActivity : BaseActivity(), IMvvmView {
+
+    val compositeDisposable = CompositeDisposable()
 
     /**
      * 悬浮按钮
@@ -92,15 +93,21 @@ class MainActivity : BaseActivity(), IMvvmView {
         observeLiveData()
 
         initMobileIM()
+
+        regIMReceiver()
     }
 
+    /**
+     * 初始化并登陆MobileIM
+     */
     @WhenMobileIMEnable
     fun initMobileIM() {
         MobileIMConfig.init(this)
         MobileIMConfig.loginIM("testChatId", "testToken", object : SendCallback {
             override fun onSuccess() {
                 super.onSuccess()
-                L.e("login im success")
+                L.e("login data send success")
+
                 //发消息测试
                 Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
                     .map {
@@ -124,9 +131,22 @@ class MainActivity : BaseActivity(), IMvvmView {
 
             override fun onFailed() {
                 super.onFailed()
-                L.e("login im failed")
+                L.e("login data send failed")
             }
         })
+    }
+
+    /**
+     * 注册MobileIM消息接收
+     */
+    @WhenMobileIMEnable
+    fun regIMReceiver() {
+        val disposable = RxBus.toFlowable().filter {
+            MobileIMMessageSign.isMobileIMMessage(it.code)
+        }.map {
+            L.e("mobileim收到消息：${it}")
+        }.subscribe()
+        compositeDisposable.add(disposable)
     }
 
     override fun initView() {
@@ -327,8 +347,10 @@ class MainActivity : BaseActivity(), IMvvmView {
     }
 
     override fun onIPageDestroy() {
+        compositeDisposable.dispose()
         //销毁悬浮窗
         floatingView?.destory()
+
         super.onIPageDestroy()
     }
 

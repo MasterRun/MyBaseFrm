@@ -32,6 +32,13 @@ public class MobileIMConfig {
         ClientCoreSDK.getInstance().setMessageQoSEvent(new MessageQoSEventImpl());
     }
 
+    /**
+     * 登陆IM
+     *
+     * @param chatId
+     * @param token
+     * @param callback 回调标识登陆的数据发送是否成功
+     */
     public static void loginIM(String chatId, String token, SendCallback callback) {
         new LocalUDPDataSender.SendLoginDataAsync(MobileIM.context, chatId, token) {
             @Override

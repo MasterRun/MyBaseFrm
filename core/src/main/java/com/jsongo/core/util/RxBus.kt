@@ -33,7 +33,7 @@ object RxBus {
  * @date 2019/3/29 16:19
  * @desc rxbus event
  */
-class BusEvent<T>(
+data class BusEvent<T>(
     var code: Int = -1,
     var message: String = "",
     var data: T? = null

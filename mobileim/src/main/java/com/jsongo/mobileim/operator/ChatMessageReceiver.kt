@@ -9,7 +9,7 @@ import com.jsongo.mobileim.bean.Message
 import com.jsongo.mobileim.bean.ServerEvent
 import com.jsongo.mobileim.bean.UdpData
 import com.jsongo.mobileim.bean.UdpDataType
-import com.jsongo.mobileim.util.Constants
+import com.jsongo.mobileim.util.MobileIMMessageSign
 import com.safframework.log.L
 
 /**
@@ -46,7 +46,7 @@ class ChatMessageReceiver {
 
     private fun onReceiveMessage(jsonData: String) {
         val messageUdpData = gson.fromJson<UdpData<Message>>(jsonData, UdpData.messageUdpDataType)
-        val busEvent = BusEvent(Constants.IM_RECEIVE_MESSAGE, "收到即时通讯消息", messageUdpData.content)
+        val busEvent = BusEvent(MobileIMMessageSign.IM_RECEIVE_MESSAGE, "收到即时通讯消息", messageUdpData.content)
         RxBus.post(busEvent)
         L.d("rxbus post message : " + messageUdpData.content)
     }
@@ -55,7 +55,7 @@ class ChatMessageReceiver {
         val serverEventUdpData =
             gson.fromJson<UdpData<ServerEvent>>(jsonData, UdpData.serverEventUdpDataType)
         val busEvent =
-            BusEvent(Constants.IM_RECEIVE_SERVER_DATA, "收到服务端消息", serverEventUdpData.content)
+            BusEvent(MobileIMMessageSign.IM_RECEIVE_SERVER_DATA, "收到服务端消息", serverEventUdpData.content)
         RxBus.post(busEvent)
         L.d("rxbus post serverenevt: " + serverEventUdpData.content)
     }

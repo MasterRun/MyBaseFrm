@@ -6,7 +6,13 @@ package com.jsongo.mobileim.util
  * @desc : 常量
  * 约定：即时通讯的rxbus消息code标识占用范围为 15001-15999
  */
-object Constants {
+object MobileIMMessageSign {
+
+    /**
+     * 是否是即时通讯消息
+     */
+    fun isMobileIMMessage(code: Int): Boolean =
+        code == IM_LOGIN_EVENT || code == IM_RECEIVE_MESSAGE || code == IM_RECEIVE_SERVER_DATA
 
     //登录事件标识
     const val IM_LOGIN_EVENT = 15001

@@ -24,11 +24,14 @@ object AJs {
     }
 
     private fun initX5() {
-
-        val tbsSettingMap =
-            hashMapOf(Pair(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true as Any))
-        QbSdk.initTbsSettings(tbsSettingMap)
-        val intent = Intent(context, PreLoadX5Service::class.java)
-        context.startService(intent)
+        try {
+            val tbsSettingMap =
+                hashMapOf(Pair(TbsCoreSettings.TBS_SETTINGS_USE_SPEEDY_CLASSLOADER, true as Any))
+            QbSdk.initTbsSettings(tbsSettingMap)
+            val intent = Intent(context, PreLoadX5Service::class.java)
+            context.startService(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
