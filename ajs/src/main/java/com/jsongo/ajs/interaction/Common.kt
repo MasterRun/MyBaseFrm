@@ -1,5 +1,6 @@
 package com.jsongo.ajs.interaction
 
+import android.Manifest
 import android.content.Intent
 import android.graphics.Color
 import android.text.TextUtils
@@ -13,6 +14,7 @@ import com.jsongo.ajs.util.ConstValue
 import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
+import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.ui.component.image.preview.ImgPreviewClick
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.component.zxing.android.CaptureActivity
@@ -214,6 +216,7 @@ object Common {
      * 打开二维码条形码扫描页面
      */
     @JvmStatic
+    @PermissionNeed(Manifest.permission.CAMERA)
     fun scan(
         ajsWebViewHost: AjsWebViewHost,
         aJsWebView: AJsWebView,

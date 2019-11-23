@@ -1,5 +1,6 @@
 package com.jsongo.ajs.interaction
 
+import android.Manifest
 import android.content.Intent
 import android.text.TextUtils
 import com.google.gson.reflect.TypeToken
@@ -10,6 +11,7 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.LongCallback
 import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
+import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.util.ConstConf
 import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.vondear.rxtool.RxFileTool
@@ -26,6 +28,7 @@ import kotlin.random.Random
 object File {
 
     @JvmStatic
+    @PermissionNeed(Manifest.permission.CAMERA)
     fun selectImg(
         ajsWebViewHost: AjsWebViewHost,
         aJsWebView: AJsWebView,
