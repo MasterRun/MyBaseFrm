@@ -9,8 +9,8 @@ import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.util.ConstValue
 import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.util.KeyboardUtil
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.vondear.rxtool.RxKeyboardTool
 
 open class AJsWebPage : BaseActivity() {
 
@@ -29,7 +29,7 @@ open class AJsWebPage : BaseActivity() {
         window.setSoftInputMode(LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
         //隐藏输入法
-        RxKeyboardTool.hideSoftInput(this)
+        KeyboardUtil.hideSoftInput(this)
         //可取消dialog
         loadingDialog.setCancelable(true)
         loadingDialog.show()

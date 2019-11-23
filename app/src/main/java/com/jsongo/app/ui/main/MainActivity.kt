@@ -21,6 +21,7 @@ import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.PRE_ANDROID_ASSET
+import com.jsongo.core.util.RegUtil
 import com.jsongo.core.util.URL_REG
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.widget.FloatingView
@@ -30,7 +31,6 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
-import com.vondear.rxtool.RxRegTool
 import kotlinx.android.synthetic.main.activity_main.*
 
 @Page(R.layout.activity_main, 0)
@@ -256,7 +256,7 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     fun onScanResult(str: String) {
 
-        if (RxRegTool.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
+        if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
             //加载页面
             AJsApplet.load(str)
         } else {

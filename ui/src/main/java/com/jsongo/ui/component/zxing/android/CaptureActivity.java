@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.google.zxing.Result;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.jsongo.core.arch.BaseActivity;
+import com.jsongo.core.widget.RxToast;
 import com.jsongo.core.widget.TopbarLayout;
 import com.jsongo.ui.R;
 import com.jsongo.ui.component.zxing.Constant;
@@ -32,7 +33,6 @@ import com.jsongo.ui.component.zxing.view.ViewfinderView;
 import com.jsongo.ui.util.EasyPhotoGlideEngine;
 import com.jsongo.ui.util.UtilKt;
 import com.safframework.log.L;
-import com.vondear.rxtool.view.RxToast;
 
 import java.io.IOException;
 import java.util.ArrayList;

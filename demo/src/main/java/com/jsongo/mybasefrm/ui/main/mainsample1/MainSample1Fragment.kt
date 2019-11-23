@@ -18,7 +18,9 @@ import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.helper.OnRvItemClickListener
 import com.jsongo.core.util.PRE_ANDROID_ASSET
+import com.jsongo.core.util.RegUtil
 import com.jsongo.core.util.URL_REG
+import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.adapter.QuickEntryItemAdapter
 import com.jsongo.mybasefrm.adapter.WebCardVTitleItemAdapter
@@ -27,8 +29,6 @@ import com.jsongo.mybasefrm.bean.WebCardItemBean
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.util.addStatusBarHeightPadding
-import com.vondear.rxtool.RxRegTool
-import com.vondear.rxtool.view.RxToast
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_main_sample1.*
 
@@ -164,7 +164,7 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
                 type: Int
             ) {
                 val entryTag = quickEntryItemAdapter.dataList[position].entryTag
-                if (RxRegTool.isMatch(URL_REG, entryTag)
+                if (RegUtil.isMatch(URL_REG, entryTag)
                     || entryTag.trim().startsWith(PRE_ANDROID_ASSET)
                 ) {
                     AJsWebPage.load(entryTag)
@@ -180,7 +180,6 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
             @PermissionDeny
             fun onPermissionDeny() {
                 RxToast.error("权限拒绝")
-
             }
         }
         //设置adapter

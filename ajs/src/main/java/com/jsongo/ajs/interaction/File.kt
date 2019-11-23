@@ -13,8 +13,8 @@ import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.util.ConstConf
+import com.jsongo.core.util.FileUtil
 import com.jsongo.ui.util.EasyPhotoGlideEngine
-import com.vondear.rxtool.RxFileTool
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import kotlin.random.Random
@@ -107,7 +107,7 @@ object File {
         } else {
             val disposable = Observable.just(path)
                 .map {
-                    RxFileTool.file2Base64(it)
+                    FileUtil.file2Base64(it)
                 }
                 .subscribeOn(Schedulers.io())
                 .subscribe {
@@ -132,7 +132,7 @@ object File {
         if (!file.exists()) {
             callback.failure(message = "file not existed")
         } else {
-            val result = RxFileTool.deleteFile(path)
+            val result = FileUtil.deleteFile(path)
             if (result) {
                 callback.success()
             } else {

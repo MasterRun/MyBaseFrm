@@ -7,8 +7,8 @@
 	<!--<color name="colorAccent">#FF4081</color>-->
 	<color name="colorAccent">#31BDF3</color>
 	<color name="app_color_theme">#2BBDF3</color> <!-- Aqua -->
-	
-	<color name="light_gray_transparent">#94646464</color>
+
+    <color name="light_gray_transparent">#94646464</color>
 	<color name="light_gray">#EDEDED</color>
 	
 	<color name="app_color_blue_2">#31BDF3</color>
@@ -20,7 +20,6 @@
 	<color name="google_yellow">#FFF7D23E</color>
 	<color name="google_green">#FF34A350</color>
 	
-	<color name="white">#fff</color>
 	<color name="darker_gray">@android:color/darker_gray</color>
 	<color name="lighter_gray">#ddd</color>
 	<color name="green_btn">#2bc920</color>

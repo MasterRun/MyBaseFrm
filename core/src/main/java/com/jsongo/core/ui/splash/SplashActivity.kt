@@ -8,7 +8,7 @@ import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.R
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.util.ActivityCollector
-import com.vondear.rxtool.view.RxToast
+import com.jsongo.core.widget.RxToast
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

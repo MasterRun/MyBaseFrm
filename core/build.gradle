@@ -94,9 +94,9 @@ dependencies {
     api "com.github.bumptech.glide:glide:${proVer.glide}"
 
     //rxtool
-    api "com.github.tamsiree.RxTool:RxKit:${proVer.rxtool}"
-    api "com.github.tamsiree.RxTool:RxUI:${proVer.rxtool}"
-    api "com.github.tamsiree.RxTool:RxCamera:${proVer.rxtool}"
+//    api "com.github.tamsiree.RxTool:RxKit:${proVer.rxtool}"
+//    api "com.github.tamsiree.RxTool:RxUI:${proVer.rxtool}"
+//    api "com.github.tamsiree.RxTool:RxCamera:${proVer.rxtool}"
     //功能库（Zxing扫描与生成二维码条形码 支付宝 微信） 二维码扫描部分手机无效
 //    api "com.github.tamsiree.RxTool:RxFeature:${proVer.rxtool}"
     //ArcGis For Android工具库（API：100.1以上版本）

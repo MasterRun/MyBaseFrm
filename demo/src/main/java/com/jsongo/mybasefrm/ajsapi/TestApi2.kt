@@ -4,7 +4,7 @@ import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
-import com.vondear.rxtool.view.RxToast
+import com.jsongo.core.widget.RxToast
 
 /**
  * author ： jsongo

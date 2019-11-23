@@ -2,7 +2,6 @@ package com.jsongo.core.util
 
 import android.os.Environment
 import com.jsongo.core.BaseCore
-import com.vondear.rxtool.RxFileTool
 import java.io.File
 
 /**
@@ -28,7 +27,7 @@ object ConstConf {
             val packageInfo = packageManager.getPackageInfo(BaseCore.context.getPackageName(), 0)
             val labelRes = packageInfo.applicationInfo.labelRes
             val name = BaseCore.context.getResources().getString(labelRes)
-            BASE_DIR = RxFileTool.getRootPath().toString() + File.separator + name + File.separator
+            BASE_DIR = FileUtil.getRootPath().toString() + File.separator + name + File.separator
         } catch (e: Exception) {
             BASE_DIR = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
                 BaseCore.context.getExternalCacheDir()!!.getPath() + File.separator

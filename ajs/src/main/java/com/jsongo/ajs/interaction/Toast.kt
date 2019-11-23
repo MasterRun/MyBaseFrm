@@ -3,7 +3,7 @@ package com.jsongo.ajs.interaction
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
-import com.vondear.rxtool.view.RxToast
+import com.jsongo.core.widget.RxToast
 
 /**
  * @author  jsongo

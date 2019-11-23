@@ -15,7 +15,8 @@ import com.jsongo.app.R
 import com.jsongo.app.bean.QuickEntryItemBean
 import com.jsongo.core.helper.RecyclerViewAdapter
 import com.jsongo.core.util.GlideUtil
-import com.vondear.rxtool.RxRegTool
+import com.jsongo.core.util.RegUtil
+import com.jsongo.core.util.URL_REG
 import kotlinx.android.synthetic.main.item_quick_entry.view.*
 
 /**
@@ -60,7 +61,7 @@ class QuickEntryItemAdapter(
                 ivQuickIcon
             )
             itemView.setOnClickListener {
-                if (RxRegTool.isURL(dataItem.entryTag)) {
+                if (RegUtil.isMatch(URL_REG, dataItem.entryTag)) {
                     AJsWebPage.load(dataItem.entryTag)
                 } else {
                     try {

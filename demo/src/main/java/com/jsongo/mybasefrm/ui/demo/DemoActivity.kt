@@ -19,6 +19,7 @@ import com.jsongo.core.arch.mvvm.stateful.StatefulActivity
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.*
+import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.aop.AopOnclick
 import com.jsongo.mybasefrm.ui.demo.demo.DemoFragment
@@ -30,8 +31,6 @@ import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
-import com.vondear.rxtool.RxRegTool
-import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_demo.*
 import java.util.*
 
@@ -250,7 +249,7 @@ class DemoActivity : StatefulActivity() {
      */
     fun onScanResult(str: String) {
 
-        if (RxRegTool.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
+        if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
             //加载页面
             AJsApplet.load(str)
         } else {

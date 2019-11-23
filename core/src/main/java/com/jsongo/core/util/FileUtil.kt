@@ -2,11 +2,13 @@ package com.jsongo.core.util
 
 import android.net.Uri
 import android.os.Build
+import android.os.Environment
 import android.support.v4.content.FileProvider
+import android.util.Base64
 import com.jsongo.core.BaseCore.context
-import com.vondear.rxtool.RxFileTool
+import java.io.ByteArrayOutputStream
 import java.io.File
-
+import java.io.FileInputStream
 
 /**
  * @author ： jsongo
@@ -16,20 +18,89 @@ import java.io.File
 
 class MyFileProvider : FileProvider()
 
+object FileUtil {
+    /**
+     * 得到SD卡根目录.
+     */
+    fun getRootPath(): File? =
+        if (sdCardIsAvailable()) {
+            Environment.getExternalStorageDirectory() // 取得sdcard文件路径
+        } else {
+            Environment.getDataDirectory()
+        }
+
+
+    /**
+     * 根据文件路径获取文件
+     *
+     * @param filePath 文件路径
+     * @return 文件
+     */
+    fun getFileByPath(filePath: String?): File? =
+        if (filePath.isNullOrEmpty()) null else File(filePath)
+
+    /**
+     * 删除文件
+     *
+     * @param srcFilePath 文件路径
+     * @return `true`: 删除成功<br></br>`false`: 删除失败
+     */
+    fun deleteFile(srcFilePath: String?): Boolean {
+        return deleteFile(getFileByPath(srcFilePath))
+    }
+
+    /**
+     * 删除文件
+     *
+     * @param file 文件
+     * @return `true`: 删除成功<br></br>`false`: 删除失败
+     */
+    fun deleteFile(file: File?): Boolean {
+        return file != null && (!file.exists() || file.isFile && file.delete())
+    }
+
+    /**
+     * SD卡是否可用.
+     */
+    fun sdCardIsAvailable(): Boolean =
+        if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+            val sd = File(Environment.getExternalStorageDirectory().path)
+            sd.canWrite()
+        } else {
+            false
+        }
+
+    fun file2Base64(filePath: String): String {
+        var fis: FileInputStream?
+        val bos = ByteArrayOutputStream()
+        try {
+            fis = FileInputStream(filePath)
+            val buffer = ByteArray(1024 * 100)
+            var count = 0
+            while (fis.read(buffer).also({ count = it }) != -1) {
+                bos.write(buffer, 0, count)
+            }
+            fis.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        val base64String = Base64.encodeToString(bos.toByteArray(), Base64.DEFAULT)
+        return base64String
+    }
+}
+
 /**
  * String  扩展方法，获取对应的文件
  */
-fun String.toFile(): File? = RxFileTool.getFileByPath(this)
+fun String.toFile(): File? = FileUtil.getFileByPath(this)
 
 /**
  * File  扩展方法，用于获取文件Uri
  */
-fun File.getUri(): Uri {
-    val uri: Uri
+fun File.getUri(): Uri =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        uri = FileProvider.getUriForFile(context, ConstConf.FILE_PROVIDER_AUTH, this)
+        FileProvider.getUriForFile(context, ConstConf.FILE_PROVIDER_AUTH, this)
     } else {
-        uri = Uri.fromFile(this)
+        Uri.fromFile(this)
     }
-    return uri
-}
+

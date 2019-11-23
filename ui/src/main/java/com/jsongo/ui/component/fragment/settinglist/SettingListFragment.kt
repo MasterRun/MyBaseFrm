@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import com.jsongo.core.arch.BaseFragment
+import com.jsongo.core.widget.RxToast
 import com.jsongo.ui.R
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-import com.vondear.rxtool.view.RxToast
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
 //@Page(R.layout.layout_setting_list, 0)

@@ -12,11 +12,11 @@ import com.jsongo.core.R
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.crash.CrashHandler.Companion.CRASH_LOG
 import com.jsongo.core.util.ConstConf
+import com.jsongo.core.util.DateUtil
+import com.jsongo.core.util.DeviceUtil
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.safframework.log.L
-import com.vondear.rxtool.RxDeviceTool
-import com.vondear.rxtool.RxTimeTool
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -44,8 +44,8 @@ class CrashActivity : BaseActivity() {
                     "\nDevice Model       : " + Build.MODEL +// 设备型号
                     "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
                     "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK版本
-                    "\nApp VersionName    : " + RxDeviceTool.getAppVersionName(BaseCore.context) +
-                    "\nApp VersionCode    : " + RxDeviceTool.getAppVersionNo(BaseCore.context) +
+                    "\nApp VersionName    : " + DeviceUtil.getAppVersionName(BaseCore.context) +
+                    "\nApp VersionCode    : " + DeviceUtil.getAppVersionNo(BaseCore.context) +
                     "\nTime               : " + occurTime +
                     "\n************* Crash Log Head ****************\n\n"
         }
@@ -57,7 +57,7 @@ class CrashActivity : BaseActivity() {
 
         rlLayoutRoot.setBackgroundColor(Color.TRANSPARENT)
 
-        occurTime = RxTimeTool.getCurTimeString()
+        occurTime = DateUtil.getCurrentTimeStr()
         var crashLog = crashHeader
         if (intent.hasExtra("crash_log")) {
             crashLog = crashHeader + intent.getStringExtra(CRASH_LOG)

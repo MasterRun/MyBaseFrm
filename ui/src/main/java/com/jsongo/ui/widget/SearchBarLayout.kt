@@ -8,8 +8,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import com.jsongo.core.util.KeyboardUtil
 import com.jsongo.ui.R
-import com.vondear.rxtool.RxKeyboardTool
 import kotlinx.android.synthetic.main.layout_search_bar.view.*
 
 /**
@@ -48,7 +48,7 @@ class SearchBarLayout(
 
         etSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                RxKeyboardTool.hideSoftInput(context, etSearch)
+                KeyboardUtil.hideSoftInput(context, etSearch)
                 onSearchListener?.onSearch(etSearch.text.toString())
             }
             true

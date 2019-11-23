@@ -7,9 +7,9 @@ import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.db.CommonDbOpenHelper
+import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.demo.DemoViewModel
-import com.vondear.rxtool.view.RxToast
 import kotlinx.android.synthetic.main.activity_demo.*
 
 /**
