@@ -118,7 +118,7 @@
                 android:padding="8dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_showpwd"
-                android:tint="@color/gray"
+                android:tint="@color/lighter_gray"
                 app:layout_constraintBottom_toBottomOf="@id/iv_user_pwd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/iv_user_pwd" />
@@ -135,7 +135,7 @@
                 android:singleLine="true"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/iv_user_pwd"
-                app:layout_constraintEnd_toEndOf="@id/iv_showpwd"
+                app:layout_constraintEnd_toStartOf="@id/iv_showpwd"
                 app:layout_constraintStart_toStartOf="@id/et_user_account"
                 app:layout_constraintTop_toTopOf="@id/iv_user_pwd" />
 
