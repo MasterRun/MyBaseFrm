@@ -13,8 +13,8 @@ buildscript {
                 'kotlin': '1.3.50'
         ]
         //是否开启aop ,关闭后方便调试,但是依赖仍保留,更改后需要clean,重新编译
-        openAop = false
-//        openAop = true
+//        openAop = false
+        openAop = true
     }
 
     repositories {

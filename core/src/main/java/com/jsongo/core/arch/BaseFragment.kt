@@ -39,6 +39,8 @@ abstract class BaseFragment : Fragment(), IPage {
     override var emptyView: QMUIEmptyView? = null
         protected set
 
+    override lateinit var mainView: View
+
     override var mainLayoutId = 0
 
     override var containerIndex = 0

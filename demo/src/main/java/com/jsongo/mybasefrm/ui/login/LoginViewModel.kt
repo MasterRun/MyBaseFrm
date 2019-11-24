@@ -18,9 +18,13 @@ class LoginViewModel : BaseViewModel() {
 
     val loginResult = MutableLiveData<String>()
 
+    val loading = MutableLiveData<Boolean>()
 
-    fun login() {
-        loginResult.value = "login  success"
+    fun login(account: String, password: String) {
+        loading.value = true
+        this.account.value = account
+        this.password.value = password
+        loginResult.value = "account:${this.account.value}, password:${this.password.value}"
     }
 
 

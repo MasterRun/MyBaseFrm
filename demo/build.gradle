@@ -12,6 +12,8 @@ kapt {
     javacOptions {
         option("-Xmaxerrs", 500)
     }
+    //开启databinding后如果使用kapt，需要进行如下配置
+    generateStubs = true
 }
 
 android {
@@ -36,6 +38,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     testOptions {
         unitTests {
             //单元测试引用android资源

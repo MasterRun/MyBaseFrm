@@ -1,10 +1,10 @@
 package com.jsongo.mybasefrm.ui.login
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jsongo.annotation.anno.Page
@@ -12,8 +12,10 @@ import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
-import com.jsongo.core.widget.RxToast
+import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.databinding.ActivityLoginBinding
+import com.jsongo.mybasefrm.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -26,7 +28,7 @@ class LoginActivity : BaseActivity(), IMvvmView {
 
     lateinit var viewModel: LoginViewModel
 
-    lateinit var eventProxy: EventProxy
+    lateinit var activityLoginBinding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,7 @@ class LoginActivity : BaseActivity(), IMvvmView {
 
         observeLiveData()
 
-        regEventListener()
+        bindData()
     }
 
     override fun initViewModel() {
@@ -45,6 +47,7 @@ class LoginActivity : BaseActivity(), IMvvmView {
     }
 
     override fun initView() {
+
         setSwipeBackEnable(false)
 
         //结束启动页
@@ -68,29 +71,40 @@ class LoginActivity : BaseActivity(), IMvvmView {
             et_user_pwd.setSelection(et_user_pwd.text.toString().length)
         })
 
+        viewModel.loading.observe(this, Observer {
+            if (it) {
+                loadingDialog.show()
+            } else {
+                loadingDialog.dismiss()
+            }
+        })
+
         viewModel.loginResult.observe(this, Observer {
-            RxToast.success(it)
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            viewModel.loading.value = false
         })
     }
 
-    fun regEventListener() {
-        eventProxy = EventProxy(this)
-        iv_showpwd.setOnClickListener {
-            eventProxy.clickShowPwd(it)
-        }
-        btn_login.setOnClickListener {
-            eventProxy.clickLogin(it)
-        }
+    override fun bindData() {
+        //dataBinding
+        activityLoginBinding = ActivityLoginBinding.bind(mainView)
+        activityLoginBinding.setVariable(BR.vm, viewModel)
+        activityLoginBinding.setVariable(BR.eventProxy, EventProxy(this))
+
     }
 
+    /**
+     * （点击）事件代理
+     */
     class EventProxy(private val loginActivity: LoginActivity) {
 
-        var viewModel: LoginViewModel = loginActivity.viewModel
+        val viewModel: LoginViewModel = loginActivity.viewModel
+        val binding: ActivityLoginBinding = loginActivity.activityLoginBinding
 
         /**
          * 点击显示密码
          */
-        fun clickShowPwd(it: View?) {
+        fun clickShowPwd() {
             val value = viewModel.showPassword.value
             viewModel.showPassword.value = value?.not()
         }
@@ -98,8 +112,11 @@ class LoginActivity : BaseActivity(), IMvvmView {
         /**
          * 点击登录
          */
-        fun clickLogin(it: View?) {
-            viewModel.login()
+        fun clickLogin() {
+            viewModel.login(
+                binding.etUserAccount.text.toString(),
+                binding.etUserPwd.text.toString()
+            )
         }
 
     }

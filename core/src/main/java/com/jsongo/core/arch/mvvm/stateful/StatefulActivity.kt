@@ -37,6 +37,8 @@ abstract class StatefulActivity : BaseActivity(), IMvvmView, PageStatusListener 
         initView()
 
         observeLiveData()
+
+        bindData()
     }
 
     //region page pageStatus

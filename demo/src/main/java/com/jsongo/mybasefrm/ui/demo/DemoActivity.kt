@@ -20,8 +20,10 @@ import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.*
 import com.jsongo.core.widget.RxToast
+import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.aop.AopOnclick
+import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
 import com.jsongo.mybasefrm.ui.demo.demo.DemoFragment
 import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.mypage.MyPageActivity
@@ -60,10 +62,16 @@ class DemoActivity : StatefulActivity() {
 
     private var floatingView: FloatingView? = null
 
-    lateinit var demoViewModel: DemoViewModel
+    lateinit var viewModel: DemoViewModel
+
+    lateinit var activityDemoBinding: ActivityDemoBinding
+
+    lateinit var demoFragment: DemoFragment
+    lateinit var myPageFragment: MyPageFragment
+    lateinit var aJsWebLoader: AJsWebLoader
 
     override fun initViewModel() {
-        demoViewModel = ViewModelProviders.of(this).get(DemoViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(DemoViewModel::class.java)
     }
 
     override fun initView() {
@@ -94,55 +102,25 @@ class DemoActivity : StatefulActivity() {
             startActivity(intent)
         }*/
 
-        btn_jsloader.setOnClickListener {
-            val webPath = "file:///android_asset/web/index.html"
-            AJsWebPage.load(webPath)
-        }
+        initFragment()
 
-        btn_loadbaidu.setOnClickListener {
-            AJsWebPage.load("https://www.baidu.com")
-        }
+/*        btn.visibility = View.GONE
+        btn_loadbaidu.visibility = View.GONE
+        btn_testdb.visibility = View.GONE
+        btn_crash.visibility = View.GONE
+        tv.visibility = View.GONE*/
 
-        var times = 0
+        ActivityCollector.finish(SplashActivity::class.java)
 
-        btn_testdb.setOnClickListener {
-            if (times % 2 == 0) {
-                val value = CommonDbOpenHelper.getValue("times")
-                RxToast.normal("get $value")
-            } else {
-                CommonDbOpenHelper.setKeyValue("times", times.toString())
-                RxToast.normal("set value $times")
-            }
-            times++
-        }
+        val javaClass = qab.javaClass.superclass
+        L.e(javaClass?.name)
 
-        btn_crash.setOnClickListener {
-            val a = 0
-            println(2 / a)
-        }
+    }
 
-        btn_goMyPage.setOnClickListener {
-            startActivity(Intent(this@DemoActivity, MyPageActivity::class.java))
-        }
-
-        btn_choosePhoto.setOnClickListener {
-            EasyPhotos.createAlbum(this, true, EasyPhotoGlideEngine.getInstance())
-                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
-                .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
-                .start(101)
-        }
-
-        btn_goActivity2.setOnClickListener {
-            startActivity(Intent(this@DemoActivity, MainActivity::class.java))
-        }
-
-        btn_godemo1.setOnClickListener {
-            AJsWebPage.load("file:///android_asset/web/demo1/index.html", false)
-        }
-
-        val demoFragment = DemoFragment()
-        val myPageFragment = MyPageFragment()
-        val aJsWebLoader = AJsWebLoader.newInstance("file:///android_asset/web/index.html", false)
+    fun initFragment() {
+        demoFragment = DemoFragment()
+        myPageFragment = MyPageFragment()
+        aJsWebLoader = AJsWebLoader.newInstance("file:///android_asset/web/index.html", false)
 
         supportFragmentManager.beginTransaction().apply {
             add(
@@ -162,74 +140,71 @@ class DemoActivity : StatefulActivity() {
             )
             commit()
         }
-
-        fun showMainFragment() {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.hide(myPageFragment)
-            transaction.hide(aJsWebLoader)
-            transaction.show(demoFragment)
-            transaction.commit()
-        }
-
-        fun showMyPageFragment() {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.hide(demoFragment)
-            transaction.hide(aJsWebLoader)
-            transaction.show(myPageFragment)
-            transaction.commit()
-        }
-
-        fun showAjsWebLoader() = supportFragmentManager.beginTransaction().apply {
-            hide(demoFragment)
-            hide(myPageFragment)
-            show(aJsWebLoader)
-            commit()
-        }
-
-        btn_change.setOnClickListener(object : View.OnClickListener {
-            @AopOnclick(1500)
-            override fun onClick(v: View?) {
-                val i = times % 3
-                when (i) {
-                    0 -> showMyPageFragment()
-                    1 -> showMainFragment()
-                    else -> showAjsWebLoader()
-                }
-                times++
-            }
-        })
-
-/*        btn.visibility = View.GONE
-        btn_loadbaidu.visibility = View.GONE
-        btn_testdb.visibility = View.GONE
-        btn_crash.visibility = View.GONE
-        tv.visibility = View.GONE*/
         showAjsWebLoader()
-
-        ActivityCollector.finish(SplashActivity::class.java)
-
-        val javaClass = qab.javaClass.superclass
-        L.e(javaClass?.name)
-
     }
 
     override fun observeLiveData() {
-        demoViewModel.getAuthtypes()
+
+        //监听次数
+        viewModel.testDbCount.observe(this, Observer {
+            val times = it ?: 0
+            if (times % 2 == 0) {
+                val value = CommonDbOpenHelper.getValue("times")
+                RxToast.normal("get $value")
+            } else {
+                CommonDbOpenHelper.setKeyValue("times", times.toString())
+                RxToast.normal("set value $times")
+            }
+        })
+
+        viewModel.getAuthtypes()
         //监听设置文本
-        demoViewModel.txtContent.observe(this, Observer {
+        viewModel.txtContent.observe(this, Observer {
             tv.text = it
             onPageLoaded()
         })
 
         //监听异常
-        demoViewModel.errorLiverData.observe(this, Observer {
+        viewModel.errorLiverData.observe(this, Observer {
             onPageError(it?.message)
         })
     }
 
+    override fun bindData() {
+        activityDemoBinding = ActivityDemoBinding.bind(mainView)
+        activityDemoBinding.setVariable(
+            BR.eventProxy,
+            EventProxy(this, viewModel, activityDemoBinding)
+        )
+    }
+
+
+    fun showMainFragment() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.hide(myPageFragment)
+        transaction.hide(aJsWebLoader)
+        transaction.show(demoFragment)
+        transaction.commit()
+    }
+
+    fun showMyPageFragment() {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.hide(demoFragment)
+        transaction.hide(aJsWebLoader)
+        transaction.show(myPageFragment)
+        transaction.commit()
+    }
+
+    fun showAjsWebLoader() = supportFragmentManager.beginTransaction().apply {
+        hide(demoFragment)
+        hide(myPageFragment)
+        show(aJsWebLoader)
+        commit()
+    }
+
     override fun onPageReloading() {
         super.onPageReloading()
-        demoViewModel.getAuthtypes()
+        viewModel.getAuthtypes()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -278,5 +253,38 @@ class DemoActivity : StatefulActivity() {
     override fun onDestroy() {
         floatingView?.destory()
         super.onDestroy()
+    }
+
+    class EventProxy(
+        private val demoActivity: DemoActivity,
+        viewModel: DemoViewModel,
+        activityDemoBinding: ActivityDemoBinding
+    ) : DemoViewModel.EventProxy(viewModel, activityDemoBinding) {
+        override fun goMyPage() {
+            demoActivity.startActivity(Intent(demoActivity, MyPageActivity::class.java))
+        }
+
+        override fun choosePhoto() {
+            EasyPhotos.createAlbum(demoActivity, true, EasyPhotoGlideEngine.getInstance())
+                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+                .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
+                .start(101)
+        }
+
+        override fun goActivity2() {
+            demoActivity.startActivity(Intent(demoActivity, MainActivity::class.java))
+        }
+
+        @AopOnclick(1500)
+        override fun changeFragment() {
+            val times = demoViewModel.changeFragmentTimes.value ?: 0
+            val i = times % 3
+            when (i) {
+                0 -> demoActivity.showMyPageFragment()
+                1 -> demoActivity.showMainFragment()
+                else -> demoActivity.showAjsWebLoader()
+            }
+            demoViewModel.changeFragmentTimes.value = times + 1
+        }
     }
 }

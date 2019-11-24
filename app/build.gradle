@@ -7,12 +7,13 @@ if (openAop) {
     apply plugin: 'com.hujiang.android-aspectjx'
 }
 
-
 kapt {
     useBuildCache = true
     javacOptions {
         option("-Xmaxerrs", 500)
     }
+    //开启databinding后如果使用kapt，需要进行如下配置
+    generateStubs = true
 }
 
 android {
@@ -29,10 +30,16 @@ android {
             abiFilters "armeabi", "armeabi-v7a"
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         debug {
             resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
@@ -59,11 +66,13 @@ android {
         preDexLibraries = true
         maxProcessCount = 8
     }
+
     lintOptions {
         //忽略打包时错误
         checkReleaseBuilds false
         abortOnError false
     }
+
     aaptOptions {
         cruncherEnabled false
     }

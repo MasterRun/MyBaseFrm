@@ -1,6 +1,7 @@
 package com.jsongo.core.arch
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
@@ -45,6 +46,8 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         protected set
     override var emptyView: QMUIEmptyView? = null
         protected set
+
+    override lateinit var mainView: View
 
     override var mainLayoutId = 0
 

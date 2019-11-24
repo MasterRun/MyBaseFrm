@@ -37,6 +37,8 @@ abstract class StatefulFragment : BaseFragment(), IMvvmView, PageStatusListener 
         initView()
 
         observeLiveData()
+
+        bindData()
     }
 
     //region page pageStatus

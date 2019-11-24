@@ -76,6 +76,11 @@ interface IPage {
     val mainLayoutId: Int
 
     /**
+     * 主视图
+     */
+    var mainView: View
+
+    /**
      * 获取基础ui控件
      */
     fun getIPageView()
@@ -99,8 +104,7 @@ interface IPage {
             flMainContainer2.visibility = View.GONE
             smartRefreshLayout.visibility = View.GONE
             if (mainLayoutId != 0) {
-                val mainView =
-                    LayoutInflater.from(context).inflate(mainLayoutId, rlLayoutRoot, false)
+                mainView = LayoutInflater.from(context).inflate(mainLayoutId, rlLayoutRoot, false)
                 rlLayoutRoot.addView(mainView)
                 if (BaseCore.isDebug) {
                     L.w("containerIndex of ${this} is ${containerIndex},use rlLayoutRoot")
@@ -114,7 +118,7 @@ interface IPage {
             topbar.visibility = View.VISIBLE
             when (containerIndex) {
                 1 -> {
-                    val mainView =
+                    mainView =
                         LayoutInflater.from(context).inflate(mainLayoutId, flMainContainer, false)
                     smartRefreshLayout.visibility = View.VISIBLE
                     flMainContainer2.visibility = View.GONE
@@ -128,7 +132,7 @@ interface IPage {
                         .useFooter(context, SmartRefreshFooter.ClassicsFooter)
                 }
                 2 -> {
-                    val mainView =
+                    mainView =
                         LayoutInflater.from(context).inflate(mainLayoutId, flMainContainer2, false)
                     smartRefreshLayout.visibility = View.GONE
                     flMainContainer2.visibility = View.VISIBLE
@@ -136,7 +140,6 @@ interface IPage {
                 }
             }
         }
-
     }
 
     fun onIPageDestroy() {

@@ -1,257 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fitsSystemWindows="true">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!--region 头部-->
-    <ImageView
-        android:id="@+id/iv_login_header"
+    <data>
+
+        <variable
+            name="vm"
+            type="com.jsongo.mybasefrm.ui.login.LoginViewModel" />
+
+        <variable
+            name="eventProxy"
+            type="com.jsongo.mybasefrm.ui.login.LoginActivity.EventProxy" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="@color/blue_2196F3"
-        android:fitsSystemWindows="true"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/blue_2196F3" />
-
-    <ImageView
-        android:id="@+id/iv_login_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:background="@color/white"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/tv_login_appname"
-        app:layout_constraintEnd_toEndOf="@id/iv_login_header"
-        app:layout_constraintStart_toStartOf="@id/iv_login_header"
-        app:layout_constraintTop_toTopOf="@id/iv_login_header"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:background="@color/white" />
+        android:fitsSystemWindows="true">
 
-    <TextView
-        android:id="@+id/tv_login_appname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_login_header"
-        app:layout_constraintEnd_toEndOf="@id/iv_login_header"
-        app:layout_constraintStart_toStartOf="@id/iv_login_header"
-        app:layout_constraintTop_toBottomOf="@id/iv_login_icon"
-        tools:text="我的社区" />
-    <!--endregion-->
-
-    <!--    region 登录卡片-->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cv_login_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="15dp"
-        app:cardCornerRadius="3dp"
-        app:cardElevation="10dp"
-        app:contentPadding="40dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_login_appname">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!--region 头部-->
+        <ImageView
+            android:id="@+id/iv_login_header"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/iv_user_account"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_user"
-                android:tint="@color/gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/et_user_account"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="10dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="请输入您的账号"
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_user_account"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iv_user_account"
-                app:layout_constraintTop_toTopOf="@id/iv_user_account" />
-
-            <View
-                android:id="@+id/v_line1"
-                android:layout_width="wrap_content"
-                android:layout_height="1px"
-                android:layout_marginTop="5dp"
-                android:background="@color/gray"
-                app:layout_constraintStart_toStartOf="@id/iv_user_account"
-                app:layout_constraintTop_toBottomOf="@id/iv_user_account" />
-
-            <ImageView
-                android:id="@+id/iv_user_pwd"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="25dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_lock"
-                android:tint="@color/gray"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/v_line1" />
-
-
-            <ImageView
-                android:id="@+id/iv_showpwd"
-                android:layout_width="30dp"
-                android:layout_height="0dp"
-                android:padding="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_showpwd"
-                android:tint="@color/lighter_gray"
-                app:layout_constraintBottom_toBottomOf="@id/iv_user_pwd"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/iv_user_pwd" />
-
-            <EditText
-                android:id="@+id/et_user_pwd"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:hint="请输入您的密码"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/iv_user_pwd"
-                app:layout_constraintEnd_toStartOf="@id/iv_showpwd"
-                app:layout_constraintStart_toStartOf="@id/et_user_account"
-                app:layout_constraintTop_toTopOf="@id/iv_user_pwd" />
-
-
-            <View
-                android:id="@+id/v_line2"
-                android:layout_width="wrap_content"
-                android:layout_height="1px"
-                android:layout_marginTop="5dp"
-                android:background="@color/gray"
-                app:layout_constraintStart_toStartOf="@id/iv_user_pwd"
-                app:layout_constraintTop_toBottomOf="@id/iv_user_pwd" />
-
-            <TextView
-                android:id="@+id/tv_forget_pwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="忘记密码？"
-                android:textColor="@color/orange1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/v_line2" />
-
-            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-                android:id="@+id/btn_login"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:layout_marginTop="25dp"
-                android:text="登录"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_forget_pwd"
-                app:qmui_backgroundColor="@color/blue_2196F3" />
-
-            <TextView
-                android:id="@+id/tv_tip_reg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="立即注册"
-                android:textColor="@color/orange1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_login" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="还没有账号？"
-                android:textColor="@color/gray"
-                app:layout_constraintBaseline_toBaselineOf="@id/tv_tip_reg"
-                app:layout_constraintEnd_toStartOf="@id/tv_tip_reg" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-    <!--    endregion-->
-
-    <!--region 底部-->
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_third_part_login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:constraint_referenced_ids="ll_third_part_login_tip,ll_third_part_login" />
-
-    <LinearLayout
-        android:id="@+id/ll_third_part_login_tip"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/cv_login_container">
-
-        <View
-            android:id="@+id/v_line3"
-            android:layout_width="0dp"
-            android:layout_height="1px"
-            android:layout_weight="1"
-            android:background="@color/gray" />
-
-        <TextView
-            android:id="@+id/tv_tip_third_part_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:text="第三方登录"
-            android:textColor="@color/gray" />
-
-        <View
-            android:id="@+id/v_line4"
-            android:layout_width="0dp"
-            android:layout_height="1px"
-            android:layout_weight="1"
-            android:background="@color/gray" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_third_part_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/ll_third_part_login_tip">
+            android:layout_height="250dp"
+            android:background="@color/blue_2196F3"
+            android:fitsSystemWindows="true"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/blue_2196F3" />
 
         <ImageView
-            android:id="@+id/iv_qq_login"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_qq" />
+            android:id="@+id/iv_login_icon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/white"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@id/tv_login_appname"
+            app:layout_constraintEnd_toEndOf="@id/iv_login_header"
+            app:layout_constraintStart_toStartOf="@id/iv_login_header"
+            app:layout_constraintTop_toTopOf="@id/iv_login_header"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:background="@color/white" />
 
-    </LinearLayout>
-    <!--endregion-->
+        <TextView
+            android:id="@+id/tv_login_appname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_login_header"
+            app:layout_constraintEnd_toEndOf="@id/iv_login_header"
+            app:layout_constraintStart_toStartOf="@id/iv_login_header"
+            app:layout_constraintTop_toBottomOf="@id/iv_login_icon"
+            tools:text="我的社区" />
+        <!--endregion-->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!--    region 登录卡片-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_login_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="15dp"
+            app:cardCornerRadius="3dp"
+            app:cardElevation="10dp"
+            app:contentPadding="40dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_login_appname">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iv_user_account"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_user"
+                    android:tint="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/et_user_account"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的账号"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@{vm.account}"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_user_account"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_user_account"
+                    app:layout_constraintTop_toTopOf="@id/iv_user_account" />
+
+                <View
+                    android:id="@+id/v_line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/gray"
+                    app:layout_constraintStart_toStartOf="@id/iv_user_account"
+                    app:layout_constraintTop_toBottomOf="@id/iv_user_account" />
+
+                <ImageView
+                    android:id="@+id/iv_user_pwd"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="25dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_lock"
+                    android:tint="@color/gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/v_line1" />
+
+
+                <ImageView
+                    android:id="@+id/iv_showpwd"
+                    android:layout_width="30dp"
+                    android:layout_height="0dp"
+                    android:onClick="@{()->eventProxy.clickShowPwd()}"
+                    android:padding="8dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_showpwd"
+                    android:tint="@color/lighter_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_user_pwd"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/iv_user_pwd" />
+
+                <EditText
+                    android:id="@+id/et_user_pwd"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="请输入您的密码"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="@{vm.password}"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_user_pwd"
+                    app:layout_constraintEnd_toStartOf="@id/iv_showpwd"
+                    app:layout_constraintStart_toStartOf="@id/et_user_account"
+                    app:layout_constraintTop_toTopOf="@id/iv_user_pwd" />
+
+
+                <View
+                    android:id="@+id/v_line2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1px"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/gray"
+                    app:layout_constraintStart_toStartOf="@id/iv_user_pwd"
+                    app:layout_constraintTop_toBottomOf="@id/iv_user_pwd" />
+
+                <TextView
+                    android:id="@+id/tv_forget_pwd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="忘记密码？"
+                    android:textColor="@color/orange1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/v_line2" />
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/btn_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="25dp"
+                    android:onClick="@{()->eventProxy.clickLogin()}"
+                    android:text="登录"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_forget_pwd"
+                    app:qmui_backgroundColor="@color/blue_2196F3" />
+
+                <TextView
+                    android:id="@+id/tv_tip_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="立即注册"
+                    android:textColor="@color/orange1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_login" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="还没有账号？"
+                    android:textColor="@color/gray"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_tip_reg"
+                    app:layout_constraintEnd_toStartOf="@id/tv_tip_reg" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+        <!--    endregion-->
+
+        <!--region 底部-->
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_third_part_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ll_third_part_login_tip,ll_third_part_login" />
+
+        <LinearLayout
+            android:id="@+id/ll_third_part_login_tip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/cv_login_container">
+
+            <View
+                android:id="@+id/v_line3"
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                android:layout_weight="1"
+                android:background="@color/gray" />
+
+            <TextView
+                android:id="@+id/tv_tip_third_part_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:text="第三方登录"
+                android:textColor="@color/gray" />
+
+            <View
+                android:id="@+id/v_line4"
+                android:layout_width="0dp"
+                android:layout_height="1px"
+                android:layout_weight="1"
+                android:background="@color/gray" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_third_part_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/ll_third_part_login_tip">
+
+            <ImageView
+                android:id="@+id/iv_qq_login"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_qq" />
+
+        </LinearLayout>
+        <!--endregion-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

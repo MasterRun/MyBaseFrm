@@ -1,15 +1,22 @@
 package com.jsongo.mybasefrm.ui.demo.demo
 
+import android.content.Intent
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.jsongo.ajs.webloader.AJsWebPage
+import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.db.CommonDbOpenHelper
+import com.jsongo.core.util.ConstConf
 import com.jsongo.core.widget.RxToast
+import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
 import com.jsongo.mybasefrm.ui.demo.DemoViewModel
+import com.jsongo.mybasefrm.ui.main.MainActivity
+import com.jsongo.mybasefrm.ui.mypage.MyPageActivity
+import com.jsongo.ui.util.EasyPhotoGlideEngine
 import kotlinx.android.synthetic.main.activity_demo.*
 
 /**
@@ -21,37 +28,14 @@ import kotlinx.android.synthetic.main.activity_demo.*
 class DemoFragment : StatefulFragment() {
 
     lateinit var demoViewModel: DemoViewModel
-
-    lateinit var clickProxy: ClickProxy
+    lateinit var activityDemoBinding: ActivityDemoBinding
 
     override fun initViewModel() {
         demoViewModel = ViewModelProviders.of(this).get(DemoViewModel::class.java)
-        clickProxy = ClickProxy(demoViewModel)
     }
 
     override fun initView() {
         topbar.visibility = View.GONE
-        view?.apply {
-
-            btn_jsloader.setOnClickListener {
-                val webPath = "file:///android_asset/web/index.html"
-                clickProxy.loadUrl(webPath)
-            }
-
-            btn_loadbaidu.setOnClickListener {
-                val webPath = "https://www.baidu.com"
-                clickProxy.loadUrl(webPath)
-            }
-
-            btn_testdb.setOnClickListener {
-                clickProxy.clickTestDb()
-            }
-
-            btn_crash.setOnClickListener {
-                val a = 0
-                println(2 / a)
-            }
-        }
     }
 
     override fun observeLiveData() {
@@ -77,8 +61,15 @@ class DemoFragment : StatefulFragment() {
                 CommonDbOpenHelper.setKeyValue("times", times.toString())
                 RxToast.normal("set value $times")
             }
-
         })
+    }
+
+    override fun bindData() {
+        activityDemoBinding = ActivityDemoBinding.bind(mainView)
+        activityDemoBinding.setVariable(
+            BR.eventProxy,
+            EventProxy(this, demoViewModel, activityDemoBinding)
+        )
     }
 
     override fun onPageReloading() {
@@ -89,15 +80,29 @@ class DemoFragment : StatefulFragment() {
     /**
      * 点击事件代理
      */
-    class ClickProxy(private val viewModel: DemoViewModel) {
-
-        fun loadUrl(url: String) {
-            AJsWebPage.load(url)
+    class EventProxy(
+        private val demoFragment: DemoFragment,
+        viewModel: DemoViewModel,
+        demoBinding: ActivityDemoBinding
+    ) :
+        DemoViewModel.EventProxy(viewModel, demoBinding) {
+        override fun goMyPage() {
+            demoFragment.startActivity(Intent(demoFragment.context, MyPageActivity::class.java))
         }
 
-        fun clickTestDb() {
-            val times = viewModel.testDbCount.value ?: 0
-            viewModel.testDbCount.value = times + 1
+        override fun choosePhoto() {
+            EasyPhotos.createAlbum(demoFragment, true, EasyPhotoGlideEngine.getInstance())
+                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+                .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
+                .start(101)
+        }
+
+        override fun goActivity2() {
+            demoFragment.startActivity(Intent(demoFragment.context, MainActivity::class.java))
+        }
+
+        override fun changeFragment() {
+            RxToast.error("无法在fragment中切换fragment")
         }
     }
 }

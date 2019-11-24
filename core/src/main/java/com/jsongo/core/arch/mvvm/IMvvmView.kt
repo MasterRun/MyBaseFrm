@@ -21,4 +21,9 @@ interface IMvvmView {
      * 观察LiveData
      */
     fun observeLiveData()
+
+    /**
+     * dataBinding
+     */
+    fun bindData() {}
 }

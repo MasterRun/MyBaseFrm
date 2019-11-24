@@ -4,6 +4,15 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply from: './maven-repository.gradle'
 
+kapt {
+    useBuildCache = true
+    javacOptions {
+        option("-Xmaxerrs", 500)
+    }
+    //开启databinding后如果使用kapt，需要进行如下配置
+    generateStubs = true
+}
+
 android {
     compileSdkVersion proVer.compileSdk
     defaultConfig {
@@ -11,6 +20,10 @@ android {
         versionCode libConf.ui.verCode
         versionName libConf.ui.verName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     compileOptions {
