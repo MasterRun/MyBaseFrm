@@ -5,7 +5,8 @@
     <!--<string name="SERVER_ADDRESS_DEBUG">http://gank.io/api/</string>-->
 
     <!--	mainactivity全类名-->
-    <string name="MainActivity">com.jsongo.mybasefrm.ui.main.MainActivity</string>
+<!--    <string name="MainActivity">com.jsongo.mybasefrm.ui.main.MainActivity</string>-->
+    <string name="MainActivity">com.jsongo.mybasefrm.ui.login.LoginActivity</string>
 
     <!--	首页默认选中的tab-->
     <integer name="main_selected_tab">1</integer>

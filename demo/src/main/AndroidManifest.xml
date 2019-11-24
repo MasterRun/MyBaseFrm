@@ -26,6 +26,7 @@
         <activity android:name=".ui.personalinfo.PersonalInfoActivity" />
         <activity android:name=".ui.demo.DemoActivity" />
         <activity android:name=".ui.mypage.MyPageActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
     </application>
 
 </manifest>
