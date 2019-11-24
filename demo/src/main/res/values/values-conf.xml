@@ -14,5 +14,5 @@
 <!--    <string name="im_ip">192.168.43.222</string>-->
     <string name="im_ip">10.0.2.2</string>
     <!--	是否开启mobileim功能-->
-    <bool name="enable_mobile_im">true</bool>
+    <bool name="enable_mobile_im">false</bool>
 </resources>
