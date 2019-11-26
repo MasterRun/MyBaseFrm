@@ -1,4 +1,4 @@
-package com.jsongo.core.aop
+package com.jsongo.core.aspect
 
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed

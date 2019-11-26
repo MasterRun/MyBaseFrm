@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.aop
+package com.jsongo.mybasefrm.aspect
 
 /**
  * @author ： jsongo

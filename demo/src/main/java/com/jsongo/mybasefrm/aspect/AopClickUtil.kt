@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.aop
+package com.jsongo.mybasefrm.aspect
 
 import android.os.SystemClock
 import kotlin.math.abs

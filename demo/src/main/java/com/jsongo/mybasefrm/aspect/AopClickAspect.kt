@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.aop
+package com.jsongo.mybasefrm.aspect
 
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around

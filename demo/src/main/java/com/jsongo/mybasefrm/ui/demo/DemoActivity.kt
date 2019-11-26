@@ -22,7 +22,7 @@ import com.jsongo.core.util.*
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.aop.AopOnclick
+import com.jsongo.mybasefrm.aspect.AopOnclick
 import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
 import com.jsongo.mybasefrm.ui.demo.demo.DemoFragment
 import com.jsongo.mybasefrm.ui.main.MainActivity

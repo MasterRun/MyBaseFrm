@@ -1,12 +1,4 @@
-package com.jsongo.mybasefrm.aop
-
-import com.safframework.log.L
-import org.aspectj.lang.ProceedingJoinPoint
-import org.aspectj.lang.annotation.Around
-import org.aspectj.lang.annotation.Aspect
-import org.aspectj.lang.annotation.Before
-import org.aspectj.lang.annotation.Pointcut
-import org.aspectj.lang.reflect.MethodSignature
+package com.jsongo.mybasefrm.aspect
 
 /**
  * @author ： jsongo

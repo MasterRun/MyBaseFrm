@@ -1,4 +1,4 @@
-package com.jsongo.core.aop
+package com.jsongo.core.aspect
 
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R

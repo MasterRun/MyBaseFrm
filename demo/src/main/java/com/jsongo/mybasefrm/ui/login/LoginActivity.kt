@@ -12,7 +12,6 @@ import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
-import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.databinding.ActivityLoginBinding
 import com.jsongo.mybasefrm.ui.main.MainActivity
@@ -88,8 +87,10 @@ class LoginActivity : BaseActivity(), IMvvmView {
     override fun bindData() {
         //dataBinding
         activityLoginBinding = ActivityLoginBinding.bind(mainView)
-        activityLoginBinding.setVariable(BR.vm, viewModel)
-        activityLoginBinding.setVariable(BR.eventProxy, EventProxy(this))
+//        activityLoginBinding.setVariable(BR.vm, viewModel)
+//        activityLoginBinding.setVariable(BR.eventProxy, EventProxy(this))
+        activityLoginBinding.vm = viewModel
+        activityLoginBinding.eventProxy = EventProxy(this)
 
     }
 
