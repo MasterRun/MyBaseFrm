@@ -6,20 +6,23 @@
 	android:layout_height="match_parent"
 	android:fitsSystemWindows="true"
     tools:context=".ui.main.MainActivity">
-	
+
 	<com.qmuiteam.qmui.widget.QMUIViewPager
 		android:id="@+id/pager"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_marginBottom="@dimen/home_tab_height"
 		android:fitsSystemWindows="true" />
-	
-	<com.qmuiteam.qmui.widget.QMUITabSegment
+
+	<com.qmuiteam.qmui.widget.tab.QMUITabSegment
 		android:id="@+id/tab_seg"
 		android:layout_width="match_parent"
 		android:layout_height="@dimen/home_tab_height"
 		android:layout_gravity="bottom"
-		android:background="?attr/qmui_list_item_bg_with_border_top"
-		android:textSize="12sp"
-		app:qmui_tab_icon_position="top" />
+		android:background="@color/white"
+		app:qmui_tab_icon_position="top"
+		app:qmui_tab_normal_text_size="12sp"
+		app:qmui_tab_selected_text_size="14sp" />
+    <!--	android:background="?attr/qmui_list_item_bg_with_border_top"-->
+
 </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

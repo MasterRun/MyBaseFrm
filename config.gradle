@@ -86,7 +86,7 @@ ext {
 
             'saf_log'      : '2.1.3',
 
-            'qmui'         : '1.4.3',
+            'qmui'         : '2.0.0-alpha02',
 
             'smartrefresh' : '1.1.0-x',
 

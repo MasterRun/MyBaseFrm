@@ -17,7 +17,7 @@ data class SettingItem(
     val orientation: Int = QLv.HORIZONTAL,
     val accessoryType: Int = QLv.ACCESSORY_TYPE_NONE,
     val showRedDot: Boolean = false,
-    val redDotPosition: Int = QLv.REDDOT_POSITION_RIGHT,
+    val tipPosition: Int = QLv.TIP_POSITION_RIGHT,
     val showNewTip: Boolean = false,
     val onClickListener: View.OnClickListener = View.OnClickListener {},
     val checkChangeListener: CompoundButton.OnCheckedChangeListener? = null,

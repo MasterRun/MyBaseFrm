@@ -3,12 +3,12 @@ package com.jsongo.core.widget
 import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.util.ActivityCollector
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
+import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.widget.MyQMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUITopBar
 
@@ -34,19 +34,12 @@ class TopbarLayout(
     constructor(mContext: Context) : this(mContext, null)
 
     val topBar: QMUITopBar
-    val topBarSeparatorColor: Int
-    val topBarBgColor: Int
-    val topBarSeparatorHeight: Int
 
-    val tvTitle: TextView
+    val tvTitle: QMUIQQFaceView
     val backImageButton: QMUIAlphaImageButton
 
     init {
         topBar = mTopBar
-        topBarBgColor = mTopBarBgColor
-        topBarSeparatorColor = mTopBarSeparatorColor
-        topBarSeparatorHeight = mTopBarSeparatorHeight
-
         //设置默认样式
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_color_theme))
         tvTitle = setTitle(BaseCore.context.getString(R.string.topbar_title))

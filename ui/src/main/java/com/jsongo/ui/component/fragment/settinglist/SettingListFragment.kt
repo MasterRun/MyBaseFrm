@@ -90,7 +90,7 @@ class SettingListFragment : BaseFragment() {
             orientation = it.orientation
             accessoryType = it.accessoryType
             showRedDot(it.showRedDot)
-            setRedDotPosition(it.redDotPosition)
+            setTipPosition(it.tipPosition)
             showNewTip(it.showNewTip)
             if (accessoryType == QLv.ACCESSORY_TYPE_SWITCH && it.checkChangeListener != null) {
                 switch.setOnCheckedChangeListener(it.checkChangeListener)
@@ -190,7 +190,7 @@ fun QLv?.correctDetailTextPosition(settingItem: SettingItem? = null, offset: Int
         if (settingItem.showRedDot.not()) {
             return
         }
-        if (settingItem.redDotPosition != QLv.REDDOT_POSITION_RIGHT) {
+        if (settingItem.tipPosition != QLv.TIP_POSITION_RIGHT) {
             return
         }
         if (settingItem.showNewTip) {

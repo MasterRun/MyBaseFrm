@@ -6,6 +6,8 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
@@ -39,7 +41,7 @@ class CrashActivity : BaseActivity() {
      */
     private val crashHeader: String
         get() {
-            return "\n************* Crash Log Head ****************" +
+            return "\n*********** Crash Log Head ***********" +
                     "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
                     "\nDevice Model       : " + Build.MODEL +// 设备型号
                     "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
@@ -47,7 +49,7 @@ class CrashActivity : BaseActivity() {
                     "\nApp VersionName    : " + DeviceUtil.getAppVersionName(BaseCore.context) +
                     "\nApp VersionCode    : " + DeviceUtil.getAppVersionNo(BaseCore.context) +
                     "\nTime               : " + occurTime +
-                    "\n************* Crash Log Head ****************\n\n"
+                    "\n*********** Crash Log Head ***********\n\n"
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,17 +120,21 @@ class CrashActivity : BaseActivity() {
                 dialog?.dismiss()
                 finish()
             }
-        dialogBuilder.show()
-        val textView = dialogBuilder.textView
-        textView?.isEnabled = true
-        textView?.isClickable = true
+        val dialog = dialogBuilder.show()
+
+        //获取到TextView，点击复制内容到剪切板
+        val contentView =
+            dialog.findViewById<ViewGroup>(com.qmuiteam.qmui.R.id.qmui_dialog_content_id)
+        val textView = contentView?.getChildAt(0) as TextView
+        textView.isEnabled = true
+        textView.isClickable = true
         textView.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             clipboard.primaryClip = ClipData.newPlainText("crashLog", crashLog)
             Toast.makeText(this@CrashActivity, R.string.copy_to_clipboard, Toast.LENGTH_SHORT)
                 .show()
         }
-        textView?.textSize = 12f
+        textView.textSize = 12f
     }
 
     override fun onDestroy() {

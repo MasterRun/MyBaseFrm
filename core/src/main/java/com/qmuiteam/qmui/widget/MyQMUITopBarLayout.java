@@ -2,24 +2,19 @@ package com.qmuiteam.qmui.widget;
 
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
+import androidx.collection.SimpleArrayMap;
 
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
-import com.qmuiteam.qmui.util.QMUIDrawableHelper;
-import com.qmuiteam.qmui.util.QMUIResHelper;
-import com.qmuiteam.qmui.util.QMUIViewHelper;
+import com.qmuiteam.qmui.layout.QMUIFrameLayout;
+import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
+import com.qmuiteam.qmui.skin.defaultAttr.IQMUISkinDefaultAttrProvider;
 
 /**
  * 这是一个对 {@link QMUITopBar} 的代理类，需要它的原因是：
@@ -34,16 +29,12 @@ import com.qmuiteam.qmui.util.QMUIViewHelper;
  * @desc : copy from qmuitopbarlayout
  */
 
-public class MyQMUITopBarLayout extends FrameLayout {
+public class MyQMUITopBarLayout extends QMUIFrameLayout implements IQMUISkinDefaultAttrProvider {
     protected QMUITopBar mTopBar;
-    private Drawable mTopBarBgWithSeparatorDrawableCache;
-
-    protected int mTopBarSeparatorColor;
-    protected int mTopBarBgColor;
-    protected int mTopBarSeparatorHeight;
+    private SimpleArrayMap<String, Integer> mDefaultSkinAttrs;
 
     public MyQMUITopBarLayout(Context context) {
-        this(context, null);
+        this(context, (AttributeSet)null);
     }
 
     public MyQMUITopBarLayout(Context context, AttributeSet attrs) {
@@ -52,152 +43,118 @@ public class MyQMUITopBarLayout extends FrameLayout {
 
     public MyQMUITopBarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray array = getContext().obtainStyledAttributes(attrs, R.styleable.QMUITopBar, R.attr.QMUITopBarStyle, 0);
-        mTopBarSeparatorColor = array.getColor(R.styleable.QMUITopBar_qmui_topbar_separator_color,
-                ContextCompat.getColor(context, R.color.qmui_config_color_separator));
-        mTopBarSeparatorHeight = array.getDimensionPixelSize(R.styleable.QMUITopBar_qmui_topbar_separator_height, 1);
-        mTopBarBgColor = array.getColor(R.styleable.QMUITopBar_qmui_topbar_bg_color, Color.WHITE);
-        boolean hasSeparator = array.getBoolean(R.styleable.QMUITopBar_qmui_topbar_need_separator, true);
-
-        // 构造一个透明的背景且无分隔线的TopBar，背景与分隔线有QMUITopBarLayout控制
-        mTopBar = new QMUITopBar(context, true);
-        mTopBar.getCommonFieldFormTypedArray(context, array);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                QMUIResHelper.getAttrDimen(context, R.attr.qmui_topbar_height));
-        addView(mTopBar, lp);
-
-        array.recycle();
-
-        setBackgroundDividerEnabled(hasSeparator);
+        this.mDefaultSkinAttrs = new SimpleArrayMap(2);
+        this.mDefaultSkinAttrs.put("bottomSeparator", R.attr.qmui_skin_support_topbar_separator_color);
+        this.mDefaultSkinAttrs.put("background", R.attr.qmui_skin_support_topbar_bg);
+        this.mTopBar = new QMUITopBar(context, attrs, defStyleAttr);
+        this.mTopBar.setBackground((Drawable)null);
+        this.mTopBar.updateBottomDivider(0, 0, 0, 0);
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(-1, this.mTopBar.getTopBarHeight());
+        this.addView(this.mTopBar, lp);
     }
 
     public void setCenterView(View view) {
-        mTopBar.setCenterView(view);
+        this.mTopBar.setCenterView(view);
     }
 
-    public TextView setTitle(int resId) {
-        return mTopBar.setTitle(resId);
+    public QMUIQQFaceView setTitle(int resId) {
+        return this.mTopBar.setTitle(resId);
     }
 
-    public TextView setTitle(String title) {
-        return mTopBar.setTitle(title);
-    }
-
-    public TextView setEmojiTitle(String title) {
-        return mTopBar.setEmojiTitle(title);
+    public QMUIQQFaceView setTitle(String title) {
+        return this.mTopBar.setTitle(title);
     }
 
     public void showTitlteView(boolean toShow) {
-        mTopBar.showTitleView(toShow);
+        this.mTopBar.showTitleView(toShow);
     }
 
     public void setSubTitle(int resId) {
-        mTopBar.setSubTitle(resId);
+        this.mTopBar.setSubTitle(resId);
     }
 
     public void setSubTitle(String subTitle) {
-        mTopBar.setSubTitle(subTitle);
+        this.mTopBar.setSubTitle(subTitle);
     }
 
     public void setTitleGravity(int gravity) {
-        mTopBar.setTitleGravity(gravity);
+        this.mTopBar.setTitleGravity(gravity);
     }
 
     public void addLeftView(View view, int viewId) {
-        mTopBar.addLeftView(view, viewId);
+        this.mTopBar.addLeftView(view, viewId);
     }
 
-    public void addLeftView(View view, int viewId, RelativeLayout.LayoutParams layoutParams) {
-        mTopBar.addLeftView(view, viewId, layoutParams);
+    public void addLeftView(View view, int viewId, android.widget.RelativeLayout.LayoutParams layoutParams) {
+        this.mTopBar.addLeftView(view, viewId, layoutParams);
     }
 
     public void addRightView(View view, int viewId) {
-        mTopBar.addRightView(view, viewId);
+        this.mTopBar.addRightView(view, viewId);
     }
 
-    public void addRightView(View view, int viewId, RelativeLayout.LayoutParams layoutParams) {
-        mTopBar.addRightView(view, viewId, layoutParams);
+    public void addRightView(View view, int viewId, android.widget.RelativeLayout.LayoutParams layoutParams) {
+        this.mTopBar.addRightView(view, viewId, layoutParams);
     }
 
     public QMUIAlphaImageButton addRightImageButton(int drawableResId, int viewId) {
-        return mTopBar.addRightImageButton(drawableResId, viewId);
+        return this.mTopBar.addRightImageButton(drawableResId, viewId);
     }
 
     public QMUIAlphaImageButton addLeftImageButton(int drawableResId, int viewId) {
-        return mTopBar.addLeftImageButton(drawableResId, viewId);
+        return this.mTopBar.addLeftImageButton(drawableResId, viewId);
     }
 
     public Button addLeftTextButton(int stringResId, int viewId) {
-        return mTopBar.addLeftTextButton(stringResId, viewId);
+        return this.mTopBar.addLeftTextButton(stringResId, viewId);
     }
 
     public Button addLeftTextButton(String buttonText, int viewId) {
-        return mTopBar.addLeftTextButton(buttonText, viewId);
+        return this.mTopBar.addLeftTextButton(buttonText, viewId);
     }
 
     public Button addRightTextButton(int stringResId, int viewId) {
-        return mTopBar.addRightTextButton(stringResId, viewId);
+        return this.mTopBar.addRightTextButton(stringResId, viewId);
     }
 
     public Button addRightTextButton(String buttonText, int viewId) {
-        return mTopBar.addRightTextButton(buttonText, viewId);
+        return this.mTopBar.addRightTextButton(buttonText, viewId);
     }
 
     public QMUIAlphaImageButton addLeftBackImageButton() {
-        return mTopBar.addLeftBackImageButton();
+        return this.mTopBar.addLeftBackImageButton();
     }
 
     public void removeAllLeftViews() {
-        mTopBar.removeAllLeftViews();
+        this.mTopBar.removeAllLeftViews();
     }
 
     public void removeAllRightViews() {
-        mTopBar.removeAllRightViews();
+        this.mTopBar.removeAllRightViews();
     }
 
     public void removeCenterViewAndTitleView() {
-        mTopBar.removeCenterViewAndTitleView();
+        this.mTopBar.removeCenterViewAndTitleView();
     }
 
-    /**
-     * 设置 TopBar 背景的透明度
-     *
-     * @param alpha 取值范围：[0, 255]，255表示不透明
-     */
     public void setBackgroundAlpha(int alpha) {
         this.getBackground().setAlpha(alpha);
     }
 
-    /**
-     * 根据当前 offset、透明度变化的初始 offset 和目标 offset，计算并设置 Topbar 的透明度
-     *
-     * @param currentOffset     当前 offset
-     * @param alphaBeginOffset  透明度开始变化的offset，即当 currentOffset == alphaBeginOffset 时，透明度为0
-     * @param alphaTargetOffset 透明度变化的目标offset，即当 currentOffset == alphaTargetOffset 时，透明度为1
-     */
     public int computeAndSetBackgroundAlpha(int currentOffset, int alphaBeginOffset, int alphaTargetOffset) {
-        double alpha = (float) (currentOffset - alphaBeginOffset) / (alphaTargetOffset - alphaBeginOffset);
-        alpha = Math.max(0, Math.min(alpha, 1)); // from 0 to 1
-        int alphaInt = (int) (alpha * 255);
+        double alpha = (double)((float)(currentOffset - alphaBeginOffset) / (float)(alphaTargetOffset - alphaBeginOffset));
+        alpha = Math.max(0.0D, Math.min(alpha, 1.0D));
+        int alphaInt = (int)(alpha * 255.0D);
         this.setBackgroundAlpha(alphaInt);
         return alphaInt;
     }
 
-    /**
-     * 设置是否要 Topbar 底部的分割线
-     *
-     * @param enabled true 为显示底部分割线，false 则不显示
-     */
-    public void setBackgroundDividerEnabled(boolean enabled) {
-        if (enabled) {
-            if (mTopBarBgWithSeparatorDrawableCache == null) {
-                mTopBarBgWithSeparatorDrawableCache = QMUIDrawableHelper.
-                        createItemSeparatorBg(mTopBarSeparatorColor, mTopBarBgColor, mTopBarSeparatorHeight, false);
-            }
-            QMUIViewHelper.setBackgroundKeepingPadding(this, mTopBarBgWithSeparatorDrawableCache);
-        } else {
-            QMUIViewHelper.setBackgroundColorKeepPadding(this, mTopBarBgColor);
-        }
+    public void setDefaultSkinAttr(String name, int attr) {
+        this.mDefaultSkinAttrs.put(name, attr);
+    }
+
+    @Override
+    public SimpleArrayMap<String, Integer> getDefaultSkinAttrs() {
+        return this.mDefaultSkinAttrs;
     }
 }

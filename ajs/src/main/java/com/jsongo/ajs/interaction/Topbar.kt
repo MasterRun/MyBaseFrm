@@ -83,7 +83,7 @@ object Topbar {
             if (textSizeStr != null) {
                 val toDoublet = textSizeStr.toDoubleOrNull()
                 toDoublet?.let {
-                    topbarTitle.textSize = it.toFloat()
+                    topbarTitle.textSize = it.toInt()
                 }
             }
             callback.success()

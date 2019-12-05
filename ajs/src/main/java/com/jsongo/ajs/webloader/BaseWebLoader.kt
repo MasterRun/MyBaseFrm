@@ -140,7 +140,7 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
         smartRefreshLayout.finishRefresh()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration?) {
+    override fun onConfigurationChanged(newConfig: Configuration) {
         try {
             super.onConfigurationChanged(newConfig)
             if (this.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {

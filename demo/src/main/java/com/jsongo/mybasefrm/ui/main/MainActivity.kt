@@ -24,15 +24,15 @@ import com.jsongo.mobileim.operator.ChatMessageSender
 import com.jsongo.mobileim.operator.SendCallback
 import com.jsongo.mobileim.util.MobileIMMessageSign
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.ui.login.LoginActivity
 import com.jsongo.mybasefrm.ui.main.mainsample1.MainSample1Fragment
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.qmuiteam.qmui.widget.QMUITabSegment
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.tab.QMUITab
 import com.safframework.log.L
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -76,7 +76,7 @@ class MainActivity : BaseActivity(), IMvvmView {
     /**
      * 底部bar的数组
      */
-    lateinit var bottomTabs: Array<QMUITabSegment.Tab>
+    lateinit var bottomTabs: Array<QMUITab>
 
     /**
      * mainViewModel
@@ -153,8 +153,9 @@ class MainActivity : BaseActivity(), IMvvmView {
 
         //禁用侧滑返回
         setSwipeBackEnable(false)
-        //结束启动页
+        //结束启动页登录页
         ActivityCollector.finish(SplashActivity::class.java)
+        ActivityCollector.finish(LoginActivity::class.java)
 
         //悬浮扫码按钮
         floatingView = FloatingView(this)
@@ -187,69 +188,63 @@ class MainActivity : BaseActivity(), IMvvmView {
 
     fun initTabBar() {
         //字体的选中和未选中颜色
-        val normalColor = QMUIResHelper.getAttrColor(this, R.attr.qmui_config_color_gray_6)
+        val normalColor = R.attr.qmui_config_color_gray_6
 //        val normalColor = QMUIResHelper.getAttrColor(this, R.color.seg_tab_unseleceted)
-        val selectColor = ContextCompat.getColor(this, R.color.seg_tab_selected)
+        val selectColor = R.attr.qmui_config_color_black// R.color.seg_tab_selected
 
-        tab_seg.setDefaultNormalColor(normalColor)
-        tab_seg.setDefaultSelectedColor(selectColor)
-        // tab_seg.setDefaultTabIconPosition(QMUITabSegment.ICON_POSITION_BOTTOM);
+        // 图标大小
+        val iconShowSize = QMUIDisplayHelper.dp2px(this, 16)
 
-        // 如果 icon 显示大小和实际大小不吻合:
-        // 1. 设置icon 的 bounds
-        // 2. Tab 使用拥有5个参数的构造器
-        // 3. 最后一个参数（setIntrinsicSize）设置为false
+        val tabBuilder = tab_seg.tabBuilder()
+            //设置图标宽高
+            .setNormalIconSizeInfo(iconShowSize, iconShowSize)
+            //设置图标选中缩放比例
+            .setSelectedIconScale(1.2f)
+            //设置文本大小，可在布局文件中设置
+//            .setTextSize(QMUIDisplayHelper.sp2px(this, 12), QMUIDisplayHelper.sp2px(this, 14))
+            //设置tab图标的位置
+//            .setIconPosition(QMUITab.ICON_POSITION_BOTTOM)
+                //设置颜色
+            .setColorAttr(normalColor, selectColor)
+            .setDynamicChangeIconColor(false)
+            .setAllowIconDrawOutside(false)
+
+        //创建tab
         val tab1NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab1)
-        val tab1SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab1_selected)
         val tab2NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab2)
-        val tab2SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab2_selected)
         val tab3NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab3)
-        val tab3SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab3_selected)
         val tab4NormalDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab4)
-        val tab4SelectedDrawable = ContextCompat.getDrawable(this, R.mipmap.icon_tab4_selected)
 
-        // 设置大小
-        val iconShowSize = QMUIDisplayHelper.dp2px(this, 20)
-        tab1NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-        tab1SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-        tab2NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-        tab2SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-        tab3NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-        tab3SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-        tab4NormalDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-        tab4SelectedDrawable?.setBounds(0, 0, iconShowSize, iconShowSize)
-
+        //tab的文本数组
         val mainSegTabTexts = resources.getStringArray(R.array.main_seg_tabs)
 
-        val seg1 = QMUITabSegment.Tab(
-            tab1NormalDrawable,
-            tab1SelectedDrawable,
-            mainSegTabTexts[0], false, false
-        )
+        val tab1 = tabBuilder
+            .setNormalDrawable(tab1NormalDrawable)
+//            .setSelectedDrawable(tab1SelectedDrawable)
+            .setText(mainSegTabTexts[0])
+            .build(this)
 
-        val seg2 = QMUITabSegment.Tab(
-            tab2NormalDrawable,
-            tab2SelectedDrawable,
-            mainSegTabTexts[1], false, false
-        )
-        val seg3 = QMUITabSegment.Tab(
-            tab3NormalDrawable,
-            tab3SelectedDrawable,
-            mainSegTabTexts[2], false, false
-        )
+        val tab2 = tabBuilder
+            .setNormalDrawable(tab2NormalDrawable)
+            .setText(mainSegTabTexts[1])
+            .build(this)
 
-        val seg4 = QMUITabSegment.Tab(
-            tab4NormalDrawable,
-            tab4SelectedDrawable,
-            mainSegTabTexts[3], false, false
-        )
+        val tab3 = tabBuilder
+            .setNormalDrawable(tab3NormalDrawable)
+            .setText(mainSegTabTexts[2])
+            .build(this)
 
-        bottomTabs = arrayOf(seg1, seg2, seg3, seg4)
+        val tab4 = tabBuilder
+            .setNormalDrawable(tab4NormalDrawable)
+            .setText(mainSegTabTexts[3])
+            .build(this)
+
+        bottomTabs = arrayOf(tab1, tab2, tab3, tab4)
         //添加tab
-        tab_seg.addTab(seg1)
-            .addTab(seg2)
-            .addTab(seg3)
-            .addTab(seg4)
+        tab_seg.addTab(tab1)
+            .addTab(tab2)
+            .addTab(tab3)
+            .addTab(tab4)
 
         //viewpager的adapter
         pagerAdapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
@@ -273,15 +268,18 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     open fun setTabTipCount(tabIndex: Int, count: Int) {
         //获取到tab
-        val tabSeg = bottomTabs[tabIndex]
+        val tab = bottomTabs[tabIndex]
         if (count > 0) {
-            tabSeg.setSignCountMargin(0, -QMUIDisplayHelper.dp2px(this, 4))//设置红点显示位置
-            tabSeg.setmSignCountDigits(2)//设置红点中数字显示的最大位数
-            tabSeg.showSignCountView(this, count)//第二个参数表示：显示的消息数
+            tab.setRedPoint()
+            tab.signCount = count
+//            tab.setSignCountMargin(0, -QMUIDisplayHelper.dp2px(this, 4))//设置红点显示位置
+//            tab.setmSignCountDigits(2)//设置红点中数字显示的最大位数
+//            tab.showSignCountView(this, count)//第二个参数表示：显示的消息数
         } else {
-            tabSeg.hideSignCountView()
+            tab.clearSignCountOrRedPoint()
+//            tab.hideSignCountView()
         }
-        tab_seg.replaceTab(tabIndex, tabSeg)
+        tab_seg.replaceTab(tabIndex, tab)
         tab_seg.notifyDataChanged()
     }
 
