@@ -23,9 +23,10 @@ demo\app module中用于个人测试
 - 添加app首页主体模型
     > 底部导航类型   --  ok
     > 顶部导航类型  
-    > 侧滑抽屉类型  
-
-- 登录页  --  preparing  
+    > 侧滑抽屉类型
+      
+- 适配qmui2  --  doing  
+- 登录页，登录请求  --  doing  
 - 整合MobileIM即时通讯  --  doing  
 - 首页卡片添加图标和点击事件的设置
 - 改造MVVM  --  doing  

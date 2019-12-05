@@ -20,6 +20,8 @@ class LoginViewModel : BaseViewModel() {
 
     val loading = MutableLiveData<Boolean>()
 
+    val showThirdPartLogin = MutableLiveData<Boolean>(false)
+
     fun login(account: String, password: String) {
         loading.value = true
         this.account.value = account

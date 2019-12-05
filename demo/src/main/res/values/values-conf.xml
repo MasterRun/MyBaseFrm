@@ -3,10 +3,13 @@
     <!--此处添加地址后再build.gradle要相应移除-->
     <!--<string name="SERVER_ADDRESS_RELEASE">http://gank.io/api/</string>-->
     <!--<string name="SERVER_ADDRESS_DEBUG">http://gank.io/api/</string>-->
+    <string name="SERVER_ADDRESS_RELEASE">http://192.168.0.169/</string>
+    <string name="SERVER_ADDRESS_DEBUG">http://192.168.0.169/</string>
 
     <!--	mainactivity全类名-->
 <!--    <string name="MainActivity">com.jsongo.mybasefrm.ui.main.MainActivity</string>-->
     <string name="MainActivity">com.jsongo.mybasefrm.ui.login.LoginActivity</string>
+<!--    <string name="MainActivity">com.jsongo.mybasefrm.ui.demo.DemoActivity</string>-->
 
     <!--	首页默认选中的tab-->
     <integer name="main_selected_tab">1</integer>

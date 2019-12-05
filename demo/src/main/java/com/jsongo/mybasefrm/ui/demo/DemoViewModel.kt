@@ -24,8 +24,8 @@ class DemoViewModel : StatefulViewModel() {
     fun getAuthtypes() {
         mainScope.launch {
             try {
-                val data = HttpRequestManager.getAuthtypes().getAsJsonObject("data").toString()
-                txtContent.value = data
+//                val data = HttpRequestManager.getAuthtypes().getAsJsonObject("data").toString()
+                txtContent.value = "mock value";//data
             } catch (e: Exception) {
                 errorLiverData.value = e.message.toErrorDataWrapper()
             }

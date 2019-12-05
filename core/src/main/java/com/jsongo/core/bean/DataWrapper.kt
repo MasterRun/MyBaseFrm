@@ -10,15 +10,19 @@ import com.jsongo.core.R
  * @desc : 数据的基本包装类型
  */
 
-abstract class Data<T>(code: Int, message: String, data: T)
+abstract class Data<T>(open val code: Int, open val message: String, open val data: T)
 
-data class DataWrapper<T>(val code: Int, val message: String, val data: T) :
+data class DataWrapper<T>(
+    override val code: Int,
+    override val message: String,
+    override val data: T
+) :
     Data<T>(code, message, data)
 
 data class ErrorDataWrapper(
-    val message: String,
-    val code: Int = -1,
-    val data: JsonObject = JsonObject()
+    override val message: String,
+    override val code: Int = -1,
+    override val data: JsonObject = JsonObject()
 ) : Data<JsonObject>(code, message, data) {
 
     companion object {

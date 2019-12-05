@@ -54,17 +54,12 @@ android {
             //开启测试覆盖率
             testCoverageEnabled true
 
-            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
-            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
-
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', '../proguard-rules.pro', '../tencentx5_proguard.pro'
 
             ext.enableCrashlytics = false
         }
         release {
-            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
-            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
 
             //开启资源压缩，必须开启混淆
             shrinkResources false
