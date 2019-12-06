@@ -11,7 +11,6 @@ import com.safframework.log.L
  * createtime ： 2019/7/23 8:58
  * desc :
  */
-@SuppressLint("StaticFieldLeak")
 object BaseCore {
 
     lateinit var context: Context

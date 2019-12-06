@@ -1,5 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--	底部tab 选择的颜色-->
-    <color name="seg_tab_selected">#36ab60</color>
 </resources>

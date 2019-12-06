@@ -10,9 +10,9 @@ import com.previewlibrary.ZoomMediaLoader
  * @date 2019/8/1 22:08
  * @desc
  */
-@SuppressLint("StaticFieldLeak")
 object BaseUI {
     lateinit var context: Context
+
     fun init(context: Context) {
         this.context = context
         ZoomMediaLoader.getInstance().init(ZoomImageLoader())

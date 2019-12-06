@@ -13,6 +13,7 @@ import androidx.collection.SimpleArrayMap;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.layout.QMUIFrameLayout;
+import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.skin.defaultAttr.IQMUISkinDefaultAttrProvider;
 
@@ -43,7 +44,7 @@ public class MyQMUITopBarLayout extends QMUIFrameLayout implements IQMUISkinDefa
 
     public MyQMUITopBarLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.mDefaultSkinAttrs = new SimpleArrayMap(2);
+        this.mDefaultSkinAttrs = new SimpleArrayMap<>(2);
         this.mDefaultSkinAttrs.put("bottomSeparator", R.attr.qmui_skin_support_topbar_separator_color);
         this.mDefaultSkinAttrs.put("background", R.attr.qmui_skin_support_topbar_bg);
         this.mTopBar = new QMUITopBar(context, attrs, defStyleAttr);

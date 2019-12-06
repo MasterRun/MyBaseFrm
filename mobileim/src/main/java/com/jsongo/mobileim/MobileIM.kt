@@ -9,7 +9,6 @@ import com.jsongo.mobileim.core.MobileIMConfig
  * @date ： 2019/11/12 18:04
  * @desc :
  */
-@SuppressLint("StaticFieldLeak")
 object MobileIM {
     lateinit var context: Context
 

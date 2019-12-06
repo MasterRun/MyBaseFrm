@@ -61,7 +61,7 @@ class SettingListFragment : BaseFragment() {
                 }
                 it.items.forEachIndexed { itemIndex, it ->
                     val itemView = genItemView(it, glv)
-                    addItemView(itemView, it.onClickListener)
+                    addItemView(itemView, null)
                     itemViewMap["${index}-${itemIndex}"] = itemView
                 }
                 setLeftIconSize(iconSize, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -89,9 +89,24 @@ class SettingListFragment : BaseFragment() {
             }
             orientation = it.orientation
             accessoryType = it.accessoryType
-            showRedDot(it.showRedDot)
+            //设置显示位置
             setTipPosition(it.tipPosition)
-            showNewTip(it.showNewTip)
+            if (it.showRedDot) {
+                //显示红点
+                showRedDot(it.showRedDot)
+            }
+            if (it.showNewTip) {
+                //显示新提示
+                showNewTip(it.showNewTip)
+            }
+            //设置点击事件
+            setOnClickListener { v ->
+                //如果显示switch，切换状态
+                if (accessoryType == QLv.ACCESSORY_TYPE_SWITCH) {
+                    switch.isChecked = !switch.isChecked
+                }
+                it.onClickListener.onClick(v)
+            }
             if (accessoryType == QLv.ACCESSORY_TYPE_SWITCH && it.checkChangeListener != null) {
                 switch.setOnCheckedChangeListener(it.checkChangeListener)
             }
@@ -136,19 +151,20 @@ class SettingListFragment : BaseFragment() {
                     SettingItem(
                         "item2",
                         R.drawable.icon_menu,
-                        accessoryType = com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON,
+                        accessoryType = QLv.ACCESSORY_TYPE_CHEVRON,
                         onClickListener = View.OnClickListener { RxToast.normal("item 2") }
                     ),
                     SettingItem(
                         "item3",
                         R.drawable.next,
                         "hahah",
-                        com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.HORIZONTAL,
-                        com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.ACCESSORY_TYPE_SWITCH,
+                        QLv.HORIZONTAL,
+                        QLv.ACCESSORY_TYPE_SWITCH,
                         showNewTip = true,
                         checkChangeListener = CompoundButton.OnCheckedChangeListener { compoundButton, checked ->
                             RxToast.normal("checked:${checked}")
-                        })
+                        }
+                    )
                 )
             ),
             SettingSection("section2",
@@ -164,7 +180,7 @@ class SettingListFragment : BaseFragment() {
                         "item 2-2",
                         R.drawable.next,
                         "desc",
-                        showRedDot = true,
+                        showNewTip = true,
                         onClickListener = View.OnClickListener { RxToast.normal("click item 2-2") }
                     )
                 )

@@ -42,11 +42,7 @@ class MyPageFragment : BaseFragment() {
             SettingSection(
                 items = arrayListOf(
                     SettingItem("精选新闻"),
-                    SettingItem(
-                        "糖豆任务",
-                        null,
-                        "215948糖豆"
-                    ),
+                    SettingItem("糖豆任务", null, "215948糖豆"),
                     SettingItem("校区认证", null, "已认证")
                 )
             ),

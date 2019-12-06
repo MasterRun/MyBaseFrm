@@ -13,7 +13,6 @@ import com.tencent.smtt.sdk.QbSdk
  * desc :
  *
  */
-@SuppressLint("StaticFieldLeak")
 object AJs {
     lateinit var context: Context
 

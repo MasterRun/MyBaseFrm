@@ -42,11 +42,7 @@ class MyPageFragment : BaseFragment() {
             SettingSection(
                 items = arrayListOf(
                     SettingItem("item1"),
-                    SettingItem(
-                        "item2",
-                        null,
-                        "hello"
-                    ),
+                    SettingItem("item2", null, "hello"),
                     SettingItem("item3", null, "hi")
                 )
             ),

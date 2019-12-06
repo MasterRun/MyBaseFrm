@@ -95,6 +95,9 @@ class MainActivity : BaseActivity(), IMvvmView {
         initMobileIM()
 
         regIMReceiver()
+
+        //消息数
+        mainViewModel.mainTabTips.value = intArrayOf(0, 0, 66, 0)
     }
 
     /**
@@ -189,8 +192,7 @@ class MainActivity : BaseActivity(), IMvvmView {
     fun initTabBar() {
         //字体的选中和未选中颜色
         val normalColor = R.attr.qmui_config_color_gray_6
-//        val normalColor = QMUIResHelper.getAttrColor(this, R.color.seg_tab_unseleceted)
-        val selectColor = R.attr.qmui_config_color_black// R.color.seg_tab_selected
+        val selectColor = R.attr.qmui_config_color_blue
 
         // 图标大小
         val iconShowSize = QMUIDisplayHelper.dp2px(this, 16)
@@ -204,7 +206,7 @@ class MainActivity : BaseActivity(), IMvvmView {
 //            .setTextSize(QMUIDisplayHelper.sp2px(this, 12), QMUIDisplayHelper.sp2px(this, 14))
             //设置tab图标的位置
 //            .setIconPosition(QMUITab.ICON_POSITION_BOTTOM)
-                //设置颜色
+            //设置颜色
             .setColorAttr(normalColor, selectColor)
             .setDynamicChangeIconColor(false)
             .setAllowIconDrawOutside(false)
@@ -272,12 +274,8 @@ class MainActivity : BaseActivity(), IMvvmView {
         if (count > 0) {
             tab.setRedPoint()
             tab.signCount = count
-//            tab.setSignCountMargin(0, -QMUIDisplayHelper.dp2px(this, 4))//设置红点显示位置
-//            tab.setmSignCountDigits(2)//设置红点中数字显示的最大位数
-//            tab.showSignCountView(this, count)//第二个参数表示：显示的消息数
         } else {
             tab.clearSignCountOrRedPoint()
-//            tab.hideSignCountView()
         }
         tab_seg.replaceTab(tabIndex, tab)
         tab_seg.notifyDataChanged()

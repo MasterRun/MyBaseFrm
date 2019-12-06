@@ -42,16 +42,11 @@ android {
 
     buildTypes {
         debug {
-            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
-            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             ext.enableCrashlytics = false
         }
         release {
-            resValue "string", "SERVER_ADDRESS_RELEASE", "${SERVER_ADDRESS_RELEASE}"
-            resValue "string", "SERVER_ADDRESS_DEBUG", "${SERVER_ADDRESS_DEBUG}"
-
             //开启资源压缩，必须开启混淆
             shrinkResources false
             minifyEnabled false

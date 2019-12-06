@@ -7,6 +7,7 @@ import androidx.collection.ArrayMap;
 
 import com.jsongo.ui.R;
 import com.qmuiteam.qmui.qqface.IQMUIQQFaceManager;
+import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QQFace;
 import com.safframework.log.L;
 

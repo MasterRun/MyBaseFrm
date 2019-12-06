@@ -54,7 +54,6 @@ class AppApplication : Application() {
 
     companion object {
 
-        @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
 
         val isDebug: Boolean
