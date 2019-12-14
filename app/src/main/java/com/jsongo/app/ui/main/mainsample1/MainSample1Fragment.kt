@@ -3,7 +3,6 @@ package com.jsongo.app.ui.main.mainsample1
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,8 +30,6 @@ import kotlinx.android.synthetic.main.fragment_main_sample1.*
  */
 @Page(R.layout.fragment_main_sample1, 0)
 class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
-    override val hostActivity: FragmentActivity?
-        get() = activity
 
     override val hostFragment: Fragment?
         get() = this

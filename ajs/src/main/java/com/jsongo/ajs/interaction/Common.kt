@@ -12,10 +12,12 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.LongCallback
 import com.jsongo.ajs.util.ConstValue
 import com.jsongo.ajs.util.Util
+import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.ui.component.image.preview.ImgPreviewClick
+import com.jsongo.ui.component.screenshot_observe.IScreenshotCallback
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.component.zxing.android.CaptureActivity
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
@@ -254,6 +256,34 @@ object Common {
                 callback.failure()
             }
         })
+    }
+
+    /**
+     * 开启截屏监听
+     */
+    @JvmStatic
+    @PermissionNeed(Manifest.permission.READ_EXTERNAL_STORAGE)
+    fun enableScreenshotObserve(
+        ajsWebViewHost: AjsWebViewHost,
+        aJsWebView: AJsWebView,
+        params: Map<String, String>,
+        callback: AjsCallback
+    ) {
+        val hostFragment = ajsWebViewHost.hostFragment
+        if (hostFragment is AJsWebLoader) {
+            hostFragment.enableScreenshotObserve(object :
+                IScreenshotCallback.ScreenshotCallbackProxy() {
+                override fun onGetScreenshot(path: String?) {
+                    if (path.isNullOrEmpty()) {
+                        callback.failure(message = "获取截屏路径失败！")
+                    } else {
+                        callback.success(Pair("path", path))
+                    }
+                }
+            })
+        } else {
+            callback.failure(message = "开启截屏监听失败！")
+        }
     }
 
 }

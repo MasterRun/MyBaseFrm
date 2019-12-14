@@ -51,6 +51,7 @@ todo   切换原生容器的方法将会在后续推出...
     - [2.5 跳转原生页面](#25-跳转原生页面)
     - [2.6 打开新页面加载h5页面](#26-打开新页面加载h5页面)
     - [2.7 打开扫描二维码条形码页面](#27-打开扫描二维码条形码页面)
+    - [2.8 开启截图监听](#28-开启截图监听)
   - [3 Toast吐司](#3-toast吐司)
   - [4 加载弹窗](#4-加载弹窗)
   - [5 缓存](#5-缓存)
@@ -458,6 +459,27 @@ myBridge.callHandler(callname, params, function (responseData) {
     ajs.common.scan(107, function (data) {
         console.log(data)
         ajs.common.load(data["data"])
+    })
+```
+#### 2.8 开启截图监听
+
+方法：`ajs.common.enableScreenshotObserve();`
+
+参数：
+- 参数1: success  成功回调
+- 参数2: error  错误回调  可选
+
+
+返回值:
+
+- data["path"] 监听到的截图文件的路径
+  
+- demo:
+```js
+    ajs.common.enableScreenshotObserve(function (data) {
+        console.log(data["path"])
+    },function(msg,data){
+        console.log("screenshot observe failed:" + msg)
     })
 ```
 

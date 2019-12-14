@@ -6,16 +6,17 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.ui.component.screenshot_observe.IScreenshotCallback
+import com.jsongo.ui.component.screenshot_observe.ScreenshotObserveUtil
 import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
-import kotlinx.android.synthetic.main.activity_ajs_webloader.*
+import kotlinx.android.synthetic.main.layout_ajs_webloader.*
 
 /**
  * @author ： jsongo
@@ -24,8 +25,6 @@ import kotlinx.android.synthetic.main.activity_ajs_webloader.*
  */
 class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
 
-    override val hostActivity: FragmentActivity?
-        get() = activity
     override val hostFragment: Fragment?
         get() = this
 
@@ -157,6 +156,16 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
                 null,
                 null
             )
+        }
+    }
+
+    /**
+     * 开启截屏监听
+     */
+    fun enableScreenshotObserve(callback: IScreenshotCallback) {
+        activity?.apply {
+            ScreenshotObserveUtil.init(this,contentResolver, callback)
+            ScreenshotObserveUtil.register()
         }
     }
 

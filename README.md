@@ -25,7 +25,6 @@ demo\app module中用于个人测试
     > 顶部导航类型  
     > 侧滑抽屉类型
       
-- 适配qmui2  --  doing  
 - 登录页，登录请求  --  doing  
 - 整合MobileIM即时通讯  --  doing  
 - 首页卡片添加图标和点击事件的设置
@@ -74,6 +73,7 @@ demo\app module中用于个人测试
 - 迁移AndroidX --  ok  
 - 使用kotlin观察代理  --  Deprecated  使用MVVM  
 - IBaseView 范型调整为P ，尝试解决presenter分离和View的范型问题  --  Deprecated  使用MVVM  
+- 适配qmui2  --  ok  
 
 
 ### module依赖关系

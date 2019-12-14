@@ -15,8 +15,8 @@ import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.activity_ajs_webloader.*
-import kotlinx.android.synthetic.main.activity_ajs_webloader.view.*
+import kotlinx.android.synthetic.main.layout_ajs_webloader.*
+import kotlinx.android.synthetic.main.layout_ajs_webloader.view.*
 
 /**
  * @author ： jsongo
@@ -34,7 +34,7 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
      */
     var receiveError = false
 
-    override var mainLayoutId = R.layout.activity_ajs_webloader
+    override var mainLayoutId = R.layout.layout_ajs_webloader
 
     protected lateinit var pbWebview: ProgressBar
     protected lateinit var aJsWebView: AJsWebView

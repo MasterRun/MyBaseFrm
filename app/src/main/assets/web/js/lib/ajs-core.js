@@ -216,7 +216,6 @@ function regBridgeMethod() {
              * 调用原生图片预览
              * @param {array} urls   图片的url数组   ['url1','url2','url3']
              * @param {int} index  打开时显示的图片下标
-             * @param {function} callback  回调
              */
             showpic(urls, index, success, error) {
                 ajs.callHandler("common.showpic", { urls: JSON.stringify(urls), index: index }, success, error)
@@ -225,7 +224,6 @@ function regBridgeMethod() {
             /**
              * 跳转Android原生页面
              * @param {String} activity  原生提供的原生页面路径
-             * @param {function} callback
              */
             go(activity, success, error) {
                 ajs.callHandler("common.go", { activity: activity }, success, error)
@@ -234,7 +232,6 @@ function regBridgeMethod() {
             /**
              * 开启新的页面打开h5页面
              * @param {url:"",bgColor:"#ffffff",fixHeight:true} url  h5页面路径
-             * @param {*} callback
              */
             load(params, success, error) {
                 ajs.callHandler("common.load", params, success, error)
@@ -243,10 +240,16 @@ function regBridgeMethod() {
             /**
              * 开启新的页面打开h5页面
              * @param {String} url  h5页面路径
-             * @param {*} callback
              */
             scan(requestCode, success, error) {
                 ajs.callHandler("common.scan", { requestCode: requestCode }, success, error)
+            },
+
+            /**
+             * 开启截屏监听
+             */
+            enableScreenshotObserve(success, error) {
+                ajs.callHandler("common.enableScreenshotObserve", {}, success, error)
             }
         },
 

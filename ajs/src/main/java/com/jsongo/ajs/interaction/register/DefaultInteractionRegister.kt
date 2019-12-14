@@ -18,6 +18,10 @@ object DefaultInteractionRegister : BaseInteractionRegister() {
         Pair("common.go", "com.jsongo.ajs.interaction.Common.go"),
         Pair("common.load", "com.jsongo.ajs.interaction.Common.load"),
         Pair("common.scan", "com.jsongo.ajs.interaction.Common.scan"),
+        Pair(
+            "common.enableScreenshotObserve",
+            "com.jsongo.ajs.interaction.Common.enableScreenshotObserve"
+        ),
 
         Pair("file.selectImg", "com.jsongo.ajs.interaction.File.selectImg"),
         Pair("file.base64", "com.jsongo.ajs.interaction.File.base64"),

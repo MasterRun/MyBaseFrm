@@ -290,11 +290,14 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if ((keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) && event.action == KeyEvent.ACTION_DOWN) {
-            val backHome = Intent(Intent.ACTION_MAIN)
-            backHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            backHome.addCategory(Intent.CATEGORY_HOME)
-            startActivity(backHome)
-            return true
+            //如果只剩MainActivity，安县返回键时启动桌面，不结束activity
+            if (ActivityCollector.getActivities().size == 1 && ActivityCollector.topActivity == this) {
+                val backHome = Intent(Intent.ACTION_MAIN)
+                backHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                backHome.addCategory(Intent.CATEGORY_HOME)
+                startActivity(backHome)
+                return true
+            }
         }
         return super.onKeyDown(keyCode, event)
     }

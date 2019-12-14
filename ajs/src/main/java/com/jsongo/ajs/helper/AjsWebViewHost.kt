@@ -46,6 +46,7 @@ interface AjsWebViewHost {
      * 所在的activity
      */
     val hostActivity: FragmentActivity?
+        get() = hostFragment?.activity
     /**
      * 所在的fragment
      */

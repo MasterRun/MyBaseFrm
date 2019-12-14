@@ -10,6 +10,7 @@ import com.jsongo.ajs.R
 import com.jsongo.ajs.util.ConstValue
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.util.KeyboardUtil
+import com.jsongo.ui.component.screenshot_observe.ScreenshotObserveUtil
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 open class AJsWebPage : BaseActivity() {
@@ -83,6 +84,11 @@ open class AJsWebPage : BaseActivity() {
         if (!onBackPressed) {
             super.onBackPressed()
         }
+    }
+
+    override fun onIPageDestroy() {
+        ScreenshotObserveUtil.unregister(this)
+        super.onIPageDestroy()
     }
 
     companion object {

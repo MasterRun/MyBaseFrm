@@ -238,6 +238,14 @@ function filebase64() {
     })
 }
 
+function enablescreenshotObserve(){
+    ajs.common.enableScreenshotObserve(function(data){
+    console.log("screenshot file:"+data["path"])
+    },function(msg,data){
+    console.log("screenshot observe failed:"+msg)
+    })
+}
+
 function custom1() {
     ajs.callHandler("custom1.myToast", { text: "custom1" }, function (data) {
         //成功回调
