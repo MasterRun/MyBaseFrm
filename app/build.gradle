@@ -13,7 +13,7 @@ kapt {
         option("-Xmaxerrs", 500)
     }
     //开启databinding后如果使用kapt，需要进行如下配置
-    generateStubs = true
+    //generateStubs = true
 }
 
 android {

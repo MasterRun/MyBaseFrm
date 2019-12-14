@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 
@@ -13,7 +14,6 @@ import androidx.collection.SimpleArrayMap;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.layout.QMUIFrameLayout;
-import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.skin.defaultAttr.IQMUISkinDefaultAttrProvider;
 
@@ -35,7 +35,7 @@ public class MyQMUITopBarLayout extends QMUIFrameLayout implements IQMUISkinDefa
     private SimpleArrayMap<String, Integer> mDefaultSkinAttrs;
 
     public MyQMUITopBarLayout(Context context) {
-        this(context, (AttributeSet)null);
+        this(context, (AttributeSet) null);
     }
 
     public MyQMUITopBarLayout(Context context, AttributeSet attrs) {
@@ -48,9 +48,9 @@ public class MyQMUITopBarLayout extends QMUIFrameLayout implements IQMUISkinDefa
         this.mDefaultSkinAttrs.put("bottomSeparator", R.attr.qmui_skin_support_topbar_separator_color);
         this.mDefaultSkinAttrs.put("background", R.attr.qmui_skin_support_topbar_bg);
         this.mTopBar = new QMUITopBar(context, attrs, defStyleAttr);
-        this.mTopBar.setBackground((Drawable)null);
+        this.mTopBar.setBackground((Drawable) null);
         this.mTopBar.updateBottomDivider(0, 0, 0, 0);
-        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(-1, this.mTopBar.getTopBarHeight());
+        FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, this.mTopBar.getTopBarHeight());
         this.addView(this.mTopBar, lp);
     }
 
@@ -143,9 +143,9 @@ public class MyQMUITopBarLayout extends QMUIFrameLayout implements IQMUISkinDefa
     }
 
     public int computeAndSetBackgroundAlpha(int currentOffset, int alphaBeginOffset, int alphaTargetOffset) {
-        double alpha = (double)((float)(currentOffset - alphaBeginOffset) / (float)(alphaTargetOffset - alphaBeginOffset));
+        double alpha = (double) ((float) (currentOffset - alphaBeginOffset) / (float) (alphaTargetOffset - alphaBeginOffset));
         alpha = Math.max(0.0D, Math.min(alpha, 1.0D));
-        int alphaInt = (int)(alpha * 255.0D);
+        int alphaInt = (int) (alpha * 255.0D);
         this.setBackgroundAlpha(alphaInt);
         return alphaInt;
     }

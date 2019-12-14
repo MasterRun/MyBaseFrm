@@ -30,16 +30,15 @@ android {
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     if (libConf.useOnlineAAR) {
-        api "com.jsongo.basefrm:core:${libConf.core.aarVer}"
-        api "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
+        implementation "com.jsongo.basefrm:core:${libConf.core.aarVer}"
+        implementation "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
     } else {
-        api project(path: ':core')
-        api project(path: ':ui')
+        implementation project(path: ':core')
+        implementation project(path: ':ui')
     }
 }

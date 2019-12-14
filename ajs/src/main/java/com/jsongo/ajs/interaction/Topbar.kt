@@ -5,6 +5,7 @@ import android.view.View
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
+import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**
@@ -83,7 +84,9 @@ object Topbar {
             if (textSizeStr != null) {
                 val toDoublet = textSizeStr.toDoubleOrNull()
                 toDoublet?.let {
-                    topbarTitle.textSize = it.toInt()
+                    val hostActivity = ajsWebViewHost.hostActivity
+                    topbarTitle.textSize =
+                        QMUIDisplayHelper.dp2px(hostActivity ?: aJsWebView.context, it.toInt())
                 }
             }
             callback.success()

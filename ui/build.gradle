@@ -10,7 +10,7 @@ kapt {
         option("-Xmaxerrs", 500)
     }
     //开启databinding后如果使用kapt，需要进行如下配置
-    generateStubs = true
+    //generateStubs = true
 }
 
 android {
@@ -48,9 +48,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     if (libConf.useOnlineAAR) {
-        api "com.jsongo.basefrm:core:${libConf.core.aarVer}"
+        implementation "com.jsongo.basefrm:core:${libConf.core.aarVer}"
     } else {
-        api project(path: ':core')
+        implementation project(path: ':core')
     }
 
     //easyphoto 图片选取

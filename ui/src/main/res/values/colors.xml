@@ -8,6 +8,6 @@
 	<color name="react">#ffffff</color>
 	<color name="scanLineColor">#ffffff</color>
 	<!--    扫一扫的背景色-->
-	<color name="scan_bg">#99000000</color>
+	<color name="scan_bg">#D3000000</color>
 
 </resources>
