@@ -37,7 +37,7 @@ abstract class BaseInteractionRegister {
 
             if (className.isNotEmpty() && methodName.isNotEmpty()) {
                 //注册api
-                LogcatUtil.d("registerAjsApi registerName:${it.key}")
+//                LogcatUtil.d("registerAjsApi registerName:${it.key}")
                 registerApi(ajsWebViewHost, aJsWebView, it.key, className, methodName)
             }
         }

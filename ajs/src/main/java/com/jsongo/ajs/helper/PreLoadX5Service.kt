@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.annotation.Nullable
 import com.jsongo.ajs.R
-import com.safframework.log.L
+import com.jsongo.core.util.LogcatUtil
 import com.tencent.smtt.sdk.QbSdk
 
 /**
@@ -26,12 +26,16 @@ class PreLoadX5Service : Service() {
     var cb: QbSdk.PreInitCallback = object : QbSdk.PreInitCallback {
 
         override fun onViewInitFinished(initResult: Boolean) {
-            L.d(String.format(getString(R.string.x5_view_init_finish), initResult.toString()))
+            LogcatUtil.d(
+                String.format(
+                    getString(R.string.x5_view_init_finish),
+                    initResult.toString()
+                )
+            )
         }
 
         override fun onCoreInitFinished() {
-            L.d(getString(R.string.x5_core_init_finish))
-
+            LogcatUtil.d(getString(R.string.x5_core_init_finish))
         }
     }
 
@@ -46,7 +50,7 @@ class PreLoadX5Service : Service() {
      */
     private fun initX5() {
         QbSdk.setDownloadWithoutWifi(true)
-        L.d(getString(R.string.x5_init_env))
+        LogcatUtil.d(getString(R.string.x5_init_env))
         QbSdk.initX5Environment(applicationContext, cb)
     }
 
@@ -58,7 +62,7 @@ class PreLoadX5Service : Service() {
         if (!QbSdk.isTbsCoreInited()) {
 
             // preinit只需要调用一次，如果已经完成了初始化，那么就直接构造view
-            L.d(getString(R.string.x5_pre_init))
+            LogcatUtil.d(getString(R.string.x5_pre_init))
             // 设置X5初始化完成的回调接口
             QbSdk.preInit(applicationContext, cb)
 

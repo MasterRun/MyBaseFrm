@@ -10,9 +10,9 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.InteractionRegisterCollector
 import com.jsongo.ajs.jsbridge_x5.BridgeWebView
 import com.jsongo.ajs.jsbridge_x5.BridgeWebViewClient
+import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.util.PRE_ANDROID_ASSET
 import com.jsongo.core.util.SRT_HTTP
-import com.safframework.log.L
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse
@@ -168,7 +168,7 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
         } else {
             loadNormalInfo(webPath)
         }
-        L.d("url ", webPath)
+        LogcatUtil.d("url ", webPath)
     }
 
     /**

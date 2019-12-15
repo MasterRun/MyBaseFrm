@@ -8,14 +8,9 @@ import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.core.widget.NestedScrollView
 import com.jsongo.annotation.register.ViewConfigor
-import com.jsongo.core.BaseCore
-import com.jsongo.core.util.SmartRefreshFooter
-import com.jsongo.core.util.SmartRefreshHeader
-import com.jsongo.core.util.useFooter
-import com.jsongo.core.util.useHeader
+import com.jsongo.core.util.*
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.widget.QMUIEmptyView
-import com.safframework.log.L
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -106,13 +101,9 @@ interface IPage {
             if (mainLayoutId != 0) {
                 mainView = LayoutInflater.from(context).inflate(mainLayoutId, rlLayoutRoot, false)
                 rlLayoutRoot.addView(mainView)
-                if (BaseCore.isDebug) {
-                    L.w("containerIndex of ${this} is ${containerIndex},use rlLayoutRoot")
-                }
+                LogcatUtil.w("containerIndex of ${this} is ${containerIndex},use rlLayoutRoot")
             } else {
-                if (BaseCore.isDebug) {
-                    L.w("mainLayoutId of ${this} is 0")
-                }
+                LogcatUtil.w("mainLayoutId of ${this} is 0")
             }
         } else {
             topbar.visibility = View.VISIBLE

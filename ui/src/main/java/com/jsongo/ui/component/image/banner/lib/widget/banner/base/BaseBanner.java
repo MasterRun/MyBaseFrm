@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.jsongo.core.util.LogcatUtil;
 import com.jsongo.ui.R;
 import com.jsongo.ui.component.image.banner.lib.widget.loopviewpager.FixedSpeedScroller;
 import com.jsongo.ui.component.image.banner.lib.widget.loopviewpager.LoopViewPager;
@@ -465,7 +466,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             mStse = Executors.newSingleThreadScheduledExecutor();
             mStse.scheduleAtFixedRate(() -> mHandler.obtainMessage().sendToTarget(), mDelay, mPeriod, TimeUnit.SECONDS);
             mIsAutoScrolling = true;
-            L.d(TAG, this.getClass().getSimpleName() + "--->goOnScroll()");
+            LogcatUtil.d(TAG, this.getClass().getSimpleName() + "--->goOnScroll()");
         } else {
             mIsAutoScrolling = false;
         }
@@ -479,7 +480,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             mStse.shutdown();
             mStse = null;
         }
-        L.d(TAG, this.getClass().getSimpleName() + "--->pauseScroll()");
+        LogcatUtil.d(TAG, this.getClass().getSimpleName() + "--->pauseScroll()");
 
         mIsAutoScrolling = false;
     }
