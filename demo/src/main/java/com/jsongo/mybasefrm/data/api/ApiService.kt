@@ -1,9 +1,8 @@
 package com.jsongo.mybasefrm.data.api
 
 import com.jsongo.core.bean.DataWrapper
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import com.jsongo.mybasefrm.bean.User
+import retrofit2.http.*
 
 /**
  * author ： jsongo
@@ -18,4 +17,9 @@ interface ApiService {
         @Field("username") userName: String?,
         @Field("password") password: String?
     ): DataWrapper<String?>
+
+    @GET("user/info")
+    suspend fun getUserInfo(
+        @Query("user_guid") userguid: String?
+    ): DataWrapper<User?>
 }

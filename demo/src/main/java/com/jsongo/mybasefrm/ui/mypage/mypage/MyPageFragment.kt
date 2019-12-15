@@ -6,8 +6,12 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.BaseFragment
+import com.jsongo.core.constant.CommonDbKeys
+import com.jsongo.core.db.CommonDbOpenHelper
+import com.jsongo.core.util.toGsonBean
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.bean.User
 import com.jsongo.mybasefrm.ui.personalinfo.PersonalInfoActivity
 import com.jsongo.ui.component.fragment.settinglist.SettingItem
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
@@ -35,6 +39,11 @@ class MyPageFragment : BaseFragment() {
         val onClickListener = View.OnClickListener {
             startActivity(Intent(activity, PersonalInfoActivity::class.java))
         }
+        val user: User? =
+            CommonDbOpenHelper.getValue(CommonDbKeys.USER_INFO).toGsonBean(User::class.java)
+
+        tv_nickname.text = user?.username ?: "未登录"
+
         qriv_header.setOnClickListener(onClickListener)
         tv_nickname.setOnClickListener(onClickListener)
 

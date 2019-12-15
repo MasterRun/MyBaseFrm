@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.jsongo.core">
-	
+
 	<uses-feature android:name="android.hardware.camera" />
 	<uses-feature android:name="android.hardware.camera.autofocus" />
-	
+
 	<uses-permission android:name="android.permission.FLASHLIGHT" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -22,14 +22,14 @@
 	<uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 	<uses-permission android:name="android.permission.BLUETOOTH" />
 	<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-	
+
 	<uses-feature
 		android:glEsVersion="0x00020000"
 		android:required="true" />
 	<uses-feature
 		android:glEsVersion="0x00030000"
 		android:required="true" />
-	
+
 	<application
 		android:networkSecurityConfig="@xml/network_security_config"
 		android:theme="@style/AppTheme">
@@ -38,12 +38,12 @@
 			android:theme="@style/SplashTheme">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
-				
+
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".crash.CrashActivity" />
-		
+
 		<provider
 			android:name=".util.MyFileProvider"
 			android:authorities="${applicationId}.core.fileprovider"

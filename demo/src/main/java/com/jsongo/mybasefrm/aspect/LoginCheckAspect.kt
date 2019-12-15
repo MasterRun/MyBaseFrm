@@ -1,9 +1,10 @@
 package com.jsongo.mybasefrm.aspect
 
 import android.app.Activity
-import com.jsongo.ajs.interaction.Common
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
+import com.jsongo.core.util.toGsonBean
+import com.jsongo.mybasefrm.bean.User
 import com.jsongo.mybasefrm.ui.login.LoginActivity
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
@@ -25,7 +26,9 @@ class LoginCheckAspect {
     @Throws(Throwable::class)
     fun loginCheckExecutor(joinPoint: ProceedingJoinPoint): Any? {
         val value = CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)
-        if (value.isNullOrEmpty()) {
+        val user: User? =
+            CommonDbOpenHelper.getValue(CommonDbKeys.USER_INFO).toGsonBean(User::class.java)
+        if (value.isNullOrEmpty() || user == null) {
             LoginActivity.go()
             val any = joinPoint.`this`
             if (any is Activity && !any.isFinishing) {

@@ -3,6 +3,7 @@ package com.jsongo.mybasefrm.ui.login
 import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.constant.CommonDbKeys
+import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.data.repository.HttpRequestManager
@@ -35,12 +36,15 @@ class LoginViewModel : BaseViewModel() {
         mainScope.launch {
             try {
                 val userguid = HttpRequestManager.checkUser(account, password)
-                CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_GUID, userguid);
+                CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_GUID, userguid)
+                val userInfo = HttpRequestManager.getUserInfo(userguid)
+                CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_INFO, gson.toJson(userInfo))
                 loginResult.value = true
             } catch (e: NetFailedException) {
                 e.printStackTrace()
                 loading.value = false
                 RxToast.error(e.message ?: "出错了！")
+                return@launch
             }
         }
     }

@@ -9,7 +9,7 @@
 		<item name="android:windowIsTranslucent">true</item>
 		<item name="android:windowBackground">@color/transparent</item>
 	</style>
-	
+
 	<style name="SplashTheme" parent="QMUI.Compat.NoActionBar">
 		<item name="android:colorPrimary">@color/white</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>

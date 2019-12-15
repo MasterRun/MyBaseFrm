@@ -3,6 +3,7 @@ package com.jsongo.mybasefrm.data.repository
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.toErrorDataWrapper
 import com.jsongo.core.network.ApiManager
+import com.jsongo.mybasefrm.bean.User
 import com.jsongo.mybasefrm.data.api.ApiService
 
 /**
@@ -124,6 +125,22 @@ object HttpRequestManager : IRemoteRequest {
             return checkUserWrapper.data!!
         } else {
             throw NetFailedException(checkUserWrapper.toErrorDataWrapper())
+        }
+    }
+
+    @Throws
+    override suspend fun getUserInfo(userguid: String): User {
+        val userWrapper: DataWrapper<User?>
+        try {
+            userWrapper =
+                ApiManager.createApiService(ApiService::class.java).getUserInfo(userguid)
+        } catch (e: Exception) {
+            throw NetFailedException(e.message.toErrorDataWrapper())
+        }
+        if (userWrapper.code > 0 && userWrapper.data != null) {
+            return userWrapper.data!!
+        } else {
+            throw NetFailedException(userWrapper.toErrorDataWrapper())
         }
     }
 

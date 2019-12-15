@@ -17,6 +17,7 @@
 package com.jsongo.mybasefrm.data.repository
 
 import com.jsongo.core.bean.ErrorDataWrapper
+import com.jsongo.mybasefrm.bean.User
 
 
 /**
@@ -41,6 +42,9 @@ interface IRemoteRequest {
 
     @Throws
     suspend fun checkUser(username: String, password: String): String
+
+    @Throws
+    suspend fun getUserInfo(userguid: String): User
 }
 
 class NetFailedException(

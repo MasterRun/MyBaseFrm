@@ -1,23 +1,23 @@
 <resources>
 	<string name="app_name">core</string>
-	
+
 	<string name="crash_title">出错啦！</string>
 	<string name="crash_btn1">请联系管理员反馈</string>
 	<string name="crash_btn2">取消</string>
 	<string name="copy_to_clipboard">已复制到剪切板</string>
-	
+
 	<string name="dialog_loading">加载中...</string>
-	
+
 	<string name="empty_view_loading">加载中...</string>
 	<string name="empty_view_retry">重试</string>
 	<string name="empty_view_nodata_title">暂无数据</string>
 	<string name="empty_view_nodata_detail">这里什么都没有哦</string>
 	<string name="empty_view_error_title">出错喽</string>
 	<string name="empty_view_error_detail">哎呀,数据出错了</string>
-	
+
 	<string name="nopermission_exit">程序即将退出!</string>
 	<string name="permission_missing">权限缺失可能导致程序异常!</string>
-	
+
 	<string name="topbar_title">标题</string>
 
     <string name="please_config_mainpage">请配置首页</string>
