@@ -2,6 +2,10 @@ package com.jsongo.mybasefrm.ui.login
 
 import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
+import com.jsongo.core.widget.RxToast
+import com.jsongo.mybasefrm.data.repository.HttpRequestManager
+import com.jsongo.mybasefrm.data.repository.NetFailedException
+import kotlinx.coroutines.launch
 
 /**
  * @author ： jsongo
@@ -26,7 +30,16 @@ class LoginViewModel : BaseViewModel() {
         loading.value = true
         this.account.value = account
         this.password.value = password
-        loginResult.value = "account:${this.account.value}, password:${this.password.value}"
+        mainScope.launch {
+            try {
+                val checkUser = HttpRequestManager.checkUser(account, password)
+                loginResult.value = checkUser
+            } catch (e: NetFailedException) {
+                e.printStackTrace()
+                loading.value = false
+                RxToast.error(e.message ?: "出错了！")
+            }
+        }
     }
 
 

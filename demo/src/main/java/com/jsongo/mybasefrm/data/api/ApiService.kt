@@ -1,8 +1,9 @@
 package com.jsongo.mybasefrm.data.api
 
-import com.google.gson.JsonObject
 import com.jsongo.core.bean.DataWrapper
-import retrofit2.http.GET
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 /**
  * author ： jsongo
@@ -11,9 +12,10 @@ import retrofit2.http.GET
  */
 interface ApiService {
 
-    @GET("today")
-    suspend fun dailyGank(): DataWrapper<JsonObject>
-
-    @GET("userauth/types")
-    suspend fun authtypes(): JsonObject
+    @POST("user/check")
+    @FormUrlEncoded
+    suspend fun checkUser(
+        @Field("username") userName: String?,
+        @Field("password") password: String?
+    ): DataWrapper<String?>
 }

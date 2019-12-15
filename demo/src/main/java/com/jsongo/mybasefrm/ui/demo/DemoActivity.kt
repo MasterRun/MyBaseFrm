@@ -75,7 +75,6 @@ class DemoActivity : StatefulActivity() {
     }
 
     override fun initView() {
-
         setSwipeBackEnable(false)
 
         floatingView = FloatingView(this)

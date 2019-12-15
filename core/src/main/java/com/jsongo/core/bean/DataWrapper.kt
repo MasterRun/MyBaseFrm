@@ -1,6 +1,5 @@
 package com.jsongo.core.bean
 
-import com.google.gson.JsonObject
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 
@@ -9,20 +8,19 @@ import com.jsongo.core.R
  * @date ： 2019/11/10 0:13
  * @desc : 数据的基本包装类型
  */
-
-abstract class Data<T>(code: Int, message: String, data: T)
-
-data class DataWrapper<T>(
-    var code: Int,
-    var message: String,
-    var data: T
-) : Data<T>(code, message, data)
+open class DataWrapper<T>(
+    open val code: Int = 1,
+    open var message: String = "",
+    open var data: T?
+) {
+    fun toErrorDataWrapper() = ErrorDataWrapper(message, code, data)
+}
 
 data class ErrorDataWrapper(
-    var message: String,
-    var code: Int = -1,
-    var data: JsonObject = JsonObject()
-) : Data<JsonObject>(code, message, data) {
+    override var message: String,
+    override val code: Int = -1,
+    override var data: Any? = null
+) : DataWrapper<Any>(code, message, data) {
 
     companion object {
         //默认错误实例
@@ -35,9 +33,11 @@ data class ErrorDataWrapper(
 /**
  * 将String作为错误信息包装为 ErrorDataWrapper
  */
-fun String?.toErrorDataWrapper(): ErrorDataWrapper =
+fun String?.toErrorDataWrapper(any: Any? = null): ErrorDataWrapper =
     if (this.isNullOrEmpty()) {
         ErrorDataWrapper.DEFAULT
     } else {
         ErrorDataWrapper(this)
+    }.apply {
+        data = any
     }

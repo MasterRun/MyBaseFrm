@@ -1,7 +1,7 @@
 package com.jsongo.mybasefrm.data.repository
 
-import com.google.gson.JsonObject
 import com.jsongo.core.bean.DataWrapper
+import com.jsongo.core.bean.toErrorDataWrapper
 import com.jsongo.core.network.ApiManager
 import com.jsongo.mybasefrm.data.api.ApiService
 
@@ -111,14 +111,20 @@ object HttpRequestManager : IRemoteRequest {
         liveData.setValue(testAlbum)
     }*/
 
-    override suspend fun getDailyGank(): DataWrapper<JsonObject> {
-        val dailyGank = ApiManager.createApiService(ApiService::class.java).dailyGank()
-        return dailyGank
-    }
-
-    override suspend fun getAuthtypes(): JsonObject {
-        val authTypes = ApiManager.createApiService(ApiService::class.java).authtypes()
-        return authTypes
+    @Throws
+    override suspend fun checkUser(username: String, password: String): String? {
+        val checkUserWrapper: DataWrapper<String?>
+        try {
+            checkUserWrapper =
+                ApiManager.createApiService(ApiService::class.java).checkUser(username, password)
+        } catch (e: Exception) {
+            throw NetFailedException(e.message.toErrorDataWrapper())
+        }
+        if (checkUserWrapper.code > 0 && !checkUserWrapper.data.isNullOrEmpty()) {
+            return checkUserWrapper.data
+        } else {
+            throw NetFailedException(checkUserWrapper.toErrorDataWrapper())
+        }
     }
 
     /* fun getLibraryInfo(liveData: MutableLiveData<List<LibraryInfo>>) {

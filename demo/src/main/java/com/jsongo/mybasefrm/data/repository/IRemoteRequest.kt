@@ -16,8 +16,7 @@
 
 package com.jsongo.mybasefrm.data.repository
 
-import com.google.gson.JsonObject
-import com.jsongo.core.bean.DataWrapper
+import com.jsongo.core.bean.ErrorDataWrapper
 
 
 /**
@@ -40,6 +39,10 @@ interface IRemoteRequest {
 
     //void getLibraryInfo(MutableLiveData<List<LibraryInfo>> liveData);
 
-    suspend fun getDailyGank(): DataWrapper<JsonObject>
-    suspend fun getAuthtypes(): JsonObject
+    @Throws
+    suspend fun checkUser(username: String, password: String): String?
 }
+
+class NetFailedException(
+    val errorDataWrapper: ErrorDataWrapper = ErrorDataWrapper.DEFAULT
+) : Exception(errorDataWrapper.message)
