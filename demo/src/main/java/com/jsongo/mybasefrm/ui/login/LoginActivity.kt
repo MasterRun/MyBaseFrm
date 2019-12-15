@@ -12,6 +12,7 @@ import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
+import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.databinding.ActivityLoginBinding
 import com.jsongo.mybasefrm.ui.main.MainActivity
@@ -120,5 +121,14 @@ class LoginActivity : BaseActivity(), IMvvmView {
             )
         }
 
+    }
+
+    companion object {
+        fun go() {
+            AppApplication.context.startActivity(
+                Intent(AppApplication.context, LoginActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+        }
     }
 }

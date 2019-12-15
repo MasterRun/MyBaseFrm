@@ -2,8 +2,8 @@ package com.jsongo.mybasefrm.bean
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.jsongo.core.util.gson
-import com.jsongo.core.util.strHashMapType
+import com.jsongo.core.constant.gson
+import com.jsongo.core.constant.strHashMapType
 import java.io.Serializable
 
 /**
@@ -28,7 +28,9 @@ data class QuickEntryItemBean(
         parcel.readInt(),
         parcel.readString() ?: "",
         parcel.readString() ?: "",
-        gson.fromJson<HashMap<String, String>>(parcel.readString(), strHashMapType)
+        gson.fromJson<HashMap<String, String>>(parcel.readString(),
+            strHashMapType
+        )
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

@@ -1,7 +1,8 @@
-package com.jsongo.core.util
+package com.jsongo.core.constant
 
 import android.os.Environment
 import com.jsongo.core.BaseCore
+import com.jsongo.core.util.FileUtil
 import java.io.File
 
 /**

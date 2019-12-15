@@ -3,7 +3,7 @@ package com.jsongo.core.network
 import com.google.gson.*
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
-import com.jsongo.core.util.ConstConf
+import com.jsongo.core.constant.ConstConf
 import com.safframework.log.okhttp.LoggingInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient

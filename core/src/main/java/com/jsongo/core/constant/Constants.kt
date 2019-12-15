@@ -1,4 +1,4 @@
-package com.jsongo.core.util
+package com.jsongo.core.constant
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

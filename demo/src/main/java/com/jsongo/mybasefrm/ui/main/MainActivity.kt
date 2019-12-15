@@ -16,6 +16,8 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.WhenMobileIMEnable
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
+import com.jsongo.core.constant.PRE_ANDROID_ASSET
+import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.*
 import com.jsongo.mobileim.bean.Message
@@ -320,7 +322,9 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     fun onScanResult(str: String) {
 
-        if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
+        if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(
+                PRE_ANDROID_ASSET
+            )) {
             //加载页面
             AJsApplet.load(str)
         } else {

@@ -16,6 +16,9 @@ import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulActivity
+import com.jsongo.core.constant.ConstConf
+import com.jsongo.core.constant.PRE_ANDROID_ASSET
+import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.*

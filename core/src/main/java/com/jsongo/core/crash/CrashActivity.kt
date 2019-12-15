@@ -13,7 +13,7 @@ import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.crash.CrashHandler.Companion.CRASH_LOG
-import com.jsongo.core.util.ConstConf
+import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.util.DateUtil
 import com.jsongo.core.util.DeviceUtil
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog

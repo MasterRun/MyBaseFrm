@@ -13,7 +13,7 @@ import com.jsongo.ajs.helper.LongCallback
 import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.core.util.ConstConf
+import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.util.FileUtil
 import com.jsongo.ui.util.EasyPhotoGlideEngine
 import io.reactivex.Observable

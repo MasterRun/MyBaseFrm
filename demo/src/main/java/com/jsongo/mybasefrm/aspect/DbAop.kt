@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.Pointcut
  * @date ： 19-10-8 下午10:58
  * @desc :
  */
+/*
 @Aspect
 class DbAop {
 
@@ -29,4 +30,4 @@ class DbAop {
 //        val args = joinPoint.args
         return joinPoint.proceed()
     }
-}
+}*/

@@ -112,7 +112,7 @@ object HttpRequestManager : IRemoteRequest {
     }*/
 
     @Throws
-    override suspend fun checkUser(username: String, password: String): String? {
+    override suspend fun checkUser(username: String, password: String): String {
         val checkUserWrapper: DataWrapper<String?>
         try {
             checkUserWrapper =
@@ -121,7 +121,7 @@ object HttpRequestManager : IRemoteRequest {
             throw NetFailedException(e.message.toErrorDataWrapper())
         }
         if (checkUserWrapper.code > 0 && !checkUserWrapper.data.isNullOrEmpty()) {
-            return checkUserWrapper.data
+            return checkUserWrapper.data!!
         } else {
             throw NetFailedException(checkUserWrapper.toErrorDataWrapper())
         }

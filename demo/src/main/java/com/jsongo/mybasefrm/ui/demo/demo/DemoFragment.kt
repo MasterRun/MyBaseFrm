@@ -8,7 +8,7 @@ import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.util.ConstConf
+import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R

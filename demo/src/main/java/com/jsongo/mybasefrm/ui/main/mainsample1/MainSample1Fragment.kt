@@ -16,9 +16,9 @@ import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.helper.OnRvItemClickListener
-import com.jsongo.core.util.PRE_ANDROID_ASSET
+import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.util.RegUtil
-import com.jsongo.core.util.URL_REG
+import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.adapter.QuickEntryItemAdapter

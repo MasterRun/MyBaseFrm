@@ -6,6 +6,7 @@ import android.os.Environment
 import android.util.Base64
 import androidx.core.content.FileProvider
 import com.jsongo.core.BaseCore.context
+import com.jsongo.core.constant.ConstConf
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream

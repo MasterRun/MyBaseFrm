@@ -2,6 +2,8 @@ package com.jsongo.mybasefrm.ui.login
 
 import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
+import com.jsongo.core.constant.CommonDbKeys
+import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.data.repository.HttpRequestManager
 import com.jsongo.mybasefrm.data.repository.NetFailedException
@@ -20,7 +22,7 @@ class LoginViewModel : BaseViewModel() {
 
     val showPassword = MutableLiveData<Boolean>(false)
 
-    val loginResult = MutableLiveData<String>()
+    val loginResult = MutableLiveData<Boolean>()
 
     val loading = MutableLiveData<Boolean>()
 
@@ -32,8 +34,9 @@ class LoginViewModel : BaseViewModel() {
         this.password.value = password
         mainScope.launch {
             try {
-                val checkUser = HttpRequestManager.checkUser(account, password)
-                loginResult.value = checkUser
+                val userguid = HttpRequestManager.checkUser(account, password)
+                CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_GUID, userguid);
+                loginResult.value = true
             } catch (e: NetFailedException) {
                 e.printStackTrace()
                 loading.value = false
@@ -41,6 +44,5 @@ class LoginViewModel : BaseViewModel() {
             }
         }
     }
-
 
 }

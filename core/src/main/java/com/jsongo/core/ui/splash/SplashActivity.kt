@@ -3,6 +3,7 @@ package com.jsongo.core.ui.splash
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import com.jsongo.annotation.anno.LoginCheck
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.R
@@ -28,37 +29,46 @@ open class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        startMainActivity(0)
+        enterApp(0)
     }
 
     /**
-     * 启动MainActivity
+     * 进入app
      */
     @PermissionNeed(
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
-    open fun startMainActivity(delay: Long = 800) {
+    open fun enterApp(delay: Long = 800) {
         val disposable = Observable.timer(delay, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                val mainActivityName = getString(R.string.MainActivity)
-                //如果MainActivity也是启动页，直接finish
-                if (mainActivityName.equals(this@SplashActivity::class.java.name)) {
-                    //其实配置首页
-                    RxToast.error(getString(R.string.please_config_mainpage))
-                    exitDelay()
-                } else {
-                    //start MainActivity
-                    val intent = Intent(this@SplashActivity, Class.forName(mainActivityName))
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                }
+                startMainActivity()
             }, {
                 RxToast.error(getString(R.string.start_mainpage_error) + it.message)
             })
         compositeDisposable.add(disposable)
+    }
+
+    /**
+     * 启动MainActivity
+     */
+    @LoginCheck
+    open fun startMainActivity() {
+        val mainActivityName = getString(R.string.MainActivity)
+        //如果MainActivity也是启动页，直接finish
+        if (mainActivityName.equals(this@SplashActivity::class.java.name)) {
+            //其实配置首页
+            RxToast.error(getString(R.string.please_config_mainpage))
+            exitDelay()
+        } else {
+            //start MainActivity
+            startActivity(
+                Intent(this@SplashActivity, Class.forName(mainActivityName)).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                })
+        }
     }
 
     @PermissionDeny

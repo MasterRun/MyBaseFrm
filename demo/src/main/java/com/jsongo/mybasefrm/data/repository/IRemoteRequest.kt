@@ -40,7 +40,7 @@ interface IRemoteRequest {
     //void getLibraryInfo(MutableLiveData<List<LibraryInfo>> liveData);
 
     @Throws
-    suspend fun checkUser(username: String, password: String): String?
+    suspend fun checkUser(username: String, password: String): String
 }
 
 class NetFailedException(
