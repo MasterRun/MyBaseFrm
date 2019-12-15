@@ -4,7 +4,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 if (openAspectJ) {
-    apply plugin: 'com.hujiang.android-aspectjx'
+    apply plugin: 'android-aspectjx'
+    //或使用如下
+    //apply plugin: 'com.hujiang.android-aspectjx'
 }
 
 kapt {
