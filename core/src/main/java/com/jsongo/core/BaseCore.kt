@@ -1,6 +1,5 @@
 package com.jsongo.core
 
-import android.annotation.SuppressLint
 import android.content.Context
 import androidx.multidex.MultiDex
 import com.jsongo.core.crash.CrashHandler
@@ -29,5 +28,5 @@ object BaseCore {
         MultiDex.install(context)
     }
 
-    var isDebug: Boolean = true && BuildConfig.DEBUG
+    var isDebug: Boolean = true
 }

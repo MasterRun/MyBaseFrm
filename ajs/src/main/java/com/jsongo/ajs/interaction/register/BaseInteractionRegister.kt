@@ -5,6 +5,7 @@ import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
+import com.jsongo.core.util.LogcatUtil
 import com.safframework.log.L
 
 /**
@@ -36,7 +37,7 @@ abstract class BaseInteractionRegister {
 
             if (className.isNotEmpty() && methodName.isNotEmpty()) {
                 //注册api
-                L.d("registerApi", "registerName:${it.key}")
+                LogcatUtil.d("registerAjsApi registerName:${it.key}")
                 registerApi(ajsWebViewHost, aJsWebView, it.key, className, methodName)
             }
         }
@@ -51,7 +52,7 @@ abstract class BaseInteractionRegister {
     ) {
         aJsWebView.registerHandler(registerName) { data, function ->
             val ajsCallback = AjsCallback(function)
-            L.d("invokeAjsApi", "registerName:$registerName, param_str:$data")
+            LogcatUtil.d("invokeAjsApi registerName:$registerName, param_str:$data")
             try {
                 val params = Util.gson.fromJson<Map<String, String>>(
                     data, type

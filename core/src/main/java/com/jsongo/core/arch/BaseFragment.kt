@@ -51,7 +51,7 @@ abstract class BaseFragment : Fragment(), IPage {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.layout_frm_base, container, false);
+        return inflater.inflate(R.layout.layout_frm_base, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
