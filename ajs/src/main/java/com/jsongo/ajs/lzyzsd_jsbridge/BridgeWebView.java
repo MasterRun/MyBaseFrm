@@ -29,11 +29,12 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
     private final String TAG = "BridgeWebView";
 
     public static final String toLoadJs = "web/js/bridge/WebViewJavascriptBridge.js";
-    Map<String, CallBackFunction> responseCallbacks = new HashMap<String, CallBackFunction>();
-    Map<String, BridgeHandler> messageHandlers = new HashMap<String, BridgeHandler>();
+    Map<String, CallBackFunction> responseCallbacks = new HashMap<>();
+    Map<String, BridgeHandler> messageHandlers = new HashMap<>();
     BridgeHandler defaultHandler = new DefaultHandler();
 
     private List<Message> startupMessage = new ArrayList<Message>();
+    private BridgeWebViewClient bridgeWebViewClient;
 
     public List<Message> getStartupMessage() {
         return startupMessage;
@@ -75,7 +76,14 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-        this.setWebViewClient(generateBridgeWebViewClient());
+        bridgeWebViewClient = generateBridgeWebViewClient();
+        this.setWebViewClient(bridgeWebViewClient);
+    }
+
+    public void setOnPageFinishListener(BridgeWebViewClient.OnPageFinishListener onPageFinishListener) {
+        if (bridgeWebViewClient != null) {
+            bridgeWebViewClient.setOnPageFinishListener(onPageFinishListener);
+        }
     }
 
     protected BridgeWebViewClient generateBridgeWebViewClient() {

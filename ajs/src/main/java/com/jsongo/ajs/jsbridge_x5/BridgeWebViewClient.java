@@ -26,17 +26,17 @@ import java.util.ArrayList;
  */
 public class BridgeWebViewClient extends WebViewClient {
     private BridgeWebView webView;
-    private onPageFinishListener onPageFinishListener;
+    private OnPageFinishListener onPageFinishListener;
 
     public BridgeWebViewClient(BridgeWebView webView) {
         this.webView = webView;
     }
 
-    public BridgeWebViewClient.onPageFinishListener getOnPageFinishListener() {
+    public OnPageFinishListener getOnPageFinishListener() {
         return onPageFinishListener;
     }
 
-    public void setOnPageFinishListener(BridgeWebViewClient.onPageFinishListener onPageFinishListener) {
+    public void setOnPageFinishListener(OnPageFinishListener onPageFinishListener) {
         this.onPageFinishListener = onPageFinishListener;
     }
 
@@ -158,7 +158,11 @@ public class BridgeWebViewClient extends WebViewClient {
         return false;
     }
 
-    public interface onPageFinishListener {
+    protected void onCustomPageFinishd(WebView view, String url) {
+
+    }
+
+    public interface OnPageFinishListener {
         void onPageFinish(WebView view, String url);
     }
 }

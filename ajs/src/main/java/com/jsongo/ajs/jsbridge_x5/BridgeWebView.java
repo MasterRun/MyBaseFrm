@@ -89,7 +89,7 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         this.setWebViewClient(bridgeWebViewClient);
     }
 
-    public void setOnPageFinishListener(BridgeWebViewClient.onPageFinishListener onPageFinishListener) {
+    public void setOnPageFinishListener(BridgeWebViewClient.OnPageFinishListener onPageFinishListener) {
         if (bridgeWebViewClient != null) {
             bridgeWebViewClient.setOnPageFinishListener(onPageFinishListener);
         }
@@ -178,7 +178,8 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
                     messageJson = messageJson.replaceAll("%7B", URLEncoder.encode("%7B"));
                     messageJson = messageJson.replaceAll("%7D", URLEncoder.encode("%7D"));
                     messageJson = messageJson.replaceAll("%22", URLEncoder.encode("%22"));
-                    return String.format(BridgeUtil.JS_HANDLE_MESSAGE_FROM_JAVA, messageJson);
+                    String javascriptCommand = String.format(BridgeUtil.JS_HANDLE_MESSAGE_FROM_JAVA, messageJson);
+                    return javascriptCommand;
                 })
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -198,7 +199,6 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
                 });
         compositeDisposable.add(disposable);
     }
-
 
     /**
      * 刷新消息队列
@@ -317,5 +317,4 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge {
         super.onDetachedFromWindow();
         compositeDisposable.dispose();
     }
-
 }

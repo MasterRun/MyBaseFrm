@@ -2,12 +2,21 @@ package com.jsongo.ajs.lzyzsd_jsbridge;
 
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.webkit.MimeTypeMap;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.jsongo.ajs.util.ConstValue;
+import com.safframework.log.L;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 
 /**
  * 如果要自定义WebViewClient必须要集成此类
@@ -15,9 +24,18 @@ import java.net.URLDecoder;
  */
 public class BridgeWebViewClient extends WebViewClient {
     private BridgeWebView webView;
+    private OnPageFinishListener onPageFinishListener;
 
     public BridgeWebViewClient(BridgeWebView webView) {
         this.webView = webView;
+    }
+
+    public OnPageFinishListener getOnPageFinishListener() {
+        return onPageFinishListener;
+    }
+
+    public void setOnPageFinishListener(OnPageFinishListener onPageFinishListener) {
+        this.onPageFinishListener = onPageFinishListener;
     }
 
     @Override
@@ -65,6 +83,49 @@ public class BridgeWebViewClient extends WebViewClient {
     }
 
     @Override
+    public WebResourceResponse shouldInterceptRequest(WebView webView, String url) {
+        WebResourceResponse response = null;
+        response = super.shouldInterceptRequest(webView, url);
+        try {
+            ArrayList<String> jsList = ConstValue.INSTANCE.getJsList();
+            for (String s : jsList) {
+                if (url.contains(s)) {
+                    InputStream open = webView.getContext().getResources().getAssets().open(ConstValue.jsBasePath + "/" + s);
+                    response = new WebResourceResponse("text/javascript", "UTF-8", open);
+                    break;
+                }
+            }
+            //过滤本地图片请求
+            if (url.startsWith(ConstValue.LocalPicPrefix)) {
+                String path = url.replace(ConstValue.LocalPicPrefix, "");
+                L.i("本地图片路径：" + path);
+                String suffix = path.substring(path.lastIndexOf("."));
+                suffix = kotlin.text.StringsKt.trim(suffix, '.');
+                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix);
+                InputStream open = new FileInputStream(new File(path));
+                response = new WebResourceResponse(mimeType, "UTF-8", open);
+            } else if (url.startsWith(ConstValue.LocalFilePrefix)) {
+                String path = url.replace(ConstValue.LocalFilePrefix, "");
+                L.i("本地文件路径：" + path);
+                InputStream open = new FileInputStream(new File(path));
+                String suffix = path.substring(path.lastIndexOf("."));
+                suffix = kotlin.text.StringsKt.trim(suffix, '.');
+                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(suffix);
+                response = new WebResourceResponse(mimeType, "UTF-8", open);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //跨域配置
+        /*Map<String, String> headers = response.getResponseHeaders();
+        if (headers == null) {
+            headers = new HashMap<>();
+        }
+        headers.put("Access-Control-Allow-Origin", "*");*/
+        return response;
+    }
+
+    @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
         super.onPageStarted(view, url, favicon);
     }
@@ -85,9 +146,9 @@ public class BridgeWebViewClient extends WebViewClient {
             webView.setStartupMessage(null);
         }
 
-        //
-        onCustomPageFinishd(view, url);
-
+        if (onPageFinishListener != null) {
+            onPageFinishListener.onPageFinish(view, url);
+        }
     }
 
 
@@ -95,8 +156,11 @@ public class BridgeWebViewClient extends WebViewClient {
         return false;
     }
 
-
     protected void onCustomPageFinishd(WebView view, String url) {
 
+    }
+
+    public interface OnPageFinishListener {
+        void onPageFinish(WebView view, String url);
     }
 }
