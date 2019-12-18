@@ -44,8 +44,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
     if (libConf.useOnlineAAR) {
+        implementation "com.jsongo.basefrm:core:${libConf.core.aarVer}"
         implementation "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
     } else {
+        implementation project(path: ':core')
         implementation project(path: ':ui')
     }
 }
