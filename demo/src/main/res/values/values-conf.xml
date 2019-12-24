@@ -7,8 +7,8 @@
     <!--    <string name="SERVER_ADDRESS_DEBUG">http://10.0.2.2:18890/</string>-->
 
     <!--	mainactivity全类名-->
-<!--    <string name="MainActivity">com.jsongo.mybasefrm.ui.main.MainActivity</string>-->
-        <string name="MainActivity">com.jsongo.mybasefrm.ui.demo.DemoActivity</string>
+    <string name="MainActivity">com.jsongo.mybasefrm.ui.main.MainActivity</string>
+<!--        <string name="MainActivity">com.jsongo.mybasefrm.ui.demo.DemoActivity</string>-->
 
     <!--	首页默认选中的tab-->
     <integer name="main_selected_tab">1</integer>
@@ -16,6 +16,4 @@
     <!--MobileIM的server ip-->
     <!--    <string name="im_ip">192.168.43.222</string>-->
     <string name="im_ip">10.0.2.2</string>
-    <!--	是否在aspectj中开启 mobileim功能-->
-    <bool name="enable_mobile_im">false</bool>
 </resources>

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -13,17 +14,16 @@ import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
-import com.jsongo.annotation.anno.WhenMobileIMEnable
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
+import com.jsongo.core.rxplugin.PluginEvent
+import com.jsongo.core.rxplugin.RxPluginDispatcher
 import com.jsongo.core.ui.splash.SplashActivity
-import com.jsongo.core.util.*
-import com.jsongo.mobileim.bean.Message
-import com.jsongo.mobileim.core.MobileIMConfig
-import com.jsongo.mobileim.operator.ChatMessageSender
-import com.jsongo.mobileim.operator.SendCallback
+import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.util.RegUtil
+import com.jsongo.core.util.RxBus
 import com.jsongo.mobileim.util.MobileIMMessageSign
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.login.LoginActivity
@@ -105,46 +105,41 @@ class MainActivity : BaseActivity(), IMvvmView {
     /**
      * 初始化并登陆MobileIM
      */
-    @WhenMobileIMEnable
     fun initMobileIM() {
-        MobileIMConfig.init(this)
-        MobileIMConfig.loginIM("testChatId", "testToken", object : SendCallback {
-            override fun onSuccess() {
-                super.onSuccess()
-                L.e("login data send success")
+        RxPluginDispatcher.invoke("mobileim", "init&login",
+            hashMapOf(Pair("chatid", "testChatId"), Pair("password", "testToken")),
+            object : PluginEvent.EventCallback {
+                override fun success(data: Map<String, Any?>?) {
+                    L.e("login data send success")
+                    //发消息测试
+                    Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
+                        .map {
+                            RxPluginDispatcher.invoke("mobileim", "send", hashMapOf(),
+                                object : PluginEvent.EventCallback {
+                                    override fun success(data: Map<String, Any?>?) {
+                                        L.e("send message success")
+                                    }
 
-                //发消息测试
-                Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
-                    .map {
-                        ChatMessageSender.sendMessageAsync(
-                            Message(
-                                sender_id = "testChatId",
-                                content = "这是消息内容"
-                            ), "0", object : SendCallback {
-                                override fun onSuccess() {
-                                    super.onSuccess()
-                                    L.e("send message success")
-                                }
+                                    override fun failed(
+                                        code: Int,
+                                        msg: String,
+                                        throwable: Throwable?
+                                    ) {
+                                        L.e("send message failed")
+                                    }
+                                })
+                        }.subscribe()
+                }
 
-                                override fun onFailed() {
-                                    super.onFailed()
-                                    L.e("send message failed")
-                                }
-                            })
-                    }.subscribe()
-            }
-
-            override fun onFailed() {
-                super.onFailed()
-                L.e("login data send failed")
-            }
-        })
+                override fun failed(code: Int, msg: String, throwable: Throwable?) {
+                    L.e(if (TextUtils.isEmpty(msg)) "login data send failed" else msg)
+                }
+            })
     }
 
     /**
      * 注册MobileIM消息接收
      */
-    @WhenMobileIMEnable
     fun regIMReceiver() {
         val disposable = RxBus.toFlowable().filter {
             MobileIMMessageSign.isMobileIMMessage(it.code)
@@ -324,7 +319,8 @@ class MainActivity : BaseActivity(), IMvvmView {
 
         if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(
                 PRE_ANDROID_ASSET
-            )) {
+            )
+        ) {
             //加载页面
             AJsApplet.load(str)
         } else {

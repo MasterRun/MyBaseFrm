@@ -1,8 +1,8 @@
 package com.jsongo.mobileim
 
-import android.annotation.SuppressLint
 import android.content.Context
 import com.jsongo.mobileim.core.MobileIMConfig
+import com.jsongo.mobileim.rxplugin.MobileIMPlugin
 
 /**
  * @author ： jsongo
@@ -16,6 +16,8 @@ object MobileIM {
         this.context = context
 
         MobileIMConfig.init(context)
+
+        MobileIMPlugin.register()
     }
 
 }

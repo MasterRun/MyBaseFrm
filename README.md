@@ -26,6 +26,7 @@ demo\app module中用于个人测试
     > 侧滑抽屉类型
       
 - 使用RxBus实现module间解耦
+- 全局异常不崩溃尝试  --  preparing
 - 登录页，登录请求  --  doing  
 - 整合MobileIM即时通讯  --  doing  
 - 首页卡片添加图标和点击事件的设置

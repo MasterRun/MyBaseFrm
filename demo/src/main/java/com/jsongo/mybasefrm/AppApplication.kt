@@ -6,7 +6,6 @@ import android.content.ComponentCallbacks2
 import android.content.Context
 import com.bumptech.glide.Glide
 import com.jsongo.ajs.AJs
-import com.jsongo.annotation.anno.WhenMobileIMEnable
 import com.jsongo.core.BaseCore
 import com.jsongo.mobileim.MobileIM
 import com.jsongo.ui.BaseUI
@@ -27,7 +26,6 @@ class AppApplication : Application() {
         initMobileIM()
     }
 
-    @WhenMobileIMEnable
     fun initMobileIM() {
         MobileIM.init(this)
     }
