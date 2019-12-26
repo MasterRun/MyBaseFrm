@@ -3,12 +3,12 @@ package com.jsongo.mobileim.operator
 import android.content.Context
 import android.text.TextUtils
 import com.jsongo.core.network.ApiManager
+import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.util.StringCompress
 import com.jsongo.mobileim.MobileIM
 import com.jsongo.mobileim.bean.Message
 import com.jsongo.mobileim.bean.UdpData
 import com.jsongo.mobileim.bean.UdpDataType
-import com.safframework.log.L
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
 
 /**
@@ -28,7 +28,7 @@ object ChatMessageSender {
             UdpDataType.Message.ordinal, message
         )
         val msg = gson.toJson(messageUdpData, UdpData.messageUdpDataType)
-        L.d("ChatMessageSender send: $msg")
+        LogcatUtil.d("ChatMessageSender send: $msg")
         val gzip = StringCompress.gzip(msg)
         SenderAsync(MobileIM.context, gzip, toUserId, callback).execute()
     }

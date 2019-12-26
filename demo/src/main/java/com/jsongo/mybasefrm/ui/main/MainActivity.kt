@@ -107,7 +107,11 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     fun initMobileIM() {
         RxPluginDispatcher.invoke("mobileim", "init&login",
-            hashMapOf(Pair("chatid", "testChatId"), Pair("password", "testToken")),
+            hashMapOf(
+                Pair("context", this),
+                Pair("chatid", "testChatId"),
+                Pair("password", "testToken")
+            ),
             object : PluginEvent.EventCallback {
                 override fun success(data: Map<String, Any?>?) {
                     L.e("login data send success")
@@ -141,11 +145,12 @@ class MainActivity : BaseActivity(), IMvvmView {
      * 注册MobileIM消息接收
      */
     fun regIMReceiver() {
-        val disposable = RxBus.toFlowable().filter {
-            MobileIMMessageSign.isMobileIMMessage(it.code)
-        }.map {
-            L.e("mobileim收到消息：${it}")
-        }.subscribe()
+        val disposable = RxBus.toFlowable()
+            .filter {
+                MobileIMMessageSign.isMobileIMMessage(it.code)
+            }.map {
+                L.e("mobileim收到消息：${it}")
+            }.subscribe()
         compositeDisposable.add(disposable)
     }
 

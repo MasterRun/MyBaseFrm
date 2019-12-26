@@ -3,6 +3,7 @@ package com.jsongo.core.util
 import io.reactivex.Flowable
 import io.reactivex.processors.FlowableProcessor
 import io.reactivex.processors.PublishProcessor
+import io.reactivex.schedulers.Schedulers
 
 /**
  * @author jsongo
@@ -18,7 +19,7 @@ object RxBus {
     }
 
     fun toFlowable(): Flowable<BusEvent<*>> {
-        return mBus.ofType(BusEvent::class.java)
+        return mBus.ofType(BusEvent::class.java).subscribeOn(Schedulers.io())
     }
 
     fun hasSubscribers(): Boolean {

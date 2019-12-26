@@ -1,13 +1,11 @@
 package com.jsongo.mybasefrm
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ComponentCallbacks2
 import android.content.Context
 import com.bumptech.glide.Glide
 import com.jsongo.ajs.AJs
 import com.jsongo.core.BaseCore
-import com.jsongo.mobileim.MobileIM
 import com.jsongo.ui.BaseUI
 import org.jetbrains.annotations.Contract
 
@@ -27,7 +25,7 @@ class AppApplication : Application() {
     }
 
     fun initMobileIM() {
-        MobileIM.init(this)
+//        MobileIM.init(this)
     }
 
     override fun attachBaseContext(context: Context) {

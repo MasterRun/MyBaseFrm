@@ -43,7 +43,11 @@ object MobileIMInvokeEvent {
         callback: PluginEvent.EventCallback?,
         enableSuccessCallback: Boolean = true
     ) {
-        val context = params?.get("context") as Context
+        val context = params?.get("context") as Context?
+        if (context == null) {
+            callback?.failed(-1, "context can't be null", null)
+            return
+        }
         MobileIMConfig.init(context)
         if (enableSuccessCallback) {
             callback?.success(null)
