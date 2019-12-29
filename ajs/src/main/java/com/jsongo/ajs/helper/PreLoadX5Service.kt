@@ -9,9 +9,24 @@ import com.jsongo.core.util.LogcatUtil
 import com.tencent.smtt.sdk.QbSdk
 
 /**
+         .--,       .--,
+        ( (  \.---./  ) )
+         '.__/o   o\__.'
+            {=  ^  =}
+             >  -  <
+            /       \
+           //       \\
+          //|   .   |\\
+          "'\       /'"_.-~^`'-.
+             \  _  /--'         `
+           ___)( )(___
+          (((__) (__)))
+
+  高山仰止,景行行止.虽不能至,心向往之。
+
  * @author ： jsongo
  * @date ： 2019/11/10 14:11
- * @desc : 启动服务预加载x5 ref: https://blog.csdn.net/dong19900415/article/details/82666383
+ * @desc : 启动服务预加载x5 {@link https://blog.csdn.net/dong19900415/article/details/82666383}
  */
 class PreLoadX5Service : Service() {
 

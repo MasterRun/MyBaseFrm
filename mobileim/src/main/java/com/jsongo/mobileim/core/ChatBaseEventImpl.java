@@ -1,7 +1,7 @@
 package com.jsongo.mobileim.core;
 
+import com.jsongo.core.util.LogcatUtil;
 import com.jsongo.mobileim.operator.ChatLoginCallback;
-import com.safframework.log.L;
 
 import net.openmob.mobileimsdk.android.event.ChatBaseEvent;
 
@@ -22,10 +22,10 @@ public class ChatBaseEventImpl implements ChatBaseEvent {
     @Override
     public void onLoginMessage(int dwErrorCode) {
         if (dwErrorCode == 0) {
-            L.e(ChatBaseEventImpl.class.getName(), "登录成功，code = " + dwErrorCode);
+            LogcatUtil.e("登录成功，code = " + dwErrorCode);
             chatLoginCallback.onLoginSuccess();
         } else {
-            L.e(ChatBaseEventImpl.class.getName(), "登录失败，code = " + dwErrorCode);
+            LogcatUtil.e("登录失败，code = " + dwErrorCode);
             chatLoginCallback.onLoginFailed();
         }
     }
@@ -33,7 +33,7 @@ public class ChatBaseEventImpl implements ChatBaseEvent {
     // 掉线事件通知
     @Override
     public void onLinkCloseMessage(int dwErrorCode) {
-        L.e(ChatBaseEventImpl.class.getName(), "网络连接出错关闭了，error：" + dwErrorCode);
+        LogcatUtil.e("网络连接出错关闭了，error：" + dwErrorCode);
         chatLoginCallback.onLinkFailed(dwErrorCode);
     }
 }

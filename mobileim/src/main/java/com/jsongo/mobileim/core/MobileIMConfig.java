@@ -4,12 +4,12 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.jsongo.core.util.LogcatUtil;
 import com.jsongo.mobileim.MobileIM;
 import com.jsongo.mobileim.R;
 import com.jsongo.mobileim.operator.ChatLoginCallback;
 import com.jsongo.mobileim.operator.ChatMessageReceiver;
 import com.jsongo.mobileim.operator.SendCallback;
-import com.safframework.log.L;
 
 import net.openmob.mobileimsdk.android.ClientCoreSDK;
 import net.openmob.mobileimsdk.android.conf.ConfigEntity;
@@ -18,8 +18,6 @@ import net.openmob.mobileimsdk.android.core.LocalUDPDataSender;
 
 //基本配置
 public class MobileIMConfig {
-
-    private static final String TAG = "MobileIMConfig";
 
     private static final String APP_KEY = MobileIM.context.getString(R.string.mobileIMKey);
 
@@ -46,10 +44,10 @@ public class MobileIMConfig {
             @Override
             protected void fireAfterSendLogin(int code) {
                 if (code == 0) {
-                    L.e(TAG, "登录数据发送成功！, serverip:" + ConfigEntity.serverIP);
+                    LogcatUtil.e("登录数据发送成功！, serverip:" + ConfigEntity.serverIP);
                     callback.onSuccess();
                 } else {
-                    L.e(TAG, "登录数据发送失败。错误码是：" + code + "！, serverip:" + ConfigEntity.serverIP);
+                    LogcatUtil.e("登录数据发送失败。错误码是：" + code + "！, serverip:" + ConfigEntity.serverIP);
                     callback.onFailed();
                 }
             }

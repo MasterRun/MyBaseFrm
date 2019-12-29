@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# 保留MobileIMSDK的Protocal相关类
+
+-keep class net.openmob.mobileimsdk.server.protocal.** { *; }
+-keep class com.jsongo.mobileim.bean.**{ *; }
+
+# 保留Google GSON相关API:
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson.stream.** { *; }
+-keep class com.google.gson.** { *;}

@@ -106,39 +106,43 @@ class MainActivity : BaseActivity(), IMvvmView {
      * 初始化并登陆MobileIM
      */
     fun initMobileIM() {
-        RxPluginDispatcher.invoke("mobileim", "init&login",
-            hashMapOf(
-                Pair("context", this),
-                Pair("chatid", "testChatId"),
-                Pair("password", "testToken")
-            ),
-            object : PluginEvent.EventCallback {
-                override fun success(data: Map<String, Any?>?) {
-                    L.e("login data send success")
-                    //发消息测试
-                    Observable.interval(5, TimeUnit.SECONDS, Schedulers.io())
-                        .map {
-                            RxPluginDispatcher.invoke("mobileim", "send", hashMapOf(),
-                                object : PluginEvent.EventCallback {
-                                    override fun success(data: Map<String, Any?>?) {
-                                        L.e("send message success")
-                                    }
+        val chatId = "testChatId"
+        val chatPassword = "testToken"
+        RxPluginDispatcher.invoke("mobileim", "init&login", hashMapOf(
+            Pair("context", this),
+            Pair("chatid", chatId),
+            Pair("password", chatPassword)
+        ), object : PluginEvent.EventCallback {
+            override fun success(data: Map<String, Any?>?) {
+                L.e("mobleim send login data send success")
+                //发消息测试
+                Observable.intervalRange(0, 1, 5, 10, TimeUnit.SECONDS, Schedulers.io())
+                    .map {
+                        RxPluginDispatcher.invoke("mobileim", "send", hashMapOf(
+                            Pair("type", 1),
+                            Pair("from_id", chatId),
+                            Pair("to_id", "0"),
+                            Pair("content", "messagesend message test ")
+                        ), object : PluginEvent.EventCallback {
+                            override fun success(data: Map<String, Any?>?) {
+                                L.e("send message success")
+                            }
 
-                                    override fun failed(
-                                        code: Int,
-                                        msg: String,
-                                        throwable: Throwable?
-                                    ) {
-                                        L.e("send message failed")
-                                    }
-                                })
-                        }.subscribe()
-                }
+                            override fun failed(
+                                code: Int,
+                                msg: String,
+                                throwable: Throwable?
+                            ) {
+                                L.e("send message failed")
+                            }
+                        })
+                    }.subscribe()
+            }
 
-                override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                    L.e(if (TextUtils.isEmpty(msg)) "login data send failed" else msg)
-                }
-            })
+            override fun failed(code: Int, msg: String, throwable: Throwable?) {
+                L.e(if (TextUtils.isEmpty(msg)) "login data send failed" else msg)
+            }
+        })
     }
 
     /**

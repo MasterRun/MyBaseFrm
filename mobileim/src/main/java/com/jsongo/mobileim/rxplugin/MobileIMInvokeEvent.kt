@@ -61,10 +61,10 @@ object MobileIMInvokeEvent {
         params: Map<String, Any?>?,
         callback: PluginEvent.EventCallback?
     ) {
-        val charId = params?.get("chatid") as String
+        val chatId = params?.get("chatid") as String
         val password = params.get("password") as String
 
-        MobileIMConfig.loginIM(charId, password, object : SendCallback {
+        MobileIMConfig.loginIM(chatId, password, object : SendCallback {
             override fun onSuccess() {
                 super.onSuccess()
                 callback?.success(null)
@@ -84,15 +84,17 @@ object MobileIMInvokeEvent {
      */
     fun sendMessage(params: Map<String, Any?>?, callback: PluginEvent.EventCallback?) {
         val type = params?.get("type") as Int? ?: Message.TYPE_TEXT
+        val from_id = params?.get("from_id") as String? ?: ""
+        val to_id = params?.get("to_id") as String? ?: ""
         val content = params?.get("content") as String? ?: ""
         val conv_id = params?.get("conv_id") as String? ?: ""
         ChatMessageSender.sendMessageAsync(
             Message(
-                sender_id = "testChatId",
+                sender_id = from_id,
                 content = content,
                 type = type,
                 conv_id = conv_id
-            ), "0", object : SendCallback {
+            ), to_id, object : SendCallback {
                 override fun onSuccess() {
                     super.onSuccess()
                     callback?.success(null)
