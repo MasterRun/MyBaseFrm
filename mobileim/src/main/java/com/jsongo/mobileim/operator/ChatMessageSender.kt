@@ -9,7 +9,9 @@ import com.jsongo.mobileim.MobileIM
 import com.jsongo.mobileim.bean.Message
 import com.jsongo.mobileim.bean.UdpData
 import com.jsongo.mobileim.bean.UdpDataType
+import net.openmob.mobileimsdk.android.conf.ConfigEntity
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
+import net.openmob.mobileimsdk.android.core.LocalUDPDataSender.SendLoginDataAsync
 
 /**
  * @author jsongo
@@ -19,6 +21,31 @@ object ChatMessageSender {
 
     private val gson = ApiManager.getGson()
 
+    /**
+     * 登陆IM
+     *
+     * @param chatId
+     * @param token
+     * @param callback 回调标识登陆的数据发送是否成功
+     */
+    fun loginIM(chatId: String?, token: String?, callback: SendCallback) {
+        val loginTask = object : SendLoginDataAsync(MobileIM.context, chatId, token) {
+            override fun fireAfterSendLogin(code: Int) {
+                if (code == 0) {
+                    LogcatUtil.e("登录数据发送成功！, serverip:" + ConfigEntity.serverIP)
+                    callback.onSuccess()
+                } else {
+                    LogcatUtil.e("登录数据发送失败。错误码是：" + code + "！, serverip:" + ConfigEntity.serverIP)
+                    callback.onFailed()
+                }
+            }
+        }
+        loginTask.execute()
+    }
+
+    /**
+     * 发送消息
+     */
     fun sendMessageAsync(message: Message?, toUserId: String, callback: SendCallback) {
         if (TextUtils.isEmpty(toUserId) || message == null) {
             return

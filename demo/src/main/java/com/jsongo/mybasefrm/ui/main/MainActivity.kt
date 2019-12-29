@@ -1,10 +1,10 @@
 package com.jsongo.mybasefrm.ui.main
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -14,17 +14,15 @@ import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
+import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
-import com.jsongo.core.rxplugin.PluginEvent
-import com.jsongo.core.rxplugin.RxPluginDispatcher
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.RegUtil
-import com.jsongo.core.util.RxBus
-import com.jsongo.mobileim.util.MobileIMMessageSign
+import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.login.LoginActivity
 import com.jsongo.mybasefrm.ui.main.mainsample1.MainSample1Fragment
@@ -36,11 +34,8 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.tab.QMUITab
 import com.safframework.log.L
-import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.concurrent.TimeUnit
 
 @Page(R.layout.activity_main, 0)
 class MainActivity : BaseActivity(), IMvvmView {
@@ -67,6 +62,7 @@ class MainActivity : BaseActivity(), IMvvmView {
             false,
             bgColor = Color.WHITE
         ),
+//        ConvListFragment(),
         MyPageFragment()
     )
 
@@ -90,72 +86,21 @@ class MainActivity : BaseActivity(), IMvvmView {
 
         initViewModel()
 
+        initPermission()
+
         initView()
 
         observeLiveData()
 
-        initMobileIM()
-
-        regIMReceiver()
+        mainViewModel.checkIM()
 
         //消息数
         mainViewModel.mainTabTips.value = intArrayOf(0, 0, 66, 0)
     }
 
-    /**
-     * 初始化并登陆MobileIM
-     */
-    fun initMobileIM() {
-        val chatId = "testChatId"
-        val chatPassword = "testToken"
-        RxPluginDispatcher.invoke("mobileim", "init&login", hashMapOf(
-            Pair("context", this),
-            Pair("chatid", chatId),
-            Pair("password", chatPassword)
-        ), object : PluginEvent.EventCallback {
-            override fun success(data: Map<String, Any?>?) {
-                L.e("mobleim send login data send success")
-                //发消息测试
-                Observable.intervalRange(0, 1, 5, 10, TimeUnit.SECONDS, Schedulers.io())
-                    .map {
-                        RxPluginDispatcher.invoke("mobileim", "send", hashMapOf(
-                            Pair("type", 1),
-                            Pair("from_id", chatId),
-                            Pair("to_id", "0"),
-                            Pair("content", "messagesend message test ")
-                        ), object : PluginEvent.EventCallback {
-                            override fun success(data: Map<String, Any?>?) {
-                                L.e("send message success")
-                            }
 
-                            override fun failed(
-                                code: Int,
-                                msg: String,
-                                throwable: Throwable?
-                            ) {
-                                L.e("send message failed")
-                            }
-                        })
-                    }.subscribe()
-            }
-
-            override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                L.e(if (TextUtils.isEmpty(msg)) "login data send failed" else msg)
-            }
-        })
-    }
-
-    /**
-     * 注册MobileIM消息接收
-     */
-    fun regIMReceiver() {
-        val disposable = RxBus.toFlowable()
-            .filter {
-                MobileIMMessageSign.isMobileIMMessage(it.code)
-            }.map {
-                L.e("mobileim收到消息：${it}")
-            }.subscribe()
-        compositeDisposable.add(disposable)
+    @PermissionNeed(Manifest.permission.READ_PHONE_STATE)
+    fun initPermission() {
     }
 
     override fun initView() {
@@ -191,6 +136,24 @@ class MainActivity : BaseActivity(), IMvvmView {
         mainViewModel.mainTabTips.observe(this, Observer { tipArray ->
             tipArray?.forEachIndexed { tabIndex, tipCount ->
                 setTabTipCount(tabIndex, tipCount)
+            }
+        })
+
+        //IM状态错误时显示错误信息
+        mainViewModel.imStatusCode.observe(this, Observer {
+            if (it < 0) {
+                RxToast.error(mainViewModel.imStateMsg)
+                mainViewModel.logout()
+            }
+        })
+
+        /**
+         * 销毁
+         */
+        mainViewModel.finish.observe(this, Observer {
+            if (it) {
+                LoginActivity.go()
+                finish()
             }
         })
     }
@@ -325,11 +288,7 @@ class MainActivity : BaseActivity(), IMvvmView {
      * 扫码回调
      */
     fun onScanResult(str: String) {
-
-        if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(
-                PRE_ANDROID_ASSET
-            )
-        ) {
+        if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
             //加载页面
             AJsApplet.load(str)
         } else {

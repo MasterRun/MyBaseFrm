@@ -14,7 +14,7 @@ object BaseCore {
 
     lateinit var context: Context
 
-    fun init() {
+    fun init(isDebug: Boolean = false) {
         CrashHandler.init()
 
         //如果不是debug,移除所有打印

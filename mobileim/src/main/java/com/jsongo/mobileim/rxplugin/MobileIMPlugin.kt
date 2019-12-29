@@ -1,8 +1,9 @@
 package com.jsongo.mobileim.rxplugin
 
 import android.annotation.SuppressLint
-import com.jsongo.core.rxplugin.PluginEvent
-import com.jsongo.core.rxplugin.RxPluginDispatcher
+import com.jsongo.core.plugin_manager.PluginEvent
+import com.jsongo.core.plugin_manager.Plugins
+import com.jsongo.core.plugin_manager.PluginDispatcher
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 
@@ -13,13 +14,11 @@ import org.reactivestreams.Subscription
  */
 object MobileIMPlugin {
 
-    const val PLUGIN_NAME = "mobileim"
-
     @SuppressLint("CheckResult")
     @JvmStatic
     fun register() {
         //是组件方法调用
-        RxPluginDispatcher.ofInvoke(PLUGIN_NAME)
+        PluginDispatcher.ofInvoke(Plugins.MobileIM)
             .subscribe(object : Subscriber<PluginEvent.Invoke> {
                 var pluginInvoke: PluginEvent.Invoke? = null
 
@@ -41,7 +40,7 @@ object MobileIMPlugin {
                 }
             })
         //是组件打开页面
-        RxPluginDispatcher.ofRoute(PLUGIN_NAME)
+        PluginDispatcher.ofRoute(Plugins.MobileIM)
             .subscribe(object : Subscriber<PluginEvent.Route> {
                 var pluginRoute: PluginEvent.Route? = null
 

@@ -61,6 +61,15 @@ private constructor(context: Context) :
             }
             return value
         }
+
+        /**
+         * 删除指定的key
+         */
+        fun deleteKey(key: String) {
+            writableDatabase?.apply {
+                execSQL("delete from common_table where `key`=?", arrayOf(key))
+            }
+        }
     }
 
     override fun onCreate(db: SQLiteDatabase?) {

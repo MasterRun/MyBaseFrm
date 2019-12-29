@@ -31,27 +31,4 @@ public class MobileIMConfig {
         ClientCoreSDK.getInstance().setChatTransDataEvent(new ChatTransDataEventImpl(new ChatMessageReceiver()));
         ClientCoreSDK.getInstance().setMessageQoSEvent(new MessageQoSEventImpl());
     }
-
-    /**
-     * 登陆IM
-     *
-     * @param chatId
-     * @param token
-     * @param callback 回调标识登陆的数据发送是否成功
-     */
-    public static void loginIM(String chatId, String token, SendCallback callback) {
-        new LocalUDPDataSender.SendLoginDataAsync(MobileIM.context, chatId, token) {
-            @Override
-            protected void fireAfterSendLogin(int code) {
-                if (code == 0) {
-                    LogcatUtil.e("登录数据发送成功！, serverip:" + ConfigEntity.serverIP);
-                    callback.onSuccess();
-                } else {
-                    LogcatUtil.e("登录数据发送失败。错误码是：" + code + "！, serverip:" + ConfigEntity.serverIP);
-                    callback.onFailed();
-                }
-            }
-        }.execute();
-    }
-
 }

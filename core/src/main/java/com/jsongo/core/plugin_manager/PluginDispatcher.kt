@@ -1,17 +1,12 @@
-package com.jsongo.core.rxplugin
+package com.jsongo.core.plugin_manager
 
 import android.text.TextUtils
+import com.jsongo.core.util.CommonCallBack
 import io.reactivex.Flowable
 import io.reactivex.processors.FlowableProcessor
 import io.reactivex.processors.PublishProcessor
 
-/**
- * @author ： jsongo
- * @date ： 2019/12/24 16:55
- * @desc :
- */
-
-object RxPluginDispatcher {
+object PluginDispatcher {
 
     private val mPlugin: FlowableProcessor<PluginEvent> =
         PublishProcessor.create<PluginEvent>().toSerialized()
@@ -27,7 +22,7 @@ object RxPluginDispatcher {
     fun invoke(
         invokePath: String,
         params: Map<String, Any?>? = null,
-        callback: PluginEvent.EventCallback? = null
+        callback: CommonCallBack? = null
     ) {
         dispatch(PluginEvent.Invoke(invokePath, params, callback))
     }
@@ -36,7 +31,7 @@ object RxPluginDispatcher {
         pluginName: String,
         method: String,
         params: Map<String, Any?>? = null,
-        callback: PluginEvent.EventCallback? = null
+        callback: CommonCallBack? = null
     ) {
         dispatch(PluginEvent.Invoke(pluginName, method, params, callback))
     }
@@ -47,7 +42,7 @@ object RxPluginDispatcher {
     fun route(
         invokePath: String,
         params: Map<String, Any?>? = null,
-        callback: PluginEvent.EventCallback? = null
+        callback: CommonCallBack? = null
     ) {
         dispatch(PluginEvent.Route(invokePath, params, callback))
     }
@@ -56,7 +51,7 @@ object RxPluginDispatcher {
         pluginName: String,
         pageName: String,
         params: Map<String, Any?>? = null,
-        callback: PluginEvent.EventCallback? = null
+        callback: CommonCallBack? = null
     ) {
         dispatch(PluginEvent.Route(pluginName, pageName, params, callback))
     }
@@ -92,65 +87,4 @@ object RxPluginDispatcher {
         return mPlugin.hasSubscribers()
     }
 
-}
-
-/**
- * 组件事件
- */
-abstract class PluginEvent(
-    val params: Map<String, Any?>?,
-    val callback: EventCallback?
-) {
-
-    /**
-     * 组件方法调用事件对象
-     */
-    class Invoke(invokePath: String, params: Map<String, Any?>?, callback: EventCallback?) :
-        PluginEvent(params, callback) {
-        constructor(
-            pluginName: String,
-            method: String,
-            params: Map<String, Any?>?,
-            callback: EventCallback?
-        ) : this("$pluginName.$method", params, callback)
-
-        val pluginName: String
-        val method: String
-
-        init {
-            val split = invokePath.split(".")
-            pluginName = split[0]
-            method = split[1]
-        }
-    }
-
-    /**
-     * 组件页面打开事件对象
-     */
-    class Route(invokePath: String, params: Map<String, Any?>?, callback: EventCallback?) :
-        PluginEvent(params, callback) {
-        constructor(
-            pluginName: String,
-            pageName: String,
-            params: Map<String, Any?>?,
-            callback: EventCallback?
-        ) : this("/$pluginName/$pageName", params, callback)
-
-        val pluginName: String
-        val pageName: String
-
-        init {
-            val split = invokePath.split("/")
-            pluginName = split[1]
-            pageName = split[2]
-        }
-    }
-
-    /**
-     * 回调事件
-     */
-    interface EventCallback {
-        fun success(data: Map<String, Any?>?)
-        fun failed(code: Int, msg: String, throwable: Throwable?)
-    }
 }

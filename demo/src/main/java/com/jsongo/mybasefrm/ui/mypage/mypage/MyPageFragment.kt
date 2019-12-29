@@ -12,6 +12,7 @@ import com.jsongo.core.util.toGsonBean
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.bean.User
+import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.personalinfo.PersonalInfoActivity
 import com.jsongo.ui.component.fragment.settinglist.SettingItem
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
@@ -37,6 +38,7 @@ class MyPageFragment : BaseFragment() {
         val bgGray = ContextCompat.getColor(AppApplication.context, R.color.light_gray)
         rlLayoutRoot.setBackgroundColor(bgGray)
         val onClickListener = View.OnClickListener {
+//            (activity as MainActivity).mainViewModel.logout()
             startActivity(Intent(activity, PersonalInfoActivity::class.java))
         }
         val user: User? =

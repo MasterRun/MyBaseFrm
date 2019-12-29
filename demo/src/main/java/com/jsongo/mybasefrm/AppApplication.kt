@@ -8,6 +8,7 @@ import com.jsongo.ajs.AJs
 import com.jsongo.core.BaseCore
 import com.jsongo.mobileim.MobileIM
 import com.jsongo.ui.BaseUI
+import com.jsongo.ui.enhance.UIEnhance
 import org.jetbrains.annotations.Contract
 
 /**
@@ -16,13 +17,24 @@ import org.jetbrains.annotations.Contract
  */
 class AppApplication : Application() {
 
+    companion object {
+
+        lateinit var context: Context
+
+        val isDebug: Boolean
+            @Contract(pure = true)
+            get() = true && BuildConfig.DEBUG
+    }
+
     override fun onCreate() {
         super.onCreate()
-        BaseCore.isDebug = isDebug
-        BaseCore.init()
+        //普通module初始化
+        BaseCore.init(isDebug)
         AJs.init(this)
         BaseUI.init(this)
-//        initMobileIM()
+        UIEnhance.init(this)
+        //以下是组件初始化和注册，单写方法
+        initMobileIM()
     }
 
     fun initMobileIM() {
@@ -47,14 +59,5 @@ class AppApplication : Application() {
         super.onLowMemory()
         //内存低是清理管理的缓存
         Glide.get(this).clearMemory()
-    }
-
-    companion object {
-
-        lateinit var context: Context
-
-        val isDebug: Boolean
-            @Contract(pure = true)
-            get() = true && BuildConfig.DEBUG
     }
 }

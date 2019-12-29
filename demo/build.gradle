@@ -92,6 +92,7 @@ dependencies {
         implementation "com.jsongo.basefrm:core:${libConf.core.aarVer}"
         implementation "com.jsongo.basefrm:ajs:${libConf.ajs.aarVer}"
         implementation "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
+        implementation "com.jsongo.basefrm:ui_enhance:${libConf.ui_enhance.aarVer}"
         implementation "com.jsongo.basefrm:mobileim:${libConf.mobileim.aarVer}"
         kapt "com.jsongo.basefrm:processor:${libConf.processor.aarVer}"
     } else {
@@ -99,6 +100,7 @@ dependencies {
         implementation project(path: ':core')
         implementation project(path: ':ajs')
         implementation project(path: ':ui')
+        implementation project(path: ':ui-enhance')
         implementation project(path: ':mobileim')
         kapt project(path: ':processor')
     }

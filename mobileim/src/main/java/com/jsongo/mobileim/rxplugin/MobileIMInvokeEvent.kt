@@ -1,11 +1,15 @@
 package com.jsongo.mobileim.rxplugin
 
 import android.content.Context
-import com.jsongo.core.rxplugin.PluginEvent
+import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.util.RxBus
+import com.jsongo.mobileim.MobileIM
 import com.jsongo.mobileim.bean.Message
 import com.jsongo.mobileim.core.MobileIMConfig
 import com.jsongo.mobileim.operator.ChatMessageSender
 import com.jsongo.mobileim.operator.SendCallback
+import com.jsongo.mobileim.util.MobileIMMessageSign
+import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
 
 /**
  * @author ： jsongo
@@ -16,7 +20,7 @@ object MobileIMInvokeEvent {
     fun invoke(
         method: String,
         params: Map<String, Any?>?,
-        callback: PluginEvent.EventCallback?
+        callback: CommonCallBack?
     ) {
         when (method) {
             "init" -> {
@@ -29,8 +33,18 @@ object MobileIMInvokeEvent {
                 initIM(params, callback, false)
                 loginIM(params, callback)
             }
+            "isOnline" -> {
+                if (MobileIM.isIMOnline) {
+                    callback?.success(null)
+                } else {
+                    callback?.failed(-1, "", null)
+                }
+            }
             "send" -> {
                 sendMessage(params, callback)
+            }
+            "logout" -> {
+                logoutIM(params, callback)
             }
         }
     }
@@ -40,7 +54,7 @@ object MobileIMInvokeEvent {
      */
     fun initIM(
         params: Map<String, Any?>?,
-        callback: PluginEvent.EventCallback?,
+        callback: CommonCallBack?,
         enableSuccessCallback: Boolean = true
     ) {
         val context = params?.get("context") as Context?
@@ -59,17 +73,35 @@ object MobileIMInvokeEvent {
      */
     fun loginIM(
         params: Map<String, Any?>?,
-        callback: PluginEvent.EventCallback?
+        callback: CommonCallBack?
     ) {
         val chatId = params?.get("chatid") as String
         val password = params.get("password") as String
 
-        MobileIMConfig.loginIM(chatId, password, object : SendCallback {
-            override fun onSuccess() {
-                super.onSuccess()
-                callback?.success(null)
-            }
+        //登录回调
+        fun registerLoginIMCallbackEvent() {
+            RxBus.toFlowable().filter {
+                it.code == MobileIMMessageSign.IM_LOGIN_EVENT
+            }.subscribe({
+                when (it.data) {
+                    //登录成功事件
+                    MobileIMMessageSign.LOGIN_EVENT_SUCCESS -> {
+                        callback?.success(null)
+                    }
+                    //登录失败事件
+                    MobileIMMessageSign.LOGIN_EVENT_FAIL -> {
+                        callback?.failed(-1, it.message, null)
+                    }
+                }
+            }, {
+                callback?.failed(-1, "", it)
+            })
+        }
 
+        //注册登录回调
+        registerLoginIMCallbackEvent()
+        //发送登录消息，消息发送失败，直接失败回调，发送成功等待登录结果回调
+        ChatMessageSender.loginIM(chatId, password, object : SendCallback {
             override fun onFailed() {
                 super.onFailed()
                 callback?.failed(-1, "", null)
@@ -78,11 +110,23 @@ object MobileIMInvokeEvent {
 
     }
 
+    /**
+     * 退出登录
+     */
+    fun logoutIM(
+        params: Map<String, Any?>?,
+        callback: CommonCallBack?
+    ) {
+        LocalUDPDataSender.getInstance(MobileIM.context).sendLoginout()
+        MobileIM.isIMOnline = false
+        MobileIMConfig.init(MobileIM.context)
+        callback?.success(null)
+    }
 
     /**
      * 发送消息
      */
-    fun sendMessage(params: Map<String, Any?>?, callback: PluginEvent.EventCallback?) {
+    fun sendMessage(params: Map<String, Any?>?, callback: CommonCallBack?) {
         val type = params?.get("type") as Int? ?: Message.TYPE_TEXT
         val from_id = params?.get("from_id") as String? ?: ""
         val to_id = params?.get("to_id") as String? ?: ""

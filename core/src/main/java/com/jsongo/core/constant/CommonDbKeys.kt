@@ -7,5 +7,6 @@ package com.jsongo.core.constant
  */
 object CommonDbKeys {
     const val USER_GUID = "user_guid"
+    const val USER_PASSWORD = "user_password"
     const val USER_INFO = "user_info"
 }

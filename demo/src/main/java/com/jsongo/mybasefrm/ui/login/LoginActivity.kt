@@ -1,5 +1,6 @@
 package com.jsongo.mybasefrm.ui.login
 
+import android.Manifest
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.text.method.PasswordTransformationMethod
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jsongo.annotation.anno.Page
+import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.ui.splash.SplashActivity
@@ -35,6 +37,8 @@ class LoginActivity : BaseActivity(), IMvvmView {
 
         initViewModel()
 
+        initPermission()
+
         initView()
 
         observeLiveData()
@@ -44,6 +48,10 @@ class LoginActivity : BaseActivity(), IMvvmView {
 
     override fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+    }
+
+    @PermissionNeed(Manifest.permission.READ_PHONE_STATE)
+    fun initPermission() {
     }
 
     override fun initView() {

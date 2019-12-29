@@ -1,6 +1,6 @@
 package com.jsongo.mobileim.rxplugin
 
-import com.jsongo.core.rxplugin.PluginEvent
+import com.jsongo.core.util.CommonCallBack
 
 /**
  * @author ： jsongo
@@ -11,7 +11,7 @@ object MobileIMRouteEvent {
     fun route(
         pageName: String,
         params: Map<String, Any?>?,
-        callback: PluginEvent.EventCallback?
+        callback: CommonCallBack?
     ) {
 
     }

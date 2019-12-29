@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_height="wrap_content"
+    tools:layout_width="wrap_content">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/bar_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="6dp"
+        android:scaleType="centerCrop"
+        app:qmui_is_circle="true"
+        app:qmui_is_oval="true"
+        tools:layout_height="50dp"
+        tools:layout_weight="50dp"
+        tools:src="@mipmap/ic_person" />
+
+    <TextView
+        android:id="@+id/bar_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/red_dot_bg"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="10dp"
+        android:visibility="gone"
+        tools:text="1"
+        tools:visibility="visible" />
+</RelativeLayout>

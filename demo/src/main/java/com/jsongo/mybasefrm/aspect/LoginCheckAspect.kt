@@ -25,10 +25,11 @@ class LoginCheckAspect {
     @Around("loginNeedPointCut()")
     @Throws(Throwable::class)
     fun loginCheckExecutor(joinPoint: ProceedingJoinPoint): Any? {
-        val value = CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)
+        val userGuid = CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)
+        val password = CommonDbOpenHelper.getValue(CommonDbKeys.USER_PASSWORD)
         val user: User? =
             CommonDbOpenHelper.getValue(CommonDbKeys.USER_INFO).toGsonBean(User::class.java)
-        if (value.isNullOrEmpty() || user == null) {
+        if (userGuid.isNullOrEmpty() || password.isNullOrEmpty() || user == null) {
             LoginActivity.go()
             val any = joinPoint.`this`
             if (any is Activity && !any.isFinishing) {
