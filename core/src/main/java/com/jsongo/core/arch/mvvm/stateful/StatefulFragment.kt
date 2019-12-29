@@ -44,7 +44,7 @@ abstract class StatefulFragment : BaseFragment(), IMvvmView, PageStatusListener 
     //region page pageStatus
     override fun onPageLoading() {
         pageStatus = Status.LOADING
-        emptyView?.show(
+        inflateEmptyView()?.show(
             true,
             BaseCore.context.getString(R.string.empty_view_loading),
             null,

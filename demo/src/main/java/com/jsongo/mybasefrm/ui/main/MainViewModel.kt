@@ -176,8 +176,9 @@ class MainViewModel : BaseViewModel() {
                     MobileIMMessageSign.isMobileIMMessage(it.code)
                 }.map {
                     if (it.code == MobileIMMessageSign.IM_LOGIN_EVENT && it.data == MobileIMMessageSign.LOGIN_EVENT_LINK_FAIL) {
-                        imStatusCode.value = -2
-                        imStateMsg = it.message
+                        //掉线会重连，目前不处理
+//                        imStatusCode.value = -2
+//                        imStateMsg = it.message
                         L.e(it.message)
                     } else {
                         L.e("mobileim收到消息：${it}")

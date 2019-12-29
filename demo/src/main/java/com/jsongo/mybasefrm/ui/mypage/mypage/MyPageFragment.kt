@@ -8,11 +8,11 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
+import com.jsongo.core.util.GlideUtil
 import com.jsongo.core.util.toGsonBean
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.bean.User
-import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.personalinfo.PersonalInfoActivity
 import com.jsongo.ui.component.fragment.settinglist.SettingItem
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
@@ -38,7 +38,6 @@ class MyPageFragment : BaseFragment() {
         val bgGray = ContextCompat.getColor(AppApplication.context, R.color.light_gray)
         rlLayoutRoot.setBackgroundColor(bgGray)
         val onClickListener = View.OnClickListener {
-//            (activity as MainActivity).mainViewModel.logout()
             startActivity(Intent(activity, PersonalInfoActivity::class.java))
         }
         val user: User? =
@@ -48,6 +47,11 @@ class MyPageFragment : BaseFragment() {
 
         qriv_header.setOnClickListener(onClickListener)
         tv_nickname.setOnClickListener(onClickListener)
+
+        val photoUrl = user?.photo_url
+        if (!photoUrl.isNullOrEmpty()) {
+            GlideUtil.load(context, photoUrl, qriv_header)
+        }
 
         val sections = arrayListOf(
             SettingSection(

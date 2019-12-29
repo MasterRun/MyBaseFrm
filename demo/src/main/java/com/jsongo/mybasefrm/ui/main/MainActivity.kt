@@ -23,6 +23,7 @@ import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.RegUtil
 import com.jsongo.core.widget.RxToast
+import com.jsongo.mobileim.ui.conv.ConvListFragment
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.login.LoginActivity
 import com.jsongo.mybasefrm.ui.main.mainsample1.MainSample1Fragment
@@ -57,12 +58,12 @@ class MainActivity : BaseActivity(), IMvvmView {
             bgColor = Color.WHITE
         ),
         MainSample1Fragment(),
-        AJsWebLoader.newInstance(
+/*        AJsWebLoader.newInstance(
             "http://www.jq22.com/demo/appjymoban201908222316/",
             false,
             bgColor = Color.WHITE
-        ),
-//        ConvListFragment(),
+        ),*/
+        ConvListFragment(),
         MyPageFragment()
     )
 
@@ -259,7 +260,7 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if ((keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) && event.action == KeyEvent.ACTION_DOWN) {
-            //如果只剩MainActivity，安县返回键时启动桌面，不结束activity
+            //如果只剩MainActivity，按下返回键时启动桌面，不结束activity
             if (ActivityCollector.getActivities().size == 1 && ActivityCollector.topActivity == this) {
                 val backHome = Intent(Intent.ACTION_MAIN)
                 backHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK

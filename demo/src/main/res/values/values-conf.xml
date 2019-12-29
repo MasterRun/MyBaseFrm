@@ -11,7 +11,7 @@
     <!--    <string name="MainActivity">com.jsongo.mybasefrm.ui.demo.DemoActivity</string>-->
 
     <!--	首页默认选中的tab-->
-    <integer name="main_selected_tab">1</integer>
+    <integer name="main_selected_tab">2</integer>
 
     <!--MobileIM的server ip-->
     <!--    <string name="im_ip">192.168.43.222</string>-->
