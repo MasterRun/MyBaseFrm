@@ -1,7 +1,10 @@
 package com.jsongo.mybasefrm.ui.main
 
 import android.text.TextUtils
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
@@ -22,7 +25,7 @@ import java.util.concurrent.TimeUnit
  * @date ： 2019/11/7 12:57
  * @desc : ViewModel 测试
  */
-class MainViewModel : BaseViewModel() {
+class MainViewModel : BaseViewModel(), LifecycleObserver {
 
     /**
      * 首页底部tab的角标数量
@@ -66,6 +69,7 @@ class MainViewModel : BaseViewModel() {
     /**
      * 检查IM，是否启用，是否登录
      */
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun checkIM() {
         //如果启用IM
         if (Plugins.isPluginEnabled(Plugins.MobileIM)) {

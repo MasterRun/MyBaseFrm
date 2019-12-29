@@ -93,8 +93,6 @@ class MainActivity : BaseActivity(), IMvvmView {
 
         observeLiveData()
 
-        mainViewModel.checkIM()
-
         //消息数
         mainViewModel.mainTabTips.value = intArrayOf(0, 0, 66, 0)
     }
@@ -127,6 +125,7 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     override fun initViewModel() {
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        lifecycle.addObserver(mainViewModel)
     }
 
     /**

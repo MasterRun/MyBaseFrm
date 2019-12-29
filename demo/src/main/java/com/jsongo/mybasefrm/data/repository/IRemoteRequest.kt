@@ -26,22 +26,9 @@ import com.jsongo.mybasefrm.bean.User
  * @desc
  */
 interface IRemoteRequest {
-    /*void getSongsResult(MutableLiveData<SongResult.DataBean.SongsResult> liveData, String keyword);
-
-    void getAlbumsResult(MutableLiveData<AlbumResult.DataBean.AlbumsResult> liveData, String keyword);
-
-    void getSingerImg(MutableLiveData<SingerImg.SingerResult> liveData, String singerName);
-
-    void getSongInfo(MutableLiveData<SongInfo.DataBean> liveData, String albumMid);
-
-    void getSongUrl(MutableLiveData<String> liveData, String songMid);*/
-
-    //void getFreeMusic(MutableLiveData<TestAlbum> liveData);
-
-    //void getLibraryInfo(MutableLiveData<List<LibraryInfo>> liveData);
 
     @Throws
-    suspend fun checkUser(username: String, password: String): String
+    suspend fun checkUser(account: String, password: String): String
 
     @Throws
     suspend fun getUserInfo(userguid: String): User

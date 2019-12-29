@@ -14,7 +14,7 @@ interface ApiService {
     @POST("user/check")
     @FormUrlEncoded
     suspend fun checkUser(
-        @Field("username") userName: String?,
+        @Field("account") account: String?,
         @Field("password") password: String?
     ): DataWrapper<String?>
 
