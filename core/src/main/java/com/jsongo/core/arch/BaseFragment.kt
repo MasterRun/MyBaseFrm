@@ -80,8 +80,6 @@ abstract class BaseFragment : Fragment(), IPage {
 
     override fun onDestroyView() {
         onIPageDestroy()
-        view?.clearFindViewByIdCache()
-        clearFindViewByIdCache()
         super.onDestroyView()
     }
 

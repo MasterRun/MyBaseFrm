@@ -155,6 +155,7 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
             flashLightLayout.setVisibility(View.GONE);
         }
 
+        topbarLayout.hideBottomDivider();
         topbarLayout.getTopBar().setTitle(R.string.scan_activity_title);
         topbarLayout.setBackgroundResource(R.color.scan_bg);
         UtilKt.addStatusBarHeightPadding(topbarLayout);

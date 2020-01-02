@@ -21,8 +21,8 @@ import com.jsongo.core.util.RegUtil
 import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean.QuickEntryItemBean
-import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean.WebCardItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.bean.QuickEntryItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.bean.WebCardItemBean
 import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.QuickEntryItemAdapter
 import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.WebCardVTitleItemAdapter
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter

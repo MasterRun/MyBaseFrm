@@ -101,9 +101,4 @@ abstract class StatefulFragment : BaseFragment(), IMvvmView, PageStatusListener 
     }
     //endregion
 
-    override fun onDetach() {
-        view?.clearFindViewByIdCache()
-        clearFindViewByIdCache()
-        super.onDetach()
-    }
 }

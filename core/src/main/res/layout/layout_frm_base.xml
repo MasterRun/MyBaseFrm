@@ -19,7 +19,7 @@
         <androidx.core.widget.NestedScrollView
 			android:id="@+id/nsv"
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:fillViewport="true"
 			android:focusable="true"
 			android:focusableInTouchMode="true">
@@ -27,7 +27,7 @@
 			<FrameLayout
 				android:id="@+id/fl_main_container"
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content" />
+				android:layout_height="match_parent" />
 
         </androidx.core.widget.NestedScrollView>
 

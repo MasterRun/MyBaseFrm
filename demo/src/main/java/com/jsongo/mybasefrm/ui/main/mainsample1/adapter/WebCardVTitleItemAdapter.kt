@@ -13,7 +13,7 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.WebLoaderCard
 import com.jsongo.core.helper.RecyclerViewAdapter
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean.WebCardItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.bean.WebCardItemBean
 import kotlinx.android.synthetic.main.item_webcard_v_title.view.*
 
 /**

@@ -22,6 +22,7 @@
 
 
 -keep class com.jsongo.mybasefrm.bean.** { *; }
+-keep class com.jsongo.mybasefrm.ui.main.mainsample1.bean.** { *; }
 
 -keepclassmembers class * {
     @com.jsongo.annotation.anno.AjsApi <methods>;

@@ -41,10 +41,6 @@ class TopbarLayout(
         //设置默认样式
         setBackgroundColor(ContextCompat.getColor(context, R.color.app_color_theme))
 
-        //updateBottomSeparatorColor(Color.TRANSPARENT);
-        //默认设置底部分割线的高度为0（隐藏）
-        updateBottomDivider(0, 0, 0, Color.TRANSPARENT)
-
         tvTitle = setTitle(BaseCore.context.getString(R.string.topbar_title))
         tvTitle.setTextColor(Color.WHITE)
 
@@ -52,5 +48,14 @@ class TopbarLayout(
         backImageButton.setOnClickListener {
             ActivityCollector.topActivity.onBackPressed()
         }
+    }
+
+    /**
+     * 隐藏底部分割线
+     */
+    fun hideBottomDivider() {
+        //updateBottomSeparatorColor(Color.TRANSPARENT);
+        //默认设置底部分割线的高度为0（隐藏）
+        updateBottomDivider(0, 0, 0, Color.TRANSPARENT)
     }
 }

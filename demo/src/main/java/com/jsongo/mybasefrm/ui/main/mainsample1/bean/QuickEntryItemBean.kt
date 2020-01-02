@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean
+package com.jsongo.mybasefrm.ui.main.mainsample1.bean
 
 import android.os.Parcel
 import android.os.Parcelable
