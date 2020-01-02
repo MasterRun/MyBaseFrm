@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.bean
+package com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -51,7 +51,9 @@ data class WebCardItemBean(
 
     companion object CREATOR : Parcelable.Creator<WebCardItemBean> {
         override fun createFromParcel(parcel: Parcel): WebCardItemBean {
-            return WebCardItemBean(parcel)
+            return WebCardItemBean(
+                parcel
+            )
         }
 
         override fun newArray(size: Int): Array<WebCardItemBean?> {

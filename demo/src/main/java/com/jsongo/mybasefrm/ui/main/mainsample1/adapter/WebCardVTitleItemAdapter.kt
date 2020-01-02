@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.adapter
+package com.jsongo.mybasefrm.ui.main.mainsample1.adapter
 
 import android.content.Context
 import android.text.TextUtils
@@ -13,7 +13,7 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.WebLoaderCard
 import com.jsongo.core.helper.RecyclerViewAdapter
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.bean.WebCardItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean.WebCardItemBean
 import kotlinx.android.synthetic.main.item_webcard_v_title.view.*
 
 /**
@@ -37,7 +37,10 @@ open class WebCardVTitleItemAdapter(
         position: Int
     ): ViewHolder {
         val view = inflater.inflate(R.layout.item_webcard_v_title, parent, false)
-        val holder = ViewHolder(view)
+        val holder =
+            ViewHolder(
+                view
+            )
         setClickListener(this, holder, position, type)
         setLongClickListener(this, holder, position, type)
         return holder

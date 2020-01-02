@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.adapter
+package com.jsongo.mybasefrm.ui.main.mainsample1.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.jsongo.core.helper.RecyclerViewAdapter
 import com.jsongo.core.util.GlideUtil
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.bean.QuickEntryItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean.QuickEntryItemBean
 import kotlinx.android.synthetic.main.item_quick_entry.view.*
 
 /**
@@ -34,7 +34,10 @@ class QuickEntryItemAdapter(
         position: Int
     ): ViewHolder {
         val view = inflater.inflate(R.layout.item_quick_entry, parent, false)
-        val holder = ViewHolder(view)
+        val holder =
+            ViewHolder(
+                view
+            )
         setClickListener(this, holder, position, type)
         setLongClickListener(this, holder, position, type)
         return holder

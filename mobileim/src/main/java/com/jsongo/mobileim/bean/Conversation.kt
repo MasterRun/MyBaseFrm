@@ -13,6 +13,5 @@ constructor(
     var id: Long = 0,
     var conv_id: String = UUID.randomUUID().toString(),
     var chat_id1: String = "",
-    var chat_id2: String = "",
-    var unread_count: Int = 0
+    var chat_id2: String = ""
 ) : Serializable

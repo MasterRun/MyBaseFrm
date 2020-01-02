@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.ui.conv
+package com.jsongo.mybasefrm.ui.main.conv
 
 import android.graphics.Color
 import android.view.View

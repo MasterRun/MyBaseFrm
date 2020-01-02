@@ -24,7 +24,7 @@ class MyPageViewModel : BaseViewModel(), LifecycleObserver {
 
     var errorMsg = MutableLiveData<String>()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun requestUserInfo() {
         mainScope.launch {
             try {
@@ -38,7 +38,6 @@ class MyPageViewModel : BaseViewModel(), LifecycleObserver {
                 CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_INFO, gson.toJson(user))
                 user.user_guid = userguid
                 userInfo.value = user
-                return@launch
             } catch (e: Exception) {
                 errorMsg.value = e.message
             }

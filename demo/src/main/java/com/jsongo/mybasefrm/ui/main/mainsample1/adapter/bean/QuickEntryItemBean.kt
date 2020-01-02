@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.bean
+package com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -47,7 +47,9 @@ data class QuickEntryItemBean(
 
     companion object CREATOR : Parcelable.Creator<QuickEntryItemBean> {
         override fun createFromParcel(parcel: Parcel): QuickEntryItemBean {
-            return QuickEntryItemBean(parcel)
+            return QuickEntryItemBean(
+                parcel
+            )
         }
 
         override fun newArray(size: Int): Array<QuickEntryItemBean?> {

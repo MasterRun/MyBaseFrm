@@ -21,10 +21,10 @@ import com.jsongo.core.util.RegUtil
 import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.adapter.QuickEntryItemAdapter
-import com.jsongo.mybasefrm.adapter.WebCardVTitleItemAdapter
-import com.jsongo.mybasefrm.bean.QuickEntryItemBean
-import com.jsongo.mybasefrm.bean.WebCardItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean.QuickEntryItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.bean.WebCardItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.QuickEntryItemAdapter
+import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.WebCardVTitleItemAdapter
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.util.addStatusBarHeightPadding
@@ -144,11 +144,12 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
         rv_quick_entry.setHasFixedSize(true)
         rv_quick_entry.isNestedScrollingEnabled = false
         //设置适配器
-        quickEntryItemAdapter = QuickEntryItemAdapter(
-            context,
-            mainSample1ViewModel.quickEntryItemList.value
-                ?: emptyList<QuickEntryItemBean>().toMutableList()
-        )
+        quickEntryItemAdapter =
+            QuickEntryItemAdapter(
+                context,
+                mainSample1ViewModel.quickEntryItemList.value
+                    ?: emptyList<QuickEntryItemBean>().toMutableList()
+            )
         //点击事件
         quickEntryItemAdapter.itemClickListener = object :
             OnRvItemClickListener<QuickEntryItemAdapter, QuickEntryItemAdapter.ViewHolder> {
@@ -195,12 +196,13 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
         rv_web_cards.isNestedScrollingEnabled = false
 
         //初始化适配器
-        webCardVTitleItemAdapter = WebCardVTitleItemAdapter(
-            context,
-            this,
-            mainSample1ViewModel.webCardItemList.value
-                ?: emptyList<WebCardItemBean>().toMutableList()
-        )
+        webCardVTitleItemAdapter =
+            WebCardVTitleItemAdapter(
+                context,
+                this,
+                mainSample1ViewModel.webCardItemList.value
+                    ?: emptyList<WebCardItemBean>().toMutableList()
+            )
 
         rv_web_cards.adapter = webCardVTitleItemAdapter
         rv_web_cards.layoutManager = LinearLayoutManager(context)

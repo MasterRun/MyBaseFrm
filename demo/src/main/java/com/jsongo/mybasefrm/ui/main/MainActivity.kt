@@ -23,7 +23,7 @@ import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.RegUtil
 import com.jsongo.core.widget.RxToast
-import com.jsongo.mobileim.ui.conv.ConvListFragment
+import com.jsongo.mybasefrm.ui.main.conv.ConvListFragment
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.login.LoginActivity
 import com.jsongo.mybasefrm.ui.main.mainsample1.MainSample1Fragment
