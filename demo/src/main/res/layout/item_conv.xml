@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="java.util.Map" />
+
+        <import type="com.jsongo.mybasefrm.R" />
 
         <variable
             name="item"
@@ -24,12 +27,16 @@
 
         <com.jsongo.ui.widget.CornerImageLayout
             android:id="@+id/img_avatar"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp" />
+            android:layout_marginEnd="12dp"
+            app:error="@{R.mipmap.ic_person}"
+            app:imageUrl="@{item[`avatar`]}"
+            app:messageCount="@{item[`messageCount`]}"
+            app:placeHolder="@{R.mipmap.ic_person}" />
 
         <TextView
             android:id="@+id/tv_time"
@@ -38,8 +45,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="10dp"
+            android:text="@{item[`time`]}"
             android:textColor="@color/deep_gray_2"
-            android:textSize="10sp"
+            android:textSize="13sp"
             tools:text="12:22" />
 
         <TextView

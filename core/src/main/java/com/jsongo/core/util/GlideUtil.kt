@@ -16,7 +16,7 @@ import java.io.File
 object GlideUtil {
     const val TAG: String = "GlideUtil"
 
-    fun load(context: Context?, url: String, imageView: ImageView) {
+    fun load(context: Context?, url: String?, imageView: ImageView) {
         if (context != null) {
             Glide.with(context).load(url).into(imageView)
         } else {
@@ -24,7 +24,7 @@ object GlideUtil {
         }
     }
 
-    fun load(context: Context?, url: String, options: RequestOptions?, imageView: ImageView) {
+    fun load(context: Context?, url: String?, options: RequestOptions?, imageView: ImageView) {
         if (context != null) {
             var load = Glide.with(context).load(url)
             if (options != null) {
@@ -40,7 +40,7 @@ object GlideUtil {
         GlideUtil.load(activity, url, null, imageView)
     }
 
-    fun load(activity: Activity?, url: String, options: RequestOptions?, imageView: ImageView) {
+    fun load(activity: Activity?, url: String?, options: RequestOptions?, imageView: ImageView) {
         if (activity != null && !activity.isDestroyed) {
             var load = Glide.with(activity).load(url)
             if (options != null) {
@@ -52,7 +52,7 @@ object GlideUtil {
         }
     }
 
-    fun load(fragment: Fragment?, url: String, imageView: ImageView) {
+    fun load(fragment: Fragment?, url: String?, imageView: ImageView) {
         val activity = fragment?.activity
         if (fragment != null && activity != null && !(activity.isDestroyed)) {
             Glide.with(fragment).load(url).into(imageView)
@@ -62,7 +62,7 @@ object GlideUtil {
     }
 
     @Deprecated("use androidx.fragment.app.Fragment instead")
-    fun load(fragment: android.app.Fragment?, url: String, imageView: ImageView) {
+    fun load(fragment: android.app.Fragment?, url: String?, imageView: ImageView) {
         val activity = fragment?.activity
         if (fragment != null && activity != null && !(activity.isDestroyed)) {
             Glide.with(fragment).load(url).into(imageView)
