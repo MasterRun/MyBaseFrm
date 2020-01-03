@@ -18,13 +18,22 @@
 
 用于方便配置页面的mainLayoutId 和 containerId
 
-### @Presenter
+### @LoginCheck
 
-用于注入MVP 的View 中的presenter
+标注方法需要登录
 
-### @Model
 
-用于注入MVP 的Presenter 中的Model
+### @PermissionNeed
+
+标注方法需要权限
+
+### @PermissionDeny
+
+用于权限拒绝时回调
+
+#### 1.0.0.c-SNAPSHOT
+2020-1-3
+- 添加LoginCheck PermissionNeed PermissionDeny等aspectj注解
 
 
 #### 1.0.0.b-SNAPSHOT

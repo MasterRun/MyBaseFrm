@@ -87,22 +87,24 @@ android {
 
 dependencies {
 
+    implementation "com.jsongo.basefrm:annotation:${libConf.annotation.aarVer}"
+    kapt "com.jsongo.basefrm:processor:${libConf.processor.aarVer}"
     if (libConf.useOnlineAAR) {
-        implementation "com.jsongo.basefrm:annotation:${libConf.annotation.aarVer}"
+//        implementation "com.jsongo.basefrm:annotation:${libConf.annotation.aarVer}"
         implementation "com.jsongo.basefrm:core:${libConf.core.aarVer}"
         implementation "com.jsongo.basefrm:ajs:${libConf.ajs.aarVer}"
         implementation "com.jsongo.basefrm:ui:${libConf.ui.aarVer}"
         implementation "com.jsongo.basefrm:ui_enhance:${libConf.ui_enhance.aarVer}"
         implementation "com.jsongo.basefrm:mobileim:${libConf.mobileim.aarVer}"
-        kapt "com.jsongo.basefrm:processor:${libConf.processor.aarVer}"
+//        kapt "com.jsongo.basefrm:processor:${libConf.processor.aarVer}"
     } else {
-        implementation project(path: ':annotation')
+//        implementation project(path: ':annotation')
         implementation project(path: ':core')
         implementation project(path: ':ajs')
         implementation project(path: ':ui')
         implementation project(path: ':ui-enhance')
         implementation project(path: ':mobileim')
-        kapt project(path: ':processor')
+//        kapt project(path: ':processor')
     }
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
