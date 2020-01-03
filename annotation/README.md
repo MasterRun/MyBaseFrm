@@ -31,6 +31,10 @@
 
 用于权限拒绝时回调
 
+#### 1.0.0.d-SNAPSHOT
+2020-1-3
+- 优化@Page注解的ViewConfigor
+
 #### 1.0.0.c-SNAPSHOT
 2020-1-3
 - 添加LoginCheck PermissionNeed PermissionDeny等aspectj注解

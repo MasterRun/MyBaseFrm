@@ -44,8 +44,8 @@ ext {
 
             'annotation'  : [
                     'verCode': 1,
-                    'verName': '1.0.0.c-SNAPSHOT',
-                    'aarVer' : '1.0.0.c-SNAPSHOT'
+                    'verName': '1.0.0.d-SNAPSHOT',
+                    'aarVer' : '1.0.0.d-SNAPSHOT'
             ],
 
             'processor'   : [
