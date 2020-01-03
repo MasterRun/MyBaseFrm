@@ -7,7 +7,8 @@ import com.jsongo.annotation.util.Util.getPkgClazzName
 import com.jsongo.processor.bean.FourPair
 import com.squareup.javapoet.*
 import javafx.beans.property.SimpleBooleanProperty
-import javax.annotation.processing.*
+import javax.annotation.processing.RoundEnvironment
+import javax.annotation.processing.SupportedSourceVersion
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
 import javax.lang.model.element.Modifier
@@ -20,16 +21,7 @@ import javax.tools.Diagnostic
  * @desc 用于 @Page 注解
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-class ViewConfigorProcessor : AbstractProcessor() {
-    private var filer: Filer? = null
-    private var messager: Messager? = null
-
-    override fun init(processingEnv: ProcessingEnvironment?) {
-        super.init(processingEnv)
-
-        filer = processingEnv?.filer
-        messager = processingEnv?.messager
-    }
+class ViewConfigorProcessor : BaseProcessor() {
 
     /**
      * 需要生成的代码类的集合
@@ -40,7 +32,7 @@ class ViewConfigorProcessor : AbstractProcessor() {
     //目标类的变量名
     private val targetVarName = "targetObj"
 
-    override fun process(
+    override fun doProcess(
         annotations: MutableSet<out TypeElement>?,
         roundEnv: RoundEnvironment?
     ): Boolean {
@@ -56,9 +48,9 @@ class ViewConfigorProcessor : AbstractProcessor() {
         genTypeSpecBuilders.forEach { clazzName, pair ->
             try {
                 pair.second.addMethod(pair.third.build())
-                JavaFile.builder(pair.first, pair.second.build()).build().writeTo(filer)
+                JavaFile.builder(pair.first, pair.second.build()).build().writeTo(mFiler)
             } catch (e: Exception) {
-                messager?.printMessage(Diagnostic.Kind.WARNING, "Exception : ${e.message}\r\n")
+                mMessager?.printMessage(Diagnostic.Kind.WARNING, "Exception : ${e.message}\r\n")
             }
         }
 

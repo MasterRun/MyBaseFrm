@@ -15,19 +15,9 @@ import javax.tools.Diagnostic
  * @desc 生成 com.jsongo.ajs.helper.CustomInteractionRegister_Gen ,将注解添加到映射
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
-class AjsApiProcessor : AbstractProcessor() {
+class AjsApiProcessor : BaseProcessor() {
 
-    private var mFiler: Filer? = null
-    private var mMessager: Messager? = null
-
-    @Synchronized
-    override fun init(processingEnv: ProcessingEnvironment?) {
-        super.init(processingEnv)
-        mMessager = processingEnv?.messager
-        mFiler = processingEnv?.filer
-    }
-
-    override fun process(
+    override fun doProcess(
         annotations: MutableSet<out TypeElement>?,
         roundEnv: RoundEnvironment?
     ): Boolean {
