@@ -9,6 +9,7 @@ import com.jsongo.mobileim.core.MobileIMConfig
 import com.jsongo.mobileim.operator.ChatMessageSender
 import com.jsongo.mobileim.operator.SendCallback
 import com.jsongo.mobileim.util.MobileIMMessageSign
+import io.reactivex.android.schedulers.AndroidSchedulers
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
 
 /**
@@ -82,7 +83,7 @@ object MobileIMInvokeEvent {
         fun registerLoginIMCallbackEvent() {
             RxBus.toFlowable().filter {
                 it.code == MobileIMMessageSign.IM_LOGIN_EVENT
-            }.subscribe({
+            }.observeOn(AndroidSchedulers.mainThread()).subscribe({
                 when (it.data) {
                     //登录成功事件
                     MobileIMMessageSign.LOGIN_EVENT_SUCCESS -> {

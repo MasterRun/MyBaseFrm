@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.BindingAdapter;
 
@@ -22,9 +23,9 @@ import kotlin.text.StringsKt;
  * @date 2019/3/11 22:24
  */
 public class CornerImageLayout extends RelativeLayout {
-    ImageView imageView;
-    TextView cornerTextView;
-    private RelativeLayout relativeLayout;
+   protected ImageView imageView;
+   protected TextView cornerTextView;
+   protected RelativeLayout relativeLayout;
 
     public CornerImageLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -49,7 +50,7 @@ public class CornerImageLayout extends RelativeLayout {
         return cornerTextView;
     }
 
-    private void init(Context context, AttributeSet attrs) {
+    protected void init(Context context, AttributeSet attrs) {
         relativeLayout = (RelativeLayout) LayoutInflater.from(BaseUI.context)
                 .inflate(R.layout.layout_corner_image, this, true);
         imageView = relativeLayout.findViewById(R.id.bar_iv);
@@ -99,8 +100,9 @@ public class CornerImageLayout extends RelativeLayout {
      * @param cornerImageLayout
      * @param messageCount
      */
-    @BindingAdapter("app:messageCount")
-    public static void setMessageCount(CornerImageLayout cornerImageLayout, String messageCount) {
+    @BindingAdapter("cil_messageCount")
+    public static void setMessageCount(@NonNull CornerImageLayout cornerImageLayout, String messageCount) {
         cornerImageLayout.setMessageCount(messageCount);
     }
+
 }

@@ -33,10 +33,10 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            app:error="@{R.mipmap.ic_person}"
-            app:imageUrl="@{item[`avatar`]}"
-            app:messageCount="@{item[`messageCount`]}"
-            app:placeHolder="@{R.mipmap.ic_person}" />
+            app:cil_messageCount="@{item[`messageCount`]}"
+            app:iv_error="@{R.mipmap.ic_person}"
+            app:iv_imageUrl="@{item[`avatar`]}"
+            app:iv_placeHolder="@{R.mipmap.ic_person}" />
 
         <TextView
             android:id="@+id/tv_time"

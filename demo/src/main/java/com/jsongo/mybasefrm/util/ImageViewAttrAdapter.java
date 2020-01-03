@@ -26,7 +26,7 @@ public class ImageViewAttrAdapter {
         view.setImageResource(resId);
     }
 
-    @BindingAdapter({"app:imageUrl", "app:placeHolder", "app:error"})
+    @BindingAdapter({"iv_imageUrl", "iv_placeHolder", "iv_error"})
     public static void loadImage(View view, String url, int holderDrawable, int errorDrawable) {
         final View v = UtilKt.findViewByClass(view, ImageView.class);
         if (v instanceof ImageView) {
@@ -34,5 +34,4 @@ public class ImageViewAttrAdapter {
             GlideUtil.INSTANCE.load(view.getContext(), url, options, ((ImageView) v));
         }
     }
-
 }
