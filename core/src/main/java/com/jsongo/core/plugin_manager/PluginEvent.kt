@@ -1,6 +1,7 @@
 package com.jsongo.core.plugin_manager
 
 import com.jsongo.core.util.CommonCallBack
+import io.reactivex.disposables.Disposable
 
 /**
  * 组件事件
@@ -9,6 +10,7 @@ abstract class PluginEvent(
     val params: Map<String, Any?>?,
     val callback: CommonCallBack?
 ) {
+    var disposable: Disposable? = null
 
     /**
      * 组件方法调用事件对象

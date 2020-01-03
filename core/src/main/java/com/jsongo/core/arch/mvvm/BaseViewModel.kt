@@ -2,6 +2,7 @@ package com.jsongo.core.arch.mvvm
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -18,6 +19,12 @@ abstract class BaseViewModel : ViewModel() {
 
     val compositeDisposable: CompositeDisposable by lazy {
         CompositeDisposable()
+    }
+
+    fun addDisposable(disposable: Disposable?) {
+        disposable?.let {
+            compositeDisposable.add(it)
+        }
     }
 
     override fun onCleared() {

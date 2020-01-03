@@ -23,8 +23,10 @@ object PluginDispatcher {
         invokePath: String,
         params: Map<String, Any?>? = null,
         callback: CommonCallBack? = null
-    ) {
-        dispatch(PluginEvent.Invoke(invokePath, params, callback))
+    ): PluginEvent.Invoke {
+        val invoke = PluginEvent.Invoke(invokePath, params, callback)
+        dispatch(invoke)
+        return invoke
     }
 
     fun invoke(
@@ -32,8 +34,10 @@ object PluginDispatcher {
         method: String,
         params: Map<String, Any?>? = null,
         callback: CommonCallBack? = null
-    ) {
-        dispatch(PluginEvent.Invoke(pluginName, method, params, callback))
+    ): PluginEvent.Invoke {
+        val invoke = PluginEvent.Invoke(pluginName, method, params, callback)
+        dispatch(invoke)
+        return invoke
     }
 
     /**
@@ -43,8 +47,10 @@ object PluginDispatcher {
         invokePath: String,
         params: Map<String, Any?>? = null,
         callback: CommonCallBack? = null
-    ) {
-        dispatch(PluginEvent.Route(invokePath, params, callback))
+    ): PluginEvent.Route {
+        val route = PluginEvent.Route(invokePath, params, callback)
+        dispatch(route)
+        return route
     }
 
     fun route(
@@ -52,8 +58,10 @@ object PluginDispatcher {
         pageName: String,
         params: Map<String, Any?>? = null,
         callback: CommonCallBack? = null
-    ) {
-        dispatch(PluginEvent.Route(pluginName, pageName, params, callback))
+    ): PluginEvent.Route {
+        val route = PluginEvent.Route(pluginName, pageName, params, callback)
+        dispatch(route)
+        return route
     }
     // endregion
 

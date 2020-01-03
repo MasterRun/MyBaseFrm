@@ -9,7 +9,6 @@ import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.plugin_manager.PluginDispatcher
-import com.jsongo.core.plugin_manager.PluginEvent
 import com.jsongo.core.plugin_manager.Plugins
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.util.RxBus
@@ -74,39 +73,10 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
         //如果启用IM
         if (Plugins.isPluginEnabled(Plugins.MobileIM)) {
             //检查是否登录
-            PluginDispatcher.dispatch(
-                PluginEvent.Invoke(Plugins.MobileIM, "isOnline", null, object : CommonCallBack {
-                    override fun success(data: Map<String, Any?>?) {
-                        imStatusCode.value = 2
-                        imStateMsg = "已登录"
-                        //已登录
-                        //注册IM接收器
-                        regIMReceiver()
-                        //发送消息测试
-                        sendIMMsgTest()
-                    }
-
-                    override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                        //未登录，进行登录
-                        loginIM()
-                    }
-                })
-            )
-        }
-    }
-
-    /**
-     * 登录IM
-     */
-    private fun loginIM() {
-        PluginDispatcher.dispatch(
-            PluginEvent.Invoke(Plugins.MobileIM, "login", hashMapOf(
-                Pair("chatid", CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)),
-                Pair("password", CommonDbOpenHelper.getValue(CommonDbKeys.USER_PASSWORD))
-            ), object : CommonCallBack {
+            PluginDispatcher.invoke(Plugins.MobileIM, "isOnline", null, object : CommonCallBack {
                 override fun success(data: Map<String, Any?>?) {
-                    imStatusCode.value = 1
-                    imStateMsg = "IM 登录成功"
+                    imStatusCode.value = 2
+                    imStateMsg = "已登录"
                     //已登录
                     //注册IM接收器
                     regIMReceiver()
@@ -114,25 +84,51 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
                     sendIMMsgTest()
                 }
 
-                override fun failed(
-                    code: Int,
-                    msg: String,
-                    throwable: Throwable?
-                ) {
-                    throwable?.printStackTrace()
-                    val errorMsg = if (!TextUtils.isEmpty(msg)) {
-                        msg
-                    } else if (!TextUtils.isEmpty(throwable?.message)) {
-                        throwable?.message!!
-                    } else {
-                        "登录IM失败！"
-                    }
-                    imStatusCode.value = -1
-                    imStateMsg = errorMsg
-                    L.e(errorMsg)
+                override fun failed(code: Int, msg: String, throwable: Throwable?) {
+                    //未登录，进行登录
+                    loginIM()
                 }
-            })
-        )
+            }).apply {
+                addDisposable(disposable)
+            }
+
+        }
+    }
+
+    /**
+     * 登录IM
+     */
+    private fun loginIM() {
+        PluginDispatcher.invoke(Plugins.MobileIM, "login", hashMapOf(
+            Pair("chatid", CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)),
+            Pair("password", CommonDbOpenHelper.getValue(CommonDbKeys.USER_PASSWORD))
+        ), object : CommonCallBack {
+            override fun success(data: Map<String, Any?>?) {
+                imStatusCode.value = 1
+                imStateMsg = "IM 登录成功"
+                //已登录
+                //注册IM接收器
+                regIMReceiver()
+                //发送消息测试
+                sendIMMsgTest()
+            }
+
+            override fun failed(code: Int, msg: String, throwable: Throwable?) {
+                throwable?.printStackTrace()
+                val errorMsg = if (!TextUtils.isEmpty(msg)) {
+                    msg
+                } else if (!TextUtils.isEmpty(throwable?.message)) {
+                    throwable?.message!!
+                } else {
+                    "登录IM失败！"
+                }
+                imStatusCode.value = -1
+                imStateMsg = errorMsg
+                L.e(errorMsg)
+            }
+        }).apply {
+            addDisposable(disposable)
+        }
     }
 
     fun sendIMMsgTest() {
@@ -165,6 +161,9 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
                                 L.e("send message failed")
                             }
                         })
+                        .apply {
+                            addDisposable(disposable)
+                        }
                 }.subscribe()
         }
     }
@@ -208,17 +207,17 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
 
         //如果启用mobileim，退出登录IM
         if (Plugins.isPluginEnabled(Plugins.MobileIM)) {
-            PluginDispatcher.dispatch(
-                PluginEvent.Invoke(Plugins.MobileIM, "logout", null, object : CommonCallBack {
-                    override fun success(data: Map<String, Any?>?) {
-                        clearDbAndFinish()
-                    }
+            PluginDispatcher.invoke(Plugins.MobileIM, "logout", null, object : CommonCallBack {
+                override fun success(data: Map<String, Any?>?) {
+                    clearDbAndFinish()
+                }
 
-                    override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                        clearDbAndFinish()
-                    }
-                })
-            )
+                override fun failed(code: Int, msg: String, throwable: Throwable?) {
+                    clearDbAndFinish()
+                }
+            }).apply {
+                addDisposable(disposable)
+            }
         }
 
     }

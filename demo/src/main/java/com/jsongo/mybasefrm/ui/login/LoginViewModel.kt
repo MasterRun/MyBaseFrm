@@ -6,8 +6,8 @@ import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.plugin_manager.Plugins
 import com.jsongo.core.plugin_manager.PluginDispatcher
+import com.jsongo.core.plugin_manager.Plugins
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.data.repository.HttpRequestManager
@@ -99,7 +99,9 @@ class LoginViewModel : BaseViewModel() {
                 Pair("chatid", chatId),
                 Pair("password", chatPassword)
             ), callback
-        )
+        ).apply {
+            addDisposable(disposable)
+        }
     }
 
 
