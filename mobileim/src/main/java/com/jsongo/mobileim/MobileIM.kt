@@ -1,9 +1,9 @@
 package com.jsongo.mobileim
 
 import android.content.Context
-import com.jsongo.core.plugin_manager.Plugins
+import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.mobileim.core.MobileIMConfig
-import com.jsongo.mobileim.rxplugin.MobileIMPlugin
+import com.jsongo.mobileim.plugin.MobileIMPlugin
 
 /**
  * @author ： jsongo
@@ -18,14 +18,12 @@ object MobileIM {
     fun init(context: Context) {
         this.context = context
 
-        //标记组件启用
-        Plugins.markPluginEnabled(Plugins.MobileIM)
-
         //初始化
         MobileIMConfig.init(context)
 
-        //注册组件事件监听
-        MobileIMPlugin.register()
+        //注册plugin
+
+        AppPlugin.register(MobileIMPlugin())
     }
 
 }

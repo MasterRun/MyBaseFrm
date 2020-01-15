@@ -3,12 +3,12 @@ package com.jsongo.mybasefrm.ui.login
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
+import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.plugin_manager.PluginDispatcher
-import com.jsongo.core.plugin_manager.Plugins
-import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.plugin.AppPlugin
+import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.data.repository.HttpRequestManager
 import com.jsongo.mybasefrm.data.repository.NetFailedException
@@ -42,22 +42,19 @@ class LoginViewModel : BaseViewModel() {
             try {
                 val userguid = HttpRequestManager.checkUser(account, password)
                 val userInfo = HttpRequestManager.getUserInfo(userguid)
-                loginIM(userguid, password, object : CommonCallBack {
-                    override fun success(data: Map<String, Any?>?) {
-                        L.e("login success")
-                        CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_GUID, userguid)
-                        CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_PASSWORD, password)
-                        CommonDbOpenHelper.setKeyValue(
-                            CommonDbKeys.USER_INFO,
-                            gson.toJson(userInfo)
-                        )
-                        loginResult.value = true
-                    }
-
-                    override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                        onLoginError(msg, throwable)
-                    }
-                })
+                val loginIMResult = loginIM(userguid, password)
+                if (loginIMResult.code > 0) {
+                    L.e("login success")
+                    CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_GUID, userguid)
+                    CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_PASSWORD, password)
+                    CommonDbOpenHelper.setKeyValue(
+                        CommonDbKeys.USER_INFO,
+                        gson.toJson(userInfo)
+                    )
+                    loginResult.value = true
+                } else {
+                    onLoginError(loginIMResult.message, null)
+                }
             } catch (e: NetFailedException) {
                 onLoginError(null, e)
             }
@@ -85,23 +82,21 @@ class LoginViewModel : BaseViewModel() {
     /**
      * 初始化并登陆MobileIM
      */
-    fun loginIM(userguid: String, password: String, callback: CommonCallBack) {
+    fun loginIM(userguid: String, password: String): DataWrapper<MutableMap<String, Any?>> {
         //如果没启用组件，直接成功回调
-        if (!Plugins.isPluginEnabled(Plugins.MobileIM)) {
-            callback.success(null)
-            return
+        if (!AppPlugin.isEnabled(MobileIM)) {
+            return DataWrapper(hashMapOf(Pair("result", true as Any?)))
         }
 
         val chatId = userguid
         val chatPassword = password
-        PluginDispatcher.invoke(
-            Plugins.MobileIM, "login", hashMapOf(
+        val result = AppPlugin.invoke(
+            MobileIM, "login", hashMapOf(
                 Pair("chatid", chatId),
                 Pair("password", chatPassword)
-            ), callback
-        ).apply {
-            addDisposable(disposable)
-        }
+            )
+        )
+        return result
     }
 
 

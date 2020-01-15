@@ -9,9 +9,9 @@ import com.jsongo.core.R
  * @desc : 数据的基本包装类型
  */
 open class DataWrapper<T>(
+    open var data: T?,
     open val code: Int = 1,
-    open var message: String = "",
-    open var data: T?
+    open var message: String = ""
 ) {
     fun toErrorDataWrapper() = ErrorDataWrapper(message, code, data)
 }
@@ -20,13 +20,31 @@ data class ErrorDataWrapper(
     override var message: String,
     override val code: Int = -1,
     override var data: Any? = null
-) : DataWrapper<Any>(code, message, data) {
+) : DataWrapper<Any>(data, code, message) {
 
     companion object {
         //默认错误实例
-        val DEFAULT = ErrorDataWrapper(
-            BaseCore.context.getString(R.string.empty_view_error_detail)
-        )
+        val DEFAULT: ErrorDataWrapper by lazy {
+            ErrorDataWrapper(
+                BaseCore.context.getString(R.string.empty_view_error_detail)
+            )
+        }
+    }
+}
+
+data class ErrorPluginWrapper(
+    override var message: String,
+    override val code: Int = -1,
+    override var data: MutableMap<String, Any?>? = null
+) : DataWrapper<MutableMap<String, Any?>>(data, code, message) {
+
+    companion object {
+        //默认错误实例
+        val DEFAULT: ErrorPluginWrapper by lazy {
+            ErrorPluginWrapper(
+                "组件调用出错"
+            )
+        }
     }
 }
 

@@ -8,9 +8,8 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.plugin_manager.PluginDispatcher
-import com.jsongo.core.plugin_manager.Plugins
-import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.plugin.AppPlugin
+import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.util.RxBus
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mobileim.util.MobileIMMessageSign
@@ -71,27 +70,21 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     fun checkIM() {
         //如果启用IM
-        if (Plugins.isPluginEnabled(Plugins.MobileIM)) {
+        if (AppPlugin.isEnabled(MobileIM)) {
             //检查是否登录
-            PluginDispatcher.invoke(Plugins.MobileIM, "isOnline", null, object : CommonCallBack {
-                override fun success(data: Map<String, Any?>?) {
-                    imStatusCode.value = 2
-                    imStateMsg = "已登录"
-                    //已登录
-                    //注册IM接收器
-                    regIMReceiver()
-                    //发送消息测试
-                    sendIMMsgTest()
-                }
-
-                override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                    //未登录，进行登录
-                    loginIM()
-                }
-            }).apply {
-                addDisposable(disposable)
+            val result = AppPlugin.invoke(MobileIM, "isOnline", null)
+            if (result.code < 0 || result.data?.get("result") != true) {
+                //未登录，进行登录
+                loginIM()
+            } else {
+                imStatusCode.value = 2
+                imStateMsg = "已登录"
+                //已登录
+                //注册IM接收器
+                regIMReceiver()
+                //发送消息测试
+                sendIMMsgTest()
             }
-
         }
     }
 
@@ -99,41 +92,30 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
      * 登录IM
      */
     private fun loginIM() {
-        PluginDispatcher.invoke(Plugins.MobileIM, "login", hashMapOf(
-            Pair("chatid", CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)),
-            Pair("password", CommonDbOpenHelper.getValue(CommonDbKeys.USER_PASSWORD))
-        ), object : CommonCallBack {
-            override fun success(data: Map<String, Any?>?) {
-                imStatusCode.value = 1
-                imStateMsg = "IM 登录成功"
-                //已登录
-                //注册IM接收器
-                regIMReceiver()
-                //发送消息测试
-                sendIMMsgTest()
-            }
-
-            override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                throwable?.printStackTrace()
-                val errorMsg = if (!TextUtils.isEmpty(msg)) {
-                    msg
-                } else if (!TextUtils.isEmpty(throwable?.message)) {
-                    throwable?.message!!
-                } else {
-                    "登录IM失败！"
-                }
-                imStatusCode.value = -1
-                imStateMsg = errorMsg
-                L.e(errorMsg)
-            }
-        }).apply {
-            addDisposable(disposable)
+        val result = AppPlugin.invoke(
+            MobileIM, "login", hashMapOf(
+                Pair("chatid", CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)),
+                Pair("password", CommonDbOpenHelper.getValue(CommonDbKeys.USER_PASSWORD))
+            )
+        )
+        if (result.code > 0) {
+            imStatusCode.value = 1
+            imStateMsg = "IM 登录成功"
+            //已登录
+            //注册IM接收器
+            regIMReceiver()
+            //发送消息测试
+            sendIMMsgTest()
+        } else {
+            imStatusCode.value = -1
+            imStateMsg = result.message
+            L.e(result.message)
         }
     }
 
     fun sendIMMsgTest() {
         //如果启用mobileim，开启发送消息测试
-        if (Plugins.isPluginEnabled(Plugins.MobileIM)) {
+        if (AppPlugin.isEnabled(MobileIM)) {
             val chatId = CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)
             if (TextUtils.isEmpty(chatId)) {
                 RxToast.error("chatId is null or empty")
@@ -142,28 +124,19 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
             //发消息测试
             Observable.intervalRange(0, 1, 5, 10, TimeUnit.SECONDS, Schedulers.io())
                 .map {
-                    PluginDispatcher.invoke(
-                        Plugins.MobileIM, "send", hashMapOf(
+                    val result = AppPlugin.invoke(
+                        MobileIM, "send", hashMapOf(
                             Pair("type", 1),
                             Pair("from_id", chatId),
                             Pair("to_id", "0"),
                             Pair("content", "messagesend message test ")
-                        ), object : CommonCallBack {
-                            override fun success(data: Map<String, Any?>?) {
-                                L.e("send message success")
-                            }
-
-                            override fun failed(
-                                code: Int,
-                                msg: String,
-                                throwable: Throwable?
-                            ) {
-                                L.e("send message failed")
-                            }
-                        })
-                        .apply {
-                            addDisposable(disposable)
-                        }
+                        )
+                    )
+                    if (result.code > 0) {
+                        L.e("send message success")
+                    } else {
+                        L.e("send message failed")
+                    }
                 }.subscribe()
         }
     }
@@ -173,7 +146,7 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
      */
     fun regIMReceiver() {
         //如果启用mobileim，开启mobileim监听
-        if (Plugins.isPluginEnabled(Plugins.MobileIM)) {
+        if (AppPlugin.isEnabled(MobileIM)) {
             val disposable = RxBus.toFlowable()
                 .filter {
                     MobileIMMessageSign.isMobileIMMessage(it.code)
@@ -206,20 +179,10 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
         }
 
         //如果启用mobileim，退出登录IM
-        if (Plugins.isPluginEnabled(Plugins.MobileIM)) {
-            PluginDispatcher.invoke(Plugins.MobileIM, "logout", null, object : CommonCallBack {
-                override fun success(data: Map<String, Any?>?) {
-                    clearDbAndFinish()
-                }
-
-                override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                    clearDbAndFinish()
-                }
-            }).apply {
-                addDisposable(disposable)
-            }
+        if (AppPlugin.isEnabled(MobileIM)) {
+            AppPlugin.invoke(MobileIM, "logout", null)
+            clearDbAndFinish()
         }
-
     }
 
 }
