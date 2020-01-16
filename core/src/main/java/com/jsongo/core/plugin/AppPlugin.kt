@@ -1,6 +1,7 @@
 package com.jsongo.core.plugin
 
 import com.jsongo.core.bean.DataWrapper
+import com.jsongo.core.util.CommonCallBack
 import java.util.*
 
 /**
@@ -38,13 +39,14 @@ object AppPlugin {
     fun invoke(
         pluginName: String,
         methodName: String,
-        params: Map<String, Any?>?
+        params: Map<String, Any?>?,
+        callBack: CommonCallBack? = null
     ): DataWrapper<MutableMap<String, Any?>> {
         val iPlugin = plugins[pluginName]
         if (iPlugin == null) {
             throw Exception("plugin not found : $pluginName")
         } else {
-            return iPlugin.invoke(methodName, params)
+            return iPlugin.invoke(methodName, params, callBack)
         }
     }
 
@@ -54,13 +56,14 @@ object AppPlugin {
     fun route(
         pluginName: String,
         pageName: String,
-        params: Map<String, Any?>?
+        params: Map<String, Any?>?,
+        callBack: CommonCallBack? = null
     ): DataWrapper<MutableMap<String, Any?>> {
         val iPlugin = plugins[pluginName]
         if (iPlugin == null) {
             throw Exception("plugin not found : $pluginName")
         } else {
-            return iPlugin.route(pageName, params)
+            return iPlugin.route(pageName, params, callBack)
         }
     }
 }

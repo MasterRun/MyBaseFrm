@@ -22,7 +22,6 @@ object MobileIM {
         MobileIMConfig.init(context)
 
         //注册plugin
-
         AppPlugin.register(MobileIMPlugin())
     }
 

@@ -14,6 +14,15 @@ open class DataWrapper<T>(
     open var message: String = ""
 ) {
     fun toErrorDataWrapper() = ErrorDataWrapper(message, code, data)
+
+    companion object {
+        /**
+         * 组件调用，使用回调时，返回此值
+         */
+        val PLUGIN_WRAP_NO_RESULT: DataWrapper<MutableMap<String, Any?>> by lazy {
+            DataWrapper<MutableMap<String, Any?>>(null, 0)
+        }
+    }
 }
 
 data class ErrorDataWrapper(
