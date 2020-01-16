@@ -19,6 +19,8 @@ import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
+import com.jsongo.core.plugin.AppPlugin
+import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.ActivityCollector
 import com.jsongo.core.util.RegUtil
@@ -109,6 +111,16 @@ class MainActivity : BaseActivity(), IMvvmView {
         //结束启动页登录页
         ActivityCollector.finish(SplashActivity::class.java)
         ActivityCollector.finish(LoginActivity::class.java)
+
+        //如果启用MobileIM
+        if (AppPlugin.isEnabled(MobileIM)) {
+            //如果不在线
+            val result = AppPlugin.invoke(MobileIM, "isOnline", null)
+            if (result.code < 0 || result.data?.get("result") != true) {
+                //初始化MobileIM
+                AppPlugin.invoke(MobileIM, "init", hashMapOf(Pair("context", this)), null)
+            }
+        }
 
         //悬浮扫码按钮
         floatingView = FloatingView(this)

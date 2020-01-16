@@ -1,5 +1,12 @@
 package com.jsongo.mybasefrm.aspect
 
+import android.util.Log
+import org.aspectj.lang.ProceedingJoinPoint
+import org.aspectj.lang.annotation.Around
+import org.aspectj.lang.annotation.Aspect
+import org.aspectj.lang.annotation.Pointcut
+import org.aspectj.lang.reflect.MethodSignature
+
 /**
  * @author ： jsongo
  * @date ： 19-9-22 下午11:26
@@ -8,6 +15,8 @@ package com.jsongo.mybasefrm.aspect
 //标识类为切面
 //@Aspect
 class MyLogAop {
+
+    val methodCount = HashMap<String, HashMap<String, Int>>()
 
     /**
      * 定义切点
@@ -19,7 +28,7 @@ class MyLogAop {
     //@Pointcut("execution(* com.jsongo.mybasefrm.presenter..*(..))")
     //@Pointcut("execution(android.view.View.OnClickListener.onClick(..))")
 //    @Pointcut("execution(* com.jsongo.core.mvp.base.BaseActivity.onCreate(..))")  // -- ok
-/*    @Pointcut("execution(* android.app.Activity.on**(..))")  // --  ok
+    /*@Pointcut("execution(* com.jsongo.core..*.**(..))")  // --  ok
     fun methodLog() {
     }*/
 
@@ -33,7 +42,7 @@ class MyLogAop {
         //获取方法
         val methodSignature = joinPoint.signature as MethodSignature
         //方法所在类名
-        val className = methodSignature.declaringType.simpleName
+        val className = methodSignature.declaringType.name
         //方法名
         val methodName = methodSignature.name
         //方法参数名
@@ -49,15 +58,31 @@ class MyLogAop {
         val sourceLocation = joinPoint.sourceLocation
 
         //打印日志
-        L.w("before --  ${className}#${methodName}")
+        Log.e("MyLogAop", "before --  ${className}#${methodName}")
         //执行方法
         val proceed = joinPoint.proceed()
+
+        doCount(className, methodName)
+
         //打印日志
-        L.w("after --  ${className}#${methodName}")
+        Log.e("MyLogAop", "after --  ${className}#${methodName}")
 
         //返回执行结果
         return proceed
     }*/
+
+    /**
+     * 记录方法执行次数
+     */
+    fun doCount(className: String, methodName: String) {
+        var hashMap = methodCount[className]
+        if (hashMap == null) {
+            hashMap = HashMap()
+        }
+        val i = hashMap[methodName]
+        hashMap[methodName] = (i ?: 0) + 1
+        methodCount[className] = hashMap
+    }
 
     /* @Before("execution(* android.app.Activity.on**(..))")
      fun beforeOnMethod(joinPoint: JoinPoint) {

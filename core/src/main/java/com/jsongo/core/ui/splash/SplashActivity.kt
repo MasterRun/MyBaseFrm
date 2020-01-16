@@ -29,7 +29,7 @@ open class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enterApp(0)
+        enterApp()
     }
 
     /**

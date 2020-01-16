@@ -22,9 +22,9 @@ import kotlinx.coroutines.launch
  */
 class LoginViewModel : BaseViewModel() {
 
-    val account = MutableLiveData<String>()
+    val account = MutableLiveData<String>("test_account1")
 
-    val password = MutableLiveData<String>()
+    val password = MutableLiveData<String>("11111")
 
     val showPassword = MutableLiveData<Boolean>(false)
 
@@ -90,7 +90,6 @@ class LoginViewModel : BaseViewModel() {
         if (!AppPlugin.isEnabled(MobileIM)) {
             commonCallBack.success(null)
         }
-
         val chatId = userguid
         val chatPassword = password
         AppPlugin.invoke(

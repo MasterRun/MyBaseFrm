@@ -5,10 +5,10 @@ import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.util.RxBus
+import com.jsongo.mobileim.MobileIM
 import com.jsongo.mobileim.bean.Message
 import com.jsongo.mobileim.core.MobileIMConfig
 import com.jsongo.mobileim.operator.ChatMessageSender
-import com.jsongo.mobileim.operator.SendCallback
 import com.jsongo.mobileim.util.MobileIMMessageSign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
@@ -65,12 +65,7 @@ object MobileIMInvoke {
         //注册登录回调
         registerLoginIMCallbackEvent()
         //发送登录消息，消息发送失败，直接失败回调，发送成功等待登录结果回调
-        ChatMessageSender.loginIM(chatId, password, object : SendCallback {
-            override fun onFailed() {
-                super.onFailed()
-                callback?.failed(-1, "", null)
-            }
-        })
+        ChatMessageSender.loginIM(chatId, password, callback)
     }
 
     /**
@@ -79,7 +74,7 @@ object MobileIMInvoke {
     fun isOnline(): DataWrapper<MutableMap<String, Any?>> {
         return DataWrapper(
             hashMapOf(
-                Pair("result", com.jsongo.mobileim.MobileIM.isIMOnline as Any?)
+                Pair("result", MobileIM.isIMOnline as Any?)
             )
         )
     }
@@ -88,10 +83,15 @@ object MobileIMInvoke {
      * 退出登录
      */
     fun logoutIM(): DataWrapper<MutableMap<String, Any?>> {
-        LocalUDPDataSender.getInstance(com.jsongo.mobileim.MobileIM.context).sendLoginout()
-        com.jsongo.mobileim.MobileIM.isIMOnline = false
-        MobileIMConfig.init(com.jsongo.mobileim.MobileIM.context)
-        return DataWrapper(hashMapOf(Pair("result", true as Any?)))
+        val sendLoginout = LocalUDPDataSender.getInstance(MobileIM.context).sendLoginout()
+        MobileIM.isIMOnline = false
+        MobileIMConfig.init(MobileIM.context)
+        return DataWrapper(
+            hashMapOf(
+                Pair("result", true as Any?),
+                Pair("sengLogout", sendLoginout)
+            )
+        )
     }
 
     /**
@@ -112,16 +112,7 @@ object MobileIMInvoke {
                 content = content,
                 type = type,
                 conv_id = conv_id
-            ), to_id, object : SendCallback {
-                override fun onSuccess() {
-                    super.onSuccess()
-                    callback?.success(null)
-                }
-
-                override fun onFailed() {
-                    super.onFailed()
-                    callback?.failed(-1, "", null)
-                }
-            })
+            ), to_id, callback
+        )
     }
 }

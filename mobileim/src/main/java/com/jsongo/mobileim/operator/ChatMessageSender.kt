@@ -3,6 +3,7 @@ package com.jsongo.mobileim.operator
 import android.content.Context
 import android.text.TextUtils
 import com.jsongo.core.network.ApiManager
+import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.util.StringCompress
 import com.jsongo.mobileim.MobileIM
@@ -28,15 +29,15 @@ object ChatMessageSender {
      * @param token
      * @param callback 回调标识登陆的数据发送是否成功
      */
-    fun loginIM(chatId: String?, token: String?, callback: SendCallback) {
+    fun loginIM(chatId: String?, token: String?, callback: CommonCallBack?) {
         val loginTask = object : SendLoginDataAsync(MobileIM.context, chatId, token) {
             override fun fireAfterSendLogin(code: Int) {
                 if (code == 0) {
                     LogcatUtil.e("登录数据发送成功！, serverip:" + ConfigEntity.serverIP)
-                    callback.onSuccess()
+                    callback?.success(null)
                 } else {
                     LogcatUtil.e("登录数据发送失败。错误码是：" + code + "！, serverip:" + ConfigEntity.serverIP)
-                    callback.onFailed()
+                    callback?.failed(code, "登录失败！", null)
                 }
             }
         }
@@ -46,7 +47,7 @@ object ChatMessageSender {
     /**
      * 发送消息
      */
-    fun sendMessageAsync(message: Message?, toUserId: String, callback: SendCallback) {
+    fun sendMessageAsync(message: Message?, toUserId: String, callback: CommonCallBack?) {
         if (TextUtils.isEmpty(toUserId) || message == null) {
             return
         }
@@ -72,14 +73,14 @@ object ChatMessageSender {
         context: Context,
         dataContentWidthStr: String,
         toUserId: String,
-        private val callback: SendCallback
+        private val callback: CommonCallBack?
     ) : LocalUDPDataSender.SendCommonDataAsync(context, dataContentWidthStr, toUserId) {
 
         override fun onPostExecute(code: Int?) {
             if (code == 0) {
-                callback.onSuccess()
+                callback?.success(null)
             } else {
-                callback.onFailed()
+                callback?.failed(code ?: -1, "消息发送失败！", null)
             }
         }
     }

@@ -146,8 +146,7 @@ class MainViewModel : BaseViewModel(), LifecycleObserver {
                         override fun failed(code: Int, msg: String, throwable: Throwable?) {
                             L.e("send message failed")
                         }
-                    }
-                    )
+                    })
                 }.subscribe()
         }
     }

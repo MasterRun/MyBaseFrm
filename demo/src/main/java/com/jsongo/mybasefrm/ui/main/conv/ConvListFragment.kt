@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.main.conv.adapter.ConvItemAdapter
 import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.kotlin.wrapContent
@@ -87,12 +88,16 @@ class ConvListFragment : StatefulFragment() {
         }
 
         val tv = Button(context)
-        tv.text = "更换数据"
+//        tv.text = "更换数据"
+        tv.text = "退出登录"
         tv.setOnClickListener {
-            val dataItem = rvDatas?.get(1)
+            if (activity is MainActivity) {
+                (activity as MainActivity).mainViewModel.logout()
+            }
+/*            val dataItem = rvDatas?.get(1)
             dataItem?.put("name", "this is name2")
             dataItem?.put("messageCount", "50")
-            rvDatas?.set(1,dataItem)
+            rvDatas?.set(1,dataItem)*/
         }
         flMainContainer.addView(tv, ViewGroup.LayoutParams(wrapContent, wrapContent))
     }
