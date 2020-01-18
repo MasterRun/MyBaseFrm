@@ -25,12 +25,11 @@ demo\app module中用于个人测试
     > 顶部导航类型  
     > 侧滑抽屉类型
       
-- 使用RxBus实现module间解耦
+- 改造MVVM  --  doing  
+- 整合MobileIM即时通讯  --  doing  
 - 全局异常不崩溃尝试  --  preparing
 - 登录页，登录请求  --  doing  
-- 整合MobileIM即时通讯  --  doing  
 - 首页卡片添加图标和点击事件的设置
-- 改造MVVM  --  doing  
 - 封装网络请求返回处理
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - js与原生交互大量数据传递解决方案（目前只解决原生传递大量数据给js）  -- doing  
@@ -38,14 +37,16 @@ demo\app module中用于个人测试
 - 过度绘制及布局优化 -- doing
 - 整理混淆规则，尝试开启混淆  --  problem  kotlin-extentions开启混淆导致空指针,组件已开启混淆
 - 使用FloatLayoutHelper 封装QMUIFloatLayout
-- 考虑使用ARouter解耦       
 - 使用flutter混合开发
 - 使用依赖注入框架  aop  aspectj   apt  javassist
-- topbar添加底部灰色线 --abandon
 
 
 ### complete of todo
 
+- 组件间解耦  --  ok  
+- 使用RxBus实现module间解耦  --  modified
+- 考虑使用ARouter解耦  --  Abandon
+- topbar添加底部灰色线 --  Abandon(qmui2已提供)
 - 启动页  --ok 
 - BaseFragment  --ok
 - 使用自定义注解  --ok
