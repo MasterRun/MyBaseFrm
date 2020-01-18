@@ -2,17 +2,13 @@ package com.jsongo.mybasefrm.ui.main.conv
 
 import android.graphics.Color
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import androidx.databinding.ObservableArrayList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.main.conv.adapter.ConvItemAdapter
 import com.jsongo.ui.util.addStatusBarHeightPadding
-import com.qmuiteam.qmui.kotlin.wrapContent
 import kotlinx.android.synthetic.main.fragment_conv_list.*
 
 /**
@@ -27,7 +23,10 @@ class ConvListFragment : StatefulFragment() {
 
     var rvDatas: ObservableArrayList<MutableMap<String, Any?>>? = null
 
+    lateinit var convListViewModel: ConvListViewModel
+
     override fun initViewModel() {
+        convListViewModel = ConvListViewModel()
     }
 
     override fun initView() {

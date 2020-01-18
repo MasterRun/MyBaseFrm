@@ -4,7 +4,7 @@ import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.toErrorDataWrapper
 import com.jsongo.core.network.ApiManager
 import com.jsongo.mybasefrm.bean.User
-import com.jsongo.mybasefrm.data.api.ApiService
+import com.jsongo.mybasefrm.data.api.UserApiService
 
 /**
  * @author ： jsongo
@@ -12,14 +12,14 @@ import com.jsongo.mybasefrm.data.api.ApiService
  * @desc :
  */
 
-object HttpRequestManager : IRemoteRequest {
+object UserHttpRequestManager : IUserRemoteRequest {
 
     @Throws
     override suspend fun checkUser(account: String, password: String): String {
         val checkUserWrapper: DataWrapper<String?>
         try {
             checkUserWrapper =
-                ApiManager.createApiService(ApiService::class.java).checkUser(account, password)
+                ApiManager.createApiServiceWithoutAuth(UserApiService::class.java).checkUser(account, password)
         } catch (e: Exception) {
             throw NetFailedException(e.message.toErrorDataWrapper())
         }
@@ -31,11 +31,11 @@ object HttpRequestManager : IRemoteRequest {
     }
 
     @Throws
-    override suspend fun getUserInfo(userguid: String): User {
+    override suspend fun getUserInfo(): User {
         val userWrapper: DataWrapper<User?>
         try {
             userWrapper =
-                ApiManager.createApiService(ApiService::class.java).getUserInfo(userguid)
+                ApiManager.createApiService(UserApiService::class.java).getUserInfo()
         } catch (e: Exception) {
             throw NetFailedException(e.message.toErrorDataWrapper())
         }

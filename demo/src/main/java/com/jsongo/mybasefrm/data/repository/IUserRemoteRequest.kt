@@ -16,7 +16,6 @@
 
 package com.jsongo.mybasefrm.data.repository
 
-import com.jsongo.core.bean.ErrorDataWrapper
 import com.jsongo.mybasefrm.bean.User
 
 
@@ -25,15 +24,12 @@ import com.jsongo.mybasefrm.bean.User
  * @date 2019/11/9 23:35
  * @desc
  */
-interface IRemoteRequest {
+interface IUserRemoteRequest {
 
     @Throws
     suspend fun checkUser(account: String, password: String): String
 
     @Throws
-    suspend fun getUserInfo(userguid: String): User
+    suspend fun getUserInfo(): User
 }
 
-class NetFailedException(
-    val errorDataWrapper: ErrorDataWrapper = ErrorDataWrapper.DEFAULT
-) : Exception(errorDataWrapper.message)

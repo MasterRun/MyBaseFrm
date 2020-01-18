@@ -10,8 +10,8 @@ import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.widget.RxToast
-import com.jsongo.mybasefrm.data.repository.HttpRequestManager
 import com.jsongo.mybasefrm.data.repository.NetFailedException
+import com.jsongo.mybasefrm.data.repository.UserHttpRequestManager
 import com.safframework.log.L
 import kotlinx.coroutines.launch
 
@@ -40,18 +40,14 @@ class LoginViewModel : BaseViewModel() {
         this.password.value = password
         mainScope.launch {
             try {
-                val userguid = HttpRequestManager.checkUser(account, password)
-                val userInfo = HttpRequestManager.getUserInfo(userguid)
+                val userguid = UserHttpRequestManager.checkUser(account, password)
                 loginIM(userguid, password, object : CommonCallBack {
                     override fun success(data: Map<String, Any?>?) {
                         L.e("login success")
+                        //保存userguid和password
                         CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_GUID, userguid)
                         CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_PASSWORD, password)
-                        CommonDbOpenHelper.setKeyValue(
-                            CommonDbKeys.USER_INFO,
-                            gson.toJson(userInfo)
-                        )
-                        loginResult.value = true
+                        requestUserInfo()
                     }
 
                     override fun failed(code: Int, msg: String, throwable: Throwable?) {
@@ -63,6 +59,26 @@ class LoginViewModel : BaseViewModel() {
             }
         }
 
+    }
+
+    /**
+     * 请求用户信息
+     */
+    fun requestUserInfo() {
+        mainScope.launch {
+            try {
+                val userInfo = UserHttpRequestManager.getUserInfo()
+                //保存用户信息
+                CommonDbOpenHelper.setKeyValue(
+                    CommonDbKeys.USER_INFO,
+                    gson.toJson(userInfo)
+                )
+                //登录成功
+                loginResult.value = true
+            } catch (e: NetFailedException) {
+                onLoginError(null, e)
+            }
+        }
     }
 
     /**

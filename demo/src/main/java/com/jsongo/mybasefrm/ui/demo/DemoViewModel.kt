@@ -4,7 +4,6 @@ import androidx.lifecycle.MutableLiveData
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.core.arch.mvvm.stateful.StatefulViewModel
 import com.jsongo.core.bean.toErrorDataWrapper
-import com.jsongo.mybasefrm.data.repository.HttpRequestManager
 import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
 import kotlinx.coroutines.launch
 

@@ -23,57 +23,99 @@ import kotlin.collections.HashMap
  * @date 2019/3/26 15:54
  */
 object ApiManager {
+
     private val TIMEOUT = BaseCore.context.resources.getInteger(R.integer.network_time_out).toLong()
     private var gson: Gson? = null
-    private var mOkHttpClient: OkHttpClient? = null
-    private var mRetrofit: Retrofit? = null
 
-    private val apiServiceCache = HashMap<String, Any>()
+    /**
+     * OkHttpCLient集合
+     * key : isAddAuth（true/false）
+     */
+    private val okHttpClientPool = HashMap<String, OkHttpClient>()
+    /**
+     * Retrofit集合
+     * key : BaseUrl_OkHttpClientKey
+     */
+    private val retrofitPool = HashMap<String, Retrofit>()
 
-    fun <T : Any> createApiService(clazz: Class<T>): T {
-        if (mRetrofit == null) {
-            initRetrofit()
-        }
-        val cachedApiService = apiServiceCache[clazz.name]
+    /**
+     * apiService集合
+     * key : apiServiceName_RetrofitKey
+     */
+    private val apiServicePool = HashMap<String, Any>()
+
+    /**
+     * 获取ApiService
+     */
+    fun <T : Any> createApiService(clazz: Class<T>, isAddAuth: Boolean = true): T {
+        val okHttpClientPair = createOkHttpClient(isAddAuth)
+        val retrofitPair = createRetrofit(okHttpClientPair)
+
+        val key = "${clazz.name}_${retrofitPair.first}"
+        val cachedApiService = apiServicePool[key]
         val apiService: T
         if (cachedApiService == null) {
-            apiService = mRetrofit!!.create(clazz)
-            apiServiceCache[clazz.name] = apiService
+            apiService = retrofitPair.second.create(clazz)
+            apiServicePool[key] = apiService
         } else {
             apiService = cachedApiService as T
         }
         return apiService
     }
 
-    init {
-        initOkhttp()
-        initRetrofit()
+    /**
+     * 获取APIService，不带身份认证
+     */
+    fun <T : Any> createApiServiceWithoutAuth(clazz: Class<T>): T {
+        return createApiService(clazz, false)
     }
 
-    private fun initOkhttp() {
-        mOkHttpClient = OkHttpClient.Builder()
-            .connectTimeout(TIMEOUT, TimeUnit.SECONDS)  //连接超时设置
-            .readTimeout(TIMEOUT, TimeUnit.SECONDS)  //写入缓存超时10s
-            .writeTimeout(TIMEOUT, TimeUnit.SECONDS)  //读取缓存超时10s
-            .retryOnConnectionFailure(true)  //失败重连
-            .addInterceptor(HeaderInterceptor())  //添加header
-            .addInterceptor(NetCacheInterceptor())  //添加网络缓存
-            .addLogIntercepter()  //日志拦截器
-            .setCacheFile()  //网络缓存
-            .build()
-    }
-
-    private fun initRetrofit() {
-        if (mOkHttpClient == null) {
-            initOkhttp()
+    @Synchronized
+    private fun createOkHttpClient(isAddAuth: Boolean): Pair<String, OkHttpClient> {
+        //key
+        val key = isAddAuth.toString()
+        //从缓存中获取
+        var okHttpClient = okHttpClientPool[key]
+        //为空则创建
+        if (okHttpClient == null) {
+            okHttpClient = OkHttpClient.Builder()
+                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)  //连接超时设置
+                .readTimeout(TIMEOUT, TimeUnit.SECONDS)  //写入缓存超时10s
+                .writeTimeout(TIMEOUT, TimeUnit.SECONDS)  //读取缓存超时10s
+                .retryOnConnectionFailure(true)  //失败重连
+                .addInterceptor(HeaderInterceptor(isAddAuth))  //添加header
+                .addInterceptor(NetCacheInterceptor())  //添加网络缓存
+                .addLogIntercepter()  //日志拦截器
+                .setCacheFile()  //网络缓存
+                .build()
+            okHttpClientPool[key] = okHttpClient
         }
-        mRetrofit = Retrofit.Builder()
-            .baseUrl(ServerAddr.SERVER_ADDRESS)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(getGson()))
-            .client(mOkHttpClient!!)
-            .build()
+        //返回key 和 OkHttpClient对象
+        return Pair(key, okHttpClient)
+    }
 
+    @Synchronized
+    private fun createRetrofit(
+        okHttpClientPair: Pair<String, OkHttpClient>,
+        baseUrl: String = ServerAddr.SERVER_ADDRESS
+    ): Pair<String, Retrofit> {
+        //key
+        val key = "${baseUrl}_${okHttpClientPair.first}"
+        //从缓存中获取
+        var retrofit = retrofitPool[key]
+        //为空则创建
+        if (retrofit == null) {
+            retrofit = Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(getGson()))
+                .client(okHttpClientPair.second)
+                .build()
+            //放入缓存
+            retrofitPool[key] = retrofit
+        }
+        //返回key 和 Retrofit对象
+        return Pair(key, retrofit!!)
     }
 
     /**

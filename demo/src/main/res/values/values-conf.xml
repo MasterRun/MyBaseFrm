@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--此处添加地址后再build.gradle要相应移除-->
+    <!--本地tomcat服务，需要更改ip-->
+    <!--    <string name="SERVER_ADDRESS_RELEASE">http://192.168.0.169:8080/baseserver/</string>-->
+    <!--    <string name="SERVER_ADDRESS_DEBUG">http://192.168.0.169:8080/baseserver/</string>-->
+    <!--本地idea服务，需要更改ip-->
     <string name="SERVER_ADDRESS_RELEASE">http://192.168.0.169:18890/</string>
     <string name="SERVER_ADDRESS_DEBUG">http://192.168.0.169:18890/</string>
+    <!--模拟器直接访问idea服务-->
     <!--    <string name="SERVER_ADDRESS_RELEASE">http://10.0.2.2:18890/</string>-->
     <!--    <string name="SERVER_ADDRESS_DEBUG">http://10.0.2.2:18890/</string>-->
 
     <!--	mainactivity全类名-->
     <string name="MainActivity">com.jsongo.mybasefrm.ui.main.MainActivity</string>
-    <!--    <string name="MainActivity">com.jsongo.mybasefrm.ui.demo.DemoActivity</string>-->
+    <!--        <string name="MainActivity">com.jsongo.mybasefrm.ui.demo.DemoActivity</string>-->
 
     <!--	首页默认选中的tab-->
     <integer name="main_selected_tab">2</integer>
@@ -16,7 +21,8 @@
     <!--MobileIM的server ip-->
     <!--    <string name="im_ip">192.168.43.222</string>-->
     <string name="im_ip">192.168.0.169</string>
-<!--    <string name="im_ip">10.0.2.2</string>-->
+    <!--    <string name="im_ip">10.0.2.2</string>-->
     <!--MobileIM的server port  默认18899-->
     <integer name="im_chat_port">18899</integer>
+    <bool name="im_debug">false</bool>
 </resources>

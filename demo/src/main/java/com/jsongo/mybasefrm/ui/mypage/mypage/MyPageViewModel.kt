@@ -10,7 +10,7 @@ import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.util.toGsonBean
 import com.jsongo.mybasefrm.bean.User
-import com.jsongo.mybasefrm.data.repository.HttpRequestManager
+import com.jsongo.mybasefrm.data.repository.UserHttpRequestManager
 import kotlinx.coroutines.launch
 
 /**
@@ -30,13 +30,8 @@ class MyPageViewModel : BaseViewModel(), LifecycleObserver {
             try {
                 userInfo.value =
                     CommonDbOpenHelper.getValue(CommonDbKeys.USER_INFO).toGsonBean(User::class.java)
-                val userguid = CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)
-                if (userguid.isNullOrEmpty()) {
-                    throw  Exception("数据异常")
-                }
-                val user = HttpRequestManager.getUserInfo(userguid)
+                val user = UserHttpRequestManager.getUserInfo()
                 CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_INFO, gson.toJson(user))
-                user.user_guid = userguid
                 userInfo.value = user
             } catch (e: Exception) {
                 errorMsg.value = e.message
