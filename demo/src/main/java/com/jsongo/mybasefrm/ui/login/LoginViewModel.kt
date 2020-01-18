@@ -10,7 +10,7 @@ import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.widget.RxToast
-import com.jsongo.mybasefrm.data.repository.NetFailedException
+import com.jsongo.core.network.NetFailedException
 import com.jsongo.mybasefrm.data.repository.UserHttpRequestManager
 import com.safframework.log.L
 import kotlinx.coroutines.launch

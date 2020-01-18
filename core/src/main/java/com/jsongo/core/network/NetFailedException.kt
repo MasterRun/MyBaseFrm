@@ -1,4 +1,4 @@
-package com.jsongo.mybasefrm.data.repository
+package com.jsongo.core.network
 
 import com.jsongo.core.bean.ErrorDataWrapper
 

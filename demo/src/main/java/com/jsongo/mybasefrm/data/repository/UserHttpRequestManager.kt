@@ -3,6 +3,7 @@ package com.jsongo.mybasefrm.data.repository
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.toErrorDataWrapper
 import com.jsongo.core.network.ApiManager
+import com.jsongo.core.network.NetFailedException
 import com.jsongo.mybasefrm.bean.User
 import com.jsongo.mybasefrm.data.api.UserApiService
 
