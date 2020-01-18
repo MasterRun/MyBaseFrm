@@ -21,5 +21,7 @@ data class SettingItem(
     val tipPosition: Int = QLv.TIP_POSITION_RIGHT,
     val onClickListener: View.OnClickListener = View.OnClickListener {},
     val checkChangeListener: CompoundButton.OnCheckedChangeListener? = null,
-    val customAccessory: View? = null
+    val customAccessory: View? = null,
+    //覆盖View，自定义添加，不会显示其他内容
+    val coverView: View? = null
 )

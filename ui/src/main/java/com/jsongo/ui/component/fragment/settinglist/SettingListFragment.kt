@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.widget.RxToast
 import com.jsongo.ui.R
+import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
@@ -45,7 +47,16 @@ class SettingListFragment : BaseFragment() {
         glv = view.findViewById(R.id.glv)
 //        val glv = view as QMUIGroupListView
 
-        //循环创建SectionView并保存
+        createSection()
+
+        //添加ViewCreated回调给外部
+        viewCreatedCallback?.onViewCreated(glv, sectionViewList, itemViewMap)
+    }
+
+    /**
+     * 循环创建SectionView并保存
+     */
+    protected fun createSection() {
         sectionList?.forEachIndexed { index, it ->
             val section = QMUIGroupListView.newSection(context)
                 .setTitle(it.title)
@@ -69,18 +80,22 @@ class SettingListFragment : BaseFragment() {
             }
             sectionViewList.add(section)
         }
-        //添加ViewCreated回调给外部
-        viewCreatedCallback?.onViewCreated(glv, sectionViewList, itemViewMap)
     }
 
     /**
      * 生成ListItemView
      */
-    private fun genItemView(
+    protected fun genItemView(
         item: SettingItem,
         glv: QMUIGroupListView
     ) = glv.createItemView(item.title).apply {
         item.let {
+            //自定义添加覆盖View
+            if (it.coverView != null) {
+                setOnClickListener(it.onClickListener)
+                addCoverView(it.coverView)
+                return@let
+            }
             if (it.iconRes != null) {
                 setImageDrawable(ContextCompat.getDrawable(context, it.iconRes))
             }
@@ -139,53 +154,55 @@ class SettingListFragment : BaseFragment() {
         /**
          * 演示
          */
-        val sectionListDemo = arrayListOf(
-            SettingSection(
-                "section1", /*"这是描述",*/ items = arrayListOf(
-                    SettingItem(
-                        "item1",
-                        null,
-                        "detail",
-                        onClickListener = View.OnClickListener { RxToast.normal("click item1") }
-                    ),
-                    SettingItem(
-                        "item2",
-                        R.drawable.icon_menu,
-                        accessoryType = QLv.ACCESSORY_TYPE_CHEVRON,
-                        onClickListener = View.OnClickListener { RxToast.normal("item 2") }
-                    ),
-                    SettingItem(
-                        "item3",
-                        R.drawable.next,
-                        "hahah",
-                        QLv.HORIZONTAL,
-                        QLv.ACCESSORY_TYPE_SWITCH,
-                        showNewTip = true,
-                        checkChangeListener = CompoundButton.OnCheckedChangeListener { compoundButton, checked ->
-                            RxToast.normal("checked:${checked}")
-                        }
+        val sectionListDemo: ArrayList<SettingSection> by lazy {
+            arrayListOf(
+                SettingSection(
+                    "section1", /*"这是描述",*/ items = arrayListOf(
+                        SettingItem(
+                            "item1",
+                            null,
+                            "detail",
+                            onClickListener = View.OnClickListener { RxToast.normal("click item1") }
+                        ),
+                        SettingItem(
+                            "item2",
+                            R.drawable.icon_menu,
+                            accessoryType = QLv.ACCESSORY_TYPE_CHEVRON,
+                            onClickListener = View.OnClickListener { RxToast.normal("item 2") }
+                        ),
+                        SettingItem(
+                            "item3",
+                            R.drawable.next,
+                            "hahah",
+                            QLv.HORIZONTAL,
+                            QLv.ACCESSORY_TYPE_SWITCH,
+                            showNewTip = true,
+                            checkChangeListener = CompoundButton.OnCheckedChangeListener { compoundButton, checked ->
+                                RxToast.normal("checked:${checked}")
+                            }
+                        )
                     )
-                )
-            ),
-            SettingSection("section2",
-                items = arrayListOf(
-                    SettingItem(
-                        "item 2-1",
-                        R.drawable.next,
-                        "desc",
-                        showRedDot = true,
-                        onClickListener = View.OnClickListener { RxToast.normal("click item 2-1") }
-                    ),
-                    SettingItem(
-                        "item 2-2",
-                        R.drawable.next,
-                        "desc",
-                        showNewTip = true,
-                        onClickListener = View.OnClickListener { RxToast.normal("click item 2-2") }
+                ),
+                SettingSection("section2",
+                    items = arrayListOf(
+                        SettingItem(
+                            "item 2-1",
+                            R.drawable.next,
+                            "desc",
+                            showRedDot = true,
+                            onClickListener = View.OnClickListener { RxToast.normal("click item 2-1") }
+                        ),
+                        SettingItem(
+                            "item 2-2",
+                            R.drawable.next,
+                            "desc",
+                            showNewTip = true,
+                            onClickListener = View.OnClickListener { RxToast.normal("click item 2-2") }
+                        )
                     )
                 )
             )
-        )
+        }
     }
 }
 
@@ -221,4 +238,27 @@ fun QLv?.correctDetailTextPosition(settingItem: SettingItem? = null, offset: Int
         layoutParams.rightMargin = offset
         detailTextView.layoutParams = layoutParams
     }
+}
+
+/**
+ * 添加遮盖的View
+ */
+fun QLv?.addCoverView(view: View) {
+    if (this == null) {
+        return
+    }
+    //隐藏文本
+    textView?.visibility = View.GONE
+    //设置id
+    if (this.id == View.NO_ID) {
+        this.id = R.id.cl_root
+    }
+    //添加View，填充居中
+    addView(view, ConstraintLayout.LayoutParams(matchParent, matchParent).let {
+        it.startToStart = this.id
+        it.endToEnd = this.id
+        it.rightToRight = this.id
+        it.leftToLeft = this.id
+        it
+    })
 }

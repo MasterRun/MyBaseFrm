@@ -87,18 +87,5 @@ class ConvListFragment : StatefulFragment() {
             onPageError("context is null")
         }
 
-        val tv = Button(context)
-//        tv.text = "更换数据"
-        tv.text = "退出登录"
-        tv.setOnClickListener {
-            if (activity is MainActivity) {
-                (activity as MainActivity).mainViewModel.logout()
-            }
-/*            val dataItem = rvDatas?.get(1)
-            dataItem?.put("name", "this is name2")
-            dataItem?.put("messageCount", "50")
-            rvDatas?.set(1,dataItem)*/
-        }
-        flMainContainer.addView(tv, ViewGroup.LayoutParams(wrapContent, wrapContent))
     }
 }

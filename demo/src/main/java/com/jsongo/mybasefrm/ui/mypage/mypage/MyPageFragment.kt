@@ -1,8 +1,11 @@
 package com.jsongo.mybasefrm.ui.mypage.mypage
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
@@ -13,11 +16,14 @@ import com.jsongo.core.util.GlideUtil
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.personalinfo.PersonalInfoActivity
 import com.jsongo.ui.component.fragment.settinglist.SettingItem
 import com.jsongo.ui.component.fragment.settinglist.SettingListFragment
 import com.jsongo.ui.component.fragment.settinglist.SettingSection
 import com.jsongo.ui.component.fragment.settinglist.correctDetailTextPosition
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import kotlinx.android.synthetic.main.fragment_my_page.*
@@ -120,6 +126,21 @@ class MyPageFragment : BaseFragment(), IMvvmView {
                     SettingItem("通用设置"),
                     SettingItem("分享软件")
                 )
+            ),
+            SettingSection(
+                items = arrayListOf(
+                    SettingItem(
+                        "退出登录",
+                        onClickListener = View.OnClickListener {
+                            eventProxy.clickLogout()
+                        },
+                        coverView = TextView(context).apply {
+                            text = "退出登录"
+                            setTextColor(Color.RED)
+                            textSize = 16F
+                            gravity = Gravity.CENTER
+                        })
+                )
             )
         )
 
@@ -131,9 +152,11 @@ class MyPageFragment : BaseFragment(), IMvvmView {
                 itemViewMap: HashMap<String, QMUICommonListItemView>
             ) {
                 //创建后二次设置View
-                val listItemView = itemViewMap["0-0"]
-                listItemView?.showRedDot(true)
-                listItemView.correctDetailTextPosition()
+                itemViewMap["0-0"]?.apply {
+                    showRedDot(true)
+                    correctDetailTextPosition()
+                }
+
             }
 
         }
@@ -149,6 +172,9 @@ class MyPageFragment : BaseFragment(), IMvvmView {
         private val myPageFragment: MyPageFragment,
         private val viewModel: MyPageViewModel
     ) {
+        /**
+         * 跳转个人页面
+         */
         fun goPersonalInfoPage() {
             myPageFragment.startActivity(
                 Intent(
@@ -156,6 +182,32 @@ class MyPageFragment : BaseFragment(), IMvvmView {
                     PersonalInfoActivity::class.java
                 )
             )
+        }
+
+        /**
+         * 点击退出登录
+         */
+        fun clickLogout() {
+            QMUIDialog.MessageDialogBuilder(myPageFragment.context)
+                .setTitle("退出登录")
+                .setMessage("确定退出登录？")
+                .addAction(
+                    0,
+                    "退出",
+                    QMUIDialogAction.ACTION_PROP_NEGATIVE
+                ) { dialog, index ->
+                    val activity = myPageFragment.activity
+                    if (activity is MainActivity) {
+                        activity.mainViewModel.logout()
+                    }
+
+                    dialog.dismiss()
+                }
+                .addAction("取消") { dialog, index ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
         }
     }
 }
