@@ -63,6 +63,25 @@ private constructor(context: Context) :
         }
 
         /**
+         * 获取所有价值对
+         */
+        fun getAllDatas(): Map<String, String> {
+            val datas = HashMap<String, String>()
+            readableDatabase?.apply {
+                val cursor = rawQuery("select * from common_table ", arrayOf())
+                cursor?.apply {
+                    while (moveToNext()) {
+                        val key = getString(0)
+                        val value = getString(1)
+                        datas[key] = value
+                    }
+                }
+                cursor?.close()
+            }
+            return datas
+        }
+
+        /**
          * 删除指定的key
          */
         fun deleteKey(key: String) {

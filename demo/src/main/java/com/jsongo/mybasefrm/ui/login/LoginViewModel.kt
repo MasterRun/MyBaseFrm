@@ -89,6 +89,7 @@ class LoginViewModel : BaseViewModel() {
         //如果没启用组件，直接成功回调
         if (!AppPlugin.isEnabled(MobileIM)) {
             commonCallBack.success(null)
+            return
         }
         val chatId = userguid
         val chatPassword = password

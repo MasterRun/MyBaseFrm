@@ -65,7 +65,14 @@ object MobileIMInvoke {
         //注册登录回调
         registerLoginIMCallbackEvent()
         //发送登录消息，消息发送失败，直接失败回调，发送成功等待登录结果回调
-        ChatMessageSender.loginIM(chatId, password, callback)
+        ChatMessageSender.loginIM(chatId, password, object : CommonCallBack {
+            override fun success(data: Map<String, Any?>?) {
+            }
+
+            override fun failed(code: Int, msg: String, throwable: Throwable?) {
+                callback?.failed(code, msg, throwable)
+            }
+        })
     }
 
     /**
