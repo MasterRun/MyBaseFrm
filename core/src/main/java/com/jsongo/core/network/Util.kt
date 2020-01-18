@@ -26,6 +26,6 @@ suspend fun <T> checkResult(netRequestFunc: suspend () -> DataWrapper<T?>): T {
     } catch (e: NetFailedException) {
         throw e
     } catch (e: Exception) {
-        throw NetFailedException(e.message.toErrorDataWrapper())
+        throw NetFailedException(e.message.toErrorDataWrapper(), e)
     }
 }

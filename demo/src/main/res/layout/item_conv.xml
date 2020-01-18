@@ -57,7 +57,7 @@
             android:layout_alignTop="@id/tv_time"
             android:layout_toStartOf="@id/tv_time"
             android:layout_toEndOf="@id/img_avatar"
-            android:text="@{item[`name`]}"
+            android:text="@{item[`username`]}"
             android:textSize="16sp"
             tools:text="nickname" />
 
@@ -72,6 +72,7 @@
             android:layout_toEndOf="@id/img_avatar"
             android:ellipsize="end"
             android:maxLines="1"
+            android:text="@{item[`lastMessage`]}"
             android:textColor="@color/deep_gray_2"
             android:textSize="12sp"
             tools:text="preview msg" />

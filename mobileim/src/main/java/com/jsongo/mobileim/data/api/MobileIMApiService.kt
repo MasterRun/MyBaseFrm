@@ -4,6 +4,7 @@ import com.jsongo.core.bean.DataWrapper
 import com.jsongo.mobileim.bean.Conversation
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 /**
@@ -14,7 +15,6 @@ import retrofit2.http.POST
 interface MobileIMApiService {
 
     @POST("conversation/conversations")
-    @FormUrlEncoded
     suspend fun getConversations(): DataWrapper<List<Conversation>?>
 
     @POST("conversation/conversation")

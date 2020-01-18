@@ -1,7 +1,6 @@
 package com.jsongo.mybasefrm.ui.mypage.mypage
 
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
@@ -18,7 +17,7 @@ import kotlinx.coroutines.launch
  * @date ： 2019/12/29 20:33
  * @desc :
  */
-class MyPageViewModel : BaseViewModel(), LifecycleObserver {
+class MyPageViewModel : BaseViewModel() {
 
     val userInfo = MutableLiveData<User>()
 
@@ -34,6 +33,7 @@ class MyPageViewModel : BaseViewModel(), LifecycleObserver {
                 CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_INFO, gson.toJson(user))
                 userInfo.value = user
             } catch (e: Exception) {
+                e.printStackTrace()
                 errorMsg.value = e.message
             }
         }

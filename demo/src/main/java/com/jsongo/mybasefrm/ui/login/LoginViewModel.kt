@@ -55,6 +55,7 @@ class LoginViewModel : BaseViewModel() {
                     }
                 })
             } catch (e: NetFailedException) {
+                e.printStackTrace()
                 onLoginError(null, e)
             }
         }
@@ -76,6 +77,7 @@ class LoginViewModel : BaseViewModel() {
                 //登录成功
                 loginResult.value = true
             } catch (e: NetFailedException) {
+                e.printStackTrace()
                 onLoginError(null, e)
             }
         }

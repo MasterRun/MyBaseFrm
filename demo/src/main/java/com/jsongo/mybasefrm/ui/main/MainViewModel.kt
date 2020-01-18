@@ -2,7 +2,6 @@ package com.jsongo.mybasefrm.ui.main
 
 import android.text.TextUtils
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit
  * @date ： 2019/11/7 12:57
  * @desc : ViewModel 测试
  */
-class MainViewModel : BaseViewModel(), LifecycleObserver {
+class MainViewModel : BaseViewModel() {
 
     /**
      * 首页底部tab的角标数量

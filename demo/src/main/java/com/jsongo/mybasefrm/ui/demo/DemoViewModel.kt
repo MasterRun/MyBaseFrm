@@ -1,6 +1,8 @@
 package com.jsongo.mybasefrm.ui.demo
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.core.arch.mvvm.stateful.StatefulViewModel
 import com.jsongo.core.bean.toErrorDataWrapper
@@ -20,6 +22,7 @@ class DemoViewModel : StatefulViewModel() {
 
     val changeFragmentTimes = MutableLiveData<Int>()
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun getAuthtypes() {
         mainScope.launch {
             try {

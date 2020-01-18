@@ -11,7 +11,7 @@ import retrofit2.http.POST
  * author ： jsongo
  * createtime ： 2019/7/25 18:04
  * desc :
- */
+*/
 interface UserApiService {
 
     @POST("user/check")

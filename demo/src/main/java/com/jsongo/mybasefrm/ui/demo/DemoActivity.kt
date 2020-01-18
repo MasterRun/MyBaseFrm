@@ -159,7 +159,6 @@ class DemoActivity : StatefulActivity() {
             }
         })
 
-        viewModel.getAuthtypes()
         //监听设置文本
         viewModel.txtContent.observe(this, Observer {
             tv.text = it

@@ -27,6 +27,14 @@ class ConvItemAdapter(context: Context, dataList: MutableList<MutableMap<String,
         return ViewHolder(itemConvBinding)
     }
 
+    /**
+     * 字段
+     * messageCount
+     * avatar
+     * time
+     * username
+     * lastMessage
+     */
     override fun onBindViewHolder(
         holder: ViewHolder,
         dataItem: MutableMap<String, Any?>,

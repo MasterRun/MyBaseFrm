@@ -14,4 +14,8 @@ constructor(
     var conv_id: String = UUID.randomUUID().toString(),
     var chat_id1: String = "",
     var chat_id2: String = ""
-) : Serializable
+) : Serializable {
+    var lastMessage: Message? = null
+    var avatar: String = ""
+    var convName: String = ""
+}

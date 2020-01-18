@@ -39,7 +39,6 @@ class DemoFragment : StatefulFragment() {
     }
 
     override fun observeLiveData() {
-        demoViewModel.getAuthtypes()
         //监听设置文本
         demoViewModel.txtContent.observe(this, Observer {
             tv.text = it

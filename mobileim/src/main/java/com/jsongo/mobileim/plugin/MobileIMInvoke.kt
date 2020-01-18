@@ -3,14 +3,21 @@ package com.jsongo.mobileim.plugin
 import android.content.Context
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
+import com.jsongo.core.constant.gson
+import com.jsongo.core.network.NetFailedException
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.util.RxBus
 import com.jsongo.mobileim.MobileIM
 import com.jsongo.mobileim.bean.Message
 import com.jsongo.mobileim.core.MobileIMConfig
+import com.jsongo.mobileim.data.repository.MobileHttpRequestManager
 import com.jsongo.mobileim.operator.ChatMessageSender
 import com.jsongo.mobileim.util.MobileIMMessageSign
 import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
 
 /**
@@ -121,5 +128,44 @@ object MobileIMInvoke {
                 conv_id = conv_id
             ), to_id, callback
         )
+    }
+
+    /**
+     * 获取会话列表
+     */
+    fun getConvs(
+        params: Map<String, Any?>?,
+        callback: CommonCallBack?
+    ) {
+        val scope = params?.get("scope") as CoroutineScope?
+        if (scope == null) {
+            callback?.failed(-1, "scope不能为空！", null)
+            return
+        }
+        scope.launch {
+            try {
+                val convJsonData = withContext(Dispatchers.IO) {
+                    val conversations = MobileHttpRequestManager.getConversations()
+                    val resultData = ArrayList<HashMap<String, Any?>>(2)
+                    for (conversation in conversations) {
+                        resultData.add(
+                            hashMapOf(
+                                Pair("username", conversation.convName),
+                                Pair("lastMessage", conversation.lastMessage?.content ?: ""),
+                                Pair("time", conversation.lastMessage?.send_time),
+                                Pair("avatar", conversation.avatar),
+                                Pair("messageCount", "0")
+                            )
+                        )
+                    }
+                    val convJsonData = gson.toJson(resultData)
+                    convJsonData
+                }
+                callback?.success(hashMapOf(Pair("convs", convJsonData)))
+            } catch (e: NetFailedException) {
+                e.printStackTrace()
+                callback?.failed(-1, e.message ?: "", e)
+            }
+        }
     }
 }

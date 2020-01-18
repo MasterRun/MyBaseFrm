@@ -38,6 +38,10 @@ class MobileIMPlugin : IPlugin {
             "logout" -> {
                 MobileIMInvoke.logoutIM()
             }
+            "_getConvs" -> {
+                MobileIMInvoke.getConvs(params, callback)
+                DataWrapper.PLUGIN_WRAP_NO_RESULT
+            }
             else -> ErrorPluginWrapper.DEFAULT
         }
     }
