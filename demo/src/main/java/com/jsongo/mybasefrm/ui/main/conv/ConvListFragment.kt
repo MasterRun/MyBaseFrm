@@ -46,6 +46,12 @@ class ConvListFragment : StatefulFragment() {
             supportsChangeAnimations = false
             changeDuration = 0
         }
+
+        //下拉刷新
+        smartRefreshLayout.setOnRefreshListener {
+            pageStatus = Status.LOADING
+            convListViewModel.getConvList()
+        }
     }
 
     override fun observeLiveData() {
@@ -59,10 +65,10 @@ class ConvListFragment : StatefulFragment() {
                 val rv_convs = rv_convs
                 rv_convs?.layoutManager = LinearLayoutManager(context)
                 rv_convs?.adapter = convItemAdapter
-                onPageLoaded()
             } else if (convItemAdapter != null) {
                 convItemAdapter?.dataList = it
             }
+            onPageLoaded()
         })
 
         //未读数量
@@ -82,7 +88,6 @@ class ConvListFragment : StatefulFragment() {
             }
             RxToast.error(it)
         })
-
     }
 
     override fun onPageReloading() {
