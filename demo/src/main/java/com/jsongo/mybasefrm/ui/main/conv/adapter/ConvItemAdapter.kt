@@ -3,9 +3,13 @@ package com.jsongo.mybasefrm.ui.main.conv.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.jsongo.core.helper.RecyclerViewAdapter
+import com.jsongo.core.util.DateUtil
 import com.jsongo.mybasefrm.databinding.ItemConvBinding
+import java.util.*
 
 /**
  * @author ： jsongo
@@ -16,6 +20,21 @@ class ConvItemAdapter(context: Context, dataList: MutableList<MutableMap<String,
     RecyclerViewAdapter<ConvItemAdapter, ConvItemAdapter.ViewHolder, MutableMap<String, Any?>>(
         context, dataList
     ) {
+    companion object {
+
+        /**
+         * 显示时间数据
+         */
+        @JvmStatic
+        @BindingAdapter("tv_time")
+        fun setTextViewTime(tv: TextView, any: Any?) {
+            if (any is Date) {
+                tv.text = DateUtil.relativeTime(any)
+            } else if (any is String) {
+                tv.text = any
+            }
+        }
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -29,7 +48,7 @@ class ConvItemAdapter(context: Context, dataList: MutableList<MutableMap<String,
 
     /**
      * 字段
-     * messageCount
+     * unreadCount
      * avatar
      * time
      * username

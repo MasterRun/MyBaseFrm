@@ -1,12 +1,9 @@
 package com.jsongo.mybasefrm.ui.main.conv
 
-import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
-import com.google.gson.reflect.TypeToken
 import com.jsongo.core.arch.mvvm.BaseViewModel
-import com.jsongo.core.constant.gson
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.util.CommonCallBack
@@ -20,11 +17,22 @@ import kotlinx.coroutines.launch
  */
 class ConvListViewModel : BaseViewModel() {
 
-    val convs = MutableLiveData<ObservableArrayList<MutableMap<String, Any?>>>()
+    /**
+     * 消息数据列表
+     */
+    val convs = MutableLiveData<MutableList<MutableMap<String, Any?>>>()
 
+    /**
+     * 未读消息数
+     */
+    val totalUnreadCount = MutableLiveData(0)
+
+    /**
+     * 错误信息
+     */
     val errorMessage = MutableLiveData<String>()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun getConvList() {
         if (AppPlugin.isEnabled(MobileIM)) {
             AppPlugin.invoke(
@@ -35,14 +43,22 @@ class ConvListViewModel : BaseViewModel() {
                     override fun success(data: Map<String, Any?>?) {
                         mainScope.launch(Dispatchers.IO) {
                             try {
-                                val type = object :
-                                    TypeToken<ObservableArrayList<MutableMap<String, Any?>>>() {}.type
-                                val convsList =
-                                    gson.fromJson<ObservableArrayList<MutableMap<String, Any?>>>(
-                                        data?.get("convs") as String,
-                                        type
-                                    )
-                                convs.postValue(convsList)
+                                //转换数据
+                                val convsList = data?.get("convs") as List<*>
+                                //计算未读消息总数
+                                var totalCount = 0
+                                for (mutableMap in convsList) {
+                                    if (mutableMap is Map<*, *>) {
+                                        val any = mutableMap["unreadCount"] ?: "0"
+                                        try {
+                                            totalCount += Integer.valueOf(any.toString())
+                                        } catch (e: Exception) {
+                                        }
+                                    }
+                                }
+                                //post数据
+                                convs.postValue(convsList as MutableList<MutableMap<String, Any?>>)
+                                totalUnreadCount.postValue(totalCount)
                             } catch (e: Exception) {
                                 failed(-1, e.message ?: "", e)
                             }

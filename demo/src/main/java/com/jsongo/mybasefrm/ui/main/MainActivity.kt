@@ -95,8 +95,6 @@ class MainActivity : BaseActivity(), IMvvmView {
 
         observeLiveData()
 
-        //消息数
-        mainViewModel.mainTabTips.value = intArrayOf(0, 0, 66, 0)
     }
 
 

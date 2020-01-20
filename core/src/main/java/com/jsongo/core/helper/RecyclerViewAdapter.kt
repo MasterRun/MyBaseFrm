@@ -26,14 +26,26 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
     val listChangedCallback = ListChangedCallback()
 
     /**
-     * 数据,默认是清空后重新添加
+     * 数据集
      */
     open var dataList: MutableList<T> = ObservableArrayList()
         set(value) {
-            if (field != value) {
-                //清空数据重新添加
-                field.clear()
-                field.addAll(value)
+            val fieldIterator = field.iterator()
+            val valueIterator = value.iterator()
+            var i = 0
+            //赋值替换
+            while (fieldIterator.hasNext() && valueIterator.hasNext()) {
+                fieldIterator.next()
+                field[i] = valueIterator.next()
+                i++
+            }
+            //如果有多余的，直接替换
+            while (fieldIterator.hasNext()) {
+                fieldIterator.remove()
+            }
+            //如果还有数据，放入集合
+            while (valueIterator.hasNext()) {
+                field.add(valueIterator.next())
             }
         }
 
@@ -143,7 +155,7 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
     }
 
     protected open fun resetItems(newItems: ObservableList<T>) {
-        this.dataList = newItems
+//        this.dataList = newItems
     }
     //endregion
 

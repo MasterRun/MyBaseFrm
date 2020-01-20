@@ -5,11 +5,13 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.arch.mvvm.stateful.Status
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.main.conv.adapter.ConvItemAdapter
 import com.jsongo.ui.util.addStatusBarHeightPadding
 import kotlinx.android.synthetic.main.fragment_conv_list.*
@@ -39,7 +41,11 @@ class ConvListFragment : StatefulFragment() {
         topbar.setBackgroundColor(Color.WHITE)
         topbar.setTitle("消息").setTextColor(Color.BLACK)
         topbar.backImageButton.visibility = View.GONE
-//        onPageLoaded()
+
+        (rv_convs.itemAnimator as SimpleItemAnimator).apply {
+            supportsChangeAnimations = false
+            changeDuration = 0
+        }
     }
 
     override fun observeLiveData() {
@@ -56,6 +62,17 @@ class ConvListFragment : StatefulFragment() {
                 onPageLoaded()
             } else if (convItemAdapter != null) {
                 convItemAdapter?.dataList = it
+            }
+        })
+
+        //未读数量
+        convListViewModel.totalUnreadCount.observe(this, Observer {
+            val activity = activity
+            if (activity is MainActivity) {
+                val index = activity.fragments.indexOf(this)
+                if (index >= 0 && index < activity.fragments.size) {
+                    activity.mainViewModel.setMainTabTipCount(2, it)
+                }
             }
         })
 

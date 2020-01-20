@@ -15,6 +15,7 @@ constructor(
     var chat_id1: String = "",
     var chat_id2: String = ""
 ) : Serializable {
+    var unreadCount: Int = 0
     var lastMessage: Message? = null
     var avatar: String = ""
     var convName: String = ""

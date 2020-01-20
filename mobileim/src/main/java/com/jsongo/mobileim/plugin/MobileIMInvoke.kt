@@ -3,7 +3,6 @@ package com.jsongo.mobileim.plugin
 import android.content.Context
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
-import com.jsongo.core.constant.gson
 import com.jsongo.core.network.NetFailedException
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.util.RxBus
@@ -19,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
+
 
 /**
  * @author ： jsongo
@@ -144,9 +144,9 @@ object MobileIMInvoke {
         }
         scope.launch {
             try {
-                val convJsonData = withContext(Dispatchers.IO) {
+                val resultData = withContext(Dispatchers.IO) {
                     val conversations = MobileHttpRequestManager.getConversations()
-                    val resultData = ArrayList<HashMap<String, Any?>>(2)
+                    val resultData = ArrayList<Map<String, Any?>>(2)
                     for (conversation in conversations) {
                         resultData.add(
                             hashMapOf(
@@ -154,14 +154,13 @@ object MobileIMInvoke {
                                 Pair("lastMessage", conversation.lastMessage?.content ?: ""),
                                 Pair("time", conversation.lastMessage?.send_time),
                                 Pair("avatar", conversation.avatar),
-                                Pair("messageCount", "0")
+                                Pair("unreadCount", conversation.unreadCount.toString())
                             )
                         )
                     }
-                    val convJsonData = gson.toJson(resultData)
-                    convJsonData
+                    resultData
                 }
-                callback?.success(hashMapOf(Pair("convs", convJsonData)))
+                callback?.success(hashMapOf(Pair("convs", resultData)))
             } catch (e: NetFailedException) {
                 e.printStackTrace()
                 callback?.failed(-1, e.message ?: "", e)

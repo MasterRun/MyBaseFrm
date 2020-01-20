@@ -33,7 +33,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            app:cil_messageCount="@{item[`messageCount`]}"
+            app:cil_unreadCount="@{item[`unreadCount`]}"
             app:iv_error="@{R.mipmap.ic_person}"
             app:iv_imageUrl="@{item[`avatar`]}"
             app:iv_placeHolder="@{R.mipmap.ic_person}" />
@@ -45,9 +45,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="10dp"
-            android:text="@{item[`time`]}"
             android:textColor="@color/deep_gray_2"
             android:textSize="13sp"
+            app:tv_time="@{item[`time`]}"
             tools:text="12:22" />
 
         <TextView

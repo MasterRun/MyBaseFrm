@@ -1,7 +1,10 @@
 package com.jsongo.core.constant
 
-import com.google.gson.Gson
+import com.google.gson.*
 import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+import java.sql.Timestamp
+import java.util.*
 
 /**
  * @author ： jsongo
@@ -9,7 +12,32 @@ import com.google.gson.reflect.TypeToken
  * @desc : 常量
  */
 
-val gson: Gson = Gson()
+val gson: Gson = GsonBuilder()
+    .registerTypeAdapter(Date::class.java, DateSerializer())
+    .registerTypeAdapter(Date::class.java, DateDeserializer())
+    .create()
+
+class DateSerializer : JsonSerializer<Date> {
+    override fun serialize(
+        src: Date,
+        typeOfSrc: Type,
+        context: JsonSerializationContext
+    ): JsonElement {
+        return JsonPrimitive(src.time)
+    }
+}
+
+class DateDeserializer : JsonDeserializer<Date> {
+    @Throws(JsonParseException::class)
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type,
+        context: JsonDeserializationContext
+    ): Date {
+        val asLong = json.asLong
+        return Timestamp(asLong)
+    }
+}
 
 val strHashMapType = object : TypeToken<HashMap<String, String>>() {
 }.type

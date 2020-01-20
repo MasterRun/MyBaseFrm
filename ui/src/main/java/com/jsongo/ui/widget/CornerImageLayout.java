@@ -23,9 +23,9 @@ import kotlin.text.StringsKt;
  * @date 2019/3/11 22:24
  */
 public class CornerImageLayout extends RelativeLayout {
-   protected ImageView imageView;
-   protected TextView cornerTextView;
-   protected RelativeLayout relativeLayout;
+    protected ImageView imageView;
+    protected TextView cornerTextView;
+    protected RelativeLayout relativeLayout;
 
     public CornerImageLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -70,17 +70,17 @@ public class CornerImageLayout extends RelativeLayout {
         invalidate();
     }
 
-    public void setMessageCount(@Nullable String count) {
+    public void setUnreadCount(@Nullable String count) {
         if (TextUtils.isEmpty(count)) {
             count = "0";
         }
         final Integer integer = StringsKt.toIntOrNull(count);
         if (integer != null) {
-            setMessageCount(integer);
+            setUnreadCount(integer);
         }
     }
 
-    public void setMessageCount(int count) {
+    public void setUnreadCount(int count) {
         if (count == 0) {
             cornerTextView.setVisibility(View.GONE);
         } else {
@@ -98,11 +98,11 @@ public class CornerImageLayout extends RelativeLayout {
      * 绑定消息数量
      *
      * @param cornerImageLayout
-     * @param messageCount
+     * @param unreadCount
      */
-    @BindingAdapter("cil_messageCount")
-    public static void setMessageCount(@NonNull CornerImageLayout cornerImageLayout, String messageCount) {
-        cornerImageLayout.setMessageCount(messageCount);
+    @BindingAdapter("cil_unreadCount")
+    public static void setUnreadCount(@NonNull CornerImageLayout cornerImageLayout, String unreadCount) {
+        cornerImageLayout.setUnreadCount(unreadCount);
     }
 
 }
