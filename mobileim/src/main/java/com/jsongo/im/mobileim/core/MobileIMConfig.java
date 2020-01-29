@@ -1,14 +1,14 @@
-package com.jsongo.mobileim.core;
+package com.jsongo.im.mobileim.core;
 
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
 import com.jsongo.core.BaseCore;
-import com.jsongo.mobileim.MobileIM;
-import com.jsongo.mobileim.R;
-import com.jsongo.mobileim.operator.ChatLoginCallback;
-import com.jsongo.mobileim.operator.ChatMessageReceiver;
+import com.jsongo.im.MobileIM;
+import com.jsongo.im.R;
+import com.jsongo.im.mobileim.operator.ChatLoginCallback;
+import com.jsongo.im.mobileim.operator.ChatMessageReceiver;
 
 import net.openmob.mobileimsdk.android.ClientCoreSDK;
 import net.openmob.mobileimsdk.android.conf.ConfigEntity;

@@ -1,6 +1,6 @@
-package com.jsongo.mobileim.core;
+package com.jsongo.im.mobileim.core;
 
-import com.jsongo.mobileim.operator.ChatMessageReceiver;
+import com.jsongo.im.mobileim.operator.ChatMessageReceiver;
 
 import net.openmob.mobileimsdk.android.event.ChatTransDataEvent;
 

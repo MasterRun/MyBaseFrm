@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.core;
+package com.jsongo.im.mobileim.core;
 
 import com.jsongo.core.util.LogcatUtil;
 

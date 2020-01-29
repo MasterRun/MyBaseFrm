@@ -6,7 +6,7 @@ import android.content.Context
 import com.bumptech.glide.Glide
 import com.jsongo.ajs.AJs
 import com.jsongo.core.BaseCore
-import com.jsongo.mobileim.MobileIM
+import com.jsongo.im.MobileIM
 import com.jsongo.ui.BaseUI
 import com.jsongo.ui.enhance.UIEnhance
 import org.jetbrains.annotations.Contract

@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.operator
+package com.jsongo.im.mobileim.operator
 
 import com.google.gson.JsonSyntaxException
 import com.jsongo.core.network.ApiManager
@@ -6,11 +6,11 @@ import com.jsongo.core.util.BusEvent
 import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.util.RxBus
 import com.jsongo.core.util.StringCompress
-import com.jsongo.mobileim.bean.Message
-import com.jsongo.mobileim.bean.ServerEvent
-import com.jsongo.mobileim.bean.UdpData
-import com.jsongo.mobileim.bean.UdpDataType
-import com.jsongo.mobileim.util.MobileIMMessageSign
+import com.jsongo.im.bean.Message
+import com.jsongo.im.bean.ServerEvent
+import com.jsongo.im.bean.UdpData
+import com.jsongo.im.bean.UdpDataType
+import com.jsongo.im.util.MobileIMMessageSign
 
 /**
  * @author jsongo

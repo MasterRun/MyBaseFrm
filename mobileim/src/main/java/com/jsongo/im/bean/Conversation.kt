@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.bean
+package com.jsongo.im.bean
 
 import java.io.Serializable
 import java.util.*
@@ -15,8 +15,20 @@ constructor(
     var chat_id1: String = "",
     var chat_id2: String = ""
 ) : Serializable {
+    /**
+     * 未读消息数
+     */
     var unreadCount: Int = 0
+    /**
+     * 上一条消息
+     */
     var lastMessage: Message? = null
+    /**
+     * 头像
+     */
     var avatar: String = ""
+    /**
+     * 会话名
+     */
     var convName: String = ""
 }

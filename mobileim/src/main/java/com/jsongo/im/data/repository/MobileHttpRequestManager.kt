@@ -1,9 +1,9 @@
-package com.jsongo.mobileim.data.repository
+package com.jsongo.im.data.repository
 
 import com.jsongo.core.network.ApiManager
 import com.jsongo.core.network.checkResult
-import com.jsongo.mobileim.bean.Conversation
-import com.jsongo.mobileim.data.api.MobileIMApiService
+import com.jsongo.im.bean.Conversation
+import com.jsongo.im.data.api.MobileIMApiService
 
 /**
  * @author ： jsongo
@@ -19,26 +19,26 @@ object MobileHttpRequestManager : IMobileIMRemoteRequest {
         }
 
     @Throws
-    override suspend fun getConversation(aim_chat_id: String): List<Conversation> =
+    override suspend fun getConversation(aim_chat_id: String): Conversation =
         checkResult {
             ApiManager.createApiService(MobileIMApiService::class.java).getConversation(aim_chat_id)
         }
 
     @Throws
-    override suspend fun getConversationByConvid(conv_id: String): List<Conversation> =
+    override suspend fun getConversationByConvid(conv_id: String): Conversation =
         checkResult {
             ApiManager.createApiService(MobileIMApiService::class.java)
                 .getConversationByConvid(conv_id)
         }
 
     @Throws
-    override suspend fun setConversationRead(conv_id: String): List<Conversation> =
+    override suspend fun setConversationRead(conv_id: String): Boolean =
         checkResult {
             ApiManager.createApiService(MobileIMApiService::class.java).setConversationRead(conv_id)
         }
 
     @Throws
-    override suspend fun getUnreadMessageCount(conv_id: String): List<Conversation> =
+    override suspend fun getUnreadMessageCount(conv_id: String): Int =
         checkResult {
             ApiManager.createApiService(MobileIMApiService::class.java)
                 .getUnreadMessageCount(conv_id)

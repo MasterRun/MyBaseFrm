@@ -1,9 +1,9 @@
-package com.jsongo.mobileim
+package com.jsongo.im
 
 import android.content.Context
 import com.jsongo.core.plugin.AppPlugin
-import com.jsongo.mobileim.core.MobileIMConfig
-import com.jsongo.mobileim.plugin.MobileIMPlugin
+import com.jsongo.im.mobileim.core.MobileIMConfig
+import com.jsongo.im.plugin.MobileIMPlugin
 
 /**
  * @author ： jsongo

@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.bean
+package com.jsongo.im.bean
 
 import com.google.gson.reflect.TypeToken
 import java.io.Serializable

@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.operator
+package com.jsongo.im.mobileim.operator
 
 import android.content.Context
 import android.text.TextUtils
@@ -6,10 +6,10 @@ import com.jsongo.core.network.ApiManager
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.util.StringCompress
-import com.jsongo.mobileim.MobileIM
-import com.jsongo.mobileim.bean.Message
-import com.jsongo.mobileim.bean.UdpData
-import com.jsongo.mobileim.bean.UdpDataType
+import com.jsongo.im.MobileIM
+import com.jsongo.im.bean.Message
+import com.jsongo.im.bean.UdpData
+import com.jsongo.im.bean.UdpDataType
 import net.openmob.mobileimsdk.android.conf.ConfigEntity
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender
 import net.openmob.mobileimsdk.android.core.LocalUDPDataSender.SendLoginDataAsync

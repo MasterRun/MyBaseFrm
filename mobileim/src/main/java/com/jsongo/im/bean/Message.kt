@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.bean
+package com.jsongo.im.bean
 
 import java.io.Serializable
 import java.sql.Timestamp
@@ -20,8 +20,21 @@ constructor(
     var conv_id: String = "",
     var have_read: Boolean = false
 ) : Serializable {
+
+    /**
+     * 发送者头像
+     */
+    var senderAvatar: String = ""
+    /**
+     * 发送者昵称
+     */
+    var senderName: String = ""
+
+    /**
+     * 文件在本地的地址
+     */
     @Transient
-    var fileLocalPath: String = ""//文件在本地的地址
+    var fileLocalPath: String = ""
 
     companion object {
         const val TYPE_TEXT = 1

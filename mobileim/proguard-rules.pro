@@ -22,7 +22,7 @@
 # 保留MobileIMSDK的Protocal相关类
 
 -keep class net.openmob.mobileimsdk.server.protocal.** { *; }
--keep class com.jsongo.mobileim.bean.**{ *; }
+-keep class com.jsongo.im.bean.**{ *; }
 
 # 保留Google GSON相关API:
 -keep class sun.misc.Unsafe { *; }

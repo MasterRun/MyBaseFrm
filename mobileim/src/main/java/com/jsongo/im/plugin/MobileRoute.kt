@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.plugin
+package com.jsongo.im.plugin
 
 /**
  * @author ： jsongo

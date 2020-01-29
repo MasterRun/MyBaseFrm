@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.plugin
+package com.jsongo.im.plugin
 
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper

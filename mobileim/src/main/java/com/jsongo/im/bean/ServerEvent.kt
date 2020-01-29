@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.bean
+package com.jsongo.im.bean
 
 import java.io.Serializable
 import java.sql.Timestamp

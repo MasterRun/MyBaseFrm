@@ -1,4 +1,4 @@
-package com.jsongo.mobileim.plugin
+package com.jsongo.im.plugin
 
 import android.content.Context
 import com.jsongo.core.bean.DataWrapper
@@ -6,12 +6,12 @@ import com.jsongo.core.bean.ErrorPluginWrapper
 import com.jsongo.core.network.NetFailedException
 import com.jsongo.core.util.CommonCallBack
 import com.jsongo.core.util.RxBus
-import com.jsongo.mobileim.MobileIM
-import com.jsongo.mobileim.bean.Message
-import com.jsongo.mobileim.core.MobileIMConfig
-import com.jsongo.mobileim.data.repository.MobileHttpRequestManager
-import com.jsongo.mobileim.operator.ChatMessageSender
-import com.jsongo.mobileim.util.MobileIMMessageSign
+import com.jsongo.im.MobileIM
+import com.jsongo.im.bean.Message
+import com.jsongo.im.data.repository.MobileHttpRequestManager
+import com.jsongo.im.mobileim.core.MobileIMConfig
+import com.jsongo.im.mobileim.operator.ChatMessageSender
+import com.jsongo.im.util.MobileIMMessageSign
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

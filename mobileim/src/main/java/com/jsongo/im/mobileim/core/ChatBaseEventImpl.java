@@ -1,7 +1,7 @@
-package com.jsongo.mobileim.core;
+package com.jsongo.im.mobileim.core;
 
 import com.jsongo.core.util.LogcatUtil;
-import com.jsongo.mobileim.operator.ChatLoginCallback;
+import com.jsongo.im.mobileim.operator.ChatLoginCallback;
 
 import net.openmob.mobileimsdk.android.event.ChatBaseEvent;
 

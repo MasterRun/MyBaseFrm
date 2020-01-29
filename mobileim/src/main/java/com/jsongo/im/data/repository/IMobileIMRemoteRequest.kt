@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.jsongo.mobileim.data.repository
+package com.jsongo.im.data.repository
 
-import com.jsongo.mobileim.bean.Conversation
+import com.jsongo.im.bean.Conversation
 
 /**
  * @author jsongo
@@ -29,14 +29,14 @@ interface IMobileIMRemoteRequest {
     suspend fun getConversations(): List<Conversation>
 
     @Throws
-    suspend fun getConversation(aim_chat_id: String): List<Conversation>
+    suspend fun getConversation(aim_chat_id: String): Conversation
 
     @Throws
-    suspend fun getConversationByConvid(conv_id: String): List<Conversation>
+    suspend fun getConversationByConvid(conv_id: String): Conversation
 
     @Throws
-    suspend fun setConversationRead(conv_id: String): List<Conversation>
+    suspend fun setConversationRead(conv_id: String): Boolean
 
     @Throws
-    suspend fun getUnreadMessageCount(conv_id: String): List<Conversation>
+    suspend fun getUnreadMessageCount(conv_id: String): Int
 }

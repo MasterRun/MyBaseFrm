@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jsongo.mobileim">
+    package="com.jsongo.im">
 
     <application>
         <activity android:name=".imui.ChatActivity" />
