@@ -1,7 +1,7 @@
 package com.jsongo.core.plugin
 
 import com.jsongo.core.bean.DataWrapper
-import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.common.CommonCallBack
 import java.util.*
 
 /**

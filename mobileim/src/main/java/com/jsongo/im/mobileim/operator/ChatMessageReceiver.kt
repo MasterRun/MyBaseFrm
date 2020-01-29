@@ -2,9 +2,9 @@ package com.jsongo.im.mobileim.operator
 
 import com.google.gson.JsonSyntaxException
 import com.jsongo.core.network.ApiManager
-import com.jsongo.core.util.BusEvent
+import com.jsongo.core.common.BusEvent
 import com.jsongo.core.util.LogcatUtil
-import com.jsongo.core.util.RxBus
+import com.jsongo.core.common.RxBus
 import com.jsongo.core.util.StringCompress
 import com.jsongo.im.bean.Message
 import com.jsongo.im.bean.ServerEvent
@@ -47,7 +47,11 @@ class ChatMessageReceiver {
     private fun onReceiveMessage(jsonData: String) {
         val messageUdpData = gson.fromJson<UdpData<Message>>(jsonData, UdpData.messageUdpDataType)
         val busEvent =
-            BusEvent(MobileIMMessageSign.IM_RECEIVE_MESSAGE, "收到即时通讯消息", messageUdpData.content)
+            BusEvent(
+                MobileIMMessageSign.IM_RECEIVE_MESSAGE,
+                "收到即时通讯消息",
+                messageUdpData.content
+            )
         RxBus.post(busEvent)
         LogcatUtil.d("rxbus post message : " + messageUdpData.content)
     }

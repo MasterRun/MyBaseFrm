@@ -2,7 +2,7 @@ package com.jsongo.core.aspect
 
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.widget.RxToast
 import com.tbruyelle.rxpermissions2.RxPermissions
 import org.aspectj.lang.ProceedingJoinPoint

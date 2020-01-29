@@ -5,6 +5,7 @@ import com.jsongo.ajs.R
 import com.jsongo.ajs.interaction.LongDataTransfer
 import com.jsongo.ajs.lzyzsd_jsbridge.CallBackFunction
 import com.jsongo.ajs.util.Util
+import com.jsongo.core.util.StringUtil
 import java.util.*
 
 /**
@@ -78,7 +79,7 @@ class AjsCallback(val function: CallBackFunction) {
             function.onCallBack(result)
         } else {
             //加到长数据集合
-            val key = UUID.randomUUID().toString()
+            val key = StringUtil.genUUID()
             LongDataTransfer.longDataMap[key] = result
 
             //回调长数据

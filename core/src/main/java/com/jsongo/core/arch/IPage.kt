@@ -8,6 +8,10 @@ import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.core.widget.NestedScrollView
 import com.jsongo.annotation.register.ViewConfigor
+import com.jsongo.core.common.SmartRefreshFooter
+import com.jsongo.core.common.SmartRefreshHeader
+import com.jsongo.core.common.useFooter
+import com.jsongo.core.common.useHeader
 import com.jsongo.core.util.*
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.widget.QMUIEmptyView

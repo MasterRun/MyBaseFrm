@@ -1,5 +1,6 @@
 package com.jsongo.im.bean
 
+import com.jsongo.core.util.StringUtil
 import java.io.Serializable
 import java.sql.Timestamp
 import java.util.*
@@ -12,7 +13,7 @@ data class Message
 constructor(
     @Transient
     var id: Long = 0,
-    var msg_id: String = UUID.randomUUID().toString(),
+    var msg_id: String = StringUtil.genUUID(),
     var sender_id: String = "",
     var type: Int = 1,
     var content: String = "",//文本内容或是文件的url

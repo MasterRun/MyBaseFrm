@@ -3,7 +3,7 @@ package com.jsongo.im.mobileim.operator
 import android.content.Context
 import android.text.TextUtils
 import com.jsongo.core.network.ApiManager
-import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.common.CommonCallBack
 import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.util.StringCompress
 import com.jsongo.im.MobileIM

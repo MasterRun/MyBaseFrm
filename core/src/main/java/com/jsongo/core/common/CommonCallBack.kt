@@ -1,4 +1,4 @@
-package com.jsongo.core.util
+package com.jsongo.core.common
 
 /**
  * @author ： jsongo

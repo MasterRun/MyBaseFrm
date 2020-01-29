@@ -28,3 +28,6 @@
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 -keep class com.google.gson.** { *;}
+
+# aurora相关混淆规则
+-keep class cn.jiguang.imui.** { *; }

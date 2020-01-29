@@ -8,7 +8,7 @@ import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.common.CommonCallBack
 import com.jsongo.core.widget.RxToast
 import com.jsongo.core.network.NetFailedException
 import com.jsongo.mybasefrm.data.repository.UserHttpRequestManager
@@ -41,7 +41,8 @@ class LoginViewModel : BaseViewModel() {
         mainScope.launch {
             try {
                 val userguid = UserHttpRequestManager.checkUser(account, password)
-                loginIM(userguid, password, object : CommonCallBack {
+                loginIM(userguid, password, object :
+                    CommonCallBack {
                     override fun success(data: Map<String, Any?>?) {
                         L.e("login success")
                         //保存userguid和password

@@ -6,7 +6,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.common.CommonCallBack
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

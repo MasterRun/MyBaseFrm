@@ -9,8 +9,8 @@ import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.util.CommonCallBack
-import com.jsongo.core.util.RxBus
+import com.jsongo.core.common.CommonCallBack
+import com.jsongo.core.common.RxBus
 import com.jsongo.core.widget.RxToast
 import com.safframework.log.L
 import io.reactivex.Observable

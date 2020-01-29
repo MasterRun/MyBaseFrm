@@ -109,4 +109,6 @@ demo\app module中用于个人测试
 - `com.google.zxing`  扫描二维码
 - `com.squareup:javapoet` 方便apt创建java文件
 - `org.aspectj:aspectjrt` aop aspectjrt
+- `cn.jiguang.imui:chatinput:0.10.0` 极光聊天输入框控件
+- `cn.jiguang.imui:messagelist:0.8.0` 极光聊天详情消息列表控件
 - FlycoBanner_Master 轮播图,引导页

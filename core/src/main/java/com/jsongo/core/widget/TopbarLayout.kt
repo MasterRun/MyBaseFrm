@@ -6,7 +6,7 @@ import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
-import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.common.ActivityCollector
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.widget.MyQMUITopBarLayout

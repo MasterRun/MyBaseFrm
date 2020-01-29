@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.jsongo.mobileim.imui.ChatView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.jsongo.im.imui.ChatView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chat_view"
@@ -63,4 +63,4 @@
             app:showSenderDisplayName="false" />
     </cn.jiguang.imui.messages.ptr.PullToRefreshLayout>
 
-</com.jsongo.mobileim.imui.ChatView>
+</com.jsongo.im.imui.ChatView>

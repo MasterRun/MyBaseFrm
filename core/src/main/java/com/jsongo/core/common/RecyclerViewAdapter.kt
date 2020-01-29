@@ -1,4 +1,4 @@
-package com.jsongo.core.helper
+package com.jsongo.core.common
 
 import android.content.Context
 import android.view.LayoutInflater

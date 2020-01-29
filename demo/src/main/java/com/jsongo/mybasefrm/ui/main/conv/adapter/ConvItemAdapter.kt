@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.jsongo.core.helper.RecyclerViewAdapter
+import com.jsongo.core.common.RecyclerViewAdapter
 import com.jsongo.core.util.DateUtil
 import com.jsongo.mybasefrm.databinding.ItemConvBinding
 import java.util.*

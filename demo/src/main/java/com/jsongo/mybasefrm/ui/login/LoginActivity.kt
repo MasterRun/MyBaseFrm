@@ -15,7 +15,7 @@ import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.ui.splash.SplashActivity
-import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.common.ActivityCollector
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.databinding.ActivityLoginBinding

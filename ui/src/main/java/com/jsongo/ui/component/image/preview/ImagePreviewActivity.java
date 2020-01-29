@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.jsongo.core.util.ActivityCollector;
+import com.jsongo.core.common.ActivityCollector;
 import com.jsongo.ui.R;
 import com.previewlibrary.GPreviewActivity;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;

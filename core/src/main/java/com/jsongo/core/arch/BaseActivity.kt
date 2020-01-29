@@ -8,7 +8,7 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.jsongo.core.R
-import com.jsongo.core.util.ActivityCollector
+import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.widget.SlidingLayout
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper

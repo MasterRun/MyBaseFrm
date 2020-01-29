@@ -16,6 +16,10 @@ import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulActivity
+import com.jsongo.core.common.ActivityCollector
+import com.jsongo.core.common.SmartRefreshHeader
+import com.jsongo.core.common.initWithStr
+import com.jsongo.core.common.useHeader
 import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG

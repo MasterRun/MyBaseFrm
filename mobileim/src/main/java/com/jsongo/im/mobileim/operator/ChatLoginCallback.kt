@@ -1,8 +1,8 @@
 package com.jsongo.im.mobileim.operator
 
-import com.jsongo.core.util.BusEvent
+import com.jsongo.core.common.BusEvent
 import com.jsongo.core.util.LogcatUtil
-import com.jsongo.core.util.RxBus
+import com.jsongo.core.common.RxBus
 import com.jsongo.im.MobileIM
 import com.jsongo.im.util.MobileIMMessageSign
 

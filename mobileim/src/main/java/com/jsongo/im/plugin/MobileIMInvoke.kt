@@ -4,8 +4,8 @@ import android.content.Context
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
 import com.jsongo.core.network.NetFailedException
-import com.jsongo.core.util.CommonCallBack
-import com.jsongo.core.util.RxBus
+import com.jsongo.core.common.CommonCallBack
+import com.jsongo.core.common.RxBus
 import com.jsongo.im.MobileIM
 import com.jsongo.im.bean.Message
 import com.jsongo.im.data.repository.MobileHttpRequestManager
@@ -72,7 +72,8 @@ object MobileIMInvoke {
         //注册登录回调
         registerLoginIMCallbackEvent()
         //发送登录消息，消息发送失败，直接失败回调，发送成功等待登录结果回调
-        ChatMessageSender.loginIM(chatId, password, object : CommonCallBack {
+        ChatMessageSender.loginIM(chatId, password, object :
+            CommonCallBack {
             override fun success(data: Map<String, Any?>?) {
             }
 

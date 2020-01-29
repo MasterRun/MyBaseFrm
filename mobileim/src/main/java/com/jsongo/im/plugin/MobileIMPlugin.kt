@@ -4,7 +4,7 @@ import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
 import com.jsongo.core.plugin.IPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.util.CommonCallBack
+import com.jsongo.core.common.CommonCallBack
 
 /**
  * @author ： jsongo
