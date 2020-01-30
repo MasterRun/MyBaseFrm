@@ -6,8 +6,11 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.core.arch.mvvm.stateful.StatefulViewModel
 import com.jsongo.core.bean.toErrorDataWrapper
+import com.jsongo.core.network.FileRequestManager
+import com.jsongo.core.util.LogcatUtil
 import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
 import kotlinx.coroutines.launch
+import java.io.File
 
 /**
  * author ： jsongo
@@ -80,5 +83,18 @@ class DemoViewModel : StatefulViewModel() {
         }
 
         abstract fun changeFragment()
+
+        fun uploadFile() {
+            demoViewModel.mainScope.launch {
+                try {
+                    val uploadFile =
+                        FileRequestManager.uploadFile(File("/sdcard/Download/test.jpeg"))
+                    LogcatUtil.e("upload : $uploadFile")
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    LogcatUtil.e("upload failed")
+                }
+            }
+        }
     }
 }

@@ -4,9 +4,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
+import com.jsongo.core.common.MapCallBack
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.common.CommonCallBack
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -39,7 +39,7 @@ class ConvListViewModel : BaseViewModel() {
                 MobileIM,
                 "_getConvs",
                 hashMapOf(Pair("scope", mainScope)),
-                object : CommonCallBack {
+                object : MapCallBack {
                     override fun success(data: Map<String, Any?>?) {
                         mainScope.launch(Dispatchers.IO) {
                             try {

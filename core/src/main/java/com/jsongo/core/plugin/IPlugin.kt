@@ -1,7 +1,7 @@
 package com.jsongo.core.plugin
 
 import com.jsongo.core.bean.DataWrapper
-import com.jsongo.core.common.CommonCallBack
+import com.jsongo.core.common.MapCallBack
 
 /**
  * @author ： jsongo
@@ -18,12 +18,12 @@ interface IPlugin {
     fun invoke(
         methodName: String,
         params: Map<String, Any?>?,
-        callback: CommonCallBack?
+        callback: MapCallBack?
     ): DataWrapper<MutableMap<String, Any?>>
 
     fun route(
         pageName: String,
         params: Map<String, Any?>?,
-        callback: CommonCallBack?
+        callback: MapCallBack?
     ): DataWrapper<MutableMap<String, Any?>>
 }

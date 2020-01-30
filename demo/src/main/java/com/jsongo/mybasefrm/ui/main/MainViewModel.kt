@@ -5,12 +5,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
+import com.jsongo.core.common.MapCallBack
+import com.jsongo.core.common.RxBus
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.common.CommonCallBack
-import com.jsongo.core.common.RxBus
 import com.jsongo.core.widget.RxToast
 import com.safframework.log.L
 import io.reactivex.Observable
@@ -91,29 +91,30 @@ class MainViewModel : BaseViewModel() {
      * 登录IM
      */
     private fun loginIM() {
-        AppPlugin.invoke(MobileIM, "_login", hashMapOf(
-            Pair("chatid", CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)),
-            Pair("password", CommonDbOpenHelper.getValue(CommonDbKeys.USER_PASSWORD))
-        ), object : CommonCallBack {
-            override fun success(data: Map<String, Any?>?) {
-                imStatusCode.value = 1
-                imStateMsg = "IM 登录成功"
-                //已登录
-                //注册IM接收器
-                regIMReceiver()
-                //发送消息测试
-                sendIMMsgTest()
-            }
-
-            override fun failed(code: Int, msg: String, throwable: Throwable?) {
-                throwable?.printStackTrace()
-                val errorMsg = if (!TextUtils.isEmpty(msg)) {
-                    msg
-                } else if (!TextUtils.isEmpty(throwable?.message)) {
-                    throwable?.message!!
-                } else {
-                    "登录IM失败！"
+        AppPlugin.invoke(
+            MobileIM, "_login", hashMapOf(
+                Pair("chatid", CommonDbOpenHelper.getValue(CommonDbKeys.USER_GUID)),
+                Pair("password", CommonDbOpenHelper.getValue(CommonDbKeys.USER_PASSWORD))
+            ), object : MapCallBack {
+                override fun success(data: Map<String, Any?>?) {
+                    imStatusCode.value = 1
+                    imStateMsg = "IM 登录成功"
+                    //已登录
+                    //注册IM接收器
+                    regIMReceiver()
+                    //发送消息测试
+                    sendIMMsgTest()
                 }
+
+                override fun failed(code: Int, msg: String, throwable: Throwable?) {
+                    throwable?.printStackTrace()
+                    val errorMsg = if (!TextUtils.isEmpty(msg)) {
+                        msg
+                    } else if (!TextUtils.isEmpty(throwable?.message)) {
+                        throwable?.message!!
+                    } else {
+                        "登录IM失败！"
+                    }
                 imStatusCode.value = -1
                 imStateMsg = errorMsg
                 L.e(errorMsg)
@@ -137,7 +138,7 @@ class MainViewModel : BaseViewModel() {
                         Pair("from_id", chatId),
                         Pair("to_id", "0"),
                         Pair("content", "messagesend message test ")
-                    ), object : CommonCallBack {
+                    ), object : MapCallBack {
                         override fun success(data: Map<String, Any?>?) {
                             L.e("send message success")
                         }

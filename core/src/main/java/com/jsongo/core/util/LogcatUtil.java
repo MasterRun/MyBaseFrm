@@ -291,7 +291,7 @@ public class LogcatUtil {
      * @param tr  throwable对象
      */
     public static void e(String msg, Throwable tr) {
-        e("", msg, null);
+        e("", msg, tr);
     }
 
     /**

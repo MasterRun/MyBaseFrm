@@ -3,9 +3,9 @@ package com.jsongo.im.plugin
 import android.content.Context
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
-import com.jsongo.core.network.NetFailedException
-import com.jsongo.core.common.CommonCallBack
+import com.jsongo.core.common.MapCallBack
 import com.jsongo.core.common.RxBus
+import com.jsongo.core.network.NetFailedException
 import com.jsongo.im.MobileIM
 import com.jsongo.im.bean.Message
 import com.jsongo.im.data.repository.MobileHttpRequestManager
@@ -44,7 +44,7 @@ object MobileIMInvoke {
      */
     fun loginIM(
         params: Map<String, Any?>?,
-        callback: CommonCallBack?
+        callback: MapCallBack?
     ) {
         val chatId = params?.get("chatid") as String
         val password = params.get("password") as String
@@ -73,7 +73,7 @@ object MobileIMInvoke {
         registerLoginIMCallbackEvent()
         //发送登录消息，消息发送失败，直接失败回调，发送成功等待登录结果回调
         ChatMessageSender.loginIM(chatId, password, object :
-            CommonCallBack {
+            MapCallBack {
             override fun success(data: Map<String, Any?>?) {
             }
 
@@ -114,7 +114,7 @@ object MobileIMInvoke {
      */
     fun sendMessage(
         params: Map<String, Any?>?,
-        callback: CommonCallBack?
+        callback: MapCallBack?
     ) {
         val type = params?.get("type") as Int? ?: Message.TYPE_TEXT
         val from_id = params?.get("from_id") as String? ?: ""
@@ -136,7 +136,7 @@ object MobileIMInvoke {
      */
     fun getConvs(
         params: Map<String, Any?>?,
-        callback: CommonCallBack?
+        callback: MapCallBack?
     ) {
         val scope = params?.get("scope") as CoroutineScope?
         if (scope == null) {

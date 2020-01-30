@@ -1,7 +1,7 @@
 package com.jsongo.core.plugin
 
 import com.jsongo.core.bean.DataWrapper
-import com.jsongo.core.common.CommonCallBack
+import com.jsongo.core.common.MapCallBack
 import java.util.*
 
 /**
@@ -40,7 +40,7 @@ object AppPlugin {
         pluginName: String,
         methodName: String,
         params: Map<String, Any?>?,
-        callBack: CommonCallBack? = null
+        callBack: MapCallBack? = null
     ): DataWrapper<MutableMap<String, Any?>> {
         val iPlugin = plugins[pluginName]
         if (iPlugin == null) {
@@ -57,7 +57,7 @@ object AppPlugin {
         pluginName: String,
         pageName: String,
         params: Map<String, Any?>?,
-        callBack: CommonCallBack? = null
+        callBack: MapCallBack? = null
     ): DataWrapper<MutableMap<String, Any?>> {
         val iPlugin = plugins[pluginName]
         if (iPlugin == null) {

@@ -2,8 +2,8 @@ package com.jsongo.im.mobileim.operator
 
 import android.content.Context
 import android.text.TextUtils
+import com.jsongo.core.common.MapCallBack
 import com.jsongo.core.network.ApiManager
-import com.jsongo.core.common.CommonCallBack
 import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.util.StringCompress
 import com.jsongo.im.MobileIM
@@ -29,7 +29,8 @@ object ChatMessageSender {
      * @param token
      * @param callback 回调标识登陆的数据发送是否成功
      */
-    fun loginIM(chatId: String?, token: String?, callback: CommonCallBack?) {
+    @JvmStatic
+    fun loginIM(chatId: String?, token: String?, callback: MapCallBack?) {
         val loginTask = object : SendLoginDataAsync(MobileIM.context, chatId, token) {
             override fun fireAfterSendLogin(code: Int) {
                 if (code == 0) {
@@ -47,7 +48,8 @@ object ChatMessageSender {
     /**
      * 发送消息
      */
-    fun sendMessageAsync(message: Message?, toUserId: String, callback: CommonCallBack?) {
+    @JvmStatic
+    fun sendMessageAsync(message: Message?, toUserId: String, callback: MapCallBack?) {
         if (TextUtils.isEmpty(toUserId) || message == null) {
             return
         }
@@ -73,7 +75,7 @@ object ChatMessageSender {
         context: Context,
         dataContentWidthStr: String,
         toUserId: String,
-        private val callback: CommonCallBack?
+        private val callback: MapCallBack?
     ) : LocalUDPDataSender.SendCommonDataAsync(context, dataContentWidthStr, toUserId) {
 
         override fun onPostExecute(code: Int?) {

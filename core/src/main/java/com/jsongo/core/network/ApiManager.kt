@@ -71,7 +71,7 @@ object ApiManager {
     }
 
     @Synchronized
-    private fun createOkHttpClient(isAddAuth: Boolean): Pair<String, OkHttpClient> {
+    fun createOkHttpClient(isAddAuth: Boolean): Pair<String, OkHttpClient> {
         //key
         val key = isAddAuth.toString()
         //从缓存中获取

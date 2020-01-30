@@ -7,9 +7,8 @@ import android.util.Base64
 import androidx.core.content.FileProvider
 import com.jsongo.core.BaseCore.context
 import com.jsongo.core.constant.ConstConf
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileInputStream
+import java.io.*
+
 
 /**
  * @author ： jsongo
@@ -87,6 +86,24 @@ object FileUtil {
         }
         val base64String = Base64.encodeToString(bos.toByteArray(), Base64.DEFAULT)
         return base64String
+    }
+
+    /**
+     * 保存InputStream流到文件
+     */
+    fun saveFile(inputStream: InputStream, filePath: String?) {
+        try {
+            val outputStream: OutputStream = FileOutputStream(File(filePath), false)
+            var len: Int
+            val buffer = ByteArray(1024)
+            while (inputStream.read(buffer).also { len = it } != -1) {
+                outputStream.write(buffer, 0, len)
+            }
+            outputStream.flush()
+            outputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
     }
 }
 

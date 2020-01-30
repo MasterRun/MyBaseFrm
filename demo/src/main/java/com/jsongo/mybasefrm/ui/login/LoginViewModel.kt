@@ -3,14 +3,14 @@ package com.jsongo.mybasefrm.ui.login
 import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
+import com.jsongo.core.common.MapCallBack
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
+import com.jsongo.core.network.NetFailedException
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.common.CommonCallBack
 import com.jsongo.core.widget.RxToast
-import com.jsongo.core.network.NetFailedException
 import com.jsongo.mybasefrm.data.repository.UserHttpRequestManager
 import com.safframework.log.L
 import kotlinx.coroutines.launch
@@ -42,7 +42,7 @@ class LoginViewModel : BaseViewModel() {
             try {
                 val userguid = UserHttpRequestManager.checkUser(account, password)
                 loginIM(userguid, password, object :
-                    CommonCallBack {
+                    MapCallBack {
                     override fun success(data: Map<String, Any?>?) {
                         L.e("login success")
                         //保存userguid和password
@@ -104,10 +104,10 @@ class LoginViewModel : BaseViewModel() {
     /**
      * 初始化并登陆MobileIM
      */
-    fun loginIM(userguid: String, password: String, commonCallBack: CommonCallBack) {
+    fun loginIM(userguid: String, password: String, callBack: MapCallBack) {
         //如果没启用组件，直接成功回调
         if (!AppPlugin.isEnabled(MobileIM)) {
-            commonCallBack.success(null)
+            callBack.success(null)
             return
         }
         val chatId = userguid
@@ -116,7 +116,7 @@ class LoginViewModel : BaseViewModel() {
             MobileIM, "_login", hashMapOf(
                 Pair("chatid", chatId),
                 Pair("password", chatPassword)
-            ), commonCallBack
+            ), callBack
         )
     }
 

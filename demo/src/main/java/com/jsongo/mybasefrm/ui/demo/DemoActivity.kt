@@ -25,7 +25,7 @@ import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.ui.splash.SplashActivity
-import com.jsongo.core.util.*
+import com.jsongo.core.util.RegUtil
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
@@ -117,9 +117,6 @@ class DemoActivity : StatefulActivity() {
         tv.visibility = View.GONE*/
 
         ActivityCollector.finish(SplashActivity::class.java)
-
-        val javaClass = qab.javaClass.superclass
-        L.e(javaClass?.name)
 
     }
 

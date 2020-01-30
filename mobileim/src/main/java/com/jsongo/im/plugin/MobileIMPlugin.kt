@@ -2,9 +2,9 @@ package com.jsongo.im.plugin
 
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
+import com.jsongo.core.common.MapCallBack
 import com.jsongo.core.plugin.IPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.common.CommonCallBack
 
 /**
  * @author ： jsongo
@@ -17,7 +17,7 @@ class MobileIMPlugin : IPlugin {
     override fun invoke(
         methodName: String,
         params: Map<String, Any?>?,
-        callback: CommonCallBack?
+        callback: MapCallBack?
     ): DataWrapper<MutableMap<String, Any?>> {
 
         return when (methodName) {
@@ -49,7 +49,7 @@ class MobileIMPlugin : IPlugin {
     override fun route(
         pageName: String,
         params: Map<String, Any?>?,
-        callback: CommonCallBack?
+        callback: MapCallBack?
     ): DataWrapper<MutableMap<String, Any?>> {
         return ErrorPluginWrapper.DEFAULT
     }

@@ -1,6 +1,7 @@
 package com.jsongo.core.util
 
 import com.jsongo.core.constant.DATE_STR_FORMAT_STR
+import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -26,6 +27,9 @@ object DateUtil {
      */
     fun getCurrentTimeStr(formatStr: String = DATE_STR_FORMAT_STR) =
         SimpleDateFormat(formatStr, Locale.CHINA).format(Date())!!
+
+    @JvmStatic
+    fun currentTimeStamp() = Timestamp(System.currentTimeMillis())
 
     /**
      * 显示相对时间
@@ -94,3 +98,5 @@ object DateUtil {
         1000 * (((this[Calendar.HOUR_OF_DAY] * 60) + this[Calendar.MINUTE]) * 60 + this[Calendar.SECOND])
 
 }
+
+fun Date?.relativeTime(): String = DateUtil.relativeTime(this)

@@ -36,6 +36,7 @@ private constructor(context: Context) :
         val readableDatabase = instance?.readableDatabase
         val writableDatabase = instance?.writableDatabase
 
+        @JvmStatic
         fun setKeyValue(key: String, value: String) {
             writableDatabase?.apply {
                 val sql =
@@ -48,6 +49,7 @@ private constructor(context: Context) :
             }
         }
 
+        @JvmStatic
         fun getValue(key: String): String? {
             var value: String? = null
             readableDatabase?.apply {
@@ -63,8 +65,9 @@ private constructor(context: Context) :
         }
 
         /**
-         * 获取所有价值对
+         * 获取所有键值对
          */
+        @JvmStatic
         fun getAllDatas(): Map<String, String> {
             val datas = HashMap<String, String>()
             readableDatabase?.apply {
@@ -84,6 +87,7 @@ private constructor(context: Context) :
         /**
          * 删除指定的key
          */
+        @JvmStatic
         fun deleteKey(key: String) {
             writableDatabase?.apply {
                 execSQL("delete from common_table where `key`=?", arrayOf(key))
