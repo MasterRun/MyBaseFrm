@@ -1,6 +1,7 @@
 package com.jsongo.core.network
 
 import com.jsongo.core.bean.DataWrapper
+import com.jsongo.core.common.CommonCallback
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.util.FileUtil
@@ -39,19 +40,30 @@ interface FileApiService {
 }
 
 interface IFileRemoteRequest {
+
+    @Throws
+    suspend fun uploadFile(serverPath: String, file: File): String
+
     @Throws
     suspend fun uploadFile(file: File): String
 
     @Throws
-    suspend fun removeUnusedFiles(file: List<String>): Boolean
+    suspend fun removeUnusedFiles(files: List<String>): Boolean
 
     @Throws
-    suspend fun downloadFile(url: String, destPath: String): File
+    suspend fun downloadFile(url: String, savePath: String): File
 
+    fun downloadFile(
+        url: String,
+        savePath: String,
+        progressListener: OkHttpDownloader.ProgressListener,
+        callback: CommonCallback<File>
+    )
 }
 
 object FileRequestManager : IFileRemoteRequest {
-    override suspend fun uploadFile(file: File): String =
+
+    override suspend fun uploadFile(serverPath: String, file: File): String =
         checkResult {
             val lastDotIndex = file.name.lastIndexOf(".")
             val suffix = file.name.substring(lastDotIndex + 1)
@@ -62,22 +74,23 @@ object FileRequestManager : IFileRemoteRequest {
             val bodyPart = MultipartBody.Part.createFormData("file", fileName, requestBody)
 
 //            MultipartBody.Builder().addFormDataPart()
-            val serverPathBody = "/common/files".toRequestBody("text/plain".toMediaTypeOrNull())
+            val serverPathBody = serverPath.toRequestBody("text/plain".toMediaTypeOrNull())
             ApiManager.createApiService(FileApiService::class.java)
                 .uploadFile(serverPathBody, bodyPart)
         }
 
+    override suspend fun uploadFile(file: File): String = uploadFile("/common/files", file)
 
-    override suspend fun removeUnusedFiles(file: List<String>): Boolean =
+    override suspend fun removeUnusedFiles(files: List<String>): Boolean =
         checkResult {
-            ApiManager.createApiService(FileApiService::class.java).removeUnusedFiles(file)
+            ApiManager.createApiService(FileApiService::class.java).removeUnusedFiles(files)
         }
 
-    override suspend fun downloadFile(url: String, destPath: String): File =
+    override suspend fun downloadFile(url: String, savePath: String): File =
         checkResult {
             val responseBody =
                 ApiManager.createApiService(FileApiService::class.java).downloadFile(url)
-            val dir = File(destPath)
+            val dir = File(savePath)
             if (!dir.exists()) {
                 dir.mkdirs()
             }
@@ -85,4 +98,12 @@ object FileRequestManager : IFileRemoteRequest {
             FileUtil.saveFile(responseBody.byteStream(), file.absolutePath)
             DataWrapper<File?>(file)
         }
+
+    override fun downloadFile(
+        url: String,
+        savePath: String,
+        progressListener: OkHttpDownloader.ProgressListener,
+        callback: CommonCallback<File>
+    ) = OkHttpDownloader.download(url, savePath, progressListener, callback)
+
 }

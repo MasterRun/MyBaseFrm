@@ -12,7 +12,7 @@ import kotlinx.coroutines.cancel
  * @author  jsongo
  * @date 2019/3/26 10:34
  */
-abstract class BaseViewModel : ViewModel(),LifecycleObserver {
+abstract class BaseViewModel : ViewModel(), LifecycleObserver {
 
     val mainScope: CoroutineScope by lazy {
         MainScope()

@@ -6,8 +6,8 @@ package com.jsongo.core.common
  * @desc : 通用回调
  */
 interface CommonCallback<T> {
-    fun success(data: T?)
+    fun success(data: T)
     fun failed(code: Int, msg: String, throwable: Throwable?)
 }
 
-interface MapCallBack : CommonCallback<Map<String, Any?>>
+interface MapCallBack : CommonCallback<Map<String, Any?>?>

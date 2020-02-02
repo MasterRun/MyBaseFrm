@@ -30,6 +30,8 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     lateinit var loadingDialog: QMUITipDialog
         protected set
 
+    open val translucentWindow = true
+
     override lateinit var rlLayoutRoot: RelativeLayout
         protected set
     override lateinit var topbar: TopbarLayout
@@ -71,9 +73,11 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         slidingLayout = SlidingLayout(this)
         setSwipeBackEnable(true)
 
-        //沉浸/透明状态栏
-        QMUIStatusBarHelper.translucent(this)
-        QMUIStatusBarHelper.setStatusBarDarkMode(this)
+        if (translucentWindow) {
+            //沉浸/透明状态栏
+            QMUIStatusBarHelper.translucent(this)
+            QMUIStatusBarHelper.setStatusBarDarkMode(this)
+        }
 
     }
 

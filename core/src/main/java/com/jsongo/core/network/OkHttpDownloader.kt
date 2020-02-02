@@ -75,8 +75,8 @@ object OkHttpDownloader {
     fun download(
         url: String,
         savePath: String,
-        progressListener: ProgressListener?,
-        callBack: CommonCallback<File>?
+        progressListener: ProgressListener? = null,
+        callBack: CommonCallback<File>? = null
     ) {
         val client = ApiManager.createOkHttpClient(true).second
         client.newBuilder()

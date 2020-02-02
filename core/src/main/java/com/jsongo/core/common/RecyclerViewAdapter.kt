@@ -166,7 +166,7 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
         adapter: A, holder: VH, position: Int, type: Int
     ) {
         holder.itemView.setOnClickListener {
-            itemClickListener?.onClick(adapter, holder, position, type)
+            itemClickListener?.onRvItemClick(adapter, holder, position, type)
         }
     }
 
@@ -178,7 +178,7 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
     ) {
         holder.itemView.setOnLongClickListener {
             if (itemLongClickListener != null) {
-                itemLongClickListener?.onLongClick(adapter, holder, position, type)
+                itemLongClickListener?.onRvItemLongClick(adapter, holder, position, type)
                 true
             } else {
                 false
