@@ -11,7 +11,7 @@
     android:focusableInTouchMode="true"
     tools:context=".imui.ChatActivity">
 
-    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+    <com.jsongo.core.widget.TopbarLayout
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

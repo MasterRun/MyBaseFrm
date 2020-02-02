@@ -8,7 +8,8 @@ import com.jsongo.core.common.RxBus
 import com.jsongo.core.network.NetFailedException
 import com.jsongo.im.MobileIM
 import com.jsongo.im.bean.Message
-import com.jsongo.im.data.repository.MobileHttpRequestManager
+import com.jsongo.im.data.repository.MobileIMHttpRequestManager
+import com.jsongo.im.imui.MessageUtil
 import com.jsongo.im.mobileim.core.MobileIMConfig
 import com.jsongo.im.mobileim.operator.ChatMessageSender
 import com.jsongo.im.util.MobileIMMessageSign
@@ -146,13 +147,17 @@ object MobileIMInvoke {
         scope.launch {
             try {
                 val resultData = withContext(Dispatchers.IO) {
-                    val conversations = MobileHttpRequestManager.getConversations()
+                    val conversations = MobileIMHttpRequestManager.getConversations()
                     val resultData = ArrayList<Map<String, Any?>>(2)
                     for (conversation in conversations) {
                         resultData.add(
                             hashMapOf(
-                                Pair("username", conversation.convName),
-                                Pair("lastMessage", conversation.lastMessage?.content ?: ""),
+                                Pair("convid", conversation.conv_id),
+                                Pair("convName", conversation.convName),
+                                Pair(
+                                    "lastMessage",
+                                    MessageUtil.getDisplayMessageContent(conversation.lastMessage)
+                                ),
                                 Pair("time", conversation.lastMessage?.send_time),
                                 Pair("avatar", conversation.avatar),
                                 Pair("unreadCount", conversation.unreadCount.toString())

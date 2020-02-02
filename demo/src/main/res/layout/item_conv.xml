@@ -51,13 +51,13 @@
             tools:text="12:22" />
 
         <TextView
-            android:id="@+id/tv_nickname"
+            android:id="@+id/tv_convname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/tv_time"
             android:layout_toStartOf="@id/tv_time"
             android:layout_toEndOf="@id/img_avatar"
-            android:text="@{item[`username`]}"
+            android:text="@{item[`convName`]}"
             android:textSize="16sp"
             tools:text="nickname" />
 
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/line_bottom"
-            android:layout_below="@id/tv_nickname"
+            android:layout_below="@id/tv_convname"
             android:layout_marginTop="3dp"
             android:layout_toStartOf="@id/tv_time"
             android:layout_toEndOf="@id/img_avatar"

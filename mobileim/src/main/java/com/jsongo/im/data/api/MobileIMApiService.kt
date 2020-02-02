@@ -2,6 +2,7 @@ package com.jsongo.im.data.api
 
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.im.bean.Conversation
+import com.jsongo.im.bean.Message
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
@@ -54,5 +55,15 @@ interface MobileIMApiService {
     suspend fun getUnreadMessageCount(
         @Field("conv_id") conv_id: String
     ): DataWrapper<Int?>
+
+    /**
+     * 获取会话的消息
+     */
+    @POST("message/messages")
+    @FormUrlEncoded
+    suspend fun getMessages(
+        @Field("conv_id") conv_id: String,
+        @Field("pageIndex") pageIndex: Int
+    ): DataWrapper<List<Message>?>
 
 }

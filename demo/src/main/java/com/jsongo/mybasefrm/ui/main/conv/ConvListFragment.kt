@@ -9,8 +9,12 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.arch.mvvm.stateful.Status
+import com.jsongo.core.common.OnRvItemClickListener
+import com.jsongo.core.plugin.AppPlugin
+import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.aspect.AopOnclick
 import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.main.conv.adapter.ConvItemAdapter
 import com.jsongo.ui.util.addStatusBarHeightPadding
@@ -27,6 +31,8 @@ class ConvListFragment : StatefulFragment() {
     var convItemAdapter: ConvItemAdapter? = null
 
     lateinit var convListViewModel: ConvListViewModel
+
+    lateinit var eventProxy: EventProxy
 
     override fun initViewModel() {
         convListViewModel = ViewModelProviders.of(this).get(ConvListViewModel::class.java)
@@ -52,6 +58,8 @@ class ConvListFragment : StatefulFragment() {
             pageStatus = Status.LOADING
             convListViewModel.getConvList()
         }
+
+        eventProxy = EventProxy()
     }
 
     override fun observeLiveData() {
@@ -62,6 +70,7 @@ class ConvListFragment : StatefulFragment() {
             val context = context
             if (context != null && convItemAdapter == null) {
                 convItemAdapter = ConvItemAdapter(context, it)
+                convItemAdapter?.itemClickListener = eventProxy
                 val rv_convs = rv_convs
                 rv_convs?.layoutManager = LinearLayoutManager(context)
                 rv_convs?.adapter = convItemAdapter
@@ -95,4 +104,19 @@ class ConvListFragment : StatefulFragment() {
         convListViewModel.getConvList()
     }
 
+    class EventProxy : OnRvItemClickListener<ConvItemAdapter, ConvItemAdapter.ViewHolder> {
+        @AopOnclick
+        override fun onRvItemClick(
+            adapter: ConvItemAdapter,
+            holder: ConvItemAdapter.ViewHolder,
+            position: Int,
+            type: Int
+        ) {
+            if (AppPlugin.isEnabled(MobileIM)) {
+                val item = adapter.getItem(position)
+                val convid = item["convid"] as String
+                AppPlugin.route(MobileIM, "chat", hashMapOf(Pair("convid", convid)))
+            }
+        }
+    }
 }

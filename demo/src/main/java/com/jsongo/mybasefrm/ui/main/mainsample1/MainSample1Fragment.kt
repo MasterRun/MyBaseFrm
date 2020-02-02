@@ -17,14 +17,14 @@ import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.common.OnRvItemClickListener
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
-import com.jsongo.core.util.RegUtil
 import com.jsongo.core.constant.URL_REG
+import com.jsongo.core.util.RegUtil
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.R
-import com.jsongo.mybasefrm.ui.main.mainsample1.bean.QuickEntryItemBean
-import com.jsongo.mybasefrm.ui.main.mainsample1.bean.WebCardItemBean
 import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.QuickEntryItemAdapter
 import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.WebCardVTitleItemAdapter
+import com.jsongo.mybasefrm.ui.main.mainsample1.bean.QuickEntryItemBean
+import com.jsongo.mybasefrm.ui.main.mainsample1.bean.WebCardItemBean
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.util.addStatusBarHeightPadding
@@ -155,7 +155,7 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
             OnRvItemClickListener<QuickEntryItemAdapter, QuickEntryItemAdapter.ViewHolder> {
             //添加注解申请权限 demo
             @PermissionNeed(Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE)
-            override fun onClick(
+            override fun onRvItemClick(
                 adapter: QuickEntryItemAdapter,
                 holder: QuickEntryItemAdapter.ViewHolder,
                 position: Int,

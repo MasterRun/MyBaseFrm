@@ -17,6 +17,7 @@
 package com.jsongo.im.data.repository
 
 import com.jsongo.im.bean.Conversation
+import com.jsongo.im.bean.Message
 
 /**
  * @author jsongo
@@ -39,4 +40,7 @@ interface IMobileIMRemoteRequest {
 
     @Throws
     suspend fun getUnreadMessageCount(conv_id: String): Int
+
+    @Throws
+    suspend fun getMessages(conv_id: String, pageIndex: Int): List<Message>
 }

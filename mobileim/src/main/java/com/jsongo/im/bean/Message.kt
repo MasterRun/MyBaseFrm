@@ -3,7 +3,6 @@ package com.jsongo.im.bean
 import com.jsongo.core.util.StringUtil
 import java.io.Serializable
 import java.sql.Timestamp
-import java.util.*
 
 /**
  * @author  jsongo
@@ -35,7 +34,7 @@ constructor(
      * 文件在本地的地址
      */
     @Transient
-    var fileLocalPath: String = ""
+    var filePath: String = ""
 
     companion object {
         const val TYPE_TEXT = 1

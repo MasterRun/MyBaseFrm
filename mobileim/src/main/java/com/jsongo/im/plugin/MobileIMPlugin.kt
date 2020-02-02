@@ -51,7 +51,12 @@ class MobileIMPlugin : IPlugin {
         params: Map<String, Any?>?,
         callback: MapCallBack?
     ): DataWrapper<MutableMap<String, Any?>> {
-        return ErrorPluginWrapper.DEFAULT
+        return when (pageName) {
+            "chat" -> {
+                MobileIMRoute.goChat(params)
+            }
+            else -> ErrorPluginWrapper.DEFAULT
+        }
     }
 
 }

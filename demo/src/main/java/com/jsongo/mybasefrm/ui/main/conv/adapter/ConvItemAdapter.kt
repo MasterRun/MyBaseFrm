@@ -43,7 +43,10 @@ class ConvItemAdapter(context: Context, dataList: MutableList<MutableMap<String,
         position: Int
     ): ViewHolder {
         val itemConvBinding = ItemConvBinding.inflate(inflater, parent, false)
-        return ViewHolder(itemConvBinding)
+        val viewHolder = ViewHolder(itemConvBinding)
+        setClickListener(this, viewHolder, position, type)
+        setLongClickListener(this, viewHolder, position, type)
+        return viewHolder
     }
 
     /**
