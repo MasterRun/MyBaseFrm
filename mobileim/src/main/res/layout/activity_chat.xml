@@ -15,7 +15,8 @@
         android:id="@+id/topbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"
+        android:fitsSystemWindows="true" />
 
     <cn.jiguang.imui.chatinput.ChatInputView
         android:id="@+id/chat_input"
@@ -62,5 +63,4 @@
             app:showReceiverDisplayName="false"
             app:showSenderDisplayName="false" />
     </cn.jiguang.imui.messages.ptr.PullToRefreshLayout>
-
 </com.jsongo.im.imui.ChatView>

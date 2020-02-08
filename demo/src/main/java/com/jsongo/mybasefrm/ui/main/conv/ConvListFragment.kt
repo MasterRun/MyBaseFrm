@@ -105,7 +105,7 @@ class ConvListFragment : StatefulFragment() {
     }
 
     class EventProxy : OnRvItemClickListener<ConvItemAdapter, ConvItemAdapter.ViewHolder> {
-        @AopOnclick
+        @AopOnclick(1500)
         override fun onRvItemClick(
             adapter: ConvItemAdapter,
             holder: ConvItemAdapter.ViewHolder,

@@ -15,8 +15,6 @@ import android.os.Bundle
 import android.os.PowerManager
 import android.view.MotionEvent
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -35,6 +33,7 @@ import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.db.CommonDbOpenHelper
+import com.jsongo.core.util.KeyboardUtil
 import com.jsongo.core.widget.RxToast
 import com.jsongo.im.R
 import com.jsongo.im.bean.ChatMessage
@@ -44,6 +43,7 @@ import com.jsongo.im.imui.listener.internal.MenuClickListener
 import com.jsongo.im.imui.listener.internal.RecordVoiceListener
 import com.jsongo.ui.component.image.preview.ImgPreviewClick
 import com.jsongo.ui.util.EasyPhotoGlideEngine
+import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import kotlinx.android.synthetic.main.activity_chat.*
 
@@ -96,10 +96,6 @@ class ChatActivity : BaseActivity(), IMvvmView {
 
     private lateinit var headsetDetectReceiver: HeadsetDetectReceiver
 
-    val mWindow: Window by lazy {
-        window
-    }
-
     lateinit var chatView: ChatView
     lateinit var chatInputView: ChatInputView
     lateinit var msgListAdapter: MsgListAdapter<ChatMessage>
@@ -125,40 +121,25 @@ class ChatActivity : BaseActivity(), IMvvmView {
     }
 
     override fun initView() {
-
         //todo activity返回时，设置标记，让上一activity设置消息已读
 
-//        rlLayoutRoot.fitsSystemWindows = true
         QMUIStatusBarHelper.translucent(this)
-        QMUIStatusBarHelper.setStatusBarLightMode(this)
-
-/*        if (Build.VERSION.SDK_INT >= 21) {
-            val window = window
-            window.decorView.systemUiVisibility =
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-            window.statusBarColor = Color.TRANSPARENT;
-        }*/
-
-/*
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)*/
-
-
-        topbar.visibility = View.GONE
-        smartRefreshLayout.isEnabled = false
+        QMUIStatusBarHelper.setStatusBarDarkMode(this)
 
         chatView = chat_view
-
-        registerProximitySensorListener()
         chatView.initModule()
         chatInputView = chatView.chatInputView
-//        chatView.leftBackImageButton.setOnClickListener { super.onBackPressed() }
+        chatView.getmTopBar().addStatusBarHeightPadding()
+
+        registerProximitySensorListener()
 
         eventProxy = EventProxy(this)
         chatOpeListenerCallback = ChatOpeListenerCallback(this, chatView, viewModel)
 
         initMsgAdapter()
+
+        KeyboardUtil.fixSoftInput(this)
+
         headsetDetectReceiver = HeadsetDetectReceiver(msgListAdapter)
         val intentFilter = IntentFilter()
         intentFilter.addAction(Intent.ACTION_HEADSET_PLUG)
@@ -322,7 +303,6 @@ class ChatActivity : BaseActivity(), IMvvmView {
                                 v.windowToken,
                                 0
                             )
-                            chatActivity.mWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
                             view.clearFocus()
                         }
                     } catch (e: java.lang.Exception) {
@@ -337,7 +317,13 @@ class ChatActivity : BaseActivity(), IMvvmView {
         }
 
         fun onTouchInput(): Boolean {
-            chatActivity.chatView.scrollToBottom()
+            chatActivity.inputMethodManager?.showSoftInput(
+                chatActivity.chatView.apply {
+                    scrollToBottom()
+                    requestFocus()
+                }.chatInputView,
+                InputMethodManager.SHOW_IMPLICIT
+            )
             return false
         }
 

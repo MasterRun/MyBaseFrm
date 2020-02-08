@@ -1,18 +1,20 @@
 package com.jsongo.core.arch
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
+import androidx.appcompat.widget.ContentFrameLayout
 import androidx.core.widget.NestedScrollView
 import com.jsongo.annotation.register.ViewConfigor
 import com.jsongo.core.common.SmartRefreshFooter
 import com.jsongo.core.common.SmartRefreshHeader
 import com.jsongo.core.common.useFooter
 import com.jsongo.core.common.useHeader
-import com.jsongo.core.util.*
+import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.widget.QMUIEmptyView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -103,11 +105,20 @@ interface IPage {
             flMainContainer2.visibility = View.GONE
             smartRefreshLayout.visibility = View.GONE
             if (mainLayoutId != 0) {
-                mainView = LayoutInflater.from(context).inflate(mainLayoutId, rlLayoutRoot, false)
-                rlLayoutRoot.addView(mainView)
-                LogcatUtil.w("containerIndex of ${this} is ${containerIndex},use rlLayoutRoot")
+                val rootParent = rlLayoutRoot.parent
+                if (rootParent is ContentFrameLayout && this is Activity) {
+                    mainView = LayoutInflater.from(context).inflate(mainLayoutId, rootParent, false)
+                    rootParent.addView(mainView)
+                    rlLayoutRoot.visibility = View.GONE
+                    LogcatUtil.w("containerIndex of $this is ${containerIndex},use contentFrameLayout")
+                } else {
+                    mainView =
+                        LayoutInflater.from(context).inflate(mainLayoutId, rlLayoutRoot, false)
+                    rlLayoutRoot.addView(mainView)
+                    LogcatUtil.w("containerIndex of $this is ${containerIndex},use rlLayoutRoot")
+                }
             } else {
-                LogcatUtil.w("mainLayoutId of ${this} is 0")
+                LogcatUtil.w("mainLayoutId of $this is 0")
             }
         } else {
             topbar.visibility = View.VISIBLE

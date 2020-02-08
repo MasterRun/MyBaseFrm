@@ -2,6 +2,8 @@
     package="com.jsongo.im">
 
     <application>
-        <activity android:name=".imui.ChatActivity" />
+        <activity
+            android:name=".imui.ChatActivity"
+            android:launchMode="singleTop" />
     </application>
 </manifest>
