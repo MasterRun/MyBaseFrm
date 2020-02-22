@@ -74,7 +74,7 @@ class DemoViewModel : StatefulViewModel() {
         abstract fun goActivity2()
 
         fun goDemo1() {
-            AJsWebPage.load("file:///android_asset/web/demo1/index.html", false)
+            AJsWebPage.load("file:///android_asset/web/demo1/index.html", showTopBar = false)
         }
 
         fun clickTestDb() {

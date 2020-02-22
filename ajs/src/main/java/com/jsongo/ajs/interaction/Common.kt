@@ -174,6 +174,7 @@ object Common {
     ) {
         val url = params["url"].toString()
         val showTopBar = params["showTopBar"]?.toBoolean() ?: true
+        val showProgress = params["showProgress"]?.toBoolean() ?: true
         val s = params["bgColor"]
         val bgColor: String
         if (TextUtils.isEmpty(s)) {
@@ -188,7 +189,7 @@ object Common {
             return
         }
         val fixHeight = params["fixHeight"]?.toBoolean() ?: true
-        AJsWebPage.load(url, showTopBar, bgColor, fixHeight)
+        AJsWebPage.load(url, AJs.context, showTopBar, showProgress, bgColor, fixHeight)
         callback.success()
     }
 

@@ -410,6 +410,7 @@ myBridge.callHandler(callname, params, function (responseData) {
     {
         url: "https://www.baidu.com",
         showTopBar: false,
+        showProgress: false,
         bgColor: "#ffffff",
         fixHeight: true
     }
@@ -419,6 +420,7 @@ myBridge.callHandler(callname, params, function (responseData) {
   | ---- | ---- | ---- | ---- |-------------------------------------------------- |
   | url         | h5页面地址     |  是  |                                                      |
   | showTopBar  | 是否显示标题栏 |  否  | 默认是                                               |
+  | showProgress  | 是否显示加载进度 |  否  | 默认是                                               |
   | bgColor     | 背景色         |  否  | 修复状态栏高度使用的背景色                           |
   | fixHeight   | 是否修复高度   |  否  | 默认是,在隐藏标题栏时,不修复高度,会导致内容顶到状态栏|
  
