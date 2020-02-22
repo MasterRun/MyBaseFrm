@@ -10,9 +10,9 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.helper.InteractionRegisterCollector
 import com.jsongo.ajs.jsbridge_x5.BridgeWebView
 import com.jsongo.ajs.jsbridge_x5.BridgeWebViewClient
-import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.SRT_HTTP
+import com.jsongo.core.util.LogcatUtil
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse
@@ -54,7 +54,7 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
     open var webPath = ""
 
     /**
-     * 是否可以滑动  默认否   当卡片模式时，设置true，weview可滑动
+     * 是否可以滑动  默认否   当卡片模式时，设置true，webview可滑动
      */
     var scrollable = false
 
@@ -151,7 +151,7 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
     /**
      * 加载文本
      */
-    open fun loadNormalInfo(info: String) = loadDataWithBaseURL(
+    open fun loadTextInfo(info: String) = loadDataWithBaseURL(
         null,
         String.format(infoHtml, info),
         "text/html",
@@ -168,7 +168,7 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
             )) {
             loadUrl(webPath)
         } else {
-            loadNormalInfo(webPath)
+            loadTextInfo(webPath)
         }
         LogcatUtil.d("url ", webPath)
     }

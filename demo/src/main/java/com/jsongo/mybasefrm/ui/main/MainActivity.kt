@@ -17,17 +17,17 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
+import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.ui.splash.SplashActivity
-import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.util.RegUtil
 import com.jsongo.core.widget.RxToast
-import com.jsongo.mybasefrm.ui.main.conv.ConvListFragment
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.login.LoginActivity
+import com.jsongo.mybasefrm.ui.main.conv.ConvListFragment
 import com.jsongo.mybasefrm.ui.main.mainsample1.MainSample1Fragment
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
 import com.jsongo.ui.component.zxing.Constant
@@ -269,8 +269,7 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if ((keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) && event.action == KeyEvent.ACTION_DOWN) {
-            //如果只剩MainActivity，按下返回键时启动桌面，不结束activity
-            if (ActivityCollector.getActivities().size == 1 && ActivityCollector.topActivity == this) {
+            if (ActivityCollector.foregroundActivity == this) {
                 val backHome = Intent(Intent.ACTION_MAIN)
                 backHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 backHome.addCategory(Intent.CATEGORY_HOME)
@@ -300,7 +299,7 @@ class MainActivity : BaseActivity(), IMvvmView {
     fun onScanResult(str: String) {
         if (RegUtil.isMatch(URL_REG, str) || str.trim().startsWith(PRE_ANDROID_ASSET)) {
             //加载页面
-            AJsApplet.load(str)
+            AJsApplet.load(str, this)
         } else {
             try {
                 //尝试打开原生页面

@@ -9,6 +9,7 @@ import com.jsongo.ajs.AJs
  */
 object ConstValue {
     const val showTopBar = "showTopBar"
+    const val showProgress = "showProgress"
     const val webpath = "webpath"
     const val bgColor = "bgColor"
     const val fixHeight = "fixHeight"

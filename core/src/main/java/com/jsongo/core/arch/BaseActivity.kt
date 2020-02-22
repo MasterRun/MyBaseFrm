@@ -55,6 +55,8 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
 
     override var containerIndex = 1
 
+    var isForeground = false;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ActivityCollector.addActivity(this)
@@ -78,7 +80,7 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
             QMUIStatusBarHelper.translucent(this)
             QMUIStatusBarHelper.setStatusBarDarkMode(this)
         }
-
+        isForeground = true
     }
 
     /**
@@ -110,6 +112,16 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         } else {
             this.slidingLayout.setEnableSlidClose(false)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isForeground = true;
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isForeground = false
     }
 
     override fun onDestroy() {

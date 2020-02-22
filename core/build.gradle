@@ -94,7 +94,7 @@ dependencies {
     api "io.reactivex.rxjava2:rxjava:${proVer.rxjava}"
     api "io.reactivex.rxjava2:rxandroid:${proVer.rxandroid}"
     //rxpermissions
-    api "com.github.tbruyelle:rxpermissions:${proVer.rxpermissions}"
+//    api "com.github.tbruyelle:rxpermissions:${proVer.rxpermissions}"
 
     //okhttp retrofit
     api "com.squareup.okhttp3:okhttp:${proVer.okhttp}"

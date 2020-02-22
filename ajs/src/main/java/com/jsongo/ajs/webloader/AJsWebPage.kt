@@ -51,6 +51,7 @@ open class AJsWebPage : BaseActivity() {
 
         //获取参数
         val showTopBar = intent.getBooleanExtra(ConstValue.showTopBar, true)
+        val showProgress = intent.getBooleanExtra(ConstValue.showProgress, true)
         val fixHeight = intent.getBooleanExtra(ConstValue.fixHeight, true)
         val defaultBgColorStr =
             intent.getStringExtra(ConstValue.bgColor) ?: getString(R.string.ajs_default_bg_color)
@@ -65,10 +66,12 @@ open class AJsWebPage : BaseActivity() {
         jsWebLoader = AJsWebLoader.newInstance(
             webPath,
             showTopBar,
+            showProgress,
             fixHeight = fixHeight,
             bgColor = defaultColor
-        )
-        (jsWebLoader as AJsWebLoader).loadingDialog = loadingDialog
+        ).apply {
+            this.loadingDialog = this@AJsWebPage.loadingDialog
+        }
 
         if (fixHeight && !showTopBar) {
             QMUIStatusBarHelper.setStatusBarLightMode(this)

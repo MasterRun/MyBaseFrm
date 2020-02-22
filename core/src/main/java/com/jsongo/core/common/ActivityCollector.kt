@@ -2,10 +2,12 @@ package com.jsongo.core.common
 
 import android.app.ActivityManager
 import android.content.Context
+import android.text.TextUtils
 import androidx.fragment.app.FragmentActivity
 import com.jsongo.core.BaseCore
+import com.jsongo.core.arch.BaseActivity
 import com.safframework.log.L
-import java.util.*
+
 
 /**
  * @author jsongo
@@ -15,7 +17,50 @@ object ActivityCollector {
     private val activities = ArrayList<FragmentActivity>()
 
     val topActivity: FragmentActivity
-        get() = activities[activities.size - 1]
+        get() = activities.get(activities.size - 1)
+
+    val myForegroundActivity: FragmentActivity?
+        get() {
+            return try {
+                activities.first { it is BaseActivity && it.isForeground }
+            } catch (e: Exception) {
+                null
+            }
+        }
+
+    /**
+     * 判断某个Activity 界面是否在前台
+     * @param context
+     * @param className 某个界面名称
+     * @return
+     */
+    fun isForeground(
+        className: String
+    ): Boolean {
+        if (TextUtils.isEmpty(className)) {
+            return false
+        }
+        val am =
+            BaseCore.context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        val list = am.getRunningTasks(1)
+        if (list != null && list.size > 0) {
+            val cpn = list[0].topActivity
+            if (className == cpn.className) {
+                return true
+            }
+        }
+        return false
+    }
+
+    val foregroundActivity: FragmentActivity?
+        get() {
+            for (activity in activities) {
+                if (isForeground(activity.componentName.className)) {
+                    return activity
+                }
+            }
+            return null
+        }
 
     fun getActivities(): List<FragmentActivity> {
         return activities
@@ -59,4 +104,5 @@ object ActivityCollector {
             L.e(e.message, e)
         }
     }
+
 }

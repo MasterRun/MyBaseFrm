@@ -16,7 +16,6 @@ import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
-import kotlinx.android.synthetic.main.layout_ajs_webloader.*
 
 /**
  * @author ： jsongo
@@ -33,23 +32,24 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
         /**
          * @param url 加载的utl
          * @param showTopBar 是否显示topbar  默认是
-         * @param scrollable 是否可以滑动  默认否  当卡片模式时，设置true，weview可滑动
+         * @param scrollable 是否可以滑动  默认否  当卡片模式时，设置true，webview可滑动
          */
         @JvmStatic
         fun newInstance(
             url: String,
             showTopBar: Boolean = true,
+            showProgress: Boolean = true,
             scrollable: Boolean = false,
             fixHeight: Boolean = true,
             bgColor: Int = Color.TRANSPARENT
-        ) =
-            AJsWebLoader().apply {
-                webPath = url
-                this.showTopBar = showTopBar
-                this.scrollable = scrollable
-                this.fixHeight = fixHeight
-                this.bgColor = bgColor
-            }
+        ) = AJsWebLoader().apply {
+            webPath = url
+            this.showTopBar = showTopBar
+            this.showProgress = showProgress
+            this.scrollable = scrollable
+            this.fixHeight = fixHeight
+            this.bgColor = bgColor
+        }
 
     }
 
@@ -59,6 +59,12 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
      * 是否显示topbar
      */
     var showTopBar = true
+
+    /**
+     * 是否显示进度
+     */
+    override var showProgress = true
+
     /**
      * 是否可以滑动  默认否   当卡片模式时，设置true，weview可滑动
      */
@@ -104,6 +110,12 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
             }
         }
 
+        if (showProgress) {
+            pbWebview.visibility = View.VISIBLE
+        } else {
+            pbWebview.visibility = View.GONE
+        }
+
         /*if (aJsWebView.progress < 100) {
             //显示加载中
         } else {
@@ -119,8 +131,10 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
             .setOnRefreshListener {
                 aJsWebView.reload()
                 //显示进度
-                pb_webview.visibility = View.VISIBLE
-                pb_webview.progress = 0
+                if (showProgress) {
+                    pbWebview.visibility = View.VISIBLE
+                    pbWebview.progress = 0
+                }
                 //显示加载
                 if (loadingDialog != null) {
                     loadingDialog?.show()
@@ -164,7 +178,7 @@ class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
      */
     fun enableScreenshotObserve(callback: IScreenshotCallback) {
         activity?.apply {
-            ScreenshotObserveUtil.init(this,contentResolver, callback)
+            ScreenshotObserveUtil.init(this, contentResolver, callback)
             ScreenshotObserveUtil.register()
         }
     }

@@ -1,10 +1,13 @@
 package com.jsongo.core.aspect
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.common.ActivityCollector
+import com.jsongo.core.util.rxpermissions2.RxPermissionManager
 import com.jsongo.core.widget.RxToast
-import com.tbruyelle.rxpermissions2.RxPermissions
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
@@ -36,19 +39,37 @@ class PermissionRequstor {
         if (permissions.isEmpty()) {
             joinPoint.proceed()
         } else {
-            val rxPermissions = RxPermissions(ActivityCollector.topActivity)
-            val disposable = rxPermissions.request(*permissions)
-                .subscribe({ granted ->
-                    if (granted) {
-                        //权限通过
-                        joinPoint.proceed()
-                    } else {
-                        //权限未通过
-                        permissionDeny(joinPoint)
+            val activity = ActivityCollector.myForegroundActivity
+            if (activity == null) {
+                RxToast.error("APP is not foreground")
+                return
+            }
+            val rxPermissions = RxPermissionManager.get(activity)
+            if (rxPermissions == null) {
+                RxToast.error("error when request permission")
+            } else {
+                val disposable = rxPermissions.request(*permissions)
+                    .subscribe({ granted ->
+                        if (granted) {
+                            //权限通过
+                            joinPoint.proceed()
+                        } else {
+                            //权限未通过
+                            permissionDeny(joinPoint)
+                        }
+                    }, {
+                        RxToast.error(it.message ?: "error in request permissions")
+                    })
+                //添加生命周期回调
+                activity.lifecycle.addObserver(object : LifecycleObserver {
+                    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+                    fun onDestroy() {
+                        if (disposable != null && !disposable.isDisposed) {
+                            disposable.dispose()
+                        }
                     }
-                }, {
-                    RxToast.error(it.message ?: "error in request permissions")
                 })
+            }
         }
 
     }

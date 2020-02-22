@@ -15,7 +15,6 @@ import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.android.synthetic.main.layout_ajs_webloader.*
 import kotlinx.android.synthetic.main.layout_ajs_webloader.view.*
 
 /**
@@ -33,6 +32,11 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
      * 是否加载失败
      */
     var receiveError = false
+
+    /**
+     * 是否显示进度
+     */
+    open var showProgress = true
 
     override var mainLayoutId = R.layout.layout_ajs_webloader
 
@@ -69,6 +73,8 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
 
         //设置加载进度最大值
         pbWebview.max = 100
+
+        topbar.hideBottomDivider()
     }
 
     protected fun initData() {
@@ -80,10 +86,10 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
             }
 
             override fun onProgressChanged(wv: WebView?, newProgress: Int) {
-                if (pbWebview.visibility != View.VISIBLE) {
+                if (showProgress && pbWebview.visibility != View.VISIBLE) {
                     pbWebview.visibility = View.VISIBLE
+                    pbWebview.progress = newProgress
                 }
-                pbWebview.progress = newProgress
             }
 
             override fun onLoadFinish(wv: WebView?, url: String) {
@@ -126,7 +132,9 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
 
     open fun reload() {
         receiveError = false
-        pbWebview.visibility = View.VISIBLE
+        if (showProgress) {
+            pbWebview.visibility = View.VISIBLE
+        }
         inflateEmptyView()?.hide()
         aJsWebView.reload()
     }
@@ -136,7 +144,7 @@ abstract class BaseWebLoader : BaseFragment(), AjsWebViewHost {
      */
     protected open fun onLoadFinish(wv: WebView?, url: String) {
         //页面加载完成后 隐藏加载进度和加载dialog
-        pb_webview.visibility = View.GONE
+        pbWebview.visibility = View.GONE
         smartRefreshLayout.finishRefresh()
     }
 

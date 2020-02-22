@@ -7,12 +7,12 @@
         android:name=".AppApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="${app_name}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup,android:label">
         <activity android:name="com.jsongo.core.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:launchMode="singleTop" />
+        <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.personalinfo.PersonalInfoActivity" />
         <activity android:name=".ui.demo.DemoActivity" />
         <activity android:name=".ui.mypage.MyPageActivity" />
