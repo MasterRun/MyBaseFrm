@@ -29,12 +29,15 @@ class MyPageViewModel : BaseViewModel() {
             try {
                 userInfo.value =
                     CommonDbOpenHelper.getValue(CommonDbKeys.USER_INFO).toGsonBean(User::class.java)
+            } catch (e: Exception) {
+                errorMsg.value = "获取用户信息失败！"
+            }
+            try {
                 val user = UserHttpRequestManager.getUserInfo()
                 CommonDbOpenHelper.setKeyValue(CommonDbKeys.USER_INFO, gson.toJson(user))
                 userInfo.value = user
             } catch (e: Exception) {
                 e.printStackTrace()
-                errorMsg.value = e.message
             }
         }
     }

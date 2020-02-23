@@ -1,32 +1,60 @@
 package com.jsongo.core.common
 
+import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
-import android.text.TextUtils
-import androidx.fragment.app.FragmentActivity
+import android.util.SparseArray
 import com.jsongo.core.BaseCore
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.constant.KEY_ACTIVITY_FORE
 import com.safframework.log.L
-
 
 /**
  * @author jsongo
  * @date 2018/8/16 8:38
  */
 object ActivityCollector {
-    private val activities = ArrayList<FragmentActivity>()
+    //所有activity集合
+    val activities = ArrayList<Activity>()
 
-    val topActivity: FragmentActivity
+    //activity 按栈分类
+    val taskArray = SparseArray<ArrayList<Activity>>(6)
+
+    val topActivity: Activity
         get() = activities.get(activities.size - 1)
 
-    val myForegroundActivity: FragmentActivity?
+    val myForegroundActivity: Activity?
         get() {
             return try {
-                activities.first { it is BaseActivity && it.isForeground }
+                activities.first { isActivityFore(it) }
             } catch (e: Exception) {
                 null
             }
         }
+
+    /**
+     * 指定栈的栈顶activity
+     */
+    fun getTaskTopActivity(taskid: Int) = taskArray[taskid]?.run {
+        if (size > 0) {
+            get(size - 1)
+        } else {
+            null
+        }
+    }
+
+    /**
+     * 标记activity在前台，数据放在intent中
+     */
+    fun markActivityFore(activity: Activity?, isFore: Boolean) {
+        activity?.intent?.putExtra(KEY_ACTIVITY_FORE, isFore)
+    }
+
+    /**
+     * 从intent中获取数据，activity是否在前台
+     */
+    fun isActivityFore(activity: Activity?) =
+        activity?.intent?.getBooleanExtra(KEY_ACTIVITY_FORE, false) ?: false
+
 
     /**
      * 判断某个Activity 界面是否在前台
@@ -34,7 +62,7 @@ object ActivityCollector {
      * @param className 某个界面名称
      * @return
      */
-    fun isForeground(
+    /*fun isForeground(
         className: String
     ): Boolean {
         if (TextUtils.isEmpty(className)) {
@@ -52,7 +80,7 @@ object ActivityCollector {
         return false
     }
 
-    val foregroundActivity: FragmentActivity?
+    val foregroundActivity: Activity?
         get() {
             for (activity in activities) {
                 if (isForeground(activity.componentName.className)) {
@@ -60,18 +88,36 @@ object ActivityCollector {
                 }
             }
             return null
+        }*/
+
+    fun addActivity(activity: Activity?) {
+        if (activity != null) {
+            //放入所有activity集合
+            activities.add(activity)
+            //放入对应task的集合
+            val taskId = activity.taskId
+            val list = taskArray[taskId] ?: ArrayList()
+            list.add(activity)
+            taskArray.put(taskId, list)
         }
-
-    fun getActivities(): List<FragmentActivity> {
-        return activities
     }
 
-    fun addActivity(activity: FragmentActivity) {
-        activities.add(activity)
-    }
+    fun removeActivity(activity: Activity?) {
+        if (activity != null) {
+            //从所有activity中移除
+            activities.remove(activity)
+            //从activity对应栈中移除
+            val taskId = activity.taskId
+            taskArray[taskId]?.run {
+                //移除activity
+                remove(activity)
+                //集合为空，移除栈
+                if (size == 0) {
+                    taskArray.remove(taskId)
+                }
+            }
 
-    fun removeActivity(activity: FragmentActivity) {
-        activities.remove(activity)
+        }
     }
 
     fun finishAll() {
@@ -79,13 +125,15 @@ object ActivityCollector {
             activity.finish()
         }
         activities.clear()
+        taskArray.clear()
     }
 
-    fun finish(clazz: Class<out FragmentActivity>) {
+    fun finish(clazz: Class<out Activity>) {
         val iterator = activities.iterator()
         while (iterator.hasNext()) {
             val next = iterator.next()
             if (clazz.isInstance(next)) {
+                //会自动从activitytask集合中移除
                 next.finish()
                 iterator.remove()
             }

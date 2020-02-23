@@ -46,7 +46,7 @@ class TopbarLayout(
 
         backImageButton = addLeftBackImageButton()
         backImageButton.setOnClickListener {
-            ActivityCollector.foregroundActivity?.onBackPressed()
+            ActivityCollector.myForegroundActivity?.onBackPressed()
         }
     }
 

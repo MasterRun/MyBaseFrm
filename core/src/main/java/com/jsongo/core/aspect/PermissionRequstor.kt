@@ -1,5 +1,6 @@
 package com.jsongo.core.aspect
 
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -40,8 +41,8 @@ class PermissionRequstor {
             joinPoint.proceed()
         } else {
             val activity = ActivityCollector.myForegroundActivity
-            if (activity == null) {
-                RxToast.error("APP is not foreground")
+            if (activity !is FragmentActivity) {
+                RxToast.error("请求权限失败!")
                 return
             }
             val rxPermissions = RxPermissionManager.get(activity)

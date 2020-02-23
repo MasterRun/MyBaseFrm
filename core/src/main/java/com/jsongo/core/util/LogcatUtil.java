@@ -17,7 +17,7 @@ public class LogcatUtil {
     /**
      * 控制是否开启日志
      */
-    private static boolean openLog = BaseCore.INSTANCE.isDebug();
+    private static boolean openLog = BaseCore.isDebug();
 
     /**
      * 得到tag  (ClazzName.java)/ThreadName

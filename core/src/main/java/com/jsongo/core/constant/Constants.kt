@@ -49,3 +49,5 @@ const val PRE_ANDROID_ASSET = "file:///android_asset"
 const val SRT_HTTP = "http"
 
 const val DATE_STR_FORMAT_STR = "yyyy-MM-dd HH:mm:ss"
+
+const val KEY_ACTIVITY_FORE = "KEY_ACTIVITY_FORE"

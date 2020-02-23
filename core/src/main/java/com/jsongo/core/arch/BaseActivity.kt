@@ -8,7 +8,6 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.jsongo.core.R
-import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.widget.SlidingLayout
 import com.jsongo.core.widget.TopbarLayout
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -55,11 +54,8 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
 
     override var containerIndex = 1
 
-    var isForeground = false;
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ActivityCollector.addActivity(this)
 
         setContentView(R.layout.layout_frm_base)
 
@@ -80,7 +76,6 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
             QMUIStatusBarHelper.translucent(this)
             QMUIStatusBarHelper.setStatusBarDarkMode(this)
         }
-        isForeground = true
     }
 
     /**
@@ -114,21 +109,10 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        isForeground = true;
-    }
-
-    override fun onPause() {
-        super.onPause()
-        isForeground = false
-    }
-
     override fun onDestroy() {
         onIPageDestroy()
         loadingDialog.dismiss()
         clearFindViewByIdCache()
-        ActivityCollector.removeActivity(this)
         super.onDestroy()
     }
 }

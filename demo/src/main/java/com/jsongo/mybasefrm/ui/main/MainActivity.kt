@@ -269,7 +269,9 @@ class MainActivity : BaseActivity(), IMvvmView {
      */
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if ((keyCode == KeyEvent.KEYCODE_BACK || keyCode == KeyEvent.KEYCODE_HOME) && event.action == KeyEvent.ACTION_DOWN) {
-            if (ActivityCollector.foregroundActivity == this) {
+            //所在任务栈只有当前activity，直接回到桌面
+            val arrayList = ActivityCollector.taskArray[taskId]
+            if (arrayList != null && arrayList.size == 1 && arrayList.contains(this)) {
                 val backHome = Intent(Intent.ACTION_MAIN)
                 backHome.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 backHome.addCategory(Intent.CATEGORY_HOME)

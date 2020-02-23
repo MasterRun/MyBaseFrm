@@ -64,7 +64,8 @@ class ConvListFragment : StatefulFragment() {
 
     override fun observeLiveData() {
         convListViewModel.convs.observe(this, Observer {
-            if (it == null) {
+            if (it == null || it.isEmpty()) {
+                onPageLoaded()
                 return@Observer
             }
             val context = context

@@ -60,7 +60,7 @@ class ConvListViewModel : BaseViewModel() {
                                 convs.postValue(convsList as MutableList<MutableMap<String, Any?>>)
                                 totalUnreadCount.postValue(totalCount)
                             } catch (e: Exception) {
-                                failed(-1, e.message ?: "", e)
+                                failed(-1, e.message ?: "获取数据失败", e)
                             }
                         }
                     }
@@ -69,6 +69,9 @@ class ConvListViewModel : BaseViewModel() {
                         errorMessage.value = msg
                     }
                 })
+        } else {
+            convs.value = mutableListOf()
+            totalUnreadCount.value = 0
         }
     }
 
