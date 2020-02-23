@@ -189,7 +189,14 @@ object Common {
             return
         }
         val fixHeight = params["fixHeight"]?.toBoolean() ?: true
-        AJsWebPage.load(url, AJs.context, showTopBar, showProgress, bgColor, fixHeight)
+        AJsWebPage.load(
+            url,
+            ajsWebViewHost.hostActivity ?: aJsWebView.context,
+            showTopBar,
+            showProgress,
+            bgColor,
+            fixHeight
+        )
         callback.success()
     }
 

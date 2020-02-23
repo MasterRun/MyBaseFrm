@@ -30,7 +30,6 @@ object DefaultActivityLifecycleCallback : Application.ActivityLifecycleCallbacks
 
     override fun onActivityPaused(activity: Activity?) {
         ActivityCollector.markActivityFore(activity, false)
-
     }
 
     override fun onActivityStopped(activity: Activity?) {

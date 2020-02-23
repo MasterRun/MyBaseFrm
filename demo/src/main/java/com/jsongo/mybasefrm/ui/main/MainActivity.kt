@@ -162,7 +162,7 @@ class MainActivity : BaseActivity(), IMvvmView {
          */
         mainViewModel.finish.observe(this, Observer {
             if (it) {
-                LoginActivity.go()
+                LoginActivity.go(this@MainActivity)
                 finish()
             }
         })

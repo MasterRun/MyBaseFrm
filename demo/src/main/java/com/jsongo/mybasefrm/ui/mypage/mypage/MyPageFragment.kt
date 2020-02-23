@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
+import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
@@ -123,7 +124,9 @@ class MyPageFragment : BaseFragment(), IMvvmView {
             ),
             SettingSection(
                 items = arrayListOf(
-                    SettingItem("通用设置"),
+                    SettingItem("通用设置", onClickListener = View.OnClickListener {
+                        eventProxy.clickCommonSetting()
+                    }),
                     SettingItem("分享软件")
                 )
             ),
@@ -208,6 +211,10 @@ class MyPageFragment : BaseFragment(), IMvvmView {
                 }
                 .create()
                 .show()
+        }
+
+        fun clickCommonSetting() {
+            AJsApplet.load("file:///android_asset/web/index.html")
         }
     }
 }

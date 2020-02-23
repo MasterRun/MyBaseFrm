@@ -2,7 +2,6 @@ package com.jsongo.ajs.webloader
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.graphics.Color
 import android.os.Bundle
 import android.view.WindowManager.LayoutParams
@@ -116,8 +115,6 @@ open class AJsWebPage : BaseActivity() {
                 .putExtra(ConstValue.bgColor, bgColor)
                 //是否修复状态栏高度(默认是,在隐藏标题栏时,不修复高度,会导致内容顶到状态栏)
                 .putExtra(ConstValue.fixHeight, fixHeight)
-
-                .addFlags(FLAG_ACTIVITY_NEW_TASK)
         )
 
     }
