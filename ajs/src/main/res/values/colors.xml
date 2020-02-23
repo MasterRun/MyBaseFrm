@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    深色风格的背景-->
+    <color name="applet_menu_darkStyle_bg">@color/transparent_blank_5</color>
+    <color name="applet_menu_darkStyle_fore">@color/whitesmoke</color>
+    <!--    浅色风格的背景-->
+    <color name="applet_menu_lightStyle_bg">#9AF4F0F0</color>
+    <color name="applet_menu_lightStyle_fore">@color/light_black</color>
+    <!--    边线的颜色-->
+    <color name="applet_menu_border">@color/darker_gray</color>
+    <!--    按压的颜色颜色-->
+    <color name="applet_menu_pressed">@color/qmui_config_color_60_pure_black</color>
+
+</resources>

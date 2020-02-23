@@ -22,7 +22,7 @@ import com.tencent.smtt.sdk.WebView
  * @date ： 19-10-3 下午5:13
  * @desc : fragment 加载html
  */
-class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
+open class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
 
     override val hostFragment: Fragment?
         get() = this
