@@ -13,7 +13,9 @@ import com.jsongo.im.imui.ChatActivity
  */
 object MobileIMRoute {
     fun goChat(params: Map<String, Any?>?): DataWrapper<MutableMap<String, Any?>> {
-        val activity = params?.get("activity") as Activity? ?: ActivityCollector.topActivity
+        val activity =
+            params?.get("activity") as Activity? ?: ActivityCollector.myForegroundActivity
+            ?: ActivityCollector.topActivity
         val convid = params?.get("convid") as String? ?: ""
         val aimUserguid =
             params?.get("aimUserguid") as String? ?: ""

@@ -24,7 +24,7 @@ public class MobileIMConfig {
         ConfigEntity.serverIP = MobileIM.context.getString(R.string.im_ip);
         ConfigEntity.serverUDPPort = MobileIM.context.getResources().getInteger(R.integer.im_chat_port);
         ClientCoreSDK.getInstance().init(context);
-        ClientCoreSDK.DEBUG = BaseCore.INSTANCE.isDebug() && context.getResources().getBoolean(R.bool.im_debug);
+        ClientCoreSDK.DEBUG = BaseCore.isDebug() && context.getResources().getBoolean(R.bool.im_debug);
 
         ClientCoreSDK.getInstance().setChatBaseEvent(new ChatBaseEventImpl(new ChatLoginCallback()));
         ClientCoreSDK.getInstance().setChatTransDataEvent(new ChatTransDataEventImpl(new ChatMessageReceiver()));

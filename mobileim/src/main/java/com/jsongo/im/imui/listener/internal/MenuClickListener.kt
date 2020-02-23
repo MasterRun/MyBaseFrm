@@ -5,9 +5,10 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener
 import cn.jiguang.imui.chatinput.model.FileItem
+import com.jsongo.core.util.rxpermissions2.RxPermissionManager
+import com.jsongo.core.util.rxpermissions2.RxPermissions
 import com.jsongo.core.widget.RxToast
 import com.jsongo.im.imui.listener.IChatOperationListenerCallback
-import com.tbruyelle.rxpermissions2.RxPermissions
 
 /**
  * @author jsongo
@@ -17,7 +18,7 @@ import com.tbruyelle.rxpermissions2.RxPermissions
  */
 class MenuClickListener(private val callback: IChatOperationListenerCallback) :
     OnMenuClickListener {
-    private val rxPermissions: RxPermissions = RxPermissions(callback.activity)
+    private val rxPermissions: RxPermissions = RxPermissionManager.get(callback.activity)!!
 
     override fun onSendTextMessage(input: CharSequence?): Boolean = callback.sendTextCallback(input)
 

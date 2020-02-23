@@ -34,14 +34,14 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
          * 加载纯文字的html模板
          */
         val infoHtml = """
-            <html>
+             <html>
                 <head>
-                    <meta charset="UTF-8"/>
-                    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.5,maximum-scale=2.0, user-scalable=yes">
-                    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+                    <meta charset="UTF-8" />
+                    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=0.5,maximum-scale=2.0, user-scalable=yes" />
+                    <meta content="ie=edge" http-equiv="X-UA-Compatible" />
                 </head>
                 <body>
-                <h4>%s<h4>
+                <h4>%s</h4>
                 </body>
             </html>
         """.trimIndent()
@@ -163,9 +163,7 @@ open class AJsWebView(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
      * 加载页面
      */
     open fun load() {
-        if (webPath.trim().startsWith(SRT_HTTP) || webPath.trim().startsWith(
-                PRE_ANDROID_ASSET
-            )) {
+        if (webPath.trim().startsWith(SRT_HTTP) || webPath.trim().startsWith(PRE_ANDROID_ASSET)) {
             loadUrl(webPath)
         } else {
             loadTextInfo(webPath)

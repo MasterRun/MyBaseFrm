@@ -47,7 +47,7 @@ open class AJsWebPage : BaseActivity() {
             webPath = intent.getStringExtra(ConstValue.webpath)
         }
         if (webPath.isEmpty()) {
-            webPath = getString(R.string.ajs_default_url);
+            webPath = getString(R.string.ajs_default_url)
         }
 
         //获取参数
