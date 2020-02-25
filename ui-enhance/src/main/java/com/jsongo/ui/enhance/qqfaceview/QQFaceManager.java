@@ -5,9 +5,8 @@ import android.util.SparseIntArray;
 
 import androidx.collection.ArrayMap;
 
-import com.jsongo.ui.R;
+import com.jsongo.ui.enhance.R;
 import com.qmuiteam.qmui.qqface.IQMUIQQFaceManager;
-import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QQFace;
 import com.safframework.log.L;
 

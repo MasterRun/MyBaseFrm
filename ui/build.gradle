@@ -59,5 +59,6 @@ dependencies {
     api 'com.ycjiang:ImagePreview:2.2.8'
     //zxing 二维码
 //    api 'com.google.zxing:core:3.3.0'
+    //已引入源码
 //    api 'com.github.yuzhiqiang1993:zxing:2.2.8'
 }

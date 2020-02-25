@@ -1,4 +1,4 @@
-<manifest package="com.jsongo.ui">
-	
-	<application />
+<manifest package="com.jsongo.ui.enhance">
+
+    <application />
 </manifest>
