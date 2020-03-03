@@ -3,12 +3,12 @@ package com.jsongo.mybasefrm.ui.demo.demo
 import android.content.Intent
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
-import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.constant.ConstConf
+import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
@@ -17,7 +17,6 @@ import com.jsongo.mybasefrm.ui.demo.DemoViewModel
 import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.mypage.MyPageActivity
 import com.jsongo.ui.util.EasyPhotoGlideEngine
-import kotlinx.android.synthetic.main.activity_demo.*
 
 /**
  * author ： jsongo
@@ -31,17 +30,25 @@ class DemoFragment : StatefulFragment() {
     lateinit var activityDemoBinding: ActivityDemoBinding
 
     override fun initViewModel() {
-        demoViewModel = ViewModelProviders.of(this).get(DemoViewModel::class.java)
+        demoViewModel = ViewModelProvider(this)[DemoViewModel::class.java]
     }
 
     override fun initView() {
+        activityDemoBinding = ActivityDemoBinding.bind(mainView)
         topbar.visibility = View.GONE
+    }
+
+    override fun bindData() {
+        activityDemoBinding.setVariable(
+            BR.eventProxy,
+            EventProxy(this, demoViewModel, activityDemoBinding)
+        )
     }
 
     override fun observeLiveData() {
         //监听设置文本
         demoViewModel.txtContent.observe(this, Observer {
-            tv.text = it
+            activityDemoBinding.tv.text = it
             onPageLoaded()
         })
 
@@ -63,14 +70,6 @@ class DemoFragment : StatefulFragment() {
         })
     }
 
-    override fun bindData() {
-        activityDemoBinding = ActivityDemoBinding.bind(mainView)
-        activityDemoBinding.setVariable(
-            BR.eventProxy,
-            EventProxy(this, demoViewModel, activityDemoBinding)
-        )
-    }
-
     override fun onPageReloading() {
         super.onPageReloading()
         demoViewModel.getAuthtypes()
@@ -83,8 +82,7 @@ class DemoFragment : StatefulFragment() {
         private val demoFragment: DemoFragment,
         viewModel: DemoViewModel,
         demoBinding: ActivityDemoBinding
-    ) :
-        DemoViewModel.EventProxy(viewModel, demoBinding) {
+    ) : DemoViewModel.EventProxy(viewModel, demoBinding) {
         override fun goMyPage() {
             demoFragment.startActivity(Intent(demoFragment.context, MyPageActivity::class.java))
         }

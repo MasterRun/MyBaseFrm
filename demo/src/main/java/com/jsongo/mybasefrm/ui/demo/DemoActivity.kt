@@ -5,7 +5,7 @@ import android.content.Intent
 import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
@@ -40,7 +40,6 @@ import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L
-import kotlinx.android.synthetic.main.activity_demo.*
 import java.util.*
 
 @Page(R.layout.activity_demo, 2)
@@ -78,10 +77,11 @@ class DemoActivity : StatefulActivity() {
     lateinit var aJsWebLoader: AJsWebLoader
 
     override fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(DemoViewModel::class.java)
+        viewModel = ViewModelProvider(this)[DemoViewModel::class.java]
     }
 
     override fun initView() {
+        activityDemoBinding = ActivityDemoBinding.bind(mainView)
         setSwipeBackEnable(false)
 
         floatingView = FloatingView(this)
@@ -146,6 +146,13 @@ class DemoActivity : StatefulActivity() {
         showAjsWebLoader()
     }
 
+    override fun bindData() {
+        activityDemoBinding.setVariable(
+            BR.eventProxy,
+            EventProxy(this, viewModel, activityDemoBinding)
+        )
+    }
+
     override fun observeLiveData() {
 
         //监听次数
@@ -162,7 +169,7 @@ class DemoActivity : StatefulActivity() {
 
         //监听设置文本
         viewModel.txtContent.observe(this, Observer {
-            tv.text = it
+            activityDemoBinding.tv.text = it
             onPageLoaded()
         })
 
@@ -170,14 +177,6 @@ class DemoActivity : StatefulActivity() {
         viewModel.errorLiverData.observe(this, Observer {
             onPageError(it?.message)
         })
-    }
-
-    override fun bindData() {
-        activityDemoBinding = ActivityDemoBinding.bind(mainView)
-        activityDemoBinding.setVariable(
-            BR.eventProxy,
-            EventProxy(this, viewModel, activityDemoBinding)
-        )
     }
 
 

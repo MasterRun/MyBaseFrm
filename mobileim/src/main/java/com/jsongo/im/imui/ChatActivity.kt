@@ -18,7 +18,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import cn.jiguang.imui.chatinput.ChatInputView
 import cn.jiguang.imui.chatinput.model.FileItem
 import cn.jiguang.imui.commons.models.IMessage
@@ -116,7 +116,7 @@ class ChatActivity : BaseActivity(), IMvvmView {
     }
 
     override fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(ChatViewModel::class.java)
+        viewModel = ViewModelProvider(this)[ChatViewModel::class.java]
         lifecycle.addObserver(viewModel)
     }
 

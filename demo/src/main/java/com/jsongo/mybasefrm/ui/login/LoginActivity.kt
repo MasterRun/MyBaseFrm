@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseActivity
@@ -21,7 +21,6 @@ import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.databinding.ActivityLoginBinding
 import com.jsongo.mybasefrm.ui.main.MainActivity
-import kotlinx.android.synthetic.main.activity_login.*
 
 /**
  * @author ： jsongo
@@ -44,13 +43,13 @@ class LoginActivity : BaseActivity(), IMvvmView {
 
         initView()
 
-        observeLiveData()
-
         bindData()
+
+        observeLiveData()
     }
 
     override fun initViewModel() {
-        viewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
     }
 
     @PermissionNeed(Manifest.permission.READ_PHONE_STATE)
@@ -58,6 +57,7 @@ class LoginActivity : BaseActivity(), IMvvmView {
     }
 
     override fun initView() {
+        activityLoginBinding = ActivityLoginBinding.bind(mainView)
 
         setSwipeBackEnable(false)
 
@@ -71,21 +71,34 @@ class LoginActivity : BaseActivity(), IMvvmView {
 
     }
 
+    override fun bindData() {
+        //dataBinding
+//        activityLoginBinding.setVariable(BR.vm, viewModel)
+//        activityLoginBinding.setVariable(BR.eventProxy, EventProxy(this))
+        activityLoginBinding.vm = viewModel
+        activityLoginBinding.eventProxy = EventProxy(this)
+
+    }
+
     override fun observeLiveData() {
         viewModel.showPassword.observe(this, Observer {
             if (it) {
                 //如果选中，显示密码
-                et_user_pwd.transformationMethod = HideReturnsTransformationMethod.getInstance()
-                iv_showpwd.imageTintList =
+                activityLoginBinding.etUserPwd.transformationMethod =
+                    HideReturnsTransformationMethod.getInstance()
+                activityLoginBinding.ivShowpwd.imageTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.darker_gray))
             } else {
                 //否则隐藏密码
-                et_user_pwd.transformationMethod = PasswordTransformationMethod.getInstance()
-                iv_showpwd.imageTintList =
+                activityLoginBinding.etUserPwd.transformationMethod =
+                    PasswordTransformationMethod.getInstance()
+                activityLoginBinding.ivShowpwd.imageTintList =
                     ColorStateList.valueOf(resources.getColor(R.color.lighter_gray))
             }
             //设置光标位置
-            et_user_pwd.setSelection(et_user_pwd.text.toString().length)
+            activityLoginBinding.etUserPwd.run {
+                setSelection(text.toString().length)
+            }
         })
 
         viewModel.loading.observe(this, Observer {
@@ -100,16 +113,6 @@ class LoginActivity : BaseActivity(), IMvvmView {
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             viewModel.loading.value = false
         })
-    }
-
-    override fun bindData() {
-        //dataBinding
-        activityLoginBinding = ActivityLoginBinding.bind(mainView)
-//        activityLoginBinding.setVariable(BR.vm, viewModel)
-//        activityLoginBinding.setVariable(BR.eventProxy, EventProxy(this))
-        activityLoginBinding.vm = viewModel
-        activityLoginBinding.eventProxy = EventProxy(this)
-
     }
 
     /**

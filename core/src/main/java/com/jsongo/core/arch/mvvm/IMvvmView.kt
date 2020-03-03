@@ -18,12 +18,12 @@ interface IMvvmView {
     fun initView()
 
     /**
-     * 观察LiveData
-     */
-    fun observeLiveData()
-
-    /**
      * dataBinding
      */
     fun bindData() {}
+
+    /**
+     * 观察LiveData
+     */
+    fun observeLiveData()
 }

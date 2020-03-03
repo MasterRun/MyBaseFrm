@@ -25,7 +25,7 @@ object ActivityCollector {
     val myForegroundActivity: Activity?
         get() {
             return try {
-                activities.first { isActivityFore(it) }
+                activities.asReversed().first { isActivityFore(it) }
             } catch (e: Exception) {
                 null
             }

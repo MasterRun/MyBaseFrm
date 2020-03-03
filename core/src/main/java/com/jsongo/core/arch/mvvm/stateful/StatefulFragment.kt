@@ -6,7 +6,6 @@ import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
-import kotlinx.android.synthetic.*
 
 /**
  * @author jsongo
@@ -36,9 +35,9 @@ abstract class StatefulFragment : BaseFragment(), IMvvmView, PageStatusListener 
         }
         initView()
 
-        observeLiveData()
-
         bindData()
+
+        observeLiveData()
     }
 
     //region page pageStatus

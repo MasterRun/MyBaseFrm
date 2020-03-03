@@ -5,18 +5,20 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.BindingAdapter
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
-import com.jsongo.core.util.GlideUtil
 import com.jsongo.core.widget.RxToast
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
+import com.jsongo.mybasefrm.databinding.FragmentMyPageBinding
 import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.personalinfo.PersonalInfoActivity
 import com.jsongo.ui.component.fragment.settinglist.SettingItem
@@ -27,13 +29,38 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-import kotlinx.android.synthetic.main.fragment_my_page.*
 import java.util.*
 
 @Page(R.layout.fragment_my_page, 1)
 class MyPageFragment : BaseFragment(), IMvvmView {
 
+    companion object {
+        /**
+         * 加载性别图标
+         */
+        @JvmStatic
+        @BindingAdapter("app:gender")
+        fun loadGender(imageView: ImageView, gender: String?) {
+            val context = imageView.context
+            when (gender) {
+                "1" -> {
+                    imageView.visibility = View.VISIBLE
+                    Glide.with(context).load(R.mipmap.ic_gender_man).into(imageView)
+                }
+                "2" -> {
+                    imageView.visibility = View.VISIBLE
+                    Glide.with(context).load(R.mipmap.ic_gender_woman).into(imageView)
+                }
+                else -> {
+                    imageView.visibility = View.GONE
+                }
+            }
+        }
+    }
+
     lateinit var myPageViewModel: MyPageViewModel
+
+    lateinit var myPageBinding: FragmentMyPageBinding
 
     lateinit var settingFragment: SettingListFragment
 
@@ -46,10 +73,13 @@ class MyPageFragment : BaseFragment(), IMvvmView {
 
         initView()
 
+        bindData()
+
         observeLiveData()
     }
 
     override fun initView() {
+        myPageBinding = FragmentMyPageBinding.bind(mainView)
 
         smartRefreshLayout.isEnabled = false
 
@@ -61,44 +91,25 @@ class MyPageFragment : BaseFragment(), IMvvmView {
 
         eventProxy = EventProxy(this, myPageViewModel)
 
-        qriv_header.setOnClickListener {
-            eventProxy.goPersonalInfoPage()
-        }
-        tv_nickname.setOnClickListener {
-            eventProxy.goPersonalInfoPage()
-        }
-
         initSettingList()
     }
 
     override fun initViewModel() {
-        myPageViewModel = ViewModelProviders.of(this).get(MyPageViewModel::class.java)
+        myPageViewModel = ViewModelProvider(this)[MyPageViewModel::class.java]
         lifecycle.addObserver(myPageViewModel)
+    }
+
+    override fun bindData() {
+        myPageBinding.user = myPageViewModel.userInfo.value
+        myPageBinding.eventProxy = eventProxy
     }
 
     override fun observeLiveData() {
 
         //监听用户信息
         myPageViewModel.userInfo.observe(this, androidx.lifecycle.Observer {
-            tv_nickname.text = it.username
-
-            val photoUrl = it.photo_url
-            if (!photoUrl.isEmpty()) {
-                GlideUtil.load(context, photoUrl, qriv_header)
-            }
-
-            when (it.gender) {
-                "1" -> {
-                    iv_gender.visibility = View.VISIBLE
-                    Glide.with(this).load(R.mipmap.ic_gender_man).into(iv_gender)
-                }
-                "2" -> {
-                    iv_gender.visibility = View.VISIBLE
-                    Glide.with(this).load(R.mipmap.ic_gender_woman).into(iv_gender)
-                }
-                else -> {
-                    iv_gender.visibility = View.GONE
-                }
+            if (it != null) {
+                myPageBinding.user = it
             }
         })
 

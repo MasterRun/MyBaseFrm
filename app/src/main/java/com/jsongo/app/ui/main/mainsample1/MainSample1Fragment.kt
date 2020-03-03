@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jsongo.ajs.helper.AjsWebViewHost
@@ -67,7 +67,7 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
      * 初始化ViewModel
      */
     override fun initViewModel() {
-        mainSample1ViewModel = ViewModelProviders.of(this).get(MainSample1ViewModel::class.java)
+        mainSample1ViewModel = ViewModelProvider(this)[MainSample1ViewModel::class.java]
     }
 
     override fun initView() {

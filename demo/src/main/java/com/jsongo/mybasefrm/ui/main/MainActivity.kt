@@ -9,7 +9,7 @@ import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
@@ -134,7 +134,7 @@ class MainActivity : BaseActivity(), IMvvmView {
      * 初始化ViewModel
      */
     override fun initViewModel() {
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         lifecycle.addObserver(mainViewModel)
     }
 

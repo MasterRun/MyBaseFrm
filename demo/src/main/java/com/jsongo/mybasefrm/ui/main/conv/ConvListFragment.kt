@@ -3,7 +3,7 @@ package com.jsongo.mybasefrm.ui.main.conv
 import android.graphics.Color
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.jsongo.annotation.anno.Page
@@ -35,7 +35,7 @@ class ConvListFragment : StatefulFragment() {
     lateinit var eventProxy: EventProxy
 
     override fun initViewModel() {
-        convListViewModel = ViewModelProviders.of(this).get(ConvListViewModel::class.java)
+        convListViewModel = ViewModelProvider(this)[ConvListViewModel::class.java]
         lifecycle.addObserver(convListViewModel)
     }
 
