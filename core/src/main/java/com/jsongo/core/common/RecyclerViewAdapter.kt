@@ -41,6 +41,7 @@ abstract class RecyclerViewAdapter<A : RecyclerView.Adapter<VH>, VH : RecyclerVi
             }
             //如果有多余的，直接替换
             while (fieldIterator.hasNext()) {
+                fieldIterator.next()
                 fieldIterator.remove()
             }
             //如果还有数据，放入集合
