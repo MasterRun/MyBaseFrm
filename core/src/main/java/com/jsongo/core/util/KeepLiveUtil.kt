@@ -86,18 +86,6 @@ class KeepLiveUtil(private val activity: Activity) {
         activity.startActivity(intent)
     }
 
-    /**
-     * 华为
-     *
-     * @return
-     */
-    val isHuawei: Boolean
-        get() = if (Build.BRAND == null) {
-            false
-        } else {
-            Build.BRAND.toLowerCase() == "huawei" || Build.BRAND.toLowerCase() == "honor"
-        }
-
     fun goHuaweiSetting() {
         try {
             showActivity(
@@ -163,6 +151,19 @@ class KeepLiveUtil(private val activity: Activity) {
     }
 
     companion object {
+
+        /**
+         * 华为
+         *
+         * @return
+         */
+        val isHuawei: Boolean
+            get() = if (Build.BRAND == null) {
+                false
+            } else {
+                Build.BRAND.toLowerCase() == "huawei" || Build.BRAND.toLowerCase() == "honor"
+            }
+
         /**
          * 小米
          *

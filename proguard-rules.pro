@@ -51,6 +51,8 @@
   **[] $VALUES;
   public *;
 }
+#wcdb
+-keep class com.tencent.wcdb.** { *; }
 
 #okio
 -dontwarn org.codehaus.mojo.animal_sniffer.*
@@ -126,7 +128,7 @@
 
 #---------------------------------默认保留区---------------------------------
 -keep public class * extends android.app.Activity { *; }
--keep class * extends android.support.v4.app.Fragment.Fragment { *; }
+-keep class * extends android.support.v4.app.Fragment { *; }
 -keep class * extends androidx.fragment.app.Fragment { *; }
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
@@ -166,7 +168,7 @@
 #----------------------------------------------------------------------------
 
 #---------------------------------webview------------------------------------
--keepclassmembers class fqcn.of.javascript.interface.for.Webview {
+-keepclassmembers class android.webkit.WebView {
    public *;
 }
 -keepclassmembers class * extends android.webkit.WebViewClient {
@@ -174,7 +176,7 @@
     public boolean *(android.webkit.WebView, java.lang.String);
 }
 -keepclassmembers class * extends android.webkit.WebViewClient {
-    public void *(android.webkit.WebView, jav.lang.String);
+    public void *(android.webkit.WebView, java.lang.String);
 }
 #----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------

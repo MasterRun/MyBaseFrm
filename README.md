@@ -30,6 +30,9 @@ demo\app module中用于个人测试
 - 全局异常不崩溃尝试  --  preparing
 - 登录页，登录请求  --  doing  
 - 首页卡片添加图标和点击事件的设置
+- webview 独立进程
+- glide图片加载管理，及时在activity fragment销毁时释放
+- view binding
 - 封装网络请求返回处理
 - 将apimanager改为可配置，支持拦截器（头部缓存，token等），支持多url（缓存retrofit），可配置okhttp缓存等
 - js与原生交互大量数据传递解决方案（目前只解决原生传递大量数据给js）  -- doing  
