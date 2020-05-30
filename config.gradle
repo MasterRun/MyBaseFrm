@@ -77,7 +77,7 @@ ext {
 
             'multidex'    : '2.0.1',
 
-            'kotlin'      : '1.3.61',
+            'kotlin'      : '1.3.72',
             'kcoroutines' : '1.3.2',
             //stub 已引入使用部分
             'rxtool'      : 'v2.4.1',

@@ -3,10 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
-if (openAspectJ) {
-    apply plugin: 'android-aspectjx'
-    //或使用如下
-    //apply plugin: 'com.hujiang.android-aspectjx'
+apply plugin: 'android-aspectjx'
+//或使用如下
+//apply plugin: 'com.hujiang.android-aspectjx'
+
+aspectjx {
+//关闭AspectJX功能
+    enabled false
 }
 
 kapt {
@@ -42,6 +45,15 @@ android {
     dataBinding {
         enabled = true
     }
+
+    viewBinding {
+        enabled = true
+    }
+
+//    buildFeatures {
+//        dataBinding = true
+//        viewBinding = true
+//    }
 
     testOptions {
         unitTests {
