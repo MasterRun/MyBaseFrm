@@ -5,7 +5,10 @@ import android.util.Log;
 
 import com.jsongo.core.BaseCore;
 
+import java.util.List;
 import java.util.Locale;
+
+import kotlin.text.StringsKt;
 
 /**
  * @author jsongo
@@ -51,6 +54,21 @@ public class LogcatUtil {
      */
     public static void v(String msg) {
         v("", msg);
+    }
+
+
+    public static void v_json(String jsonStr) {
+        String s = StringUtilKt.formatJsonStr(jsonStr);
+        List<String> lines = StringsKt.lines(s);
+        for (String line : lines) {
+            v(line);
+        }
+    }
+
+    public static void v(Object object) {
+        if (object != null) {
+            v_json(object.toString());
+        }
     }
 
     /**
@@ -109,6 +127,20 @@ public class LogcatUtil {
         d("", msg);
     }
 
+    public static void d_json(String jsonStr) {
+        String s = StringUtilKt.formatJsonStr(jsonStr);
+        List<String> lines = StringsKt.lines(s);
+        for (String line : lines) {
+            d(line);
+        }
+    }
+
+    public static void d(Object object) {
+        if (object != null) {
+            d_json(object.toString());
+        }
+    }
+
     /**
      * 打印 debug 级别的日志
      *
@@ -162,6 +194,20 @@ public class LogcatUtil {
      */
     public static void i(String msg) {
         i("", msg);
+    }
+
+    public static void i_json(String jsonStr) {
+        String s = StringUtilKt.formatJsonStr(jsonStr);
+        List<String> lines = StringsKt.lines(s);
+        for (String line : lines) {
+            i(line);
+        }
+    }
+
+    public static void i(Object object) {
+        if (object != null) {
+            i_json(object.toString());
+        }
     }
 
     /**
@@ -219,6 +265,20 @@ public class LogcatUtil {
         w("", msg);
     }
 
+    public static void w_json(String jsonStr) {
+        String s = StringUtilKt.formatJsonStr(jsonStr);
+        List<String> lines = StringsKt.lines(s);
+        for (String line : lines) {
+            w(line);
+        }
+    }
+
+    public static void w(Object object) {
+        if (object != null) {
+            w_json(object.toString());
+        }
+    }
+
     /**
      * 打印 warn 级别的日志
      *
@@ -272,6 +332,20 @@ public class LogcatUtil {
      */
     public static void e(String msg) {
         e("", msg);
+    }
+
+    public static void e_json(String jsonStr) {
+        String s = StringUtilKt.formatJsonStr(jsonStr);
+        List<String> lines = StringsKt.lines(s);
+        for (String line : lines) {
+            e(line);
+        }
+    }
+
+    public static void e(Object object) {
+        if (object != null) {
+            e_json(object.toString());
+        }
     }
 
     /**
