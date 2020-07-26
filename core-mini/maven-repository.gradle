@@ -2,7 +2,7 @@ apply plugin: 'maven'
 
 ext {
     PUBLISH_ARTIFACT_ID = 'core_mini'
-    PUBLISH_VERSION = libConf.core.verName
+    PUBLISH_VERSION = libConf.core_mini.verName
 }
 
 uploadArchives {
