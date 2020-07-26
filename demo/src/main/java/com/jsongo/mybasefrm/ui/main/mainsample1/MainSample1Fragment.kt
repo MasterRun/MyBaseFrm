@@ -27,6 +27,8 @@ import com.jsongo.mybasefrm.ui.main.mainsample1.bean.QuickEntryItemBean
 import com.jsongo.mybasefrm.ui.main.mainsample1.bean.WebCardItemBean
 import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
+import com.jsongo.ui.component.image.banner.widget.banner.SimpleImageBanner
+import com.jsongo.ui.component.image.banner.widget.bean.BannerItem
 import com.jsongo.ui.util.addStatusBarHeightPadding
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_main_sample1.*
@@ -61,6 +63,8 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
      */
     lateinit var webCardVTitleItemAdapter: WebCardVTitleItemAdapter
 
+    var simpleIb: SimpleImageBanner<BannerItem>? = null
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -79,6 +83,7 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
     }
 
     override fun initView() {
+        simpleIb = view?.findViewById(R.id.simple_ib)
 
         //修复状态栏高度
         ll_sb_container.addStatusBarHeightPadding()
@@ -100,7 +105,7 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
     override fun observeLiveData() {
         //监听轮播图
         mainSample1ViewModel.imgBannerList.observe(this, Observer { bannerList ->
-            simple_ib.setSource(bannerList).startScroll()
+            simpleIb?.setSource(bannerList)?.startScroll()
         })
 
         //监听快捷入口数据
@@ -124,10 +129,12 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
      * 初始化轮播图
      */
     private fun initImageBanner() {
-        simple_ib.setSelectAnimClass(ZoomInEnter::class.java)//set indicator select anim
-            .setSource(mainSample1ViewModel.imgBannerList.value)//data source list
-            .setTransformerClass(ZoomOutSlideTransformer::class.java)//set page transformer
-            .startScroll()
+        simpleIb?.apply {
+            this.setSelectAnimClass(ZoomInEnter::class.java)//set indicator select anim
+                .setSource(mainSample1ViewModel.imgBannerList.value)//data source list
+                .setTransformerClass(ZoomOutSlideTransformer::class.java)//set page transformer
+                .startScroll()
+        }
         simple_ib.setOnItemClickListener { index ->
             mainSample1ViewModel.imgBannerList.value?.get(index)?.let { bannerItem ->
                 AJsWebPage.load(bannerItem.imgUrl)
