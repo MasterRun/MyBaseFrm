@@ -2,8 +2,8 @@ package com.jsongo.mybasefrm.ui.main.mainsample1.bean
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.jsongo.core.constant.gson
-import com.jsongo.core.constant.strHashMapType
+import com.jsongo.core_mini.common.gson
+import com.jsongo.core_mini.common.strHashMapType
 import java.io.Serializable
 
 /**

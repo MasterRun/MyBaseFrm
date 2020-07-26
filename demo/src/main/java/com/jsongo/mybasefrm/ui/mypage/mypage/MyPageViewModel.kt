@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.constant.CommonDbKeys
-import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.util.toGsonBean
+import com.jsongo.core_mini.common.gson
 import com.jsongo.mybasefrm.bean.User
 import com.jsongo.mybasefrm.data.repository.UserHttpRequestManager
 import kotlinx.coroutines.launch

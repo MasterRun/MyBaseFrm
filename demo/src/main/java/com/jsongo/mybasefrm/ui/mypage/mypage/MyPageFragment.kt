@@ -15,7 +15,7 @@ import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.BaseFragment
 import com.jsongo.core.arch.mvvm.IMvvmView
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.databinding.FragmentMyPageBinding

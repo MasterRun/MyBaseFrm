@@ -1,4 +1,4 @@
-package com.jsongo.core.common
+package com.jsongo.core_mini.common
 
 import io.reactivex.Flowable
 import io.reactivex.processors.FlowableProcessor

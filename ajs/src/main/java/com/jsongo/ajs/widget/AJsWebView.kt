@@ -12,7 +12,7 @@ import com.jsongo.ajs.jsbridge_x5.BridgeWebView
 import com.jsongo.ajs.jsbridge_x5.BridgeWebViewClient
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.SRT_HTTP
-import com.jsongo.core.util.LogcatUtil
+import com.jsongo.core_mini.util.LogcatUtil
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.export.external.interfaces.WebResourceResponse

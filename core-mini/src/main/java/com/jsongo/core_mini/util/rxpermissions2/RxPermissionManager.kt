@@ -1,4 +1,4 @@
-package com.jsongo.core.util.rxpermissions2
+package com.jsongo.core_mini.util.rxpermissions2
 
 import android.app.Activity
 import androidx.fragment.app.Fragment

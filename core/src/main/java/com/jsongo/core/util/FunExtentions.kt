@@ -1,6 +1,6 @@
 package com.jsongo.core.util
 
-import com.jsongo.core.constant.gson
+import com.jsongo.core_mini.common.gson
 
 /**
  * @author ： jsongo

@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.SimpleItemAnimator
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.arch.mvvm.stateful.Status
-import com.jsongo.core.common.OnRvItemClickListener
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.OnRvItemClickListener
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.aspect.AopOnclick
 import com.jsongo.mybasefrm.ui.main.MainActivity
@@ -105,7 +105,8 @@ class ConvListFragment : StatefulFragment() {
         convListViewModel.getConvList()
     }
 
-    class EventProxy : OnRvItemClickListener<ConvItemAdapter, ConvItemAdapter.ViewHolder> {
+    class EventProxy :
+        OnRvItemClickListener<ConvItemAdapter, ConvItemAdapter.ViewHolder> {
         @AopOnclick(1500)
         override fun onRvItemClick(
             adapter: ConvItemAdapter,

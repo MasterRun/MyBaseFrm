@@ -1,6 +1,6 @@
 package com.jsongo.im.bean
 
-import com.jsongo.core.util.StringUtil
+import com.jsongo.core_mini.util.StringUtil
 import java.io.Serializable
 import java.sql.Timestamp
 

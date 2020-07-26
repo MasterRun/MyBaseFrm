@@ -9,8 +9,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
-import com.jsongo.core.common.RecyclerViewAdapter
-import com.jsongo.core.util.GlideUtil
+import com.jsongo.core_mini.common.RecyclerViewAdapter
+import com.jsongo.core_mini.util.GlideUtil
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.main.mainsample1.bean.QuickEntryItemBean
 import kotlinx.android.synthetic.main.item_quick_entry.view.*

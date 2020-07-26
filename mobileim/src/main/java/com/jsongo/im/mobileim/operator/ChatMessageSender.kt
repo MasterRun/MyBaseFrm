@@ -4,8 +4,8 @@ import android.content.Context
 import android.text.TextUtils
 import com.jsongo.core.common.MapCallBack
 import com.jsongo.core.network.ApiManager
-import com.jsongo.core.util.LogcatUtil
-import com.jsongo.core.util.StringCompress
+import com.jsongo.core_mini.util.LogcatUtil
+import com.jsongo.core_mini.util.StringCompress
 import com.jsongo.im.MobileIM
 import com.jsongo.im.bean.Message
 import com.jsongo.im.bean.UdpData

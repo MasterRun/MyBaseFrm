@@ -6,7 +6,7 @@ import android.os.Environment
 import android.util.Base64
 import androidx.core.content.FileProvider
 import com.jsongo.core.BaseCore
-import com.jsongo.core.constant.ConstConf
+import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
 import java.io.*
 
 
@@ -15,8 +15,6 @@ import java.io.*
  * @date ： 19-9-27 下午10:48
  * @desc : 文件工具类
  */
-
-class MyFileProvider : FileProvider()
 
 object FileUtil {
     /**
@@ -117,7 +115,7 @@ fun String.toFile(): File? = FileUtil.getFileByPath(this)
  */
 fun File.getUri(): Uri =
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        FileProvider.getUriForFile(BaseCore.context, ConstConf.FILE_PROVIDER_AUTH, this)
+        FileProvider.getUriForFile(BaseCore.context, FILE_PROVIDER_AUTH, this)
     } else {
         Uri.fromFile(this)
     }

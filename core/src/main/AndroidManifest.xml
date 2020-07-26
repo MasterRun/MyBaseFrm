@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.jsongo.core">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.jsongo.core">
 
-	<uses-feature android:name="android.hardware.camera" />
-	<uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
-	<uses-permission android:name="android.permission.GET_TASKS" />
-	<uses-permission android:name="android.permission.REORDER_TASKS" />
-	<uses-permission android:name="android.permission.FLASHLIGHT" />
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.VIBRATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -32,29 +33,20 @@
 		android:glEsVersion="0x00030000"
 		android:required="true" />
 
-	<application
-		android:networkSecurityConfig="@xml/network_security_config"
-		android:theme="@style/AppTheme">
-		<activity
+    <application
+        android:name=".BaseCore"
+        android:theme="@style/AppTheme"
+        tools:replace="android:name">
+        <activity
             android:name=".ui.splash.SplashActivity"
-			android:theme="@style/SplashTheme">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity>
-		<activity android:name=".crash.CrashActivity" />
-
-		<provider
-			android:name=".util.MyFileProvider"
-			android:authorities="${applicationId}.core.fileprovider"
-			android:exported="false"
-			android:grantUriPermissions="true">
-			<meta-data
-				android:name="android.support.FILE_PROVIDER_PATHS"
-				android:resource="@xml/provider_paths" />
-		</provider>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".crash.CrashActivity" />
 	</application>
 
 </manifest>

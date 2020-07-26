@@ -9,9 +9,9 @@ import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.network.ServerAddr
 import com.jsongo.core.util.DateUtil
-import com.jsongo.core.util.LogcatUtil
-import com.jsongo.core.util.StringUtil
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.util.LogcatUtil
+import com.jsongo.core_mini.util.StringUtil
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.im.bean.ChatMessage
 import com.jsongo.im.bean.Message
 import com.jsongo.im.data.repository.ChatFileType

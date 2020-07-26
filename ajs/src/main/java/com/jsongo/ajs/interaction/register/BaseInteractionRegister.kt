@@ -5,7 +5,7 @@ import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
-import com.jsongo.core.util.LogcatUtil
+import com.jsongo.core_mini.util.LogcatUtil
 import com.safframework.log.L
 
 /**

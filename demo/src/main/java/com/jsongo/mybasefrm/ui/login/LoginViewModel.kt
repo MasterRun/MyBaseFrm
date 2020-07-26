@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.common.MapCallBack
 import com.jsongo.core.constant.CommonDbKeys
-import com.jsongo.core.constant.gson
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.network.NetFailedException
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.gson
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.data.repository.UserHttpRequestManager
 import com.safframework.log.L
 import kotlinx.coroutines.launch

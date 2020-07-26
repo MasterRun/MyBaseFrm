@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.core.arch.mvvm.BaseViewModel
 import com.jsongo.core.common.MapCallBack
-import com.jsongo.core.common.RxBus
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.RxBus
+import com.jsongo.core_mini.widget.RxToast
 import com.safframework.log.L
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers

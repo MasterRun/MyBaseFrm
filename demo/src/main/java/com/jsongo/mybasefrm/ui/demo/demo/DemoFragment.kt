@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.huantansheng.easyphotos.EasyPhotos
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
-import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
@@ -89,7 +89,7 @@ class DemoFragment : StatefulFragment() {
 
         override fun choosePhoto() {
             EasyPhotos.createAlbum(demoFragment, true, EasyPhotoGlideEngine.getInstance())
-                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+                .setFileProviderAuthority(FILE_PROVIDER_AUTH)
                 .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
                 .start(101)
         }

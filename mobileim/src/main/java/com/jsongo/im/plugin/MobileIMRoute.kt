@@ -3,7 +3,7 @@ package com.jsongo.im.plugin
 import android.app.Activity
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
-import com.jsongo.core.common.ActivityCollector
+import com.jsongo.core_mini.common.ActivityCollector
 import com.jsongo.im.imui.ChatActivity
 
 /**

@@ -6,9 +6,9 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.core.common.ActivityCollector
-import com.jsongo.core.util.rxpermissions2.RxPermissionManager
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.ActivityCollector
+import com.jsongo.core_mini.util.rxpermissions2.RxPermissionManager
+import com.jsongo.core_mini.widget.RxToast
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect

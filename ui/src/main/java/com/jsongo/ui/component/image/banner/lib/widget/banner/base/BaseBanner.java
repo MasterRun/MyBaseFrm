@@ -24,7 +24,7 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.jsongo.core.util.LogcatUtil;
+import com.jsongo.core_mini.util.LogcatUtil;
 import com.jsongo.ui.R;
 import com.jsongo.ui.component.image.banner.lib.widget.loopviewpager.FixedSpeedScroller;
 import com.jsongo.ui.component.image.banner.lib.widget.loopviewpager.LoopViewPager;

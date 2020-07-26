@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.request.RequestOptions
-import com.jsongo.core.util.GlideUtil
+import com.jsongo.core_mini.util.GlideUtil
 import com.jsongo.ui.util.findViewByClass
 
 /**

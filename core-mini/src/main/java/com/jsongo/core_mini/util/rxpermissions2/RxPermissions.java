@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package com.jsongo.core.util.rxpermissions2;
+package com.jsongo.core_mini.util.rxpermissions2;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

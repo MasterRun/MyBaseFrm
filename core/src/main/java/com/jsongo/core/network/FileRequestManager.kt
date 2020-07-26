@@ -5,7 +5,7 @@ import com.jsongo.core.common.CommonCallback
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.util.FileUtil
-import com.jsongo.core.util.StringUtil
+import com.jsongo.core_mini.util.StringUtil
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody

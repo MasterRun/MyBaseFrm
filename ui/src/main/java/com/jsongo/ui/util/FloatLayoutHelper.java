@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 
 import com.jsongo.core.BaseCore;
-import com.jsongo.core.util.GlideUtil;
+import com.jsongo.core_mini.util.GlideUtil;
 import com.jsongo.ui.R;
 import com.jsongo.ui.component.image.preview.ImgPreviewClick;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;

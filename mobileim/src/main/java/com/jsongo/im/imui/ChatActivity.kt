@@ -31,10 +31,10 @@ import com.huantansheng.easyphotos.models.album.entity.Photo
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.CommonDbKeys
-import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.util.KeyboardUtil
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.im.R
 import com.jsongo.im.bean.ChatMessage
 import com.jsongo.im.imui.listener.IChatOperationListenerCallback
@@ -285,7 +285,7 @@ class ChatActivity : BaseActivity(), IMvvmView {
             EasyPhotoGlideEngine.getInstance()
         ) //参数说明：上下文，是否显示相机按钮，
             // [配置Glide为图片加载引擎](https://github.com/HuanTanSheng/EasyPhotos/wiki/12-%E9%85%8D%E7%BD%AEImageEngine%EF%BC%8C%E6%94%AF%E6%8C%81%E6%89%80%E6%9C%89%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%BA%93)
-            .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+            .setFileProviderAuthority(FILE_PROVIDER_AUTH)
             .setCount(9)
             .start(selectPhotoRequestCode)
 

@@ -1,4 +1,4 @@
-package com.jsongo.core.common
+package com.jsongo.core_mini.common
 
 import androidx.recyclerview.widget.RecyclerView
 

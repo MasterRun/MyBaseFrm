@@ -7,7 +7,7 @@ import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.core.arch.mvvm.stateful.StatefulViewModel
 import com.jsongo.core.bean.toErrorDataWrapper
 import com.jsongo.core.network.FileRequestManager
-import com.jsongo.core.util.LogcatUtil
+import com.jsongo.core_mini.util.LogcatUtil
 import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
 import kotlinx.coroutines.launch
 import java.io.File

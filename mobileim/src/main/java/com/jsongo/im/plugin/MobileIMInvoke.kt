@@ -4,8 +4,8 @@ import android.content.Context
 import com.jsongo.core.bean.DataWrapper
 import com.jsongo.core.bean.ErrorPluginWrapper
 import com.jsongo.core.common.MapCallBack
-import com.jsongo.core.common.RxBus
 import com.jsongo.core.network.NetFailedException
+import com.jsongo.core_mini.common.RxBus
 import com.jsongo.im.MobileIM
 import com.jsongo.im.bean.Message
 import com.jsongo.im.data.repository.MobileIMHttpRequestManager

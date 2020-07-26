@@ -1,7 +1,7 @@
 package com.jsongo.im.imui.listener.internal
 
 import cn.jiguang.imui.chatinput.listener.OnCameraCallbackListener
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.im.imui.listener.IChatOperationListenerCallback
 
 /**

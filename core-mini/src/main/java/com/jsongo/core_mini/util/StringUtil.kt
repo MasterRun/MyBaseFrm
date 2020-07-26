@@ -1,4 +1,4 @@
-package com.jsongo.core.util
+package com.jsongo.core_mini.util
 
 import org.json.JSONArray
 import org.json.JSONObject

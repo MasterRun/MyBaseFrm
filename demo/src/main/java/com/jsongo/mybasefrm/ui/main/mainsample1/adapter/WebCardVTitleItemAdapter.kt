@@ -11,7 +11,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.WebLoaderCard
-import com.jsongo.core.common.RecyclerViewAdapter
+import com.jsongo.core_mini.common.RecyclerViewAdapter
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.main.mainsample1.bean.WebCardItemBean
 import kotlinx.android.synthetic.main.item_webcard_v_title.view.*

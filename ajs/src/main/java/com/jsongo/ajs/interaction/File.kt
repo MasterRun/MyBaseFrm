@@ -13,8 +13,8 @@ import com.jsongo.ajs.helper.LongCallback
 import com.jsongo.ajs.util.Util
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.util.FileUtil
+import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
 import com.jsongo.ui.util.EasyPhotoGlideEngine
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -66,7 +66,7 @@ object File {
                 EasyPhotoGlideEngine.getInstance()
             )
         }
-        builder.setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+        builder.setFileProviderAuthority(FILE_PROVIDER_AUTH)
         if (!paths.isNullOrEmpty()) {
             builder.setSelectedPhotoPaths(paths)
         }

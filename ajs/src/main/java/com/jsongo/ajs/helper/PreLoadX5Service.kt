@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.IBinder
 import androidx.annotation.Nullable
 import com.jsongo.ajs.R
-import com.jsongo.core.util.LogcatUtil
+import com.jsongo.core_mini.util.LogcatUtil
 import com.tencent.smtt.sdk.QbSdk
 
 /**

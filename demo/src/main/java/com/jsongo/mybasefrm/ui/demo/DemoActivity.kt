@@ -16,17 +16,17 @@ import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.AjsApi
 import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulActivity
-import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.common.SmartRefreshHeader
 import com.jsongo.core.common.initWithStr
 import com.jsongo.core.common.useHeader
-import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.RegUtil
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.ActivityCollector
+import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.aspect.AopOnclick
@@ -267,7 +267,7 @@ class DemoActivity : StatefulActivity() {
 
         override fun choosePhoto() {
             EasyPhotos.createAlbum(demoActivity, true, EasyPhotoGlideEngine.getInstance())
-                .setFileProviderAuthority(ConstConf.FILE_PROVIDER_AUTH)
+                .setFileProviderAuthority(FILE_PROVIDER_AUTH)
                 .setSelectedPhotoPaths(arrayListOf("/storage/emulated/0/ADM/face1.jpg"))
                 .start(101)
         }

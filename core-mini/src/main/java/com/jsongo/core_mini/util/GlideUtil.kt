@@ -1,4 +1,4 @@
-package com.jsongo.core.util
+package com.jsongo.core_mini.util
 
 import android.app.Activity
 import android.content.Context
@@ -37,7 +37,7 @@ object GlideUtil {
     }
 
     fun load(activity: Activity?, url: String, imageView: ImageView) {
-        GlideUtil.load(activity, url, null, imageView)
+        load(activity, url, null, imageView)
     }
 
     fun load(activity: Activity?, url: String?, options: RequestOptions?, imageView: ImageView) {
@@ -60,17 +60,6 @@ object GlideUtil {
             L.e(TAG, "Picture loading failed,activity is Destroyed")
         }
     }
-
-    @Deprecated("use androidx.fragment.app.Fragment instead")
-    fun load(fragment: android.app.Fragment?, url: String?, imageView: ImageView) {
-        val activity = fragment?.activity
-        if (fragment != null && activity != null && !(activity.isDestroyed)) {
-            Glide.with(fragment).load(url).into(imageView)
-        } else {
-            L.e(TAG, "Picture loading failed,activity is Destroyed")
-        }
-    }
-
     fun load(activity: Activity?, file: File?, options: RequestOptions?, imageView: ImageView) {
         if (file != null && file.exists() && file.isFile)
             if (activity != null && !activity.isDestroyed) {

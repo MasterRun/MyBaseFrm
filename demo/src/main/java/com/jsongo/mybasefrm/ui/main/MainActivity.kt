@@ -17,14 +17,14 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
-import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.RegUtil
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.common.ActivityCollector
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.login.LoginActivity
 import com.jsongo.mybasefrm.ui.main.conv.ConvListFragment

@@ -1,4 +1,4 @@
-package com.jsongo.core.util.rxpermissions2;
+package com.jsongo.core_mini.util.rxpermissions2;
 
 import android.annotation.TargetApi;
 import android.content.pm.PackageManager;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
-import com.jsongo.core.util.LogcatUtil;
+import com.jsongo.core_mini.util.LogcatUtil;
 
 import java.util.HashMap;
 import java.util.Map;

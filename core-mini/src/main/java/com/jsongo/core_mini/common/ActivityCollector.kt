@@ -1,11 +1,10 @@
-package com.jsongo.core.common
+package com.jsongo.core_mini.common
 
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.util.SparseArray
-import com.jsongo.core.BaseCore
-import com.jsongo.core.constant.KEY_ACTIVITY_FORE
+import com.jsongo.core_mini.CoreMini
 import com.safframework.log.L
 
 /**
@@ -20,12 +19,18 @@ object ActivityCollector {
     val taskArray = SparseArray<ArrayList<Activity>>(6)
 
     val topActivity: Activity
-        get() = activities.get(activities.size - 1)
+        get() = activities.get(
+            activities.size - 1
+        )
 
     val myForegroundActivity: Activity?
         get() {
             return try {
-                activities.asReversed().first { isActivityFore(it) }
+                activities.asReversed().first {
+                    isActivityFore(
+                        it
+                    )
+                }
             } catch (e: Exception) {
                 null
             }
@@ -145,8 +150,8 @@ object ActivityCollector {
         try {
             finishAll()
             val activityManager =
-                BaseCore.context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            activityManager.restartPackage(BaseCore.context.getPackageName())
+                CoreMini.context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            activityManager.restartPackage(CoreMini.context.getPackageName())
             System.exit(0)
         } catch (e: Exception) {
             L.e(e.message, e)

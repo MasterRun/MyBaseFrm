@@ -13,10 +13,10 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
-import com.jsongo.core.common.ActivityCollector
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core.ui.splash.SplashActivity
+import com.jsongo.core_mini.common.ActivityCollector
 import com.jsongo.mybasefrm.AppApplication
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.databinding.ActivityLoginBinding

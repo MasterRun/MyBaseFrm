@@ -13,8 +13,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.jsongo.core.util.GlideUtil;
-import com.jsongo.core.util.LogcatUtil;
+import com.jsongo.core_mini.util.GlideUtil;
+import com.jsongo.core_mini.util.LogcatUtil;
 import com.jsongo.im.R;
 
 import cn.jiguang.imui.commons.ImageLoader;

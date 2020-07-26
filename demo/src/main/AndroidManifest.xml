@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:allowBackup,android:label">
+        tools:replace="android:allowBackup,android:label,android:name">
         <activity android:name="com.jsongo.core.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

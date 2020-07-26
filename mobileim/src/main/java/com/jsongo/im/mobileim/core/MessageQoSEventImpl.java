@@ -1,6 +1,6 @@
 package com.jsongo.im.mobileim.core;
 
-import com.jsongo.core.util.LogcatUtil;
+import com.jsongo.core_mini.util.LogcatUtil;
 
 import net.openmob.mobileimsdk.android.event.MessageQoSEvent;
 import net.openmob.mobileimsdk.server.protocal.Protocal;

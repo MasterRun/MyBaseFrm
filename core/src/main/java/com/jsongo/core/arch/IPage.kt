@@ -14,8 +14,8 @@ import com.jsongo.core.common.SmartRefreshFooter
 import com.jsongo.core.common.SmartRefreshHeader
 import com.jsongo.core.common.useFooter
 import com.jsongo.core.common.useHeader
-import com.jsongo.core.util.LogcatUtil
 import com.jsongo.core.widget.TopbarLayout
+import com.jsongo.core_mini.util.LogcatUtil
 import com.qmuiteam.qmui.widget.QMUIEmptyView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 

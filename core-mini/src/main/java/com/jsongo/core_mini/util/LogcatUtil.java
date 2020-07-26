@@ -1,9 +1,9 @@
-package com.jsongo.core.util;
+package com.jsongo.core_mini.util;
 
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.jsongo.core.BaseCore;
+import com.jsongo.core_mini.CoreMini;
 
 import java.util.List;
 import java.util.Locale;
@@ -20,7 +20,7 @@ public class LogcatUtil {
     /**
      * 控制是否开启日志
      */
-    private static boolean openLog = BaseCore.isDebug();
+    private static boolean openLog = CoreMini.isDebug();
 
     /**
      * 得到tag  (ClazzName.java)/ThreadName

@@ -7,7 +7,7 @@ import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.jsongo.core.arch.BaseFragment
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.ui.R
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.util.QMUIDisplayHelper

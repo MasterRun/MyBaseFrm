@@ -1,4 +1,4 @@
-package com.jsongo.core.widget;
+package com.jsongo.core_mini.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -20,8 +20,8 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 
-import com.jsongo.core.BaseCore;
-import com.jsongo.core.R;
+import com.jsongo.core_mini.CoreMini;
+import com.jsongo.core_mini.R;
 
 /**
  * @author ： jsongo
@@ -31,7 +31,7 @@ import com.jsongo.core.R;
 public class RxToast {
 
     @SuppressLint("StaticFieldLeak")
-    private static Context context = BaseCore.context;
+    private static Context context = CoreMini.context;
 
     @ColorInt
     private static final int DEFAULT_TEXT_COLOR = Color.parseColor("#FFFFFF");

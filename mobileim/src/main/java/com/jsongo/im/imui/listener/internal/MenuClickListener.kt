@@ -5,9 +5,9 @@ import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import cn.jiguang.imui.chatinput.listener.OnMenuClickListener
 import cn.jiguang.imui.chatinput.model.FileItem
-import com.jsongo.core.util.rxpermissions2.RxPermissionManager
-import com.jsongo.core.util.rxpermissions2.RxPermissions
-import com.jsongo.core.widget.RxToast
+import com.jsongo.core_mini.util.rxpermissions2.RxPermissionManager
+import com.jsongo.core_mini.util.rxpermissions2.RxPermissions
+import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.im.imui.listener.IChatOperationListenerCallback
 
 /**

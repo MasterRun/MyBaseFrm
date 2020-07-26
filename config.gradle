@@ -12,6 +12,11 @@ ext {
              * arrVer 在线引用的版本
              */
 
+            'core_mini'        : [
+                    'verCode': 1,
+                    'verName': '1.0.0-SNAPSHOT',
+                    'aarVer' : '1.0.0-SNAPSHOT'
+            ],
             'core'        : [
                     'verCode': 1,
                     'verName': '1.0.0.g3-SNAPSHOT',
@@ -87,7 +92,7 @@ ext {
 
             'saf_log'     : '2.1.3',
 
-            'qmui'        : '2.0.0-alpha02',
+            'qmui'        : '2.0.0-alpha10',
 
             'smartrefresh': '1.1.0-x',
 

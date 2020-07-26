@@ -19,27 +19,24 @@ object ConstConf {
     val HTTP_CACHE_DIR: String
     //崩溃日志保存路径
     val CRASH_LOG_DIR: String
-    //file uri的auth值
-    val FILE_PROVIDER_AUTH: String
 
     init {
         try {
-            val packageManager = BaseCore.context.getPackageManager()
-            val packageInfo = packageManager.getPackageInfo(BaseCore.context.getPackageName(), 0)
+            val packageManager = BaseCore.context.packageManager
+            val packageInfo = packageManager.getPackageInfo(BaseCore.context.packageName, 0)
             val labelRes = packageInfo.applicationInfo.labelRes
-            val name = BaseCore.context.getResources().getString(labelRes)
+            val name = BaseCore.context.resources.getString(labelRes)
             BASE_DIR = FileUtil.getRootPath().toString() + File.separator + name + File.separator
         } catch (e: Exception) {
             BASE_DIR = if (Environment.MEDIA_MOUNTED == Environment.getExternalStorageState()) {
-                BaseCore.context.getExternalCacheDir()!!.getPath() + File.separator
+                BaseCore.context.externalCacheDir!!.path + File.separator
             } else {
-                BaseCore.context.getCacheDir().getPath() + File.separator
+                BaseCore.context.cacheDir.path + File.separator
             }
             e.printStackTrace()
         }
         HTTP_CACHE_DIR = BASE_DIR + "netcache" + File.separator
         CRASH_LOG_DIR = BASE_DIR + "crash" + File.separator
 
-        FILE_PROVIDER_AUTH = BaseCore.context.packageName + ".core.fileprovider"
     }
 }

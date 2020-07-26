@@ -30,7 +30,7 @@ demo\app module中用于个人测试
 - 全局异常不崩溃尝试  --  preparing
 - 登录页，登录请求  --  doing  
 - 首页卡片添加图标和点击事件的设置
-- webview 独立进程
+- webview 独立进程,webview 使用addview方式
 - glide图片加载管理，及时在activity fragment销毁时释放
 - view binding
 - 封装网络请求返回处理
