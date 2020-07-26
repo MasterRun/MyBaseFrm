@@ -1,3 +1,8 @@
 package com.jsongo.ui.component.image.banner.widget.bean
 
-data class BannerItem(val imgUrl: String = "", val title: String = "")
+import com.epoint.app.widget.banner.widget.bean.ImageBannerItem
+
+data class BannerItem(
+    override val imgUrl: String = "",
+    override val title: String = ""
+) : ImageBannerItem

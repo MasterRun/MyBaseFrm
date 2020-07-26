@@ -40,17 +40,37 @@ public abstract class BaseIndicatorBanner<E, T extends BaseIndicatorBanner<E, T>
 
     private LinearLayout mLlIndicators;
 
+    //region new 系列构造方法
     public BaseIndicatorBanner(Context context) {
-        this(context, null, 0);
+        this(context, Gravity.CENTER);
     }
 
+    public BaseIndicatorBanner(Context context, int indicatorGravity) {
+        this(context, indicatorGravity, true);
+    }
+
+    public BaseIndicatorBanner(Context context, boolean isLoopEnable) {
+        this(context, DEFAULT_INDICATOR_GRAVITY, isLoopEnable);
+    }
+
+    public BaseIndicatorBanner(Context context, int indicatorGravity, boolean isLoopEnable) {
+        super(context, indicatorGravity, isLoopEnable);
+        initIndicator(context, null);
+    }
+    //endregion
+
+    //region xml 布局系列构造方法
     public BaseIndicatorBanner(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     public BaseIndicatorBanner(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initIndicator(context, attrs);
+    }
+    //endregion
 
+    protected void initIndicator(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BaseIndicatorBanner);
         mIndicatorStyle = ta.getInt(R.styleable.BaseIndicatorBanner_bb_indicatorStyle, STYLE_CORNER_RECTANGLE);
         mIndicatorWidth = ta.getDimensionPixelSize(R.styleable.BaseIndicatorBanner_bb_indicatorWidth, dp2px(6));

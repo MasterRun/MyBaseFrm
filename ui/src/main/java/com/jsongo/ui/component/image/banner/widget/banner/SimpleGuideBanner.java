@@ -2,7 +2,9 @@ package com.jsongo.ui.component.image.banner.widget.banner;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,8 +27,8 @@ public class SimpleGuideBanner extends BaseIndicatorBanner<Integer, SimpleGuideB
     }
 
     @Override
-    public View onCreateItemView(int position) {
-        View inflate = View.inflate(mContext, R.layout.adapter_simple_guide, null);
+    public Pair<View, ViewGroup.LayoutParams> onCreateItemView(int position) {
+        View inflate = View.inflate(mContext, R.layout.banner_simple_guide, null);
         ImageView iv = inflate.findViewById(R.id.iv);
         TextView tv_jump = inflate.findViewById(R.id.tv_jump);
 
@@ -42,8 +44,7 @@ public class SimpleGuideBanner extends BaseIndicatorBanner<Integer, SimpleGuideB
                 onJumpClickL.onJumpClick();
             }
         });
-
-        return inflate;
+        return new Pair<>(inflate, null);
     }
 
     private OnJumpClickL onJumpClickL;

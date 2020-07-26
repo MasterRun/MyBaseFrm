@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -18,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -119,35 +122,81 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
     private TextView mTvTitle;
 
     private Handler mHandler = new Handler() {
+        @Override
         public void handleMessage(Message msg) {
             scrollToNextItem(mCurrentPositon);
         }
     };
 
+    /**
+     * 指示器的方位默认值
+     */
+    public static final int DEFAULT_INDICATOR_GRAVITY = Gravity.CENTER;
+
+    /**
+     * 指示器的方位
+     */
+    protected int indicatorGravity = DEFAULT_INDICATOR_GRAVITY;
+
+    /**
+     * 是否loop默认值
+     */
+    public static final boolean DEFAULT_LOOP_ENABLE = true;
+
+    /**
+     * 是否loop
+     */
+    protected boolean isLoopEnable = DEFAULT_LOOP_ENABLE;
+
+    //region  new 系列构造方法
     public BaseBanner(Context context) {
-        this(context, null, 0);
+        this(context, DEFAULT_INDICATOR_GRAVITY);
     }
 
+    public BaseBanner(Context context, int indicatorGravity) {
+        this(context, indicatorGravity, true);
+    }
+
+    public BaseBanner(Context context, boolean isLoopEnable) {
+        this(context, DEFAULT_INDICATOR_GRAVITY, isLoopEnable);
+    }
+
+    public BaseBanner(Context context, int indicatorGravity, boolean isLoopEnable) {
+        super(context);
+        this.indicatorGravity = indicatorGravity;
+        this.isLoopEnable = isLoopEnable;
+        init(context, null);
+        initByGravity();
+    }
+    //endregion
+
+    //region xml 布局系列构造方法
     public BaseBanner(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
     public BaseBanner(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        init(context, attrs);
+        initByGravity();
+    }
+    //endregion
+
+    protected void init(Context context, @Nullable AttributeSet attrs) {
         this.mContext = context;
         mDisplayMetrics = context.getResources().getDisplayMetrics();
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.BaseBanner);
         float scale = ta.getFloat(R.styleable.BaseBanner_bb_scale, -1);
 
-        boolean isLoopEnable = ta.getBoolean(R.styleable.BaseBanner_bb_isLoopEnable, true);
+        isLoopEnable = ta.getBoolean(R.styleable.BaseBanner_bb_isLoopEnable, isLoopEnable);
         mDelay = ta.getInt(R.styleable.BaseBanner_bb_delay, 5);
         mPeriod = ta.getInt(R.styleable.BaseBanner_bb_period, 5);
         mIsAutoScrollEnable = ta.getBoolean(R.styleable.BaseBanner_bb_isAutoScrollEnable, true);
 
         int barColor = ta.getColor(R.styleable.BaseBanner_bb_barColor, Color.TRANSPARENT);
         mIsBarShowWhenLast = ta.getBoolean(R.styleable.BaseBanner_bb_isBarShowWhenLast, true);
-        int indicatorGravity = ta.getInt(R.styleable.BaseBanner_bb_indicatorGravity, Gravity.CENTER);
+        indicatorGravity = ta.getInt(R.styleable.BaseBanner_bb_indicatorGravity, indicatorGravity);
         float barPaddingLeft = ta.getDimension(R.styleable.BaseBanner_bb_barPaddingLeft, dp2px(10));
         float barPaddingTop = ta.getDimension(R.styleable.BaseBanner_bb_barPaddingTop, dp2px(indicatorGravity == Gravity.CENTER ? 6 : 2));
         float barPaddingRight = ta.getDimension(R.styleable.BaseBanner_bb_barPaddingRight, dp2px(10));
@@ -159,10 +208,15 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
         ta.recycle();
 
         //get layout_height
-        String height = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
+        String height = ViewGroup.LayoutParams.WRAP_CONTENT + "";
+        if (attrs != null) {
+            height = attrs.getAttributeValue("http://schemas.android.com/apk/res/android", "layout_height");
+        }
 
         //create ViewPager
         mViewPager = isLoopEnable ? new LoopViewPager(context) : new ViewPager(context);
+        //去除overscroll
+        mViewPager.setOverScrollMode(OVER_SCROLL_NEVER);
         mItemWidth = mDisplayMetrics.widthPixels;
         if (scale < 0) {//scale not set in xml
             if (height.equals(ViewGroup.LayoutParams.MATCH_PARENT + "")) {
@@ -216,6 +270,9 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
         mTvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
         mTvTitle.setVisibility(isTitleShow ? VISIBLE : INVISIBLE);
 
+    }
+
+    protected void initByGravity() {
         if (indicatorGravity == Gravity.CENTER) {
             mLlBottomBar.setGravity(Gravity.CENTER);
             mLlBottomBar.addView(mLlIndicatorContainer);
@@ -243,7 +300,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
     /**
      * 创建ViewPager的Item布局
      */
-    public abstract View onCreateItemView(int position);
+    public abstract Pair<View, ViewGroup.LayoutParams> onCreateItemView(int position);
 
     /**
      * 创建显示器
@@ -258,7 +315,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
     /**
      * 覆写这个方法设置标题
      */
-    public void onTitleSlect(TextView tv, int position) {
+    public void onTitleSelect(TextView tv, int position) {
     }
 
     /**
@@ -369,7 +426,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
      * 设置viewpager
      */
     private void setViewPager() {
-        InnerBannerAdapter mInnerAdapter = new InnerBannerAdapter();
+        InnerBannerAdapter mInnerAdapter = new InnerBannerAdapter(this);
         mViewPager.setAdapter(mInnerAdapter);
         mViewPager.setOffscreenPageLimit(mDatas.size());
 
@@ -409,7 +466,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             mCurrentPositon = position % mDatas.size();
 
             setCurrentIndicator(mCurrentPositon);
-            onTitleSlect(mTvTitle, mCurrentPositon);
+            onTitleSelect(mTvTitle, mCurrentPositon);
             mLlBottomBar.setVisibility(mCurrentPositon == mDatas.size() - 1 && !mIsBarShowWhenLast ? GONE : VISIBLE);
 
             mLastPositon = mCurrentPositon;
@@ -438,7 +495,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             mCurrentPositon = 0;
         }
 
-        onTitleSlect(mTvTitle, mCurrentPositon);
+        onTitleSelect(mTvTitle, mCurrentPositon);
         setViewPager();
         //create indicator
         View indicatorViews = onCreateIndicator();
@@ -505,7 +562,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             case MotionEvent.ACTION_CANCEL:
                 goOnScroll();
                 break;
-
+            default:
         }
         return super.dispatchTouchEvent(ev);
     }
@@ -522,26 +579,39 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
 //        }
 //    }
 
-    private class InnerBannerAdapter extends PagerAdapter {
-        @Override
-        public int getCount() {
-            return mDatas.size();
+    public static class InnerBannerAdapter<E, T extends BaseBanner<E, T>> extends PagerAdapter {
+
+        private final BaseBanner<E, T> baseBanner;
+
+        InnerBannerAdapter(BaseBanner<E, T> baseBanner) {
+            this.baseBanner = baseBanner;
         }
 
         @Override
+        public int getCount() {
+            return baseBanner.mDatas.size();
+        }
+
+        @NonNull
+        @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            View inflate = onCreateItemView(position);
-            inflate.setOnClickListener(new OnClickListener() {
+            Pair<View, ViewGroup.LayoutParams> viewLayoutParamsPair = baseBanner.onCreateItemView(position);
+            View view = viewLayoutParamsPair.first;
+            view.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    OnItemClickListener mOnItemClickListener = baseBanner.mOnItemClickListener;
                     if (mOnItemClickListener != null) {
                         mOnItemClickListener.onItemClick(position);
                     }
                 }
             });
-            container.addView(inflate);
-
-            return inflate;
+            if (viewLayoutParamsPair.second != null) {
+                container.addView(view, viewLayoutParamsPair.second);
+            } else {
+                container.addView(view);
+            }
+            return view;
         }
 
         @Override
@@ -554,6 +624,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
             return view == object;
         }
 
+        @Override
         public int getItemPosition(Object object) {
             return POSITION_NONE;
         }
@@ -585,7 +656,7 @@ public abstract class BaseBanner<E, T extends BaseBanner<E, T>> extends Relative
     }
 
     protected boolean isLoopViewPager() {
-        return mViewPager instanceof LoopViewPager;
+        return isLoopEnable;
     }
 
     protected boolean isValid() {

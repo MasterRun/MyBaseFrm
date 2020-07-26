@@ -2,7 +2,9 @@ package com.jsongo.ui.component.image.banner.widget.banner;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jsongo.ui.R;
@@ -22,14 +24,14 @@ public class SimpleTextBanner extends BaseIndicatorBanner<String, SimpleTextBann
     }
 
     @Override
-    public void onTitleSlect(TextView tv, int position) {
+    public void onTitleSelect(TextView tv, int position) {
     }
 
     @Override
-    public View onCreateItemView(int position) {
-        View inflate = View.inflate(mContext, R.layout.adapter_simple_text, null);
+    public Pair<View, ViewGroup.LayoutParams> onCreateItemView(int position) {
+        View inflate = View.inflate(mContext, R.layout.banner_simple_text, null);
         TextView tv = inflate.findViewById(R.id.tv);
         tv.setText(mDatas.get(position));
-        return inflate;
+        return new Pair<>(inflate, null);
     }
 }
