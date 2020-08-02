@@ -13,7 +13,6 @@
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	
 	<application>
-		<activity android:name=".component.image.preview.ImagePreviewActivity" />
 		<activity
 			android:name=".component.zxing.android.CaptureActivity"
 			android:configChanges="orientation|screenSize"

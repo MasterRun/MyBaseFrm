@@ -28,7 +28,7 @@ class AppApplication : BaseCore() {
 
         context = BaseCore.context
         BaseCore.isDebug = isDebug
-
+        initThirdLibs()
         AJs.init(this)
         BaseUI.init(this)
         UIEnhance.init(this)

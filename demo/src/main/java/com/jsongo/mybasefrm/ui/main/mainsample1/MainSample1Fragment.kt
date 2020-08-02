@@ -19,6 +19,7 @@ import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
 import com.jsongo.core.util.RegUtil
 import com.jsongo.core_mini.common.OnRvItemClickListener
+import com.jsongo.core_mini.util.addStatusBarHeightPadding
 import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.main.mainsample1.adapter.QuickEntryItemAdapter
@@ -29,7 +30,6 @@ import com.jsongo.ui.component.image.banner.lib.anim.select.ZoomInEnter
 import com.jsongo.ui.component.image.banner.lib.transform.ZoomOutSlideTransformer
 import com.jsongo.ui.component.image.banner.widget.banner.SimpleImageBanner
 import com.jsongo.ui.component.image.banner.widget.bean.BannerItem
-import com.jsongo.ui.util.addStatusBarHeightPadding
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_main_sample1.*
 

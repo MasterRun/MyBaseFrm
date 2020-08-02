@@ -24,6 +24,8 @@ import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
 import com.jsongo.core.arch.BaseActivity;
 import com.jsongo.core.widget.TopbarLayout;
+import com.jsongo.core_mini.util.EasyPhotoGlideEngine;
+import com.jsongo.core_mini.util.ViewExtKt;
 import com.jsongo.core_mini.widget.RxToast;
 import com.jsongo.ui.R;
 import com.jsongo.ui.component.zxing.Constant;
@@ -32,9 +34,7 @@ import com.jsongo.ui.component.zxing.camera.CameraManager;
 import com.jsongo.ui.component.zxing.decode.DecodeImgCallback;
 import com.jsongo.ui.component.zxing.decode.DecodeImgThread;
 import com.jsongo.ui.component.zxing.view.ViewfinderView;
-import com.jsongo.ui.util.EasyPhotoGlideEngine;
 import com.jsongo.ui.util.Util;
-import com.jsongo.ui.util.UtilKt;
 import com.safframework.log.L;
 
 import java.io.IOException;
@@ -158,7 +158,7 @@ public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callb
         topbarLayout.hideBottomDivider();
         topbarLayout.getTopBar().setTitle(R.string.scan_activity_title);
         topbarLayout.setBackgroundResource(R.color.scan_bg);
-        UtilKt.addStatusBarHeightPadding(topbarLayout);
+        ViewExtKt.addStatusBarHeightPadding(topbarLayout);
         setSwipeBackEnable(false);
     }
 

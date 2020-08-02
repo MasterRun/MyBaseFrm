@@ -8,7 +8,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.LinearLayoutCompat
-import com.jsongo.core.util.KeyboardUtil
+import com.jsongo.core_mini.util.KeyboardUtil
 import com.jsongo.ui.R
 import kotlinx.android.synthetic.main.layout_search_bar.view.*
 

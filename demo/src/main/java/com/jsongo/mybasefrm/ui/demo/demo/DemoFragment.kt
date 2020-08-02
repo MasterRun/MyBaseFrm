@@ -9,6 +9,7 @@ import com.jsongo.annotation.anno.Page
 import com.jsongo.core.arch.mvvm.stateful.StatefulFragment
 import com.jsongo.core.db.CommonDbOpenHelper
 import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
+import com.jsongo.core_mini.util.EasyPhotoGlideEngine
 import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
@@ -16,7 +17,6 @@ import com.jsongo.mybasefrm.databinding.ActivityDemoBinding
 import com.jsongo.mybasefrm.ui.demo.DemoViewModel
 import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.mypage.MyPageActivity
-import com.jsongo.ui.util.EasyPhotoGlideEngine
 
 /**
  * author ： jsongo

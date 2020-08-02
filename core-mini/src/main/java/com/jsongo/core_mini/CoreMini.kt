@@ -6,6 +6,8 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.bumptech.glide.Glide
 import com.jsongo.core_mini.common.DefaultActivityLifecycleCallback
+import com.jsongo.core_mini.widget.imagepreview.ZoomImageLoader
+import com.previewlibrary.ZoomMediaLoader
 
 /**
  * @author ： jsongo
@@ -27,6 +29,10 @@ open class CoreMini : Application() {
         super.onCreate()
 
         registerActivityLifecycleCallbacks(DefaultActivityLifecycleCallback)
+    }
+
+    open fun initThirdLibs() {
+        ZoomMediaLoader.getInstance().init(ZoomImageLoader())
     }
 
     override fun attachBaseContext(context: Context) {

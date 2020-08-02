@@ -32,18 +32,18 @@ import com.jsongo.core.arch.BaseActivity
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
-import com.jsongo.core.util.KeyboardUtil
 import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
+import com.jsongo.core_mini.util.EasyPhotoGlideEngine
+import com.jsongo.core_mini.util.KeyboardUtil
+import com.jsongo.core_mini.util.addStatusBarHeightPadding
 import com.jsongo.core_mini.widget.RxToast
+import com.jsongo.core_mini.widget.imagepreview.ImgPreviewClick
 import com.jsongo.im.R
 import com.jsongo.im.bean.ChatMessage
 import com.jsongo.im.imui.listener.IChatOperationListenerCallback
 import com.jsongo.im.imui.listener.internal.CameraCallbackListener
 import com.jsongo.im.imui.listener.internal.MenuClickListener
 import com.jsongo.im.imui.listener.internal.RecordVoiceListener
-import com.jsongo.ui.component.image.preview.ImgPreviewClick
-import com.jsongo.ui.util.EasyPhotoGlideEngine
-import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import kotlinx.android.synthetic.main.activity_chat.*
 

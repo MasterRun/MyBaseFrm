@@ -16,7 +16,7 @@ import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.ajs.widget.AJsWebView
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.ui.component.image.preview.ImgPreviewClick
+import com.jsongo.core_mini.widget.imagepreview.ImgPreviewClick
 import com.jsongo.ui.component.screenshot_observe.IScreenshotCallback
 import com.jsongo.ui.component.zxing.Constant
 import com.jsongo.ui.component.zxing.android.CaptureActivity

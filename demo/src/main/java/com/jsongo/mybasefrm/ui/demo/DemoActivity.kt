@@ -26,6 +26,7 @@ import com.jsongo.core.ui.splash.SplashActivity
 import com.jsongo.core.util.RegUtil
 import com.jsongo.core_mini.common.ActivityCollector
 import com.jsongo.core_mini.common.FILE_PROVIDER_AUTH
+import com.jsongo.core_mini.util.EasyPhotoGlideEngine
 import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.BR
 import com.jsongo.mybasefrm.R
@@ -36,7 +37,6 @@ import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.mypage.MyPageActivity
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
 import com.jsongo.ui.component.zxing.Constant
-import com.jsongo.ui.util.EasyPhotoGlideEngine
 import com.jsongo.ui.widget.FloatingView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.safframework.log.L

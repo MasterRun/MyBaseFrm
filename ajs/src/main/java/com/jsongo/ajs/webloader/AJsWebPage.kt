@@ -9,7 +9,7 @@ import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.util.ConstValue
 import com.jsongo.core.arch.BaseActivity
-import com.jsongo.core.util.KeyboardUtil
+import com.jsongo.core_mini.util.KeyboardUtil
 import com.jsongo.ui.component.screenshot_observe.ScreenshotObserveUtil
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 

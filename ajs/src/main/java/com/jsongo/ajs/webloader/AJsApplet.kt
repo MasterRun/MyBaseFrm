@@ -9,7 +9,7 @@ import android.os.Bundle
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.util.ConstValue
-import com.jsongo.core.common.ActivityCollector
+import com.jsongo.core_mini.common.ActivityCollector
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import kotlin.random.Random
 
@@ -76,8 +76,12 @@ open class AJsApplet : AJsWebPage() {
             val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
             activityManager.moveTaskToFront(taskId, 0)
         } catch (e: Exception) {
-            val intent = Intent(this, Class.forName(mainActivityName))
-            startActivity(intent)
+            /*startActivity(
+                Intent(
+                    this,
+                    Class.forName(mainActivityName)
+                ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            )*/
         }
         //当前页面移到后台
         moveTaskToBack(true)

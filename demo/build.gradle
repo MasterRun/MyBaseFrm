@@ -42,18 +42,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
-
-    viewBinding {
-        enabled = true
-    }
-
-//    buildFeatures {
-//        dataBinding = true
-//        viewBinding = true
-//    }
 
     testOptions {
         unitTests {

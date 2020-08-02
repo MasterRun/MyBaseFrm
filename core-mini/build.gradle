@@ -23,17 +23,9 @@ android {
 
     }
 
-//    buildFeatures {
-//        dataBinding = true
-//        viewBinding = true
-//    }
-
-    dataBinding {
-        enabled = true
-    }
-
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
 
     compileOptions {
@@ -108,8 +100,14 @@ dependencies {
     api "com.safframework.log:saf-log-core:${proVer.saf_log}"
     api "com.safframework.log:saf-log-file:${proVer.saf_log}"
     api "com.safframework.log:saf-log-okhttp:${proVer.saf_log}"
+
+    // hutool
+    api 'cn.hutool:hutool-core:5.3.9'
     //UI库
     //qmui
     api "com.qmuiteam:qmui:${proVer.qmui}"
-
+    //easyphoto 图片选取
+    api 'com.github.HuanTanSheng:EasyPhotos:3.0.3'
+    //image preview
+    api 'com.ycjiang:ImagePreview:2.2.8'
 }

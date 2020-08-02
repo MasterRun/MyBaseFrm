@@ -12,12 +12,12 @@ import com.jsongo.core.arch.mvvm.stateful.Status
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
 import com.jsongo.core_mini.common.OnRvItemClickListener
+import com.jsongo.core_mini.util.addStatusBarHeightPadding
 import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.aspect.AopOnclick
 import com.jsongo.mybasefrm.ui.main.MainActivity
 import com.jsongo.mybasefrm.ui.main.conv.adapter.ConvItemAdapter
-import com.jsongo.ui.util.addStatusBarHeightPadding
 import kotlinx.android.synthetic.main.fragment_conv_list.*
 
 /**

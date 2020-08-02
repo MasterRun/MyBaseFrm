@@ -22,18 +22,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
     }
-
-    viewBinding {
-        enabled = true
-    }
-
-//    buildFeatures {
-//        dataBinding = true
-//        viewBinding = true
-//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -62,10 +54,6 @@ dependencies {
         implementation project(path: ':core')
     }
 
-    //easyphoto 图片选取
-    api 'com.github.HuanTanSheng:EasyPhotos:3.0.3'
-    //image preview
-    api 'com.ycjiang:ImagePreview:2.2.8'
     //zxing 二维码
 //    api 'com.google.zxing:core:3.3.0'
     //已引入源码

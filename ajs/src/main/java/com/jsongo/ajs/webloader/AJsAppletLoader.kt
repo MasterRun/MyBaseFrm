@@ -3,12 +3,14 @@ package com.jsongo.ajs.webloader
 import android.graphics.Color
 import android.view.View
 import android.widget.RelativeLayout
+import com.jsongo.ajs.R
 import com.jsongo.ajs.widget.AppletMenu
-import com.jsongo.core.widget.RxToast
-import com.jsongo.ui.util.addStatusBarHeightPadding
+import com.jsongo.core_mini.util.addStatusBarHeightPadding
+import com.jsongo.core_mini.widget.RxToast
 import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet
 
 /**
  * @author ： jsongo
@@ -44,6 +46,8 @@ class AJsAppletLoader : AJsWebLoader() {
     lateinit var appletMenu: AppletMenu
         protected set
 
+    var bottomSheet: QMUIBottomSheet? = null
+
     override fun init() {
         //小程序隐藏标题返回按钮
         topbar.backImageButton.visibility = View.GONE
@@ -73,7 +77,31 @@ class AJsAppletLoader : AJsWebLoader() {
             activity?.finish()
         }
         appletMenu.ivMore.setOnClickListener {
-            RxToast.info("click more")
+            if (bottomSheet == null) {
+                bottomSheet = QMUIBottomSheet.BottomGridSheetBuilder(view.context)
+                    .addItem(
+                        R.drawable.ic_applet_more,
+                        "about",
+                        QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE
+                    )
+                    .addItem(
+                        R.drawable.ic_applet_close,
+                        "close",
+                        QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE
+                    )
+                    .setOnSheetItemClickListener { dialog, itemView ->
+                        when (itemView.tag) {
+                            "about" -> {
+                                RxToast.normal("about")
+                            }
+                            "close" -> {
+                                RxToast.normal("close")
+                            }
+                        }
+                    }
+                    .build()
+            }
+            bottomSheet?.show()
         }
     }
 }

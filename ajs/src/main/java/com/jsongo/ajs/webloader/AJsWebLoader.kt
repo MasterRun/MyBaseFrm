@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import com.jsongo.ajs.AJs
 import com.jsongo.ajs.R
 import com.jsongo.ajs.helper.AjsWebViewHost
+import com.jsongo.core_mini.util.addStatusBarHeightPadding
 import com.jsongo.ui.component.screenshot_observe.IScreenshotCallback
 import com.jsongo.ui.component.screenshot_observe.ScreenshotObserveUtil
-import com.jsongo.ui.util.addStatusBarHeightPadding
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
