@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 
 ext {
-    PUBLISH_ARTIFACT_ID = 'core_mini'
+    PUBLISH_ARTIFACT_ID = 'core-mini'
     PUBLISH_VERSION = libConf.core_mini.verName
 }
 

@@ -50,7 +50,7 @@ dependencies {
 
     api "com.jsongo.basefrm:annotation:${libConf.annotation.aarVer}"
     if (libConf.useOnlineAAR) {
-        api "com.jsongo.basefrm:core_mini:${libConf.core_mini.aarVer}"
+        api "com.jsongo.basefrm:core-mini:${libConf.core_mini.aarVer}"
     } else {
         api project(path: ':core-mini')
     }

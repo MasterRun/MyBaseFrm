@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 
 ext {
-    PUBLISH_ARTIFACT_ID = 'ui_enhance'
+    PUBLISH_ARTIFACT_ID = 'ui-enhance'
     PUBLISH_VERSION = libConf.ui_enhance.verName
 }
 
