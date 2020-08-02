@@ -18,13 +18,13 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
 
         setContentView(layoutId)
 
-        initIPage(this)
-
         if (translucentWindow) {
             //沉浸/透明状态栏
             QMUIStatusBarHelper.translucent(this)
             QMUIStatusBarHelper.setStatusBarDarkMode(this)
         }
+
+        initIPage(this)
     }
 
     override fun onDestroyIPage() {
