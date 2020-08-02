@@ -11,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 import com.jsongo.core.constant.ConstConf
 import com.jsongo.core.crash.CrashHandler.Companion.CRASH_LOG
 import com.jsongo.core.util.DateUtil
@@ -25,7 +25,7 @@ import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.io.FileWriter
 
-class CrashActivity : BaseActivity() {
+class CrashActivity : BaseActivityWrapper() {
 
     override var mainLayoutId = R.layout.activity_crash
     override var containerIndex = 3

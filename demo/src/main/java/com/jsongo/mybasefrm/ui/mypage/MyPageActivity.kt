@@ -1,7 +1,7 @@
 package com.jsongo.mybasefrm.ui.mypage
 
 import android.os.Bundle
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 import com.jsongo.mybasefrm.R
 import com.jsongo.mybasefrm.ui.mypage.mypage.MyPageFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -11,7 +11,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
  * @date 2019/8/7 22:07
  * @desc 我的  页面  activity容器
  */
-class MyPageActivity : BaseActivity() {
+class MyPageActivity : BaseActivityWrapper() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

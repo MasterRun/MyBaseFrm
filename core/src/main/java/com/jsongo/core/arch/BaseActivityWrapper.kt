@@ -5,14 +5,13 @@ import android.view.View
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.NestedScrollView
 import com.jsongo.core.R
+import com.jsongo.core.widget.LoadingDialog
 import com.jsongo.core.widget.SlidingLayout
+import com.jsongo.core.widget.StatusView
 import com.jsongo.core.widget.TopbarLayout
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.qmuiteam.qmui.widget.QMUIEmptyView
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import com.jsongo.core_mini.base_page.BaseActivity
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.layout_frm_base.*
@@ -22,14 +21,13 @@ import kotlinx.android.synthetic.main.layout_frm_base.*
  * @date 2019/4/3 20:48
  * @desc activity父类
  */
-abstract class BaseActivity : AppCompatActivity(), IPage {
+abstract class BaseActivityWrapper : BaseActivity(), IPageWrapper {
 
     private lateinit var slidingLayout: SlidingLayout
-    //loadingDialog
-    lateinit var loadingDialog: QMUITipDialog
-        protected set
 
-    open val translucentWindow = true
+    //loadingDialog
+    override lateinit var loadingDialog: LoadingDialog
+        protected set
 
     override lateinit var rlLayoutRoot: RelativeLayout
         protected set
@@ -45,37 +43,28 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         protected set
     override lateinit var vsEmptyView: ViewStub
         protected set
-    override var emptyView: QMUIEmptyView? = null
+    override var statusView: StatusView? = null
         protected set
-
     override lateinit var mainView: View
 
     override var mainLayoutId = 0
 
     override var containerIndex = 1
 
+    override val layoutId: Int = R.layout.layout_frm_base
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.layout_frm_base)
-
-        initIPage(this)
-
         //loadingDialog
-        loadingDialog = QMUITipDialog.Builder(this)
-            .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+        loadingDialog = LoadingDialog.Builder(this)
+            .setIconType(LoadingDialog.Builder.ICON_TYPE_LOADING)
             .setTipWord(getString(R.string.dialog_loading))
             .create()
 
         //侧滑返回
         slidingLayout = SlidingLayout(this)
         setSwipeBackEnable(true)
-
-        if (translucentWindow) {
-            //沉浸/透明状态栏
-            QMUIStatusBarHelper.translucent(this)
-            QMUIStatusBarHelper.setStatusBarDarkMode(this)
-        }
     }
 
     /**
@@ -91,11 +80,11 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         vsEmptyView = vs_emptyview
     }
 
-    override fun inflateEmptyView(): QMUIEmptyView? {
-        if (emptyView == null) {
-            emptyView = vsEmptyView.inflate().findViewById(R.id.empty_view)
+    override fun inflateEmptyView(): StatusView? {
+        if (statusView == null) {
+            statusView = vsEmptyView.inflate().findViewById(R.id.empty_view)
         }
-        return emptyView
+        return statusView
     }
 
     /**
@@ -110,9 +99,14 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     }
 
     override fun onDestroy() {
-        onIPageDestroy()
+        onDestroyIPage()
         loadingDialog.dismiss()
         clearFindViewByIdCache()
         super.onDestroy()
+    }
+
+    override fun onDestroyIPage() {
+        super<IPageWrapper>.onDestroyIPage()
+        super<BaseActivity>.onDestroyIPage()
     }
 }

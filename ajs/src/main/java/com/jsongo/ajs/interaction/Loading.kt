@@ -3,7 +3,7 @@ package com.jsongo.ajs.interaction
 import com.jsongo.ajs.helper.AjsCallback
 import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.ajs.widget.AJsWebView
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 
 /**
  * author ： jsongo
@@ -22,7 +22,7 @@ object Loading {
         callback: AjsCallback
     ) {
         val hostActivity = ajsWebViewHost.hostActivity
-        if (hostActivity is BaseActivity) {
+        if (hostActivity is BaseActivityWrapper) {
             hostActivity.loadingDialog.show()
             callback.success()
         } else {
@@ -41,7 +41,7 @@ object Loading {
         callback: AjsCallback
     ) {
         val hostActivity = ajsWebViewHost.hostActivity
-        if (hostActivity is BaseActivity) {
+        if (hostActivity is BaseActivityWrapper) {
             hostActivity.loadingDialog.dismiss()
             callback.success()
         } else {
@@ -60,7 +60,7 @@ object Loading {
         callback: AjsCallback
     ) {
         val hostActivity = ajsWebViewHost.hostActivity
-        if (hostActivity is BaseActivity) {
+        if (hostActivity is BaseActivityWrapper) {
             val cancelable = !params["cancelable"].equals("false")
             hostActivity.loadingDialog.setCancelable(cancelable)
             hostActivity.loadingDialog.dismiss()

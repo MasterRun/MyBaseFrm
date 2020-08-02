@@ -22,7 +22,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import com.google.zxing.Result;
 import com.huantansheng.easyphotos.EasyPhotos;
 import com.huantansheng.easyphotos.models.album.entity.Photo;
-import com.jsongo.core.arch.BaseActivity;
+import com.jsongo.core.arch.BaseActivityWrapper;
 import com.jsongo.core.widget.TopbarLayout;
 import com.jsongo.core_mini.util.EasyPhotoGlideEngine;
 import com.jsongo.core_mini.util.ViewExtKt;
@@ -46,7 +46,7 @@ import java.util.List;
  * @date: 2017/10/26 15:22
  * @declare :扫一扫
  */
-public class CaptureActivity extends BaseActivity implements SurfaceHolder.Callback, View.OnClickListener {
+public class CaptureActivity extends BaseActivityWrapper implements SurfaceHolder.Callback, View.OnClickListener {
 
     @Override
     public int getMainLayoutId() {

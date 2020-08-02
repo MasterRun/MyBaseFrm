@@ -2,7 +2,6 @@ package com.jsongo.core_mini.widget
 
 import android.view.View
 import androidx.annotation.ColorInt
-import androidx.appcompat.widget.AppCompatTextView
 
 /**
  * @author ： jsongo
@@ -11,13 +10,19 @@ import androidx.appcompat.widget.AppCompatTextView
  */
 interface ITopbar {
 
-    var title: AppCompatTextView
+    var titleText: CharSequence
 
-    var backImageButton: View
+    var titleSize: Int
 
-    var visibility: Int
+    val backImageButton: View
+
+    fun setTitleColor(@ColorInt colorInt: Int)
 
     fun setBackgroundColor(@ColorInt colorInt: Int)
 
     fun hideBottomDivider()
+
+    fun hide()
+
+    fun show()
 }

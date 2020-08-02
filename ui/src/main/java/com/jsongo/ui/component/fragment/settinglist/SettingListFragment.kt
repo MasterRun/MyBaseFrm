@@ -1,12 +1,16 @@
 package com.jsongo.ui.component.fragment.settinglist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import com.jsongo.core.arch.BaseFragment
+import com.jsongo.core_mini.base_page.BaseFragment
+import com.jsongo.core_mini.widget.ILoadingDialog
+import com.jsongo.core_mini.widget.IStatusView
+import com.jsongo.core_mini.widget.ITopbar
 import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.ui.R
 import com.qmuiteam.qmui.kotlin.matchParent
@@ -14,14 +18,16 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView as QLv
 
-//@Page(R.layout.layout_setting_list, 0)
 class SettingListFragment : BaseFragment() {
 
-    /**
-     * 在lib中，资源id不是final变量，不能使用注解
-     */
-    override var mainLayoutId = R.layout.layout_setting_list
-//    override var containerIndex = 0
+    override
+    val loadingDialog: ILoadingDialog? = null
+
+    override val topbar: ITopbar?
+        get() = null
+    override val statusView: IStatusView?
+        get() = null
+    override val layoutId: Int = R.layout.layout_setting_list
 
     /**
      * 配置实体
@@ -40,6 +46,10 @@ class SettingListFragment : BaseFragment() {
     val itemViewMap = HashMap<String, QLv>()
 
     lateinit var glv: QMUIGroupListView
+
+    override fun initIPage(context: Context) {
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

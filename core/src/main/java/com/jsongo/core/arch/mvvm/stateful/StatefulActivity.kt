@@ -3,7 +3,7 @@ package com.jsongo.core.arch.mvvm.stateful
 import android.os.Bundle
 import android.view.View
 import com.jsongo.core.R
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 import com.jsongo.core.arch.mvvm.IMvvmView
 import kotlinx.android.synthetic.*
 
@@ -12,11 +12,12 @@ import kotlinx.android.synthetic.*
  * @createtime ： 2019/7/22 17:19
  * @desc : 有状态控制的Activity
  */
-abstract class StatefulActivity : BaseActivity(), IMvvmView, PageStatusListener {
+abstract class StatefulActivity : BaseActivityWrapper(), IMvvmView, PageStatusListener {
     /**
      * 页面状态
      */
     override lateinit var pageStatus: Status
+
     /**
      * 进入页面显示加载
      */
@@ -45,8 +46,8 @@ abstract class StatefulActivity : BaseActivity(), IMvvmView, PageStatusListener 
     override fun onPageLoading() {
         pageStatus = Status.LOADING
         loadingDialog.show()
-        if (emptyView?.visibility != View.GONE) {
-            emptyView?.hide()
+        if (statusView?.visibility != View.GONE) {
+            statusView?.hide()
         }
     }
 
@@ -55,8 +56,8 @@ abstract class StatefulActivity : BaseActivity(), IMvvmView, PageStatusListener 
             pageStatus = Status.SHOWING_DATA
             loadingDialog.dismiss()
             smartRefreshLayout.finishRefresh()
-            if (emptyView?.visibility != View.GONE) {
-                emptyView?.hide()
+            if (statusView?.visibility != View.GONE) {
+                statusView?.hide()
             }
         }
     }

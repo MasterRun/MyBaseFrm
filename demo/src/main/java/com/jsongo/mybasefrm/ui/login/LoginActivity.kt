@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.plugin.AppPlugin
 import com.jsongo.core.plugin.MobileIM
@@ -28,7 +28,7 @@ import com.jsongo.mybasefrm.ui.main.MainActivity
  * @desc : 登录页
  */
 @Page(R.layout.activity_login, 0)
-class LoginActivity : BaseActivity(), IMvvmView {
+class LoginActivity : BaseActivityWrapper(), IMvvmView {
 
     lateinit var viewModel: LoginViewModel
 

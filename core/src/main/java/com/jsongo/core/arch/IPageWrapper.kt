@@ -14,9 +14,10 @@ import com.jsongo.core.common.SmartRefreshFooter
 import com.jsongo.core.common.SmartRefreshHeader
 import com.jsongo.core.common.useFooter
 import com.jsongo.core.common.useHeader
+import com.jsongo.core.widget.StatusView
 import com.jsongo.core.widget.TopbarLayout
+import com.jsongo.core_mini.base_page.IPage
 import com.jsongo.core_mini.util.LogcatUtil
-import com.qmuiteam.qmui.widget.QMUIEmptyView
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -24,7 +25,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  * createtime ： 2019/7/27 11:38
  * desc : 页面接口
  */
-interface IPage {
+interface IPageWrapper : IPage {
     /**
      * 根布局
      */
@@ -33,7 +34,7 @@ interface IPage {
     /**
      * 标题栏
      */
-    val topbar: TopbarLayout
+    override val topbar: TopbarLayout
 
     /**
      * 下拉刷新
@@ -60,10 +61,7 @@ interface IPage {
      */
     val vsEmptyView: ViewStub
 
-    /**
-     * 空页面 状态页
-     */
-    val emptyView: QMUIEmptyView?
+    override val statusView: StatusView?
 
     /**
      * 使用的容器下标
@@ -75,6 +73,9 @@ interface IPage {
      * 布局资源id
      */
     val mainLayoutId: Int
+
+    override val layoutId: Int
+        get() = mainLayoutId
 
     /**
      * 主视图
@@ -89,9 +90,9 @@ interface IPage {
     /**
      * inflate emptyview
      */
-    fun inflateEmptyView(): QMUIEmptyView?
+    fun inflateEmptyView(): StatusView?
 
-    fun initIPage(context: Context) {
+    override fun initIPage(context: Context) {
 
         //获取view
         getIPageView()
@@ -148,8 +149,9 @@ interface IPage {
         }
     }
 
-    fun onIPageDestroy() {
-        emptyView?.hide()
+    override fun onDestroyIPage() {
+        statusView?.hide()
         smartRefreshLayout.finishRefresh().finishLoadMore()
     }
+
 }

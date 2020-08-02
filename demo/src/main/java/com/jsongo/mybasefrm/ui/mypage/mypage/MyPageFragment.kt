@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.jsongo.ajs.webloader.AJsApplet
 import com.jsongo.annotation.anno.Page
-import com.jsongo.core.arch.BaseFragment
+import com.jsongo.core.arch.BaseFragmentWrapper
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core_mini.widget.RxToast
 import com.jsongo.mybasefrm.AppApplication
@@ -32,7 +32,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import java.util.*
 
 @Page(R.layout.fragment_my_page, 1)
-class MyPageFragment : BaseFragment(), IMvvmView {
+class MyPageFragment : BaseFragmentWrapper(), IMvvmView {
 
     companion object {
         /**

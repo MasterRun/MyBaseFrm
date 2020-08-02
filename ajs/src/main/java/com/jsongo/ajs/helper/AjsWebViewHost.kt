@@ -5,9 +5,9 @@ import android.content.Intent
 import android.util.SparseArray
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import com.jsongo.core.arch.BaseActivity
-import com.jsongo.core.arch.BaseFragment
-import com.jsongo.core.arch.IPage
+import com.jsongo.core.arch.BaseActivityWrapper
+import com.jsongo.core.arch.BaseFragmentWrapper
+import com.jsongo.core.arch.IPageWrapper
 import io.reactivex.disposables.CompositeDisposable
 
 /**
@@ -56,10 +56,10 @@ interface AjsWebViewHost {
     /**
      * 当前的IPage  用于设置topbar smaerrefresh等
      */
-    val hostIPage: IPage?
+    val hostIPage: IPageWrapper?
         get() = when {
-            hostFragment is BaseFragment -> hostFragment as BaseFragment
-            hostActivity is BaseActivity -> hostActivity as BaseActivity
+            hostFragment is BaseFragmentWrapper -> hostFragment as BaseFragmentWrapper
+            hostActivity is BaseActivityWrapper -> hostActivity as BaseActivityWrapper
             else -> null
         }
 

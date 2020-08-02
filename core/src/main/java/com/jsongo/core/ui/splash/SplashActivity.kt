@@ -7,7 +7,7 @@ import com.jsongo.annotation.anno.LoginCheck
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed
 import com.jsongo.core.R
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 import com.jsongo.core_mini.common.ActivityCollector
 import com.jsongo.core_mini.widget.RxToast
 import io.reactivex.Observable
@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit
 /**
  * 启动页
  */
-open class SplashActivity : BaseActivity() {
+open class SplashActivity : BaseActivityWrapper() {
 
     override var mainLayoutId = R.layout.activity_splash
     override var containerIndex = 0
@@ -90,8 +90,8 @@ open class SplashActivity : BaseActivity() {
         compositeDisposable.add(disposable)
     }
 
-    override fun onIPageDestroy() {
+    override fun onDestroyIPage() {
         compositeDisposable.dispose()
-        super.onIPageDestroy()
+        super.onDestroyIPage()
     }
 }

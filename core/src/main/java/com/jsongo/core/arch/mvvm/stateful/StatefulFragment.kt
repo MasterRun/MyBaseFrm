@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
-import com.jsongo.core.arch.BaseFragment
+import com.jsongo.core.arch.BaseFragmentWrapper
 import com.jsongo.core.arch.mvvm.IMvvmView
 
 /**
@@ -12,17 +12,17 @@ import com.jsongo.core.arch.mvvm.IMvvmView
  * @date 2019/3/26 10:32
  * @desc : 有状态控制的Fragment
  */
-abstract class StatefulFragment : BaseFragment(), IMvvmView, PageStatusListener {
+abstract class StatefulFragment : BaseFragmentWrapper(), IMvvmView, PageStatusListener {
 
     /**
      * 页面状态
      */
     override lateinit var pageStatus: Status
+
     /**
      * 进入页面显示加载
      */
     open val showEnterPageLoading = true
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,8 +56,8 @@ abstract class StatefulFragment : BaseFragment(), IMvvmView, PageStatusListener 
         if (pageStatus != Status.SHOWING_DATA) {
             pageStatus = Status.SHOWING_DATA
             smartRefreshLayout.finishRefresh()
-            if (emptyView?.visibility != View.GONE) {
-                emptyView?.hide()
+            if (statusView?.visibility != View.GONE) {
+                statusView?.hide()
             }
         }
     }

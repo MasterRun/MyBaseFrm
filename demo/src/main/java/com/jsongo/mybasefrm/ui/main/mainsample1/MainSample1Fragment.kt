@@ -13,7 +13,7 @@ import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.permission.PermissionDeny
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.core.arch.BaseFragment
+import com.jsongo.core.arch.BaseFragmentWrapper
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
@@ -39,7 +39,7 @@ import kotlinx.android.synthetic.main.fragment_main_sample1.*
  * @desc : 首页主模板1
  */
 @Page(R.layout.fragment_main_sample1, 0)
-class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
+class MainSample1Fragment : BaseFragmentWrapper(), IMvvmView, AjsWebViewHost {
 
     override val hostFragment: Fragment?
         get() = this
@@ -222,8 +222,8 @@ class MainSample1Fragment : BaseFragment(), IMvvmView, AjsWebViewHost {
         onAjsLongCallBack(requestCode, resultCode, data)
     }
 
-    override fun onIPageDestroy() {
-        super.onIPageDestroy()
+    override fun onDestroyIPage() {
+        super.onDestroyIPage()
         compositeDisposable.dispose()
     }
 }

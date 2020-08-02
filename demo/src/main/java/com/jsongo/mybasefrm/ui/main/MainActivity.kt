@@ -15,7 +15,7 @@ import com.jsongo.ajs.webloader.AJsWebLoader
 import com.jsongo.ajs.webloader.AJsWebPage
 import com.jsongo.annotation.anno.Page
 import com.jsongo.annotation.anno.permission.PermissionNeed
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.PRE_ANDROID_ASSET
 import com.jsongo.core.constant.URL_REG
@@ -41,7 +41,7 @@ import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 
 @Page(R.layout.activity_main, 0)
-class MainActivity : BaseActivity(), IMvvmView {
+class MainActivity : BaseActivityWrapper(), IMvvmView {
 
     val compositeDisposable = CompositeDisposable()
 
@@ -324,12 +324,12 @@ class MainActivity : BaseActivity(), IMvvmView {
         }
     }
 
-    override fun onIPageDestroy() {
+    override fun onDestroyIPage() {
         compositeDisposable.dispose()
         //销毁悬浮窗
         floatingView?.destory()
 
-        super.onIPageDestroy()
+        super.onDestroyIPage()
     }
 
 }

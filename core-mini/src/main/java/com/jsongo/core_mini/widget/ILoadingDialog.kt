@@ -6,8 +6,8 @@ package com.jsongo.core_mini.widget
  * @desc :
  */
 interface ILoadingDialog {
-    var cancelable: Boolean
+    fun setCancelable(cancelable: Boolean)
     fun show()
-    fun show(msfg: String)
+    fun show(msg: String)
     fun dismiss()
 }

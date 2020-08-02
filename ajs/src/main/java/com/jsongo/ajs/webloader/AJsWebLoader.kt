@@ -12,7 +12,6 @@ import com.jsongo.ajs.helper.AjsWebViewHost
 import com.jsongo.core_mini.util.addStatusBarHeightPadding
 import com.jsongo.ui.component.screenshot_observe.IScreenshotCallback
 import com.jsongo.ui.component.screenshot_observe.ScreenshotObserveUtil
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.tencent.smtt.export.external.interfaces.WebResourceError
 import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebView
@@ -79,11 +78,6 @@ open class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
      * 背景色
      */
     var bgColor: Int = Color.TRANSPARENT
-
-    /**
-     * hostActivity 设置加载dialog之后不会使用emptyview
-     */
-    var loadingDialog: QMUITipDialog? = null
 
     override fun init() {
     }
@@ -231,9 +225,9 @@ open class AJsWebLoader : BaseWebLoader(), AjsWebViewHost {
         onAjsLongCallBack(requestCode, resultCode, data)
     }
 
-    override fun onIPageDestroy() {
+    override fun onDestroyIPage() {
         aJsWebView.destroy()
-        super.onIPageDestroy()
+        super.onDestroyIPage()
     }
 
 }

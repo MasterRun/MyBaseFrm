@@ -1,19 +1,16 @@
 package com.jsongo.core.arch
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.ViewStub
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.Fragment
 import com.jsongo.core.R
+import com.jsongo.core.widget.StatusView
 import com.jsongo.core.widget.TopbarLayout
-import com.qmuiteam.qmui.widget.QMUIEmptyView
+import com.jsongo.core_mini.base_page.BaseFragment
+import com.jsongo.core_mini.widget.ILoadingDialog
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.layout_frm_base.view.*
 
 /**
@@ -21,7 +18,7 @@ import kotlinx.android.synthetic.main.layout_frm_base.view.*
  * @date 2019/4/3 20:48
  * @desc fragment 父类
  */
-abstract class BaseFragment : Fragment(), IPage {
+abstract class BaseFragmentWrapper : BaseFragment(), IPageWrapper {
     override lateinit var rlLayoutRoot: RelativeLayout
         protected set
     override lateinit var topbar: TopbarLayout
@@ -36,28 +33,17 @@ abstract class BaseFragment : Fragment(), IPage {
         protected set
     override lateinit var vsEmptyView: ViewStub
         protected set
-    override var emptyView: QMUIEmptyView? = null
+    override var statusView: StatusView? = null
         protected set
+    override var loadingDialog: ILoadingDialog? = null
 
     override lateinit var mainView: View
 
     override var mainLayoutId = 0
 
+    override val layoutId: Int = R.layout.layout_frm_base
+
     override var containerIndex = 0
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.layout_frm_base, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initIPage(context!!)
-    }
 
     override fun getIPageView() {
         view?.let {
@@ -71,16 +57,15 @@ abstract class BaseFragment : Fragment(), IPage {
         }
     }
 
-    override fun inflateEmptyView(): QMUIEmptyView? {
-        if (emptyView == null) {
-            emptyView = vsEmptyView.inflate().findViewById(R.id.empty_view)
+    override fun inflateEmptyView(): StatusView? {
+        if (statusView == null) {
+            statusView = vsEmptyView.inflate().findViewById(R.id.empty_view)
         }
-        return emptyView
+        return statusView
     }
 
-    override fun onDestroyView() {
-        onIPageDestroy()
-        super.onDestroyView()
+    override fun onDestroyIPage() {
+        super<IPageWrapper>.onDestroyIPage()
+        super<BaseFragment>.onDestroyIPage()
     }
-
 }

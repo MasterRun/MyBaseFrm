@@ -28,7 +28,7 @@ import cn.jiguang.imui.messages.MsgListAdapter.HoldersConfig
 import cn.jiguang.imui.messages.ViewHolderController
 import com.huantansheng.easyphotos.EasyPhotos
 import com.huantansheng.easyphotos.models.album.entity.Photo
-import com.jsongo.core.arch.BaseActivity
+import com.jsongo.core.arch.BaseActivityWrapper
 import com.jsongo.core.arch.mvvm.IMvvmView
 import com.jsongo.core.constant.CommonDbKeys
 import com.jsongo.core.db.CommonDbOpenHelper
@@ -52,7 +52,7 @@ import kotlinx.android.synthetic.main.activity_chat.*
  * @date ： 2020/1/30 15:42
  * @desc : 聊天页面
  */
-class ChatActivity : BaseActivity(), IMvvmView {
+class ChatActivity : BaseActivityWrapper(), IMvvmView {
     companion object {
         const val TAG = "MobileIM_ChatActivity"
 
@@ -467,10 +467,10 @@ class ChatActivity : BaseActivity(), IMvvmView {
     }
     //endregion
 
-    override fun onIPageDestroy() {
+    override fun onDestroyIPage() {
         unregisterReceiver(headsetDetectReceiver)
         mSensorManager?.unregisterListener(sensorEventListener)
         chatView.dispose()
-        super.onIPageDestroy()
+        super.onDestroyIPage()
     }
 }
