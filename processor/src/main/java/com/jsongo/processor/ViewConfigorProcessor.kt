@@ -6,7 +6,6 @@ import com.jsongo.annotation.register.ViewConfigor
 import com.jsongo.annotation.util.Util.getPkgClazzName
 import com.jsongo.processor.bean.FourPair
 import com.squareup.javapoet.*
-import javafx.beans.property.SimpleBooleanProperty
 import javax.annotation.processing.RoundEnvironment
 import javax.annotation.processing.SupportedSourceVersion
 import javax.lang.model.SourceVersion
@@ -28,7 +27,8 @@ class ViewConfigorProcessor : BaseProcessor() {
      * 键为源类的全类名  值为 <包名,TypeSpec.Builder,MethodSpec.Builder>
      */
     private val genTypeSpecBuilders =
-        HashMap<String, FourPair<String, TypeSpec.Builder, MethodSpec.Builder, SimpleBooleanProperty>>()
+        HashMap<String, FourPair<String, TypeSpec.Builder, MethodSpec.Builder, Boolean>>()
+
     //目标类的变量名
     private val targetVarName = "targetObj"
 
@@ -88,8 +88,8 @@ class ViewConfigorProcessor : BaseProcessor() {
     /**
      * 通过类名获取，对应要生成的代码类的builder
      */
-    private fun getTypeSpecBuilder(rawClazzName: String): FourPair<String, TypeSpec.Builder, MethodSpec.Builder, SimpleBooleanProperty> {
-        val fourPair: FourPair<String, TypeSpec.Builder, MethodSpec.Builder, SimpleBooleanProperty>
+    private fun getTypeSpecBuilder(rawClazzName: String): FourPair<String, TypeSpec.Builder, MethodSpec.Builder, Boolean> {
+        val fourPair: FourPair<String, TypeSpec.Builder, MethodSpec.Builder, Boolean>
 
         //如果集合中有，从集合中取，如果没有，创建，添加到集合
         if (genTypeSpecBuilders.containsKey(rawClazzName)) {
@@ -129,7 +129,7 @@ class ViewConfigorProcessor : BaseProcessor() {
                 "${pkgName}${ViewConfigor.pkgSuffix}",
                 classBuilder,
                 methodBuilder,
-                SimpleBooleanProperty(false)
+                false
             )
             genTypeSpecBuilders[rawClazzName] = fourPair
         }
