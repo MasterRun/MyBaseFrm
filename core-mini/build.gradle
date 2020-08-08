@@ -75,6 +75,18 @@ dependencies {
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${proVer.kcoroutines}"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${proVer.kcoroutines}"
 
+    //room
+    api "android.arch.persistence.room:runtime:${proVer.room}"
+    kapt "android.arch.persistence.room:compiler:${proVer.room}"
+    //wcdb
+    api 'com.tencent.wcdb:wcdb-android:1.0.8'
+    //wcdb room
+    api 'com.tencent.wcdb:room:1.0.8'
+    // optional - Kotlin Extensions and Coroutines support for Room
+    api "androidx.room:room-ktx:${proVer.room}"
+    // optional - RxJava support for Room
+    api "androidx.room:room-rxjava2:${proVer.room}"
+
     //rxjava
     api "io.reactivex.rxjava2:rxjava:${proVer.rxjava}"
     api "io.reactivex.rxjava2:rxandroid:${proVer.rxandroid}"
