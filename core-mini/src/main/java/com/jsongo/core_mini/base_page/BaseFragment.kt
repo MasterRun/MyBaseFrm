@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.jsongo.core_mini.widget.ILoadingDialog
-import com.jsongo.core_mini.widget.IStatusView
-import com.jsongo.core_mini.widget.ITopbar
 
 /**
  * @author  jsongo
@@ -15,10 +12,6 @@ import com.jsongo.core_mini.widget.ITopbar
  * @desc fragment 父类
  */
 abstract class BaseFragment : Fragment(), IPage {
-
-    override var topbar: ITopbar? = null
-    override var loadingDialog: ILoadingDialog? = null
-    override var statusView: IStatusView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
