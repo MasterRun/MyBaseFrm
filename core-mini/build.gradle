@@ -84,8 +84,6 @@ dependencies {
     api 'com.tencent.wcdb:room:1.0.8'
     // optional - Kotlin Extensions and Coroutines support for Room
     api "androidx.room:room-ktx:${proVer.room}"
-    // optional - RxJava support for Room
-    api "androidx.room:room-rxjava2:${proVer.room}"
 
     //rxjava
     api "io.reactivex.rxjava2:rxjava:${proVer.rxjava}"
