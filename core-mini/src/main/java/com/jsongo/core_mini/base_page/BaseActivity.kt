@@ -2,6 +2,9 @@ package com.jsongo.core_mini.base_page
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.jsongo.core_mini.widget.ILoadingDialog
+import com.jsongo.core_mini.widget.IStatusView
+import com.jsongo.core_mini.widget.ITopbar
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**
@@ -10,6 +13,10 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
  * @desc activity父类
  */
 abstract class BaseActivity : AppCompatActivity(), IPage {
+
+    override var topbar: ITopbar? = null
+    override var loadingDialog: ILoadingDialog? = null
+    override var statusView: IStatusView? = null
 
     open val translucentWindow = true
 
