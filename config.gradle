@@ -49,14 +49,14 @@ ext {
 
             'annotation'  : [
                     'verCode': 1,
-                    'verName': '1.0.0.d-SNAPSHOT',
-                    'aarVer' : '1.0.0.d-SNAPSHOT'
+                    'verName': '1.0.0.e-SNAPSHOT',
+                    'aarVer' : '1.0.0.e-SNAPSHOT'
             ],
 
             'processor'   : [
                     'verCode': 1,
-                    'verName': '1.0.0.d-SNAPSHOT',
-                    'aarVer' : '1.0.0.d-SNAPSHOT'
+                    'verName': '1.0.0.e-SNAPSHOT',
+                    'aarVer' : '1.0.0.e-SNAPSHOT'
             ],
 
             'app'         : [

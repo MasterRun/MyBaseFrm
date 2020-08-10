@@ -4,6 +4,7 @@ import com.google.gson.*
 import com.jsongo.core.BaseCore
 import com.jsongo.core.R
 import com.jsongo.core.constant.ConstConf
+import com.safframework.log.LogLevel
 import com.safframework.log.okhttp.LoggingInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -32,6 +33,7 @@ object ApiManager {
      * key : isAddAuth（true/false）
      */
     private val okHttpClientPool = HashMap<String, OkHttpClient>()
+
     /**
      * Retrofit集合
      * key : BaseUrl_OkHttpClientKey
@@ -137,7 +139,10 @@ object ApiManager {
      */
     private fun OkHttpClient.Builder.addLogIntercepter(): OkHttpClient.Builder {
         if (BaseCore.isDebug) {
-            addInterceptor(LoggingInterceptor())
+            addInterceptor(LoggingInterceptor.Builder().apply {
+                this.isDebug = BaseCore.isDebug
+                this.logLevel = LogLevel.DEBUG
+            }.build())
         }
         return this
     }
