@@ -19,20 +19,20 @@ ext {
             ],
             'core'        : [
                     'verCode': 1,
-                    'verName': '1.0.0.g3-SNAPSHOT',
-                    'aarVer' : '1.0.0.g3-SNAPSHOT'
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
             'ajs'         : [
                     'verCode': 1,
-                    'verName': '1.0.0.i1-SNAPSHOT',
-                    'aarVer' : '1.0.0.i1-SNAPSHOT'
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
             'ui'          : [
                     'verCode': 1,
-                    'verName': '1.0.0.f-SNAPSHOT',
-                    'aarVer' : '1.0.0.f-SNAPSHOT'
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
             'mobileim'    : [
@@ -49,14 +49,14 @@ ext {
 
             'annotation'  : [
                     'verCode': 1,
-                    'verName': '1.0.0.e-SNAPSHOT',
-                    'aarVer' : '1.0.0.e-SNAPSHOT'
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
             'processor'   : [
                     'verCode': 1,
-                    'verName': '1.0.0.e-SNAPSHOT',
-                    'aarVer' : '1.0.0.e-SNAPSHOT'
+                    'verName': '1.0.0.a-SNAPSHOT',
+                    'aarVer' : '1.0.0.a-SNAPSHOT'
             ],
 
             'app'         : [
