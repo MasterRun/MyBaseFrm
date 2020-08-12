@@ -62,8 +62,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
-    //wcdb
-    api 'com.tencent.wcdb:wcdb-android:1.0.8'
 
     //rxtool
 //    api "com.github.tamsiree.RxTool:RxKit:${proVer.rxtool}"
