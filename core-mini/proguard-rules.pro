@@ -69,3 +69,60 @@
 # for DexGuard only
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 # end gilde
+
+
+# Understand the @Keep support annotation.
+-keep class androidx.annotation.Keep
+
+-keep @androidx.annotation.Keep class * {*;}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <init>(...);
+}
+
+# custom
+-keep class * extends android.app.Application{
+    *;
+}
+-keep class com.jsongo.core_mini.CoreMini{
+    *;
+}
+## ipage
+-keep class com.jsongo.core_mini.base_page.IPage{
+    *;
+}
+## common
+-keep class com.jsongo.core_mini.common.BusEvent{
+*;
+}
+-keep class com.jsongo.core_mini.common.*{
+    public *;
+}
+## widget 的ui接口
+-keep interface com.jsongo.core_mini.widget.*{
+    public *;
+}
+## RxToast
+-keep class com.jsongo.core_mini.widget.RxToast{
+    public *;
+}
+## imagepreview
+-keep class com.jsongo.core_mini.widget.imagepreview.*{
+    public *;
+}
+-keep class com.jsongo.core_mini.widget.imagepreview.ThumbViewInfo{
+    *;
+}
+## util中所有public
+-keep class com.jsongo.core_mini.util.**{
+    public *;
+}
+# end custom

@@ -3,6 +3,7 @@ package com.jsongo.core_mini
 import android.app.Application
 import android.content.ComponentCallbacks2
 import android.content.Context
+import androidx.annotation.Keep
 import androidx.multidex.MultiDex
 import com.bumptech.glide.Glide
 import com.jsongo.core_mini.common.DefaultActivityLifecycleCallback
@@ -16,6 +17,7 @@ import com.previewlibrary.ZoomMediaLoader
  */
 open class CoreMini : Application() {
 
+    @Keep
     companion object {
 
         @JvmStatic
