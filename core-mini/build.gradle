@@ -38,11 +38,11 @@ android {
     buildTypes {
         release {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', '../proguard-rules.pro', '../tencentx5_proguard.pro'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
         }
         debug {
             minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro', '../proguard-rules.pro', '../tencentx5_proguard.pro'
+            proguardFiles 'proguard-android-optimize.txt', 'proguard-rules.pro'
         }
     }
 
