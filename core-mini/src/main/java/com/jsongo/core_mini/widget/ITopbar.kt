@@ -1,6 +1,6 @@
 package com.jsongo.core_mini.widget
 
-import android.view.View
+import android.widget.ImageView
 import androidx.annotation.ColorInt
 
 /**
@@ -14,7 +14,7 @@ interface ITopbar {
 
     var titleSize: Int
 
-    val backImageButton: View
+    val backImageButton: ImageView
 
     fun setTitleColor(@ColorInt colorInt: Int)
 
