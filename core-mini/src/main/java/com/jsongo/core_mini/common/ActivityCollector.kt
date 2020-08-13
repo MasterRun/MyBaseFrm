@@ -26,12 +26,13 @@ object ActivityCollector {
     val myForegroundActivity: Activity?
         get() {
             return try {
-                activities.asReversed().first {
+                activities.filter { !it.isFinishing }.last() {
                     isActivityFore(
                         it
                     )
                 }
             } catch (e: Exception) {
+                e.printStackTrace()
                 null
             }
         }

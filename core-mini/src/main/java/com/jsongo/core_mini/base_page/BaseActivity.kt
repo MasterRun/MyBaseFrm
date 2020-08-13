@@ -1,7 +1,9 @@
 package com.jsongo.core_mini.base_page
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.jsongo.core_mini.common.ActivityCollector
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 /**
@@ -28,6 +30,11 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     }
 
     override fun onDestroyIPage() {
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        ActivityCollector.markActivityFore(this, true)
     }
 
     override fun onDestroy() {
