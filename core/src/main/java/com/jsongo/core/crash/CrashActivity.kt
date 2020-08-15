@@ -130,7 +130,7 @@ class CrashActivity : BaseActivityWrapper() {
         textView.isClickable = true
         textView.setOnClickListener {
             val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-            clipboard.primaryClip = ClipData.newPlainText("crashLog", crashLog)
+            clipboard.setPrimaryClip(ClipData.newPlainText("crashLog", crashLog))
             Toast.makeText(this@CrashActivity, R.string.copy_to_clipboard, Toast.LENGTH_SHORT)
                 .show()
         }

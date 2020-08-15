@@ -72,9 +72,9 @@ ext {
     ]
 
     proVer = [
-            'compileSdk'  : 28,
+            'compileSdk'  : 29,
             'minSdk'      : 21,
-            'targetSdk'   : 26,
+            'targetSdk'   : 29,
             'androidx'    : '1.0.0',
 
             'arch'        : '2.1.0',
