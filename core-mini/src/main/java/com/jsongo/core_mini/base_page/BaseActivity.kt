@@ -1,5 +1,6 @@
 package com.jsongo.core_mini.base_page
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,8 +19,6 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(layoutId)
-
         if (translucentWindow) {
             //沉浸/透明状态栏
             QMUIStatusBarHelper.translucent(this)
@@ -27,6 +26,10 @@ abstract class BaseActivity : AppCompatActivity(), IPage {
         }
 
         initIPage(this)
+    }
+
+    override fun initIPage(context: Context) {
+        setContentView(layoutId)
     }
 
     override fun onDestroyIPage() {
