@@ -70,6 +70,18 @@
 #-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 # end gilde
 
+-keep class * extends android.app.Activity{
+    public *;
+}
+
+-keep class * extends androidx.fragment.app.Fragment{
+    public *;
+}
+
+-keep class * extends android.view.View{
+    public *;
+}
+
 # custom
 -keep class * extends android.app.Application{
     *;
