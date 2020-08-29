@@ -66,6 +66,7 @@ dependencies {
     api "androidx.arch.core:core-common:${proVer.arch}"
     api "androidx.arch.core:core-runtime:${proVer.arch}"
     api "androidx.lifecycle:lifecycle-common:${proVer.lifecycle}"
+    api "androidx.lifecycle:lifecycle-extensions:${proVer.lifecycle}"
     api "androidx.lifecycle:lifecycle-livedata-core:${proVer.lifecycle}"
     api "androidx.lifecycle:lifecycle-livedata:${proVer.lifecycle}"
     api "androidx.lifecycle:lifecycle-runtime:${proVer.lifecycle}"

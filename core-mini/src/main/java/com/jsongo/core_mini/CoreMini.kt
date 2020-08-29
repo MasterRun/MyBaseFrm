@@ -47,7 +47,9 @@ open class CoreMini : Application() {
 
     override fun onCreate() {
         super.onCreate()
-
+//        ProcessLifecycleOwner.get().lifecycle.addObserver(object : LifecycleObserver {
+//
+//        })
         registerActivityLifecycleCallbacks(DefaultActivityLifecycleCallback)
     }
 
