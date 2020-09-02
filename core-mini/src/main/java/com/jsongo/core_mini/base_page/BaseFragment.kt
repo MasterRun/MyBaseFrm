@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.Keep
 import androidx.fragment.app.Fragment
 
 /**
@@ -11,6 +12,7 @@ import androidx.fragment.app.Fragment
  * @date 2019/4/3 20:48
  * @desc fragment 父类
  */
+@Keep
 abstract class BaseFragment : Fragment(), IPage {
 
     override fun onCreateView(

@@ -90,7 +90,7 @@
     *;
 }
 ## ipage
--keep class com.jsongo.core_mini.base_page.IPage{
+-keep class com.jsongo.core_mini.base_page.*{
     *;
 }
 ## common

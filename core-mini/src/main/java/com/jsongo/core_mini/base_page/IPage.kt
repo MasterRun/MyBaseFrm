@@ -1,6 +1,7 @@
 package com.jsongo.core_mini.base_page
 
 import android.content.Context
+import androidx.annotation.Keep
 import com.jsongo.core_mini.widget.ILoadingDialog
 import com.jsongo.core_mini.widget.IStatusView
 import com.jsongo.core_mini.widget.ITopbar
@@ -10,6 +11,7 @@ import com.jsongo.core_mini.widget.ITopbar
  * createtime ： 2019/7/27 11:38
  * desc : 页面接口
  */
+@Keep
 interface IPage {
 
     val topbar: ITopbar?
