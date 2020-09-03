@@ -10,7 +10,7 @@ def libConf = rootProject.ext.libConf
 buildscript {
     ext {
         versions = [
-                'kotlin': '1.3.72'
+                'kotlin': '1.4.0'
         ]
     }
 
