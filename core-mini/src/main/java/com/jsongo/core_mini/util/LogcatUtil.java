@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.jsongo.core_mini.CoreMini;
+import com.jsongo.core_mini.common.ConstantsKt;
 
 import java.util.List;
 import java.util.Locale;
@@ -67,7 +68,7 @@ public class LogcatUtil {
 
     public static void v(Object object) {
         if (object != null) {
-            v_json(object.toString());
+            v_json(ConstantsKt.getGson().toJson(object));
         }
     }
 
@@ -137,7 +138,7 @@ public class LogcatUtil {
 
     public static void d(Object object) {
         if (object != null) {
-            d_json(object.toString());
+            d_json(ConstantsKt.getGson().toJson(object));
         }
     }
 
@@ -206,7 +207,7 @@ public class LogcatUtil {
 
     public static void i(Object object) {
         if (object != null) {
-            i_json(object.toString());
+            i_json(ConstantsKt.getGson().toJson(object));
         }
     }
 
@@ -275,7 +276,7 @@ public class LogcatUtil {
 
     public static void w(Object object) {
         if (object != null) {
-            w_json(object.toString());
+            w_json(ConstantsKt.getGson().toJson(object));
         }
     }
 
@@ -344,7 +345,7 @@ public class LogcatUtil {
 
     public static void e(Object object) {
         if (object != null) {
-            e_json(object.toString());
+            e_json(ConstantsKt.getGson().toJson(object));
         }
     }
 

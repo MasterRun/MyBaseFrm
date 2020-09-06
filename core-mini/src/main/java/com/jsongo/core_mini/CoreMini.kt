@@ -1,10 +1,8 @@
 package com.jsongo.core_mini
 
-import android.app.ActivityManager
 import android.app.Application
 import android.content.ComponentCallbacks2
 import android.content.Context
-import android.os.Process
 import androidx.annotation.Keep
 import androidx.multidex.MultiDex
 import com.bumptech.glide.Glide
@@ -17,6 +15,7 @@ import com.previewlibrary.ZoomMediaLoader
  * @date ： 2020/7/26 16:56
  * @desc :
  */
+@Keep
 open class CoreMini : Application() {
 
     @Keep
@@ -28,21 +27,6 @@ open class CoreMini : Application() {
         @JvmStatic
         var isDebug: Boolean = false
 
-        /**
-         * 获取进程名
-         */
-        @JvmStatic
-        fun getProcessName(context: Context): String? {
-            val pid = Process.myPid()
-            val am = context.getSystemService(ACTIVITY_SERVICE) as ActivityManager
-            val runningApps = am.runningAppProcesses ?: return null
-            for (procInfo in runningApps) {
-                if (procInfo.pid == pid) {
-                    return procInfo.processName
-                }
-            }
-            return null
-        }
     }
 
     override fun onCreate() {
